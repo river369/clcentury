@@ -49,10 +49,8 @@ class MySqlHelper
      */
     private static function getLink()
     {
-        echo "[".self::$link."]";
         if (self::$link instanceof Mysql == false) {
             self::$link = new Mysql(self::$dbhost, self::$dbport, self::$dbuser, self::$dbpass, self::$dbname, DB_CHARSET);
-            //echo "[".self::$link."]";
         }
         return self::$link;
     }

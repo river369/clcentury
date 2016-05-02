@@ -1,5 +1,8 @@
 <?php
 use Common\MySqlHelper;
+use Common\WeixinHelper;
+require dirname(__FILE__).'/Common/MySqlHelper.php';
+require dirname(__FILE__).'/Common/WeixinHelper.php';
 
 ini_set("error_reprorting", "E_ALL");
 ini_set("display_errors", "Off");
@@ -10,10 +13,10 @@ ini_set("error_log", "/home/www/logs/clc.log");
 define('ROOT_PATH', dirname(__DIR__));
 // 定义项目基本配置信息
 define('CONFIG_PATH', dirname(__DIR__));
+
 /* 初始化设置 */
 @ini_set('memory_limit', '1024M');
 $config_file = CONFIG_PATH . DIRECTORY_SEPARATOR .'OverSea'. DIRECTORY_SEPARATOR . 'config.php';
-
 if (file_exists($config_file) == false) {
     die('Server Config Not Found!');
 }
@@ -21,7 +24,13 @@ if (file_exists($config_file) == false) {
 require($config_file);
 
 /* 初始化数据库类 */
-require dirname(__FILE__).'/Common/MySqlHelper.php';
+
 $dbhost = explode(':', $db_host);
 MySqlHelper::initData($dbhost[0], $dbhost[1], $db_user, $db_pass, $db_name);
-unset($db_host,$db_user,$db_pass,$db_name,$readdb_user,$readdb_pass,$readdb_name,$readdbhost);
+unset($db_host, $db_user, $db_pass, $db_name);
+
+/* 初始化weixin */
+//echo $appid." ".$secret;
+
+WeixinHelper::initData($appid, $secret);
+unset($appid, $secret);

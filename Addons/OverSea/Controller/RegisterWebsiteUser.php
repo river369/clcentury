@@ -1,3 +1,6 @@
+
+
+//////
 <?php
 /**
  * Created by PhpStorm.
@@ -6,9 +9,13 @@
  * Time: 20:34
  */
 use Common\MySqlHelper;
-require dirname(__FILE__).'/../Common/Weixin.php';
+use Common\WeixinHelper;
+
 require dirname(__FILE__).'/../init.php';
 
+session_start();
+
+/*
 $sql = 'SELECT * FROM wp_user WHERE nickname = :user_name LIMIT 1';
 $user = MySqlHelper::fetchOne($sql, array(':user_name' => 'river'));
 
@@ -17,21 +24,35 @@ if (isset($user['nickname']) === false) {
 } else {
     echo $user['nickname'];
 }
+*/
+if(isset($_SESSION['weixinUserInfo'])){
+    echo "data from session[".$_SESSION['weixinUserInfo']."]";
 
-$code = null;
-if (isset($_GET['code'])){
-    $code = $_GET['code'];
-}else{
-    echo "NO CODE";
+} else {
+    $code = null;
+    if (isset($_GET['code'])){
+        $code = $_GET['code'];
+    }else{
+        echo "NO CODE";
+    }
+
+    $tokenArray = WeixinHelper::getAuthToken ($code);
+    $token = $tokenArray['refresh_token'];
+    $openid = $tokenArray['openid'];
+    $refreshtoken = $tokenArray['refresh_token'];
+
+    $user = WeixinHelper::getWeixinUserInfoWithRefresh($token, $openid, $refreshtoken);
+
+    $_SESSION['weixinUserInfo']= $user['nickname'] . " -- ".$user['sex'] . " -- ".$user['language'] . " -- ".$user['city'] .
+        " -- ".$user['province'] . " -- ".$user['country'] . " -- ".$user['headimgurl'] . " union id == ".$user['unionid']
+        . " open id ==  ".$user['openid']. " -- ".$user['subscribe']. " -- ".$user['errmsg'];
+    echo "data from service[".$_SESSION['weixinUserInfo']."]";
+
 }
-$tokenArray = getAuthToken ($code);
-$token = $tokenArray['refresh_token'];
-$openid = $tokenArray['openid'];
-$refreshtoken = $tokenArray['refresh_token'];
 
-$user = getWeixinUserInfoWithRefresh($token, $openid, $refreshtoken);
-echo $user['nickname'] . " -- ".$user['sex'] . " -- ".$user['language'] . " -- ".$user['city'] .
-    " -- ".$user['province'] . " -- ".$user['country'] . " -- ".$user['headimgurl'] . " -- ".$user['unionid']
-    . " -- ".$user['openid']. " -- ".$user['subscribe']. " -- ".$user['errmsg'];
+
+
+
+
 
 ?>
