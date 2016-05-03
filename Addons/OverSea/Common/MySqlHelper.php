@@ -5,7 +5,7 @@
  * Date: 16/4/29
  * Time: 20:34
  */
-namespace Common;
+namespace Addons\OverSea\Common;
 require dirname(__FILE__).'/Mysql.php';
 
 class MySqlHelper

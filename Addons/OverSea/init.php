@@ -1,6 +1,6 @@
 <?php
-use Common\MySqlHelper;
-use Common\WeixinHelper;
+use Addons\OverSea\Common\MySqlHelper;
+use Addons\OverSea\Common\WeixinHelper;
 require dirname(__FILE__).'/Common/MySqlHelper.php';
 require dirname(__FILE__).'/Common/WeixinHelper.php';
 

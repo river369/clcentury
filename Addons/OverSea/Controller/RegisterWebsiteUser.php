@@ -1,6 +1,3 @@
-
-
-//////
 <?php
 /**
  * Created by PhpStorm.
@@ -8,8 +5,8 @@
  * Date: 16/4/29
  * Time: 20:34
  */
-use Common\MySqlHelper;
-use Common\WeixinHelper;
+use Addons\OverSea\Common\MySqlHelper;
+use Addons\OverSea\Common\WeixinHelper;
 
 require dirname(__FILE__).'/../init.php';
 
@@ -49,10 +46,4 @@ if(isset($_SESSION['weixinUserInfo'])){
     echo "data from service[".$_SESSION['weixinUserInfo']."]";
 
 }
-
-
-
-
-
-
 ?>

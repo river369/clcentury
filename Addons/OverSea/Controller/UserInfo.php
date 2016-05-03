@@ -5,8 +5,40 @@
  * Date: 16/5/1
  * Time: 17:05
  */
-echo "ccc";
-$value = $_POST ['name'];
-echo $value;
-echo "bbb";
+use Addons\OverSea\Model\UsersModule;
+require dirname(__FILE__).'/../Model/UsersModule.php';
+
+//
+//function setAttributes($userData, $postData, $key)
+//{
+//    if (isset($postData [$key])){
+//        $userData[$key] = $postData [$key];
+//    }
+//}
+
+//$userData[] = array();
+//setAttributes($userData, $_POST, 'name');
+//setAttributes($userData, $_POST, 'openid');
+//setAttributes($userData, $_POST, 'gender');
+//setAttributes($userData, $_POST, 'phone');
+//setAttributes($userData, $_POST, 'description');
+
+//$userData[] = array();
+$userData['gender'] = $_POST ['gender'];
+//setAttributes('name');
+//setAttributes('openid');
+//setAttributes('gender');
+//setAttributes('phone');
+//setAttributes('description');
+//
+//function setAttributes($key)
+//{
+//    if (isset($_POST[$key])){
+//        $userData[$key] = $_POST [$key];
+//        echo $_POST[$key]. "   ".$userData[$key];
+//    }
+//}
+//echo  "   ".$userData['gender'];
+echo UsersModule::insertUser($userData);
+
 ?>

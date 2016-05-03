@@ -1,6 +1,6 @@
 <?php
 
-namespace Common;
+namespace Addons\OverSea\Common;
 use PDO;
 
 /**

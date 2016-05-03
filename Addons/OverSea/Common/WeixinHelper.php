@@ -6,7 +6,7 @@
  * Time: 21:51
  */
 
-namespace Common;
+namespace Addons\OverSea\Common;
 
 class WeixinHelper
 {
