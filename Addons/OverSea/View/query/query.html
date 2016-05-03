@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../style/default/common.css"/>
+    <link rel="stylesheet" href="../style/flaty/flaty.css"/>
+    <link rel="stylesheet" href="../style/bootstrap.css"/>
+    <link rel="stylesheet" href="../style/mobile.css"/>
+</head>
+
+<body>
+<div class="aw-top-menu-wrap">
+    <div class="container">
+        <div class="mod-footer">
+            <a href="javascript:;"><img class="img" src="../images/earth.jpeg" alt="" width="20" /></a>
+            <a href="javascript:alert();">发起了文章</a>
+            <span class="pull-right color-999" > =====dddd===1</span>
+            <span class="pull-right color-999" > ========</span>
+
+        </div>
+
+        <!-- logo -->
+        <div class="aw-logo hidden-xs">
+            <a href="" alt="ArcGIS知乎-ArcGIS二次开发,ArcGIS教程,三维地图,ArcGIS下载,GIS系统,GIS软件"></a>
+        </div>
+        ddd
+        <!-- end logo -->
+        <!-- 搜索框 -->
+        <div class="aw-search-box  hidden-xs hidden-sm">
+            <form class="navbar-search" action="search/" id="global_search_form" method="post">
+                <input class="form-control search-query" type="text" placeholder="搜索问题、话题或人" autocomplete="off" name="q" id="aw-search-query" />
+                <span title="sousu" id="global_search_btns" onClick="$('#global_search_form').submit();"><i class="icon icon-search"></i></span>
+                <div class="aw-dropdown">
+                    <div class="mod-body">
+                        <p class="title">输入关键字进行搜索</p>
+                        <ul class="aw-dropdown-list hide"></ul>
+                        <p class="search"><span>搜索:</span><a onClick="$('#global_search_form').submit();"></a></p>
+                    </div>
+                    <div class="mod-footer">
+                        <a href="">ddddddd</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- end 搜索框 -->
+        <!-- 导航 -->
+        <div class="aw-top-nav navbar">
+            <div class="navbar-header">
+                <button  class="navbar-toggle pull-left">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <nav role="navigation" class="collapse navbar-collapse bs-navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="question/"><i class="icon icon-bulb"></i> 问题</a></li>
+                    <li><a href="question/"><i class="icon icon-bulb"></i> 1问题</a></li>
+                </ul>
+            </nav>
+        </div>
+        <!-- end 导航 -->
+        <!-- 用户栏 -->
+        <div class="aw-user-nav">
+            <!-- 登陆&注册栏 -->
+            <a href="dd" class="aw-user-nav-dropdown">
+                <img alt="river" src="src" />
+                <span class="badge badge-important">zzzz</span>
+            </a>
+            <div class="aw-dropdown dropdown-list pull-right">
+                <ul class="aw-dropdown-list">
+                    <li><a href="inbox/"><i class="icon icon-inbox">'私信'<span class="badge badge-important hide" id="inbox_unread">0</span></a></li>
+                    <li class="hidden-xs"><a href="account/setting/profile/"><i class="icon icon-setting"></i>设置</a></li>
+                    <li><a href="account/logout/"><i class="icon icon-logout"></i> 退出</a></li>
+                </ul>
+            </div>
+
+            <!-- end 登陆&注册栏 -->
+        </div>
+        <!-- end 用户栏 -->
+        <!-- 发起 -->
+
+        <div class="aw-publish-btn">
+
+            <a id="header_publish" class="btn-primary" href="publish/" onclick=''><i class="icon icon-ask"></i>发起</a>
+            <div class="dropdown-list pull-right">
+                <ul>
+                    <li>
+                        <form method="post" action="publish/">
+                            <?php if ($this->topic_info['topic_title']) { ?>
+                            <input type="hidden" value="<?php echo $this->topic_info['topic_title']; ?>" name="topics[]" />
+                            <?php } ?>
+                            <a onclick="$(this).parents('form').submit();"><?php _e('问题'); ?></a>
+                        </form>
+
+                    </li>
+                    <?php if ($this->user_info['permission']['publish_article']) { ?>
+                    <li>
+                        <form method="post" action="publish/article/">
+                            <?php if ($this->topic_info['topic_title']) { ?>
+                            <input type="hidden" value="<?php echo $this->topic_info['topic_title']; ?>" name="topics[]" />
+                            <?php } ?>
+                            <a onclick="$(this).parents('form').submit();"><?php _e('文章'); ?></a>
+                        </form>
+                    </li>
+                    <?php } ?>
+                    <?php if (check_extension_package('ticket') && get_setting('ticket_enabled') == 'Y' && $this->user_info['permission']['publish_ticket']) { ?>
+                    <li><a href="ticket/publish/"><?php _e('工单'); ?></a></li>
+                    <?php } ?>
+                    <?php if (check_extension_package('project') && get_setting('project_enabled') == 'Y' && $this->user_info['permission']['publish_project']) { ?>
+                    <li><a href="project/publish/"><?php _e('活动'); ?></a></li>
+                    <?php } ?>
+                </ul>
+            </div>
+        </div>
+        <!-- end 发起 -->
+    </div>
+</div>
+
+
+
+
+</body>
+</html>
