@@ -15,6 +15,16 @@ $(function () {
         }
     };
 
+    // select location
+    var location = {
+        url: '/location',
+        className: 'location',
+        render: function () {
+            return $('#tpl_location').html();
+        }
+    };
+
+
     // button
     var button = {
         url: '/button',
@@ -250,6 +260,7 @@ $(function () {
     };
 
     router.push(home)
+        .push(location)
         .push(button)
         .push(cell)
         .push(toast)

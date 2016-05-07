@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>发现</title>
+    <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
+    <script src="../../resource/js/jquery/jquery-1.11.1.min.js"></script>
+    <script src="../../resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="../../resource/style/slide/default.css">
+    <link rel="stylesheet" href="../../resource/style/slide/jquery.hiSlider.min.css">
+
+    <script type="text/javascript" src="../../resource/js/jquery/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="../../resource/js/jquery/jquery.simplyscroll.js"></script>
+    <link rel="stylesheet" href="../../resource/style/jquery/jquery.simplyscroll.css" media="all" type="text/css">
+
+
+
+    <style type="text/css">
+        /* Container DIV - automatically generated */
+        .simply-scroll-container {
+            position: relative;
+        }
+
+        /* Clip DIV - automatically generated */
+        .simply-scroll-clip {
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* UL/OL/DIV - the element that simplyScroll is inited on
+        Class name automatically added to element */
+        .simply-scroll-list {
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .simply-scroll-list li {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        .simply-scroll-list li img {
+            border: none;
+            display: block;
+        }
+
+        /* Custom class modifications - adds to / overrides above
+
+        .simply-scroll is default base class */
+
+        /* Container DIV */
+        .simply-scroll {
+            width: 576px;
+            height: 200px;
+            margin-bottom: 1em;
+        }
+
+        /* Clip DIV */
+        .simply-scroll .simply-scroll-clip {
+            width: 576px;
+            height: 200px;
+        }
+
+        /* Explicitly set height/width of each list item */
+        .simply-scroll .simply-scroll-list li {
+            float: left; /* Horizontal scroll only */
+            width: 290px;
+            height: 200px;
+        }
+    </style>
+
+
+
+</head>
+<body>
+<div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="Panel fixed positioning">
+    <div data-role="header" data-position="fixed">
+        <h1>Fixed header</h1>
+        <a href="#nav-panel" data-icon="bars" data-iconpos="notext">Menu</a>
+        <a href="#add-form" data-icon="gear" data-iconpos="notext">Add</a>
+    </div>
+    <div role="main" class="ui-content jqm-content jqm-fullwidth">
+        <h1>Panel fixed positioning</h1>
+        <p>This is a typical page that has two buttons in the header bar that open panels. The left panel has the push display mode. The right panel opens as overlay. For both panels we set <code>data-position-fixed="true"</code>. We also set position fixed for the header and footer on this page.</p>
+        <p>The left panel contains a long menu to demonstrate that the framework will check the panel contents height and unfixes the panel so its content can be scrolled. In the right panel there is a short form that shows the fixed positioning.</p>
+        <div data-demo-html="#panel-fixed-page1"></div><!--/demo-html -->
+
+        <a href="../index.html" data-rel="back" data-ajax="false" class="ui-btn ui-shadow ui-corner-all ui-mini ui-btn-inline ui-icon-carat-l ui-btn-icon-left ui-alt-icon ui-nodisc-icon">Back</a>
+        <br>
+        <p>We made the page a bit longer because you only see the panel fixed positioning if you can scroll the page :-)</p>
+        <ul id="scroller">
+            <li><img src="http://www.clcentury.com/weiphp/Uploads/Picture/test/201605020044186186.jpg" width="290" height="200"></li>
+            <li><img src="http://logicbox.net/jquery/simplyscroll/assets/20080608_38CG51J2_tb.jpg" width="290" height="200"></li>
+            <li><img src="http://logicbox.net/jquery/simplyscroll/assets/20080513_4D3SD1BQ_tb.jpg" width="290" height="200"></li>
+        </ul>
+    </div>
+
+</div>
+
+
+
+<script type="text/javascript">
+    (function($) {
+        $(function() { //on DOM ready
+            $("#scroller").simplyScroll();
+        });
+    })(jQuery);
+</script>
+</body>
+</html>

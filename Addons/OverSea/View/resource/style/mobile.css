@@ -86,7 +86,7 @@ textarea.form-control{padding:6px;}
 .operate a i{line-height: 28px;}
 /* 全局loading样式 */
 #aw-loading{position:fixed;top:50%;left:50%;background:#000;width: 40px;height: 40px;margin: 0 0 0 -20px;z-index: 10001;opacity: 0.75;filter: alpha(opacity=75);border-radius: 5px;}
-#aw-loading-box{width:40px;height:40px;background-image: url('../../common/loading.png');}
+#aw-loading-box{width:40px;height:40px;background-image: url('../../mobile/common/loading.png');}
 .aw-loading{display:inline-block;height:16px;width:16px;background:url("img/ajax-loader.gif") no-repeat;}
 /* 全局下拉列表 */
 .aw-dropdown-list{position:absolute;z-index:10;width:100%;max-height:206px;overflow-y:scroll;margin-top:-1px;border:1px solid #cccccc;border-radius: 5px;box-shadow: 0 10px 10px #d9d9d9;background-color: #fff;}
@@ -351,7 +351,7 @@ textarea.form-control{padding:6px;}
 .upload-list li{position: relative;min-height:70px;padding:10px 0 0 60px;border-bottom: 1px solid #e6e6e6;}
 .upload-list li .title{color: #333;}
 .upload-list li .size{color: #999;}
-.upload-list .img{position:absolute;left:0;top:10px;width: 50px;height: 50px;background-image: url('../../common/ajax-loader.gif');background-position:center center;background-repeat:no-repeat;}
+.upload-list .img{position:absolute;left:0;top:10px;width: 50px;height: 50px;background-image: url('../../mobile/common/ajax-loader.gif');background-position:center center;background-repeat:no-repeat;}
 .upload-list .img.active{background-size: 50px !important;}
 .upload-list .meta{position: absolute;right: 0;top:25px;}
 .upload-list .meta a{display: inline-block;width: 24px;height: 24px;margin-left:10px;border:1px solid #cccccc;text-align: center;border-radius: 12px;color: #ccc;line-height: 24px;}

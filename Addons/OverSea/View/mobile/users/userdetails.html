@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>x1</title>
+    <link rel="stylesheet" href="../../resource/style/weiui/weui.css"/>
+    <link rel="stylesheet" href="../../resource/style/weiui/example.css"/>
+
+    <link rel="stylesheet" href="../../resource/style/mobile.css"/>
+
+    <link rel="stylesheet" href="../../resource/style/default/common.css"/>
+    <link rel="stylesheet" href="../../resource/style/flaty/flaty.css"/>
+    <link rel="stylesheet" href="../../resource/style/bootstrap.css"/>
+
+    <link rel="stylesheet" type="text/css" href="../../resource/style/slide/default.css">
+    <link rel="stylesheet" href="../../resource/style/slide/jquery.hiSlider.min.css">
+
+    <style type="text/css">
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            font: 14px/2 'Microsoft YaHei', 'Arial';
+        }
+        li{
+            list-style: none;
+        }
+        li img{
+            display: block;
+            margin: 0 auto;
+        }
+        #wrap{
+            max-width:100%;
+            margin: 10px auto 80px;
+            background: #fefefe;
+        }
+        .hiSlider{
+            overflow: hidden;
+            max-width:100%;
+            background: #eee;
+        }
+        .hiSlider-item{
+            float: left;
+        }
+    </style>
+
+</head>
+<body>
+<div class="hd">
+    <h1 class="page_title">River哥哥</h1>
+</div>
+<div>
+    <ul class="hiSlider hiSlider3">
+        <li class="hiSlider-item"><img src="http://www.clcentury.com/weiphp/Uploads/Picture/test/201605020044186186.jpg"></li>
+        <li class="hiSlider-item"><img src="http://www.clcentury.com/weiphp/Uploads/Picture/test/201605041102589789.jpg"></li>
+        <li class="hiSlider-item"><img src="http://www.clcentury.com/weiphp/Uploads/Picture/test/201605020044186186.jpg"></li>
+        <li class="hiSlider-item"><img src="http://www.clcentury.com/weiphp/Uploads/Picture/test/201605041102589789.jpg"></li>
+    </ul>
+</div>
+
+<script src="../../resource/js/weui/zepto.min.js"></script>
+<script src="../../resource/js/weui/router.min.js"></script>
+<script src="../../resource/js/weui/example.js"></script>
+<script src="../../resource/js/jquery.1.9.1.js"></script>
+<script src="../../resource/js/jquery.hiSlider.min.js"></script>
+<script>
+    $('.hiSlider3').hiSlider({
+        isFlexible: true,
+        isSupportTouch: true,
+        titleAttr: function(curIdx){
+            return $('img', this).attr('alt');
+        }
+    });
+</script>
+
+</body>
+</html>
