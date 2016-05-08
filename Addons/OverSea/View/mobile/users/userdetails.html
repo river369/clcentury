@@ -3,76 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-    <title>x1</title>
-    <link rel="stylesheet" href="../../resource/style/weiui/weui.css"/>
-    <link rel="stylesheet" href="../../resource/style/weiui/example.css"/>
+    <title>易知海外</title>
 
-    <link rel="stylesheet" href="../../resource/style/mobile.css"/>
+    <script src="../../resource/js/jquery/jquery-1.11.1.min.js"></script>
+    <script src="../../resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
 
-    <link rel="stylesheet" href="../../resource/style/default/common.css"/>
-    <link rel="stylesheet" href="../../resource/style/flaty/flaty.css"/>
-    <link rel="stylesheet" href="../../resource/style/bootstrap.css"/>
+    <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
+    <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile.theme-1.4.5.min.css" />
+    <script type="text/javascript" src="../../resource/js/jquery/jquery.simplyscroll.min.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="../../resource/style/slide/default.css">
-    <link rel="stylesheet" href="../../resource/style/slide/jquery.hiSlider.min.css">
+    <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
+    <link rel="stylesheet" href="../../resource/style/jquery/jquery.simplyscroll.css" media="all" type="text/css">
 
     <style type="text/css">
-        *{
+        /* Container DIV - automatically generated */
+        .simply-scroll-container {
+            position: relative;
+        }
+
+        /* Clip DIV - automatically generated */
+        .simply-scroll-clip {
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* UL/OL/DIV - the element that simplyScroll is inited on
+        Class name automatically added to element */
+        .simply-scroll-list {
+            overflow: hidden;
             margin: 0;
             padding: 0;
-        }
-        body{
-            font: 14px/2 'Microsoft YaHei', 'Arial';
-        }
-        li{
             list-style: none;
         }
-        li img{
+
+        .simply-scroll-list li {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        .simply-scroll-list li img {
+            border: none;
             display: block;
-            margin: 0 auto;
         }
-        #wrap{
-            max-width:100%;
-            margin: 10px auto 80px;
-            background: #fefefe;
+
+        /* Custom class modifications - adds to / overrides above
+
+        .simply-scroll is default base class */
+
+        /* Container DIV */
+        .simply-scroll {
+            width: 576px;
+            height: 200px;
+            margin-bottom: 1em;
         }
-        .hiSlider{
-            overflow: hidden;
-            max-width:100%;
-            background: #eee;
+
+        /* Clip DIV */
+        .simply-scroll .simply-scroll-clip {
+            width: 576px;
+            height: 200px;
         }
-        .hiSlider-item{
-            float: left;
+
+        /* Explicitly set height/width of each list item */
+        .simply-scroll .simply-scroll-list li {
+            float: left; /* Horizontal scroll only */
+            width: 290px;
+            height: 200px;
         }
     </style>
 
 </head>
 <body>
-<div class="hd">
-    <h1 class="page_title">River哥哥</h1>
-</div>
-<div>
-    <ul class="hiSlider hiSlider3">
-        <li class="hiSlider-item"><img src="http://www.clcentury.com/weiphp/Uploads/Picture/test/201605020044186186.jpg"></li>
-        <li class="hiSlider-item"><img src="http://www.clcentury.com/weiphp/Uploads/Picture/test/201605041102589789.jpg"></li>
-        <li class="hiSlider-item"><img src="http://www.clcentury.com/weiphp/Uploads/Picture/test/201605020044186186.jpg"></li>
-        <li class="hiSlider-item"><img src="http://www.clcentury.com/weiphp/Uploads/Picture/test/201605041102589789.jpg"></li>
+<div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
+    <div data-role="header" data-position="fixed">
+        <h1>River的主页</h1>
+    </div>
+
+    <div data-role="content">
+        <h5>服务宣言:</h5>
+        <p>由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道.</p>
+    </div>
+    
+    <ul id="scroller">
+            <li><img src="http://www.clcentury.com/weiphp/Uploads/Picture/test/201605020044186186.jpg" width="290" height="200"></li>
+            <li><img src="http://logicbox.net/jquery/simplyscroll/assets/20080608_38CG51J2_tb.jpg" width="290" height="200"></li>
+            <li><img src="http://logicbox.net/jquery/simplyscroll/assets/20080513_4D3SD1BQ_tb.jpg" width="290" height="200"></li>
     </ul>
+
+    <div data-role="content">
+        <h5>服务信息:</h5>
+        <ul data-role="listview" data-inset="true">
+            <li>5星服务 <span class="ui-li-count">6次咨询</span></li>
+            <li>服务地点:旧金山 <span class="ui-li-count">价格:$1000/小时</span></li>
+        </ul>
+    </div>
+    <div data-role="content">
+        <h5>特长</h5>
+        <div class="ui-grid-b">
+            <div class="ui-block-a"><a href="#" class="ui-shadow ui-btn ui-corner-all">Anchor</a></div>
+            <div class="ui-block-b"><a href="#" class="ui-shadow ui-btn ui-corner-all">Anchor</a></div>
+            <div class="ui-block-c"><a href="#" class="ui-shadow ui-btn ui-corner-all">Anchor</a></div>
+            <div class="ui-block-a"><a href="#" class="ui-shadow ui-btn ui-corner-all">Anchor</a></div>
+
+        </div>
+    </div>
+
+
+    <div data-role="footer" data-position="fixed">
+        <h4>Copyright (c) 2016 .</h4>
+    </div>
 </div>
 
-<script src="../../resource/js/weui/zepto.min.js"></script>
-<script src="../../resource/js/weui/router.min.js"></script>
-<script src="../../resource/js/weui/example.js"></script>
-<script src="../../resource/js/jquery.1.9.1.js"></script>
-<script src="../../resource/js/jquery.hiSlider.min.js"></script>
-<script>
-    $('.hiSlider3').hiSlider({
-        isFlexible: true,
-        isSupportTouch: true,
-        titleAttr: function(curIdx){
-            return $('img', this).attr('alt');
-        }
-    });
+<script type="text/javascript">
+    (function($) {
+        $(function() { //on DOM ready
+            $("#scroller").simplyScroll();
+        });
+    })(jQuery);
 </script>
 
 </body>
