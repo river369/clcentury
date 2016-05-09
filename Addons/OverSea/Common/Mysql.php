@@ -66,11 +66,8 @@ class Mysql
     public function fetchOne($sql, $input_parameters = array(), $fetch_style = PDO::FETCH_ASSOC)
     {
         $statement = $this->query($sql, $input_parameters);
-        echo "222";
         $data = $statement->fetch($fetch_style);
-        echo "333";
         $statement->closeCursor();
-        echo "444";
         return $data;
     }
 

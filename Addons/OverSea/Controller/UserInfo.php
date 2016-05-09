@@ -25,6 +25,7 @@ require dirname(__FILE__).'/../Model/UsersModule.php';
 
 //$userData[] = array();
 $userData['gender'] = $_POST ['gender'];
+$userData['name'] = $_POST ['name'];
 //setAttributes('name');
 //setAttributes('openid');
 //setAttributes('gender');
@@ -39,6 +40,7 @@ $userData['gender'] = $_POST ['gender'];
 //    }
 //}
 //echo  "   ".$userData['gender'];
-echo UsersModule::insertUser($userData);
 
+//echo UsersModule::insertUser($userData);
+echo UsersModule::getUser();
 ?>
