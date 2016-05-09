@@ -35,17 +35,17 @@ if (isset($_POST ['service-2']) &&  $_POST ['service-2'] == 'on'){
 if ($i == 2 ){
     $userData['servicetype'] = 0;
 }
+if (isset($_POST ['serviceprice'] )){
+    $userData['serviceprice'] = $_POST ['serviceprice'];
+}
 
 if (UsersModule::insertUser($userData)>0) {
     $_SESSION['submityzstatus'] = '成功';
-    $_SESSION['userdata']= $userData;
 } else {
     $_SESSION['submityzstatus'] = '失败';
 }
+$_SESSION['userData']= $userData;
 
 header('Location:../View/mobile/users/submityzsuccess.php');
-//echo UsersModule::getUser();
-
-
 
 ?>

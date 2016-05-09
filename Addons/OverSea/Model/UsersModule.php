@@ -13,15 +13,19 @@ class UsersModule
 {
     public static function insertUser($data)
     {
-        //$data['create_date'] = time();
-        $tmpData = array();
-        foreach ($data as $k => $v) {
-            //echo $k."-".$v;
-            $tmpData[':' . $k] = $v;
+        try {
+            //$data['create_date'] = time();
+            $tmpData = array();
+            foreach ($data as $k => $v) {
+                //echo $k."-".$v;
+                $tmpData[':' . $k] = $v;
+            }
+            $sql = 'INSERT INTO clc_users (' . implode(',', array_keys($data)) . ') VALUES (' . implode(',', array_keys($tmpData)) . ')';
+            //echo $sql;
+            MySqlHelper::query($sql, $tmpData);
+        } catch (\Exception $e){
+            echo $e;
         }
-        $sql = 'INSERT INTO clc_users (' . implode(',', array_keys($data)) . ') VALUES (' . implode(',', array_keys($tmpData)) . ')';
-        //echo $sql;
-        MySqlHelper::query($sql, $tmpData);
         return MySqlHelper::getLastInsertId();
     }
 
@@ -38,5 +42,12 @@ class UsersModule
         
     }
 
+    public static function getUsersByServiceType($servicetype)
+    {
+        $sql = 'SELECT * FROM clc_users WHERE servicetype = :servicetype order by stars desc';
+        $users = MySqlHelper::fetchOne($sql, array(':servicetype' => $servicetype));
+        return $users;
+    }
+    
 }
 ?>

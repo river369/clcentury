@@ -30,8 +30,7 @@ session_start();
 
     <div data-role="content">
         <?php $status= $_SESSION['submityzstatus'];
-        echo $status;
-               $userData= $_SESSION['userdata'];
+               $userData= $_SESSION['userData'];
         ?>
         <p><?php echo $userData['name']; ?> 发送易知 <?php echo $status; ?> ,谢谢!</p>
     </div>

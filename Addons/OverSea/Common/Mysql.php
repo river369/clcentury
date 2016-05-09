@@ -41,6 +41,7 @@ class Mysql
             );
             */
             $options = array(
+                PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES {$charset}",
                 PDO::ATTR_CASE              =>  PDO::CASE_LOWER,
                 PDO::ATTR_ERRMODE           =>  PDO::ERRMODE_EXCEPTION,
                 PDO::ATTR_ORACLE_NULLS      =>  PDO::NULL_NATURAL,

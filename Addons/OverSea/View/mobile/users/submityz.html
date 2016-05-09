@@ -25,9 +25,16 @@
             <label for="weixin">您的微信号:</label>
             <input type="text" name="weixin" id="weixin">
 
+            <fieldset data-role="controlgroup">
+                <legend>你的服务类型:</legend>
+                <input name="service-1" id="service-1" checked="" type="checkbox">
+                <label for="service-1">旅游</label>
+                <input name="service-2" id="service-2" type="checkbox">
+                <label for="service-2">留学</label>
+            </fieldset>
+
             <label for="servicearea">您的服务地点:</label>
             <select name="servicearea" id="servicearea">
-                <option>请选择...</option>
                 <optgroup label="美国">
                     <option value="西雅图">西雅图</option>
                     <option value="旧金山">旧金山</option>
@@ -42,13 +49,9 @@
                 </optgroup>
             </select>
 
-            <fieldset data-role="controlgroup">
-                <legend>你的服务类型:</legend>
-                <input name="service-1" id="service-1" checked="" type="checkbox">
-                <label for="service-1">旅游</label>
-                <input name="service-2" id="service-2" type="checkbox">
-                <label for="service-2">留学</label>
-            </fieldset>
+            <label for="serviceprice">您的服务价格(￥/小时):</label>
+            <input type="text" name="serviceprice" id="serviceprice">
+
             <label for="description">自我介绍:</label>
             <textarea cols="30" rows="8" name="description" id="description" data-mini="true"></textarea>
             <input type="submit" name="yzsubmit" id="yzsubmit" value="发布">
