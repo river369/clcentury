@@ -9,9 +9,10 @@ use Addons\OverSea\Model\UsersModule;
 require dirname(__FILE__).'/../Model/UsersModule.php';
 
 session_start();
-$servicetype=1; // Tourism
-$usersData=UsersModule::getUsersByServiceType($servicetype);
-echo count($usersData);
+$serviceTypeString = 'servicetype';
+$serviceType = isset($_GET [$serviceTypeString])? $_GET [$serviceTypeString] : 1;
+$usersData=UsersModule::getUsersByServiceType($serviceType);
+$_SESSION['servicetype'] = $serviceType;
 $_SESSION['usersData']= $usersData;
 header('Location:../View/mobile/query/discover.php');
 ?>

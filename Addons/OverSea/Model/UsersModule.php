@@ -44,8 +44,8 @@ class UsersModule
 
     public static function getUsersByServiceType($servicetype)
     {
-        $sql = 'SELECT * FROM clc_users WHERE servicetype = :servicetype order by stars desc';
-        $users = MySqlHelper::fetchOne($sql, array(':servicetype' => $servicetype));
+        $sql = 'SELECT * FROM clc_users WHERE servicetype in (0, :servicetype) order by stars desc';
+        $users = MySqlHelper::fetchAll($sql, array(':servicetype' => $servicetype));
         return $users;
     }
     

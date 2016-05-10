@@ -13,7 +13,7 @@ $servicetype=1; // Tourism
 $usersData=UsersModule::getUsersByServiceType($servicetype);
 foreach($usersData as $key => $userData)
 {
-    echo $key.":".$userData[$key]."--------";
+    echo $key.":".$userData['name']."--------";
 }
 
 ?>
