@@ -55,7 +55,7 @@ $serviceType = isset($_SESSION['servicetype'])? $_SESSION['servicetype'] : 1;
             <li data-role="list-divider">
                 <p>
                     <a href="javascript:alert(222);">西雅图</a>
-                    <a href="javascript:alert(222);">WA</a>
+                    <a href="javascript:alert(222);">WA1</a>
                 </p>
             </li>
         </ul>
