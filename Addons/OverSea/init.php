@@ -1,8 +1,11 @@
 <?php
 use Addons\OverSea\Common\MySqlHelper;
 use Addons\OverSea\Common\WeixinHelper;
+use Addons\OverSea\Common\YunpianSMSHelper;
+
 require dirname(__FILE__).'/Common/MySqlHelper.php';
 require dirname(__FILE__).'/Common/WeixinHelper.php';
+require dirname(__FILE__).'/Common/YunpianSMSHelper.php';
 
 ini_set("error_reprorting", "E_ALL");
 ini_set("display_errors", "Off");
@@ -34,3 +37,6 @@ unset($db_host, $db_user, $db_pass, $db_name);
 
 WeixinHelper::initData($appid, $secret);
 unset($appid, $secret);
+
+YunpianSMSHelper::initData($yunpianappid,$yunpianappid);
+unset($yunpianappid, $yunpianappid);
