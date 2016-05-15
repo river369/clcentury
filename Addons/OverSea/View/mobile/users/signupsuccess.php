@@ -32,9 +32,9 @@ session_start();
         <?php $status= $_SESSION['signupstatus'];
                $userData= $_SESSION['userData'];
         ?>
-        <p><?php echo $userData['phone']; ?> 注册 <?php echo $status; ?> ,谢谢!</p>
+        <p><?php echo $userData['phone']; ?>注册<?php echo $status; ?> ,谢谢!</p>
+        <p><a href="../../../Common/Dispatcher.php" rel="external" data-icon="home">返回</a></p>
     </div>
-
     <div data-role="footer" data-position="fixed">
         <h4>Copyright (c) 2016 .</h4>
     </div>

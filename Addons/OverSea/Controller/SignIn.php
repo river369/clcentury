@@ -22,18 +22,16 @@ if (isset($_POST ['password'] )){
 // verifycode to be implement
 
 $existedUser=UsersModule::getUserByPhone($userData['phonereigon'] , $userData['phonenumber']);
-if (isset($existedUser['phonenumber'])){
-    $_SESSION['existedUserPhoneReigon']= $existedUser['phonereigon'];
-    $_SESSION['existedUserPhoneNumber']= $existedUser['phonenumber'];
+if (!isset($existedUser['phonenumber'])){
+    //echo $userData['phonereigon'] . $userData['phonenumber']. " 号码尚未注册.";
+    $_SESSION['$signInErrorMsg']= $userData['phonereigon'] . $userData['phonenumber']. " 号码尚未注册.";
+    header('Location:../View/mobile/users/signin.php');
+} else if ($_POST ['password'] != $existedUser['password']){
+    $_SESSION['$signInErrorMsg']= $userData['phonereigon'] . $userData['phonenumber']. " 密码错误.";
     header('Location:../View/mobile/users/signin.php');
 } else {
-    if (UsersModule::insertUser($userData)>0) {
-        $_SESSION['signupstatus'] = '成功';
-        $_SESSION['signedUser'] = $userData['phonereigon'] . $userData['phonenumber'];
-    } else {
-        $_SESSION['signupstatus'] = '失败';
-    }
-    $_SESSION['userData']= $userData;
-    header('Location:../View/mobile/users/signupsuccess.php');
+    $_SESSION['signedUser'] = $userData['phonereigon'] . $userData['phonenumber'];
+    //header('Location:../Common/Dispatcher.php?f='.$_SESSION ['callbackurl']);
+    header('Location:../Common/Dispatcher.php');
 }
 ?>

@@ -9,6 +9,8 @@ use Addons\OverSea\Model\UsersModule;
 require dirname(__FILE__).'/../Model/UsersModule.php';
 
 session_start();
+unset($_SESSION['signedUser']);
+
 /*
 $servicetype=1; // Tourism
 $usersData=UsersModule::getUsersByServiceType($servicetype);

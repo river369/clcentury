@@ -8,6 +8,11 @@
 session_start();
 $existedUserPhoneReigon=$_SESSION['existedUserPhoneReigon'];
 $existedUserPhoneNumber=$_SESSION['existedUserPhoneNumber'];
+$signInErrorMsg=$_SESSION['$signInErrorMsg'];
+unset($_SESSION['existedUserPhoneReigon'], $_SESSION['existedUserPhoneNumber'], $_SESSION['$signInErrorMsg'] );
+
+//$callbackurl = $_GET ['callbackurl'];
+
 ?>
 <!DOCTYPE html>
 <html lang="zh-cmn-Hans">
@@ -30,13 +35,20 @@ $existedUserPhoneNumber=$_SESSION['existedUserPhoneNumber'];
     </div>
 
     <?php if($existedUserPhoneReigon != null){ ?>
-        <div class="errmsgstring" style="color:red">
+        <div class="errmsgstring1" style="color:red" data-role="content">
             <?php echo $existedUserPhoneReigon.$existedUserPhoneNumber; ?>已经存在,请直接登陆.
         </div>
     <?php } ?>
 
+    <?php if($signInErrorMsg != null){ ?>
+        <div class="errmsgstring2" style="color:red" data-role="content">
+            <?php echo $signInErrorMsg; ?>
+        </div>
+    <?php } ?>
+
+
     <div data-role="content">
-        <form id="submityz" data-ajax="false" method="post" action="../../../Controller/SubmitYZ.php">
+        <form id="submityz" data-ajax="false" method="post" action="../../../Controller/SignIn.php">
             <select name="phonereigon" id="phonereigon">
                 <option value="+86" <?php echo $existedUserPhoneReigon=='+86'? 'selected = "selected"' : ''; ?> >中国 +86</option>
                 <option value="+1" <?php echo $existedUserPhoneReigon=='+1'? 'selected = "selected"' : ''; ?>>美国 +1</option>
