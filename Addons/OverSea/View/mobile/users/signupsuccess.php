@@ -1,3 +1,13 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: jianguog
+ * Date: 16/5/9
+ * Time: 07:52
+ */
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="zh-cmn-Hans">
 <head>
@@ -15,29 +25,20 @@
 <body>
 <div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
     <div data-role="header" data-position="fixed">
-        <h1>登陆</h1>
+        <h1>注册</h1>
     </div>
 
     <div data-role="content">
-        <form id="submityz" data-ajax="false" method="post" action="../../../Controller/SubmitYZ.php">
-            <select name="phonereigon" id="phonereigon">
-                <option value="+86">中国 +86</option>
-                <option value="+1">美国 +1</option>
-            </select>
-            <input type="number" name="phonenumber" id="phonenumber" placeholder="请输入手机号码:" value="">
-            <input type="password" name="password" id="password" placeholder="请输入密码:">
-            <input type="submit" name="signinsubmit" id="signinsubmit" value="登陆">
-        </form>
-    </div>
-
-    <div data-role="content">
-        <a href="#nav-panel" rel="external"  data-icon="home">忘记密码</a>
-        <a href="./signup.html" rel="external" data-icon="home">立即注册</a>
+        <?php $status= $_SESSION['signupstatus'];
+               $userData= $_SESSION['userData'];
+        ?>
+        <p><?php echo $userData['phone']; ?> 注册 <?php echo $status; ?> ,谢谢!</p>
     </div>
 
     <div data-role="footer" data-position="fixed">
         <h4>Copyright (c) 2016 .</h4>
     </div>
+
 </div>
 </body>
 </html>

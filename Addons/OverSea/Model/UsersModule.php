@@ -29,17 +29,11 @@ class UsersModule
         return MySqlHelper::getLastInsertId();
     }
 
-    public static function getUser()
+    public static function getUserByPhone($phonereigon, $phonenumber)
     {
-        $sql = 'SELECT * FROM clc_users WHERE servicetype = :servicetype LIMIT 1';
-        $user = MySqlHelper::fetchOne($sql, array(':servicetype' => 1));
-
-        if (isset($user['name']) === false) {
-            echo $user['name'];
-        } else {
-            echo $user['name'];
-        }
-        
+        $sql = 'SELECT * FROM clc_users WHERE phonereigon = :phonereigon and phonenumber = :phonenumber LIMIT 1';
+        $user = MySqlHelper::fetchOne($sql, array(':phonereigon' => $phonereigon, ':phonenumber' => $phonenumber));
+        return $user;
     }
 
     public static function getUsersByServiceType($servicetype)

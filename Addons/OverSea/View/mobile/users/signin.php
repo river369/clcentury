@@ -1,3 +1,14 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: jianguog
+ * Date: 16/5/9
+ * Time: 07:52
+ */
+session_start();
+$existedUserPhoneReigon=$_SESSION['existedUserPhoneReigon'];
+$existedUserPhoneNumber=$_SESSION['existedUserPhoneNumber'];
+?>
 <!DOCTYPE html>
 <html lang="zh-cmn-Hans">
 <head>
@@ -18,13 +29,19 @@
         <h1>登陆</h1>
     </div>
 
+    <?php if($existedUserPhoneReigon != null){ ?>
+        <div class="errmsgstring" style="color:red">
+            <?php echo $existedUserPhoneReigon.$existedUserPhoneNumber; ?>已经存在,请直接登陆.
+        </div>
+    <?php } ?>
+
     <div data-role="content">
         <form id="submityz" data-ajax="false" method="post" action="../../../Controller/SubmitYZ.php">
             <select name="phonereigon" id="phonereigon">
-                <option value="+86">中国 +86</option>
-                <option value="+1">美国 +1</option>
+                <option value="+86" <?php echo $existedUserPhoneReigon=='+86'? 'selected = "selected"' : ''; ?> >中国 +86</option>
+                <option value="+1" <?php echo $existedUserPhoneReigon=='+1'? 'selected = "selected"' : ''; ?>>美国 +1</option>
             </select>
-            <input type="number" name="phonenumber" id="phonenumber" placeholder="请输入手机号码:" value="">
+            <input type="number" name="phonenumber" id="phonenumber" placeholder="请输入手机号码:" value="<?php echo $existedUserPhoneNumber; ?>">
             <input type="password" name="password" id="password" placeholder="请输入密码:">
             <input type="submit" name="signinsubmit" id="signinsubmit" value="登陆">
         </form>
@@ -41,3 +58,4 @@
 </div>
 </body>
 </html>
+
