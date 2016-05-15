@@ -11,7 +11,7 @@ require dirname(__FILE__).'/../Model/UsersModule.php';
 session_start();
 $userData;
 
-if (isset($_POST ['name'] )){
+if (isset($_POST ['name'])){
     $userData['name'] = $_POST ['name'];
 }
 if (isset($_POST ['weixin'] )){
@@ -39,7 +39,7 @@ if (isset($_POST ['serviceprice'] )){
     $userData['serviceprice'] = $_POST ['serviceprice'];
 }
 
-if (UsersModule::insertUser($userData)>0) {
+if (UsersModule::updateUser($userData,$_SESSION['signedUser'])==0) {
     $_SESSION['submityzstatus'] = '成功';
 } else {
     $_SESSION['submityzstatus'] = '失败';

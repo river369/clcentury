@@ -27,9 +27,10 @@ if (isset($existedUser['phonenumber'])){
     $_SESSION['existedUserPhoneNumber']= $existedUser['phonenumber'];
     header('Location:../View/mobile/users/signin.php');
 } else {
-    if (UsersModule::insertUser($userData)>0) {
+    $id = UsersModule::insertUser($userData);
+    if ($id>0) {
         $_SESSION['signupstatus'] = '成功';
-        $_SESSION['signedUser'] = $userData['phonereigon'] . $userData['phonenumber'];
+        $_SESSION['signedUser'] = $id;
     } else {
         $_SESSION['signupstatus'] = '失败';
     }

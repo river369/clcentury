@@ -30,7 +30,7 @@ if (!isset($existedUser['phonenumber'])){
     $_SESSION['$signInErrorMsg']= $userData['phonereigon'] . $userData['phonenumber']. " 密码错误.";
     header('Location:../View/mobile/users/signin.php');
 } else {
-    $_SESSION['signedUser'] = $userData['phonereigon'] . $userData['phonenumber'];
+    $_SESSION['signedUser'] = $existedUser['id'];
     //header('Location:../Common/Dispatcher.php?f='.$_SESSION ['callbackurl']);
     header('Location:../Common/Dispatcher.php');
 }

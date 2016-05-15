@@ -29,6 +29,27 @@ class UsersModule
         return MySqlHelper::getLastInsertId();
     }
 
+    public static function updateUser($data, $id)
+    {
+        try {
+            $sql = "update clc_users set ";
+            foreach ($data as $k => $v) {
+                //echo $k."-".$v;
+                if ($v != null && $v != ''){
+                    $sql = $sql. $k."='".$v."',";
+                }
+            }
+            $sql = substr($sql,0, strlen($sql) -1 );
+            $sql= $sql.' where id =:id';
+            //echo $sql . $id;
+            MySqlHelper::query($sql, array(':id' => $id));
+            return 0;
+        } catch (\Exception $e){
+            return -1;
+            echo $e;
+        }
+    }
+
     public static function getUserByPhone($phonereigon, $phonenumber)
     {
         $sql = 'SELECT * FROM clc_users WHERE phonereigon = :phonereigon and phonenumber = :phonenumber LIMIT 1';
