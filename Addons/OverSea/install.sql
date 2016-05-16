@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`clc_users` (
 `email` varchar(50) DEFAULT NULL  COMMENT '邮件',
 `description` text DEFAULT NULL  COMMENT '个人详细介绍',
 `servicearea` varchar(50) DEFAULT NULL  COMMENT '服务区域',
-`servicetype` int(10) DEFAULT -1  COMMENT '服务类型 1 旅游, 2 留学, 0 all, -1 nothing',
+`servicetype` int(10) DEFAULT -1  COMMENT '服务类型 1 旅游, 2 留学, 99999 all, -1 nothing',
 `serviceprice` int(10) DEFAULT 50  COMMENT '服务价格',
 `servicepriceunit` varchar(10)  DEFAULT "人民币"  COMMENT '服务价格单位',
 `stars` int(3) DEFAULT 3  COMMENT '星',

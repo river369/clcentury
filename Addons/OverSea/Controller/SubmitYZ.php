@@ -33,7 +33,7 @@ if (isset($_POST ['service-2']) &&  $_POST ['service-2'] == 'on'){
     $i++;
 }
 if ($i == 2 ){
-    $userData['servicetype'] = 0;
+    $userData['servicetype'] = 99999;
 }
 if (isset($_POST ['serviceprice'] )){
     $userData['serviceprice'] = $_POST ['serviceprice'];
