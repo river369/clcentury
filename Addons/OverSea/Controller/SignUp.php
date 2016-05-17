@@ -29,22 +29,28 @@ if (isset($_POST ['password'] )){
 if (isset($_SESSION['weixinOpenid'])) {
     $userData['openid'] = $_SESSION['weixinOpenid'];
 }
-// verifycode to be implement
-
-$existedUser=UsersModule::getUserByPhone($userData['phonereigon'] , $userData['phonenumber']);
-if (isset($existedUser['phonenumber'])){
-    $_SESSION['existedUserPhoneReigon']= $existedUser['phonereigon'];
-    $_SESSION['existedUserPhoneNumber']= $existedUser['phonenumber'];
-    header('Location:../View/mobile/users/signin.php');
-} else {
-    $id = UsersModule::insertUser($userData);
-    if ($id>0) {
-        $_SESSION['signupstatus'] = '成功';
-        $_SESSION['signedUser'] = $id;
+if (isset($_SESSION['verifcationCode']) && isset($_POST['verifycode']) && $_SESSION['verifcationCode'] == isset($_POST['verifycode'])) {
+    $existedUser=UsersModule::getUserByPhone($userData['phonereigon'] , $userData['phonenumber']);
+    if (isset($existedUser['phonenumber'])){
+        $_SESSION['existedUserPhoneReigon']= $existedUser['phonereigon'];
+        $_SESSION['existedUserPhoneNumber']= $existedUser['phonenumber'];
+        header('Location:../View/mobile/users/signin.php');
     } else {
-        $_SESSION['signupstatus'] = '失败';
+        $id = UsersModule::insertUser($userData);
+        if ($id>0) {
+            $_SESSION['signupstatus'] = '成功';
+            $_SESSION['signedUser'] = $id;
+        } else {
+            $_SESSION['signupstatus'] = '失败';
+        }
+        $_SESSION['userData']= $userData;
+        header('Location:../View/mobile/users/signupsuccess.php');
     }
+} else {
+    $_SESSION['signupstatus'] = '失败';
     $_SESSION['userData']= $userData;
     header('Location:../View/mobile/users/signupsuccess.php');
 }
+
+
 ?>

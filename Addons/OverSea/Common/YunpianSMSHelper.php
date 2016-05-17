@@ -23,7 +23,6 @@ class YunpianSMSHelper
 
     public static function sendSMS($text, $mobile) {
 
-        echo ".....";
         $ch = curl_init();
 
         /* 设置验证方式 */
@@ -44,9 +43,10 @@ class YunpianSMSHelper
         $data=array('text'=>$text,'apikey'=>self::$appid,'mobile'=>$mobile);
         $json_data = self::send($ch,$data);
         $array = json_decode($json_data,true);
-        echo '<pre>';print_r($array);
+        //echo '<pre>';print_r($array);
 
         curl_close($ch);
+        return $array;
     }
 
     static function send($ch,$data){

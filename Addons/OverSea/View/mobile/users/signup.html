@@ -25,7 +25,7 @@
     </div>
 
     <div data-role="content">
-        <form id="submityz" data-ajax="false" method="post" action="../../../Controller/SignUp.php">
+        <form id="signupform" data-ajax="false" method="post" action="../../../Controller/SignUp.php">
             <select name="phonereigon" id="phonereigon">
                 <option value="+86">中国 +86</option>
                 <option value="+1">美国 +1</option>
@@ -34,10 +34,10 @@
             <input type="password" name="password" id="password" placeholder="请输入密码:">
             <input type="number" name="verifycode" id="verifycode" placeholder="请输入验证码:">
             <button type="button" name="getvcode" id="getvcode" onclick="getSMS(this);"> 免费获取验证码</button>
+            <div class="errmsgstring" style="color:red"></div>
             <input type="submit" name="signinsubmit" id="signinsubmit" value="注册">
         </form>
     </div>
-    <div class="errmsgstring" style="color:red"></div>
 
     <div data-role="footer" data-position="fixed">
         <h4>Copyright (c) 2016 .</h4>
@@ -49,15 +49,19 @@
         $.ajax({
             url:'../../../Controller/SendSMS.php',
             type:'POST',
-            data:{code:$.trim($("input[name=phonenumber]").val())},
+            data : $('#signupform').serialize(),
+            <!--data:{phonenumber:$.trim($("input[name=phonenumber]").val()), phonereigon:$.trim($("input[name=phonereigon]").val())}, -->
             dataType:'json',
             async:false,
             success:function(result) {
                 //alert(result.status);
-                settime(button);
+                if (result.status == 0){
+                    settime(button);
+                } else {
+                    $(".errmsgstring").html('Error:短信发送失败. ' + result.msg);
+                }
             },
             error:function(msg){
-                //alert(result.status);
                 $(".errmsgstring").html('Error:'+msg.toSource());
             }
         })
@@ -67,7 +71,7 @@
     var countdown=90;
     function settime(button) {
         if (countdown == 0) {
-            countdown = 10;
+            countdown = 90;
             $("#getvcode").html("免费获取验证码");
             button.removeAttribute('disabled');
             return;
