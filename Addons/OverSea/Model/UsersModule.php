@@ -50,6 +50,22 @@ class UsersModule
         }
     }
 
+    public static function updateOpenid($openid, $id)
+    {
+        try {
+            //$sql = "update clc_users set openid = '".$openid."' where id =".$id;
+            //echo $sql ;
+            //MySqlHelper::query($sql);
+            $sql = "update clc_users set openid = :openid where id =:id";
+            //echo $sql . $id .$openid;
+            MySqlHelper::query($sql, array(':openid' => $openid, ':id' => $id));
+            return 0;
+        } catch (\Exception $e){
+            return -1;
+            echo $e;
+        }
+    }
+
     public static function getUserByPhone($phonereigon, $phonenumber)
     {
         $sql = 'SELECT * FROM clc_users WHERE phonereigon = :phonereigon and phonenumber = :phonenumber LIMIT 1';

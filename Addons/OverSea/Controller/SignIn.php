@@ -26,6 +26,7 @@ if (isset($_POST ['phonenumber'])){
 if (isset($_POST ['password'] )){
     $userData['password'] = $_POST ['password'];
 }
+
 // verifycode to be implement
 
 $existedUser=UsersModule::getUserByPhone($userData['phonereigon'] , $userData['phonenumber']);
@@ -37,7 +38,11 @@ if (!isset($existedUser['phonenumber'])){
     $_SESSION['$signInErrorMsg']= $userData['phonereigon'] . $userData['phonenumber']. " 密码错误.";
     header('Location:../View/mobile/users/signin.php');
 } else {
+    //echo $existedUser['id'].$_SESSION['weixinOpenid'];
     $_SESSION['signedUser'] = $existedUser['id'];
+    if (isset($_SESSION['weixinOpenid'])) {
+        UsersModule::updateOpenid($_SESSION['weixinOpenid'], $existedUser['id']);
+    }
     //header('Location:../Common/Dispatcher.php?f='.$_SESSION ['callbackurl']);
     header('Location:../Common/Dispatcher.php');
 }

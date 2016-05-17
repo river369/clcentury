@@ -26,6 +26,9 @@ if (isset($_POST ['phonenumber'])){
 if (isset($_POST ['password'] )){
     $userData['password'] = $_POST ['password'];
 }
+if (isset($_SESSION['weixinOpenid'])) {
+    $userData['openid'] = $_SESSION['weixinOpenid'];
+}
 // verifycode to be implement
 
 $existedUser=UsersModule::getUserByPhone($userData['phonereigon'] , $userData['phonenumber']);
