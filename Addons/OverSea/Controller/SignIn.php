@@ -8,6 +8,13 @@
 use Addons\OverSea\Model\UsersModule;
 require dirname(__FILE__).'/../Model/UsersModule.php';
 
+//$day2=48*3600;
+//// each client should remember their session id for EXACTLY 2 days
+//session_set_cookie_params($day2);
+//ini_set("session.cookie_lifetime",$day2);
+//// server should keep session data for AT LEAST 2 days
+//ini_set('session.gc_maxlifetime', $day2);
+
 session_start();
 $userData;
 if (isset($_POST ['phonereigon'])){

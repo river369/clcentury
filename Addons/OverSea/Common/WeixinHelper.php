@@ -89,6 +89,14 @@ class WeixinHelper
         }
     }
     
+    public static function triggerWeixinGetToken($token, $openid, $refreshtoken) {
+            $url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='. self::$appid  .'&redirect_uri=http://www.clcentury.com/weiphp/Addons/OverSea/Controller/GetWeixinOpenID.php?response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect';
+            //echo $url;
+            header('Location:'.$url);
+    }
+
+
+
 }
 
 

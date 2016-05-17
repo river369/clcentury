@@ -57,6 +57,14 @@ class UsersModule
         return $user;
     }
 
+    public static function getUserByOpenid($openid)
+    {
+        $sql = 'SELECT * FROM clc_users WHERE openid = :openid LIMIT 1';
+        //echo $sql;
+        $user = MySqlHelper::fetchOne($sql, array(':openid' => $openid));
+        return $user;
+    }
+
     public static function getUsersByServiceType($servicetype)
     {
         $sql = 'SELECT * FROM clc_users WHERE servicetype in (99999, :servicetype) order by stars desc';
