@@ -73,6 +73,14 @@ class UsersModule
         return $user;
     }
 
+    public static function getUserById($id)
+    {
+        $sql = 'SELECT * FROM clc_users WHERE id= :id LIMIT 1';
+        //echo $sql;
+        $user = MySqlHelper::fetchOne($sql, array(':id' => $id));
+        return $user;
+    }
+    
     public static function getUserByOpenid($openid)
     {
         $sql = 'SELECT * FROM clc_users WHERE openid = :openid LIMIT 1';
