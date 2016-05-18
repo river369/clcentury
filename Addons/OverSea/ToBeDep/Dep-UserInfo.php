@@ -5,8 +5,8 @@
  * Date: 16/5/1
  * Time: 17:05
  */
-use Addons\OverSea\Model\UsersModule;
-require dirname(__FILE__).'/../Model/UsersModule.php';
+use Addons\OverSea\Model\UsersDao;
+require dirname(__FILE__) . '/../Model/UsersDao.php';
 
 //
 //function setAttributes($userData, $postData, $key)
@@ -41,6 +41,6 @@ $userData['name'] = $_POST ['name'];
 //}
 //echo  "   ".$userData['gender'];
 
-//echo UsersModule::insertUser($userData);
-echo UsersModule::getUser();
+//echo UsersDao::insertUser($userData);
+echo UsersDao::getUser();
 ?>

@@ -9,7 +9,7 @@ namespace Addons\OverSea\Model;
 use Addons\OverSea\Common\MySqlHelper;
 require dirname(__FILE__).'/../init.php';
 
-class UsersModule
+class UsersDao
 {
     public static function insertUser($data)
     {

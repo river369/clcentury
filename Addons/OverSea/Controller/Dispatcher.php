@@ -5,10 +5,10 @@
  * Date: 16/5/1
  * Time: 17:05
  */
-use Addons\OverSea\Model\UsersModule;
+use Addons\OverSea\Model\UsersDao;
 use Addons\OverSea\Common\WeixinHelper;
 
-require dirname(__FILE__) . '/../Model/UsersModule.php';
+require dirname(__FILE__) . '/../Model/UsersDao.php';
 
 session_start();
 
@@ -34,7 +34,7 @@ if (isset($_SESSION['signedUser'])) {
 } else {
     if (isset($_SESSION['weixinOpenid'])) {
         // check if weixin openid match the db saving values
-        $existedUser=UsersModule::getUserByOpenid($_SESSION['weixinOpenid']);
+        $existedUser=UsersDao::getUserByOpenid($_SESSION['weixinOpenid']);
         if (isset($existedUser['openid']) && $existedUser['openid'] == $_SESSION['weixinOpenid']){
             $_SESSION['signedUser'] = $existedUser['id'];
             header('Location:'.$method_routes[$whereToGo]['l']);

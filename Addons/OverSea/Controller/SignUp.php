@@ -5,8 +5,8 @@
  * Date: 16/5/1
  * Time: 17:05
  */
-use Addons\OverSea\Model\UsersModule;
-require dirname(__FILE__).'/../Model/UsersModule.php';
+use Addons\OverSea\Model\UsersDao;
+require dirname(__FILE__) . '/../Model/UsersDao.php';
 
 //$day2=48*3600;
 //// each client should remember their session id for EXACTLY 2 days
@@ -30,13 +30,13 @@ if (isset($_SESSION['weixinOpenid'])) {
     $userData['openid'] = $_SESSION['weixinOpenid'];
 }
 if (isset($_SESSION['verifcationCode']) && isset($_POST['verifycode']) && $_SESSION['verifcationCode'] == isset($_POST['verifycode'])) {
-    $existedUser=UsersModule::getUserByPhone($userData['phonereigon'] , $userData['phonenumber']);
+    $existedUser=UsersDao::getUserByPhone($userData['phonereigon'] , $userData['phonenumber']);
     if (isset($existedUser['phonenumber'])){
         $_SESSION['existedUserPhoneReigon']= $existedUser['phonereigon'];
         $_SESSION['existedUserPhoneNumber']= $existedUser['phonenumber'];
         header('Location:../View/mobile/users/signin.php');
     } else {
-        $id = UsersModule::insertUser($userData);
+        $id = UsersDao::insertUser($userData);
         if ($id>0) {
             $_SESSION['signupstatus'] = '成功';
             $_SESSION['signedUser'] = $id;

@@ -5,8 +5,8 @@
  * Date: 16/5/1
  * Time: 17:05
  */
-use Addons\OverSea\Model\UsersModule;
-require dirname(__FILE__).'/../Model/UsersModule.php';
+use Addons\OverSea\Model\UsersDao;
+require dirname(__FILE__) . '/../Model/UsersDao.php';
 
 //$day2=48*3600;
 //// each client should remember their session id for EXACTLY 2 days
@@ -29,7 +29,7 @@ if (isset($_POST ['password'] )){
 
 // verifycode to be implement
 
-$existedUser=UsersModule::getUserByPhone($userData['phonereigon'] , $userData['phonenumber']);
+$existedUser=UsersDao::getUserByPhone($userData['phonereigon'] , $userData['phonenumber']);
 if (!isset($existedUser['phonenumber'])){
     //echo $userData['phonereigon'] . $userData['phonenumber']. " 号码尚未注册.";
     $_SESSION['$signInErrorMsg']= $userData['phonereigon'] . $userData['phonenumber']. " 号码尚未注册.";
@@ -41,7 +41,7 @@ if (!isset($existedUser['phonenumber'])){
     //echo $existedUser['id'].$_SESSION['weixinOpenid'];
     $_SESSION['signedUser'] = $existedUser['id'];
     if (isset($_SESSION['weixinOpenid'])) {
-        UsersModule::updateOpenid($_SESSION['weixinOpenid'], $existedUser['id']);
+        UsersDao::updateOpenid($_SESSION['weixinOpenid'], $existedUser['id']);
     }
     header('Location:./Dispatcher.php');
 }

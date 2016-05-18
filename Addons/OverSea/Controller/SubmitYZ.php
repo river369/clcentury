@@ -5,8 +5,8 @@
  * Date: 16/5/1
  * Time: 17:05
  */
-use Addons\OverSea\Model\UsersModule;
-require dirname(__FILE__).'/../Model/UsersModule.php';
+use Addons\OverSea\Model\UsersDao;
+require dirname(__FILE__) . '/../Model/UsersDao.php';
 
 session_start();
 $userData;
@@ -39,7 +39,7 @@ if (isset($_POST ['serviceprice'] )){
     $userData['serviceprice'] = $_POST ['serviceprice'];
 }
 
-if (UsersModule::updateUser($userData,$_SESSION['signedUser'])==0) {
+if (UsersDao::updateUser($userData,$_SESSION['signedUser'])==0) {
     $_SESSION['submityzstatus'] = '成功';
 } else {
     $_SESSION['submityzstatus'] = '失败';
