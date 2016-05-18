@@ -39,9 +39,7 @@ if (isset($userData['phonenumber'])){
 }
 
 UsersDao::updateOpenid(-1, $_SESSION['signedUser']);
-unset($_SESSION['signedUser']);
-unset($_SESSION['weixinOpenid']);
-unset($_SESSION['weixinOpenidTried']);
+
 
 
 

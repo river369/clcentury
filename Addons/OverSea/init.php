@@ -3,9 +3,20 @@ use Addons\OverSea\Common\MySqlHelper;
 use Addons\OverSea\Common\WeixinHelper;
 use Addons\OverSea\Common\YunpianSMSHelper;
 
-require dirname(__FILE__).'/Common/MySqlHelper.php';
-require dirname(__FILE__).'/Common/WeixinHelper.php';
-require dirname(__FILE__).'/Common/YunpianSMSHelper.php';
+//require dirname(__FILE__).'/Common/MySqlHelper.php';
+//require dirname(__FILE__).'/Common/WeixinHelper.php';
+//require dirname(__FILE__).'/Common/YunpianSMSHelper.php';
+function initLoad()
+{
+    include_once dirname(__FILE__).'/Common/MySqlHelper.php';
+    include_once dirname(__FILE__).'/Common/WeixinHelper.php';
+    include_once dirname(__FILE__).'/Common/YunpianSMSHelper.php';
+    include_once dirname(__FILE__). '/Model/UsersDao.php';
+    include_once dirname(__FILE__). '/Model/UsersBo.php';
+    return true;
+}
+
+spl_autoload_register("initLoad");
 
 ini_set("error_reprorting", "E_ALL");
 ini_set("display_errors", "Off");
