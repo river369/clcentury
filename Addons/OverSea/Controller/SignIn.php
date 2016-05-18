@@ -43,7 +43,6 @@ if (!isset($existedUser['phonenumber'])){
     if (isset($_SESSION['weixinOpenid'])) {
         UsersModule::updateOpenid($_SESSION['weixinOpenid'], $existedUser['id']);
     }
-    //header('Location:../Common/Dispatcher.php?f='.$_SESSION ['callbackurl']);
-    header('Location:../Common/Dispatcher.php');
+    header('Location:./Dispatcher.php');
 }
 ?>

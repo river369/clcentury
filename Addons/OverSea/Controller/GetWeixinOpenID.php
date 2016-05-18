@@ -26,6 +26,6 @@ $refreshtoken = $tokenArray['refresh_token'];
 $user = WeixinHelper::getWeixinUserInfoWithRefresh($token, $openid, $refreshtoken);
 $_SESSION['weixinOpenid'] = $user['openid'];
 //echo $user['openid'];
-header('Location:../Common/Dispatcher.php');
+header('Location:./Dispatcher.php');
 
 ?>

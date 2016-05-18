@@ -8,7 +8,7 @@
 use Addons\OverSea\Model\UsersModule;
 use Addons\OverSea\Common\WeixinHelper;
 
-require dirname(__FILE__).'/../Model/UsersModule.php';
+require dirname(__FILE__) . '/../Model/UsersModule.php';
 
 session_start();
 
@@ -39,17 +39,25 @@ if (isset($_SESSION['signedUser'])) {
             $_SESSION['signedUser'] = $existedUser['id'];
             header('Location:'.$method_routes[$whereToGo]['l']);
         } else {
-            $_SESSION['$signInErrorMsg']= "请先登陆,然后可以".$method_routes[$whereToGo]['c'];
-            header('Location:../View/mobile/users/signin.php');
+            needSignin($method_routes, $whereToGo);
         }
         /**/
     } else if (!isset($_SESSION['weixinOpenidTried'])) {
         // Try to get weixin open id 1 times
         WeixinHelper::triggerWeixinGetToken();
     } else {
-        $_SESSION['$signInErrorMsg']= "请先登陆,然后可以".$method_routes[$whereToGo]['c'];
-        header('Location:../View/mobile/users/signin.php');
+        needSignin($method_routes, $whereToGo);
     }
 
+}
+
+/**
+ * redirect to sign in pages
+ * @param $method_routes
+ * @param $whereToGo
+ */
+function needSignin($method_routes, $whereToGo) {
+    $_SESSION['$signInErrorMsg']= "请先登陆,然后可以".$method_routes[$whereToGo]['c'];
+    header('Location:../View/mobile/users/signin.php');
 }
 ?>
