@@ -64,7 +64,9 @@ $existedUser = $_SESSION['signedUserInfo'] ;
             <input type="text" name="serviceprice" id="serviceprice" value="<?php echo isset($existedUser['serviceprice']) ? $existedUser['serviceprice']: ''; ?>" >
 
             <label for="description">自我介绍:</label>
-            <textarea cols="30" rows="8" name="description" id="description" data-mini="true" value="<?php echo isset($existedUser['description']) ? $existedUser['description']: ''; ?>"></textarea>
+            <textarea cols="30" rows="8" name="description" id="description" data-mini="true">
+                <?php echo isset($existedUser['description']) ? $existedUser['description']: ''; ?>
+            </textarea>
             <input type="submit" name="yzsubmit" id="yzsubmit" value="发布">
         </form>
     </div>
