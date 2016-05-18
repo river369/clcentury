@@ -6,6 +6,7 @@
  * Time: 07:52
  */
 session_start();
+$existedUser = $_SESSION['signedUserInfo'] ;
 ?>
 
 <!DOCTYPE html>
@@ -31,9 +32,9 @@ session_start();
     <div data-role="content">
         <form id="submityz" data-ajax="false" method="post" action="../../../Controller/SubmitYZ.php">
             <label for="name">您的姓名:</label>
-            <input type="text" name="name" id="name">
+            <input type="text" name="name" id="name" value="<?php echo isset($existedUser['name']) ? $existedUser['name']: ''; ?> ">
             <label for="weixin">您的微信号:</label>
-            <input type="text" name="weixin" id="weixin">
+            <input type="text" name="weixin" id="weixin" value="<?php echo isset($existedUser['weixin']) ? $existedUser['weixin']: ''; ?> ">
 
             <fieldset data-role="controlgroup">
                 <legend>你的服务类型:</legend>
@@ -60,10 +61,10 @@ session_start();
             </select>
 
             <label for="serviceprice">您的服务价格(￥/小时):</label>
-            <input type="text" name="serviceprice" id="serviceprice">
+            <input type="text" name="serviceprice" id="serviceprice" value="<?php echo isset($existedUser['serviceprice']) ? $existedUser['serviceprice']: ''; ?>" >
 
             <label for="description">自我介绍:</label>
-            <textarea cols="30" rows="8" name="description" id="description" data-mini="true"></textarea>
+            <textarea cols="30" rows="8" name="description" id="description" data-mini="true" value="<?php echo isset($existedUser['description']) ? $existedUser['description']: ''; ?>"></textarea>
             <input type="submit" name="yzsubmit" id="yzsubmit" value="发布">
         </form>
     </div>
