@@ -31,24 +31,14 @@ if (isset($_GET ['c'])){
 echo $_SESSION['signedUser'];
 if (isset($_SESSION['signedUser'])) {
     // first choice is session
-    if (isset($method_routes[$command]['m']) && isset($method_routes[$command]['f'])){
-        try {
-            $class = $method_routes[$command]['m'];
-            $fun = $method_routes[$command]['f'];
-            $class = new $class();
-            call_user_func(array($class, $fun));
-        } catch (Exception $e) {
-            echo $e->getTrace();
-        }
-    }
-    header('Location:'.$method_routes[$command]['v']);
+    goToCommand($method_routes, $command);
 } else {
     if (isset($_SESSION['weixinOpenid'])) {
         // check if weixin openid match the db saving values
         $existedUser=UsersDao::getUserByOpenid($_SESSION['weixinOpenid']);
         if (isset($existedUser['openid']) && $existedUser['openid'] == $_SESSION['weixinOpenid']){
             $_SESSION['signedUser'] = $existedUser['id'];
-            header('Location:'.$method_routes[$command]['v']);
+            goToCommand($method_routes, $command);
         } else {
             needSignin($method_routes, $command);
         }
@@ -70,5 +60,19 @@ if (isset($_SESSION['signedUser'])) {
 function needSignin($method_routes, $command) {
     $_SESSION['$signInErrorMsg']= "请先登陆,然后可以".$method_routes[$command]['d'];
     header('Location:../View/mobile/users/signin.php');
+}
+
+function goToCommand($method_routes, $command) {
+    if (isset($method_routes[$command]['m']) && isset($method_routes[$command]['f'])){
+        try {
+            $class = $method_routes[$command]['m'];
+            $fun = $method_routes[$command]['f'];
+            $class = new $class();
+            call_user_func(array($class, $fun));
+        } catch (Exception $e) {
+            echo $e->getTrace();
+        }
+    }
+    header('Location:'.$method_routes[$command]['v']);
 }
 ?>
