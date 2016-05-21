@@ -2,15 +2,14 @@
 use Addons\OverSea\Common\MySqlHelper;
 use Addons\OverSea\Common\WeixinHelper;
 use Addons\OverSea\Common\YunpianSMSHelper;
+use Addons\OverSea\Common\OSSHelper;
 
-//require dirname(__FILE__).'/Common/MySqlHelper.php';
-//require dirname(__FILE__).'/Common/WeixinHelper.php';
-//require dirname(__FILE__).'/Common/YunpianSMSHelper.php';
 function initLoad()
 {
     include_once dirname(__FILE__).'/Common/MySqlHelper.php';
     include_once dirname(__FILE__).'/Common/WeixinHelper.php';
     include_once dirname(__FILE__).'/Common/YunpianSMSHelper.php';
+    include_once dirname(__FILE__).'/Common/OSSHelper.php';
     include_once dirname(__FILE__). '/Model/UsersDao.php';
     include_once dirname(__FILE__). '/Model/UsersBo.php';
     return true;
@@ -51,3 +50,7 @@ unset($appid, $secret);
 
 YunpianSMSHelper::initData($yunpianappid,$yunpianappid);
 unset($yunpianappid, $yunpianappid);
+
+
+OSSHelper::initData($accessKeyId, $accessKeySecret, $endpoint, $bucket);
+unset($accessKeyId, $accessKeySecret, $endpoint, $bucket);
