@@ -17,15 +17,15 @@ wx.ready(function () {
                 images.serverIds = [];
                 function upload() {
                     wx.uploadImage({
-                        localIds: images.localIds[i],
+                        localId: images.localIds[i],
                         success: function (res) {
                             i++;
-                            //alert('已上传：' + i + '/' + length);
+                            alert('已上传：' + i + '/' + length);
                             images.serverIds.push(res.serverIds);
                             if (i < length) {
                                 upload();
                             } else {
-                                window.location.href='./UploadPicture.php?serverids=' + images.serverIds;
+                                window.location.href='../../../../../Controller/UploadPictureToOSS.php?serverids=' + images.serverIds;
                             }
                         },
                         fail: function (res) {

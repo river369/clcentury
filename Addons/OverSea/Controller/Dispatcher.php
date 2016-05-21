@@ -15,7 +15,7 @@ session_start();
 //c - command, like signin, m - model, f - function in model, v - view,  d - description
 $method_routes = array(
     'signin' => array('v'=>'../View/mobile/users/signin.php','d'=>''),//submit yz
-    'submityzpic' => array('v'=>'../View/mobile/users/UploadPicture.php','d'=>'发易知图片'),
+    'submityzpic' => array('m'=>'Addons\OverSea\Model\YZPicBo', 'f'=>'handlePics', 'v'=>'../View/mobile/users/UploadPicture.php','d'=>'发易知图片'),
     'submityz' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'getCurrentUserInfo', 'v'=>'../View/mobile/users/submityz.php','d'=>'发易知信息')//submit yz
 );
 
@@ -28,7 +28,6 @@ if (isset($_GET ['c'])){
     // get call back url from SESSION
     $command = $_SESSION['callbackurl'];
 }
-echo $_SESSION['signedUser'];
 if (isset($_SESSION['signedUser'])) {
     // first choice is session
     goToCommand($method_routes, $command);

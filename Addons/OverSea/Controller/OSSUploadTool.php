@@ -13,8 +13,6 @@ if ($command == 'put'){
     OSSHelper::putObject($object, $content,$options);
 } else if ($command == 'del'){
     OSSHelper::deleteObject($object);
+} else if ($command == 'list') {
+    OSSHelper::listObjects($object);
 }
-
-
-//OSSHelper::doesBucketExist();
-//OSSHelper::putObject();
