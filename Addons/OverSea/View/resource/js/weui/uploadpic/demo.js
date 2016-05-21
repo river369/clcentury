@@ -3,29 +3,29 @@ wx.ready(function () {
     // 5 图片接口
     // 5.1 拍照、本地选图
     var images = {
-        localId: [],
-        serverId: []
+        localIds: [],
+        serverIds: []
     };
 
     document.querySelector('#uplaodImages').onclick = function () {
         wx.chooseImage({
             success: function (res) {
-                images.localId = res.localIds;
+                images.localIds = res.localIds;
                 //alert('已选择 ' + res.localIds.length + ' 张图片');
 
-                var i = 0, length = images.localId.length;
-                images.serverId = [];
+                var i = 0, length = images.localIds.length;
+                images.serverIds = [];
                 function upload() {
                     wx.uploadImage({
-                        localId: images.localId[i],
+                        localIds: images.localIds[i],
                         success: function (res) {
                             i++;
                             //alert('已上传：' + i + '/' + length);
-                            images.serverId.push(res.serverId);
+                            images.serverIds.push(res.serverIds);
                             if (i < length) {
                                 upload();
                             } else {
-                                window.location.href='./UploadPicture.php?serverids=' + images.serverId;
+                                window.location.href='./UploadPicture.php?serverids=' + images.serverIds;
                             }
                         },
                         fail: function (res) {
@@ -41,7 +41,7 @@ wx.ready(function () {
     document.querySelector('#chooseImage').onclick = function () {
         wx.chooseImage({
             success: function (res) {
-                images.localId = res.localIds;
+                images.localIds = res.localIds;
                 alert('已选择 ' + res.localIds.length + ' 张图片');
             }
         });
@@ -60,12 +60,12 @@ wx.ready(function () {
 
 
     var syncUpload = function(localIds){
-        var localId = localIds.pop();
+        var localIds = localIds.pop();
         wx.uploadImage({
-            localId: localId,
+            localIds: localIds,
             isShowProgressTips: 1,
             success: function (res) {
-                var serverId = res.serverId; // 返回图片的服务器端ID
+                var serverIds = res.serverIds; // 返回图片的服务器端ID
                 //其他对serverId做处理的代码
                 if(localIds.length > 0){
                     syncUpload(localIds);
@@ -89,19 +89,19 @@ wx.ready(function () {
 
     // 5.3 上传图片
     document.querySelector('#uploadImage').onclick = function () {
-        if (images.localId.length == 0) {
+        if (images.localIds.length == 0) {
             alert('请先使用 chooseImage 接口选择图片');
             return;
         }
-        var i = 0, length = images.localId.length;
-        images.serverId = [];
+        var i = 0, length = images.localIds.length;
+        images.serverIds = [];
         function upload() {
             wx.uploadImage({
-                localId: images.localId[i],
+                localIds: images.localIds[i],
                 success: function (res) {
                     i++;
                     alert('已上传：' + i + '/' + length);
-                    images.serverId.push(res.serverId);
+                    images.serverIds.push(res.serverIds);
                     if (i < length) {
                         upload();
                     }
@@ -116,19 +116,19 @@ wx.ready(function () {
 
     // 5.4 下载图片
     document.querySelector('#downloadImage').onclick = function () {
-        if (images.serverId.length === 0) {
+        if (images.serverIds.length === 0) {
             alert('请先使用 uploadImage 上传图片');
             return;
         }
-        var i = 0, length = images.serverId.length;
-        images.localId = [];
+        var i = 0, length = images.serverIds.length;
+        images.localIds = [];
         function download() {
             wx.downloadImage({
-                serverId: images.serverId[i],
+                serverIds: images.serverIds[i],
                 success: function (res) {
                     i++;
                     alert('已下载：' + i + '/' + length);
-                    images.localId.push(res.localId);
+                    images.localIds.push(res.localIds);
                     if (i < length) {
                         download();
                     }

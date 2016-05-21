@@ -12,7 +12,7 @@ if (isset($_GET ['serverids'])){
     //echo $serverids;
     $serveridsArray = explode(',',$serverids);
     foreach ($serveridsArray as $serverid){
-        getmedia($appId,$appsecret, $serverid, 'test');
+        getmedia($appId, $appsecret, $serverid, 'test');
     }
 }
 
@@ -160,5 +160,5 @@ function getmedia($appId,$appsecret, $media_id,$foldername){
         ]
     });
 </script>
-<script src="demo.js"></script>
+<script src="../../resource/js/weui/uploadpic/demo.js"></script>
 </html>
