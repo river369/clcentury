@@ -10,13 +10,16 @@ $appId=$_SESSION['$appid'];
 $timestamp=$_SESSION['$timestamp'];
 $nonceStr=$_SESSION['$nonceStr'];
 $signature=$_SESSION['$signature'];
-unset($timestamp, $nonceStr, $signature);
+unset($_SESSION['$timestamp'], $_SESSION['$nonceStr'], $_SESSION['$signature']);
 
 $objArray;
 if (isset($_SESSION['$objArray'])){
     $objArray = $_SESSION['$objArray'] ;
-    unset($_SESSION['$objArray']);
+    //unset($_SESSION['$objArray']);
 }
+
+$imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
+
 ?>
 
 <!DOCTYPE html>
@@ -41,16 +44,23 @@ if (isset($_SESSION['$objArray'])){
     <div role="main" class="ui-content jqm-content jqm-fullwidth">
         <ul class="weui_uploader_files">
             <?php foreach ($objArray as $obj) { ?>
-                <li class="weui_uploader_file" style="background-image:url(http://clcentury.oss-cn-beijing.aliyuncs.com/<?php echo $obj; ?>)"></li>
+                <li class="weui_uploader_file" onclick="changepopup('<?php echo $obj; ?>')" style="background-image:url(<?php echo $imageurl.$obj; ?>)"></li>
             <?php } ?>
             <li class="weui_uploader_file" id="uplaodImages" style="background-image:url(../../resource/images/add.jpg)"></li>
         </ul>
+
+        <div data-role="popup" id="reviewpopup" class="reviewpopup" data-overlay-theme="a" data-corners="false" data-tolerance="30,15">
+            <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+            <img src="" alt="review" class="reviewimage">
+            <div class="deletebutton"></div>
+        </div>
     </div>
 
     <div data-role="footer" data-position="fixed">
         <h4>Copyright (c) 2016 .</h4>
     </div>
 </div>
+
 </body>
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script>
@@ -93,7 +103,7 @@ if (isset($_SESSION['$objArray'])){
                                 if (i < length) {
                                     upload();
                                 } else {
-                                    window.location.href = '../../../Controller/Dispatcher.php?serverids=' + images.serverIds;
+                                    window.location.href = '../../../Controller/Dispatcher.php?c=submityzpic&serverids=' + images.serverIds;
                                 }
                             },
                             fail: function (res) {
@@ -107,6 +117,15 @@ if (isset($_SESSION['$objArray'])){
             });
         };
     });
+
+    function changepopup(uri) {
+        $('.reviewimage').attr('src','<?php echo $imageurl; ?>'+uri);
+        var link = "../../../Controller/Dispatcher.php?c=submityzpic&objtodelete=" + uri;
+        //alert (link);
+        $('.deletebutton').html('<a href="'+ link +'" rel="external" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-mini">删除此图片</a>');
+        $('.reviewpopup').popup('open');
+    }
+
 </script>
 </html>
 

@@ -30,6 +30,14 @@ class YZPicBo
             }
         }
 
+        // delete image if need
+        if (isset($_GET ['objtodelete'])){
+            $obj = $_GET ['objtodelete'];
+            //echo $obj;
+            OSSHelper::deleteObject($obj);
+            //exit(1);
+        }
+
         // Create sessions
         $_SESSION['$appid'] = WeixinHelper::getAppid();
         $nonceStr = WeixinHelper::make_nonceStr();
