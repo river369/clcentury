@@ -15,7 +15,7 @@ session_start();
 //c - command, like signin, m - model, f - function in model, v - view,  d - description
 $method_routes = array(
     'signin' => array('v'=>'../View/mobile/users/signin.php','d'=>''),//submit yz
-    'submityzpic' => array('m'=>'Addons\OverSea\Model\YZPicBo', 'f'=>'handlePics', 'v'=>'../View/mobile/users/UploadPicture.php','d'=>'发易知图片'),
+    'submityzpic' => array('m'=>'Addons\OverSea\Model\YZPicBo', 'f'=>'handlePics', 'v'=>'../View/mobile/users/yzpictures.php','d'=>'发易知图片'),
     'submityz' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'getCurrentUserInfo', 'v'=>'../View/mobile/users/submityz.php','d'=>'发易知信息')//submit yz
 );
 

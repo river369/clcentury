@@ -1,42 +1,54 @@
 <?php
-
+/**
+ * Created by PhpStorm.
+ * User: jianguog
+ * Date: 16/5/9
+ * Time: 21:54
+ */
 session_start();
 $appId=$_SESSION['$appid'];
 $timestamp=$_SESSION['$timestamp'];
 $nonceStr=$_SESSION['$nonceStr'];
 $signature=$_SESSION['$signature'];
+unset($timestamp, $nonceStr, $signature);
 
+$objArray;
+if (isset($_SESSION['$objArray'])){
+    $objArray = $_SESSION['$objArray'] ;
+    unset($_SESSION['$objArray']);
+}
 ?>
+
 <!DOCTYPE html>
-<html>
+<html lang="zh-cmn-Hans">
 <head>
-    <meta charset="utf-8">
-    <title>上传图片</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>易知海外</title>
+
+    <script src="../../resource/js/jquery/jquery-1.11.1.min.js"></script>
+    <script src="../../resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
+
+    <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
     <link rel="stylesheet" href="../../resource/style/weiui/weui.css"/>
     <link rel="stylesheet" href="../../resource/style/weiui/example.css"/>
 </head>
-<body ontouchstart="">
-<div class="wxapi_container">
-    <div class="weui_cells_title">上传图片</div>
-    <div class="weui_cells weui_cells_form">
-        <div class="weui_cell">
-            <div class="weui_cell_bd weui_cell_primary">
-                <div class="weui_uploader">
-                    <div class="weui_uploader_hd weui_cell">
-                        <div class="weui_cell_bd weui_cell_primary">图片</div>
-                        <div class="weui_cell_ft">0/2</div>
-                    </div>
-                    <ul class="weui_uploader_files">
-                        <li class="weui_uploader_file" style="background-image:url(http://www.clcentury.com/weiphp/Uploads/Picture/test/201605020044186186.jpg)"></li>
-                        <li class="weui_uploader_file" style="background-image:url(http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/pics/7/1.jpg)"></li>
+<body>
+<div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
+    <div data-role="header" data-position="fixed">
+        <h1>个人图片</h1>
+    </div>
+    <div role="main" class="ui-content jqm-content jqm-fullwidth">
+        <ul class="weui_uploader_files">
+            <?php foreach ($objArray as $obj) { ?>
+                <li class="weui_uploader_file" style="background-image:url(http://clcentury.oss-cn-beijing.aliyuncs.com/<?php echo $obj; ?>)"></li>
+            <?php } ?>
+            <li class="weui_uploader_file" id="uplaodImages" style="background-image:url(../../resource/images/add.jpg)"></li>
+        </ul>
+    </div>
 
-                        <li class="weui_uploader_file" id="uplaodImages" style="background-image:url(../../resource/images/add.jpg)"></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+    <div data-role="footer" data-position="fixed">
+        <h4>Copyright (c) 2016 .</h4>
     </div>
 </div>
 </body>
@@ -97,3 +109,4 @@ $signature=$_SESSION['$signature'];
     });
 </script>
 </html>
+

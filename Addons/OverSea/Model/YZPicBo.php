@@ -37,22 +37,21 @@ class YZPicBo
         $timestamp = time();
         $_SESSION['$timestamp'] = $timestamp;
         $jsapi_ticket = WeixinHelper::make_ticket();
-        //$url = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-        $url = 'http://'.$_SERVER['HTTP_HOST']."/weiphp/Addons/OverSea/View/mobile/users/UploadPicture.php";
+        $url = 'http://'.$_SERVER['HTTP_HOST']."/weiphp/Addons/OverSea/View/mobile/users/yzpictures.php";
         $signature = WeixinHelper::make_signature($nonceStr,$timestamp,$jsapi_ticket,$url);
         $_SESSION['$signature'] = $signature;
-
-        echo
+        
         // list data
-        OSSHelper::listObjects($object = "yzphoto/pics/".$userID."/");
-
+        $object = "yzphoto/pics/".$userID."/";
+        //echo $object;
+        $objectList = OSSHelper::listObjects($object);
+        $objArray = array();
         if (!empty($objectList)) {
-            print("objectList:\n");
             foreach ($objectList as $objectInfo) {
-                print($objectInfo->getKey() . "\n");
+                $objArray[] = $objectInfo->getKey();
             }
+            $_SESSION['$objArray'] = $objArray;
         }
-
     }
     // 获取图片地址
     function getmedia($media_id, $userID, $i){
