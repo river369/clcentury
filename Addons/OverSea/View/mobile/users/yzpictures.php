@@ -17,7 +17,8 @@ if (isset($_SESSION['$objArray'])){
     $objArray = $_SESSION['$objArray'] ;
     //unset($_SESSION['$objArray']);
 }
-
+$maxcount = 5;
+$remainingcount = 5 - count($objArray);
 $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
 
 ?>
@@ -41,18 +42,29 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
     <div data-role="header" data-position="fixed">
         <h1>个人图片</h1>
     </div>
+
     <div role="main" class="ui-content jqm-content jqm-fullwidth">
+        <ul data-role="listview" data-inset="true">
+            <li data-role="list-divider">请点击加号添加图片, 最多上传<?=$maxcount?>张.</li>
+        </ul>
+        <!--
+        <p>请点击加号添加图片, 最多上传<?=$maxcount?>张. </p>
+        <p>您可以点击图片预览或删除.</p>
+        -->
         <ul class="weui_uploader_files">
             <?php foreach ($objArray as $obj) { ?>
                 <li class="weui_uploader_file" onclick="changepopup('<?php echo $obj; ?>')" style="background-image:url(<?php echo $imageurl.$obj; ?>)"></li>
-            <?php } ?>
+            <?php }
+            if ($remainingcount > 0) {?>
             <li class="weui_uploader_file" id="uplaodImages" style="background-image:url(../../resource/images/add.jpg)"></li>
+            <?php } ?>
         </ul>
 
         <div data-role="popup" id="reviewpopup" class="reviewpopup" data-overlay-theme="a" data-corners="false" data-tolerance="30,15">
+            <!--<p>是否删除该图片?</p>-->
+            <div><a id="deletebutton" href="" rel="external" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-mini">删除此图片</a></div>
             <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
             <img src="" alt="review" class="reviewimage">
-            <div class="deletebutton"></div>
         </div>
     </div>
 
@@ -87,6 +99,7 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
 
         document.querySelector('#uplaodImages').onclick = function () {
             wx.chooseImage({
+                count: <?=$remainingcount?>,
                 success: function (res) {
                     images.localIds = res.localIds;
                     //alert('已选择 ' + res.localIds.length + ' 张图片');
@@ -122,7 +135,8 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
         $('.reviewimage').attr('src','<?php echo $imageurl; ?>'+uri);
         var link = "../../../Controller/Dispatcher.php?c=submityzpic&objtodelete=" + uri;
         //alert (link);
-        $('.deletebutton').html('<a href="'+ link +'" rel="external" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-mini">删除此图片</a>');
+        //$('.deletebutton').html('<a href="'+ link +'" rel="external" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-mini">删除此图片</a>');
+        $('#deletebutton').attr('href', link);
         $('.reviewpopup').popup('open');
     }
 

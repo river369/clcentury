@@ -67,7 +67,7 @@ class YZPicBo
         // access_token 应该全局存储与更新，以下代码以写入到文件中做示例
         $access_token = WeixinHelper::getAccessTokenWithLocalFile();
         $url = "http://file.api.weixin.qq.com/cgi-bin/media/get?access_token=".$access_token."&media_id=".$media_id;
-        $object = "yzphoto/pics/".$userID."/".$i.".jpg";
+        $object = "yzphoto/pics/".$userID."/".date('YmdHis')."_".$i.".jpg";
         $options = array();
         OSSHelper::putObject($object, file_get_contents($url), $options);
         return ;
