@@ -96,11 +96,18 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
         <p><?php echo $userData['description']; ?></p>
     </div>
 
-    <ul id="scroller">
-        <?php foreach ($objArray as $obj) { ?>
-            <li><img src="<?php echo $imageurl.$obj; ?>" width="290" height="200"></li>
+    <div data-role="content">
+        <h5>图片:</h5>
+        <?php if (sizeof($objArray) > 0) { ?>
+            <ul id="scroller">
+                <?php foreach ($objArray as $obj) { ?>
+                    <li><img src="<?php echo $imageurl.$obj; ?>" width="290" height="200"></li>
+                <?php } ?>
+            </ul>
+        <?php } else { ?>
+            <p>未上传图片</p>
         <?php } ?>
-    </ul>
+    </div>
 
     <div data-role="content">
         <h5>服务信息:</h5>
