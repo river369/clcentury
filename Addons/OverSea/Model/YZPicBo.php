@@ -58,7 +58,7 @@ class YZPicBo
             foreach ($objectList as $objectInfo) {
                 $objArray[] = $objectInfo->getKey();
             }
-            $_SESSION['objArray'] = $objArray;
+            $_SESSION['objArray'.$userID] = $objArray;
         }
     }
     // 获取图片地址
