@@ -6,6 +6,8 @@
  * Time: 07:52
  */
 session_start();
+$status= $_SESSION['submityzstatus'];
+$userData= $_SESSION['userData'];
 ?>
 
 <!DOCTYPE html>
@@ -29,9 +31,6 @@ session_start();
     </div>
 
     <div data-role="content">
-        <?php $status= $_SESSION['submityzstatus'];
-               $userData= $_SESSION['userData'];
-        ?>
         <p><?php echo $userData['name']; ?> 发送易知 <?php echo $status; ?> ,谢谢!</p>
     </div>
 

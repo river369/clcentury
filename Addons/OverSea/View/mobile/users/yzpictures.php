@@ -13,8 +13,8 @@ $signature=$_SESSION['$signature'];
 unset($_SESSION['$timestamp'], $_SESSION['$nonceStr'], $_SESSION['$signature']);
 
 $objArray;
-if (isset($_SESSION['$objArray'])){
-    $objArray = $_SESSION['$objArray'] ;
+if (isset($_SESSION['objArray'])){
+    $objArray = $_SESSION['objArray'] ;
     //unset($_SESSION['$objArray']);
 }
 $maxcount = 5;
