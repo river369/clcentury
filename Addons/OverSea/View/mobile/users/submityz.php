@@ -18,10 +18,32 @@ $existedUser = $_SESSION['signedUserInfo'] ;
     <meta content="application/xhtml+xml;charset=UTF-8" http-equiv="Content-Type">
     <title>易知海外</title>
 
-    <script src="../../resource/js/jquery/jquery-1.11.1.min.js"></script>
-    <script src="../../resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
-
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
+    <link rel="stylesheet" href="../../resource/style/tag/jquery.tagit.css"type="text/css" />
+    <link rel="stylesheet" href="../../resource/style/tag/tagit.ui-zendesk.css"type="text/css" />
+
+    <script src="../../resource/js/jquery/jquery-1.11.1.min.js"></script>
+    <script src="../../resource/js/jquery/jquery-ui-1.11.1.min.js"></script>
+    <script src="../../resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
+    <script src="../../resource/js/tag/tag-it.min.js"></script>
+
+    <script>
+        $(function(){
+            var sampleTags = ['c++', 'lua'];
+
+            //-------------------------------
+            // Tag-it methods
+            //-------------------------------
+            $('#methodTags').tagit({
+                availableTags: sampleTags,
+                // This will make Tag-it submit a single form value, as a comma-delimited field.
+                singleField: true,
+                singleFieldNode: $('#mytags'),
+                removeConfirmation: true
+            });
+        });
+    </script>
+
 </head>
 <body>
 <div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
@@ -67,14 +89,48 @@ $existedUser = $_SESSION['signedUserInfo'] ;
             <textarea cols="30" rows="8" name="description" id="description" data-mini="true">
                 <?php echo isset($existedUser['description']) ? $existedUser['description']: ''; ?>
             </textarea>
+
+            <!--
+            <input name="tags" id="methodTags" value="诚实守信,价格合理">
+            -->
+            <label for="methodTags">
+                <a href="#tagpopup" data-rel="popup" class="ui-controlgroup-label ui-shadow ui-corner-all">选取或填写特长:</a>
+            </label>
+            <ul id="methodTags"></ul>
+            <input name="mytags" id="mytags" value="诚实守信,价格合理" type="hidden">
+            
             <input type="submit" name="yzsubmit" id="yzsubmit" value="发布">
         </form>
+    </div>
+
+    <div data-role="popup" id="tagpopup" data-overlay-theme="a" data-corners="false" data-tolerance="30,15">
+        <!--<p>是否删除该图片?</p>-->
+        <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+        <h3>特长:</h3>
+        <div class="ui-grid-a">
+            <div class="ui-block-a"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="tagwith('经验丰富1')">经验丰富1</a></div>
+            <div class="ui-block-b"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="tagwith('长的帅长的帅长的')">长的长的帅</a></div>
+            <div class="ui-block-a"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="tagwith('长的帅1')">长的帅1</a></div>
+            <div class="ui-block-b"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="tagwith('长的帅2')">长的帅2</a></div>
+            <div class="ui-block-a"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="tagwith('长的帅3')">长的帅3</a></div>
+            <div class="ui-block-b"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="tagwith('听话,乖')">听话,乖</a></div>
+            <div class="ui-block-a"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="tagwith('经验丰富验丰富')">经验丰富</a></div>
+            <div class="ui-block-b"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="tagwith('长的帅9')">长的帅9</a></div>
+        </div>
     </div>
 
     <div data-role="footer" data-position="fixed">
         <h4>Copyright (c) 2016 .</h4>
     </div>
 </div>
+
+<script>
+    function tagwith(tag){
+        $('#methodTags').tagit('createTag', tag);
+        return false;
+    }
+</script>
+
 </body>
 </html>
 

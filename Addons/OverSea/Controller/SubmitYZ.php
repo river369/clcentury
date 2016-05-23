@@ -39,6 +39,9 @@ if (isset($_POST ['serviceprice'] )){
     $userData['serviceprice'] = $_POST ['serviceprice'];
 }
 
+if (isset( $_POST ['mytags'])){
+    $userData['tag'] = $_POST ['mytags'];
+}
 if (UsersDao::updateUser($userData,$_SESSION['signedUser'])==0) {
     $_SESSION['submityzstatus'] = '成功';
 } else {
