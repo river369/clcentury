@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta content="application/xhtml+xml;charset=UTF-8" http-equiv="Content-Type">
+    <title>易知海外</title>
+
+    <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
+    <link rel="stylesheet" href="../../resource/style/tag/jquery.tagit.css"type="text/css" />
+    <link rel="stylesheet" href="../../resource/style/tag/tagit.ui-zendesk.css"type="text/css" />
+
+    <script src="../../resource/js/jquery/jquery-1.11.1.min.js"></script>
+    <script src="../../resource/js/jquery/jquery-ui-1.11.1.min.js"></script>
+    <script src="../../resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
+    <script src="../../resource/js/tag/tag-it.min.js"></script>
+    <script>
+        $(function(){
+            var sampleTags = ['c++', 'lua'];
+
+            //-------------------------------
+            // Tag events
+            //-------------------------------
+            var eventTags = $('#eventTags');
+
+            var addEvent = function(text) {
+                $('#events_container').append(text + '<br>');
+            };
+
+            eventTags.tagit({
+                availableTags: sampleTags,
+                beforeTagAdded: function(evt, ui) {
+                    if (!ui.duringInitialization) {
+                        addEvent('beforeTagAdded: ' + eventTags.tagit('tagLabel', ui.tag));
+                    }
+                },
+                afterTagAdded: function(evt, ui) {
+                    if (!ui.duringInitialization) {
+                        addEvent('afterTagAdded: ' + eventTags.tagit('tagLabel', ui.tag));
+                    }
+                },
+                beforeTagRemoved: function(evt, ui) {
+                    addEvent('beforeTagRemoved: ' + eventTags.tagit('tagLabel', ui.tag));
+                },
+                afterTagRemoved: function(evt, ui) {
+                    addEvent('afterTagRemoved: ' + eventTags.tagit('tagLabel', ui.tag));
+                },
+                onTagClicked: function(evt, ui) {
+                    addEvent('onTagClicked: ' + eventTags.tagit('tagLabel', ui.tag));
+                },
+                onTagExists: function(evt, ui) {
+                    addEvent('onTagExists: ' + eventTags.tagit('tagLabel', ui.existingTag));
+                }
+            });
+
+
+            //-------------------------------
+            // Tag-it methods
+            //-------------------------------
+            $('#methodTags').tagit({
+                availableTags: sampleTags,
+                removeConfirmation: true
+            });
+
+
+        });
+    </script>
+
+
+</head>
+<body>
+<div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
+    <div data-role="header" data-position="fixed">
+        <h1>登陆</h1>
+    </div>
+
+    <div id="wrapper">
+        <div id="content">
+
+            <h3>Events</h3>
+            <form>
+                <ul id="eventTags">
+                    <li>Click my label</li>
+                    <li>Remove me</li>
+                </ul>
+            </form>
+            <div id="events_container"></div>
+
+            <hr>
+
+            <h3>Methods</h3>
+            <form>
+                <p>Demos the available widget methods. Click the links below the widget to try them.</p>
+                <ul id="methodTags"></ul>
+                <p><a href="#" onclick="var inp=prompt('Enter a tag value to test the createTag method.');$('#methodTags').tagit('createTag', inp);return false;">Create tag</a></p>
+            </form>
+
+        </div>
+    </div>
+
+    <div data-role="footer" data-position="fixed">
+        <h4>Copyright (c) 2016 .</h4>
+    </div>
+</div>
+<script type="text/javascript">
+
+</script>
+</body>
+</html>
+

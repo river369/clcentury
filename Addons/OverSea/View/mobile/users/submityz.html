@@ -7,10 +7,29 @@
     <meta content="application/xhtml+xml;charset=UTF-8" http-equiv="Content-Type">
     <title>易知海外</title>
 
-    <script src="../../resource/js/jquery/jquery-1.11.1.min.js"></script>
-    <script src="../../resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
-
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
+    <link rel="stylesheet" href="../../resource/style/tag/jquery.tagit.css"type="text/css" />
+    <link rel="stylesheet" href="../../resource/style/tag/tagit.ui-zendesk.css"type="text/css" />
+
+    <script src="../../resource/js/jquery/jquery-1.11.1.min.js"></script>
+    <script src="../../resource/js/jquery/jquery-ui-1.11.1.min.js"></script>
+    <script src="../../resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
+    <script src="../../resource/js/tag/tag-it.min.js"></script>
+
+    <script>
+        $(function(){
+            var sampleTags = ['c++', 'lua'];
+
+            //-------------------------------
+            // Tag-it methods
+            //-------------------------------
+            $('#methodTags').tagit({
+                availableTags: sampleTags,
+                removeConfirmation: true
+            });
+        });
+    </script>
+
 </head>
 <body>
 <div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
@@ -54,13 +73,51 @@
 
             <label for="description">自我介绍:</label>
             <textarea cols="30" rows="8" name="description" id="description" data-mini="true"></textarea>
+
+            <label for="methodTags">
+                <a href="#tagpopup" data-rel="popup" class="ui-controlgroup-label ui-shadow ui-corner-all">选取或填写特长:</a>
+            </label>
+            <ul id="methodTags"></ul>
             <input type="submit" name="yzsubmit" id="yzsubmit" value="发布">
         </form>
+    </div>
+
+    <!--
+    <div data-role="panel" id="leftpanel1" data-position="left" data-display="overlay" data-theme="a">
+        <h3>特长</h3>
+        <a href="#demo-links" data-rel="close" class="ui-btn ui-shadow ui-corner-all ui-icon-delete ui-btn-icon-left ui-btn-inline">关闭</a>
+    </div>
+    -->
+
+    <div data-role="popup" id="tagpopup" data-overlay-theme="a" data-corners="false" data-tolerance="30,15">
+        <!--<p>是否删除该图片?</p>-->
+        <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+        <h3>特长</h3>
+        <div class="ui-grid-a">
+            <div class="ui-block-a"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini">经验丰富</a></div>
+            <div class="ui-block-b"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini">长的帅长的帅长的帅长的帅长的帅长的帅</a></div>
+            <div class="ui-block-a"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini">长的帅</a></div>
+            <div class="ui-block-b"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini">长的帅</a></div>
+            <div class="ui-block-a"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini">长的帅</a></div>
+            <div class="ui-block-b"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini">长的帅</a></div>
+            <div class="ui-block-a"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini">长的帅</a></div>
+            <div class="ui-block-b"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini">长的帅</a></div>
+            <div class="ui-block-a"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini">长的帅</a></div>
+            <div class="ui-block-b"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini">长的帅</a></div>
+            <div class="ui-block-a"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini">经验丰富经验丰富经验丰富</a></div>
+            <div class="ui-block-b"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini">长的帅</a></div>
+        </div>
     </div>
 
     <div data-role="footer" data-position="fixed">
         <h4>Copyright (c) 2016 .</h4>
     </div>
 </div>
+<script>
+    function changeshowpanel() {
+        $('#leftpanel1').popup('open');
+        //$('#leftpanel1').popup('open');
+    }
+</script>
 </body>
 </html>
