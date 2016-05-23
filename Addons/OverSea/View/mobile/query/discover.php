@@ -54,8 +54,11 @@ $serviceType = isset($_SESSION['servicetype'])? $_SESSION['servicetype'] : 1;
             </li>
             <li data-role="list-divider">
                 <p>
-                    <a href="javascript:alert(222);">西雅图</a>
-                    <a href="javascript:alert(222);">WA1</a>
+            <?php $tags = $userData['tag'];
+                $tagsArray = explode(',',$tags);
+                foreach ($tagsArray as $tag){ ?>
+                    <a href="javascript:alert('developing...');"> <?php echo $tag; ?></a>
+            <?php } ?>
                 </p>
             </li>
         </ul>

@@ -48,7 +48,7 @@ $existedUser = $_SESSION['signedUserInfo'] ;
 <body>
 <div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
     <div data-role="header" data-position="fixed">
-        <h1>发个易知</h1>
+        <h1>易知信息</h1>
     </div>
 
     <div data-role="content">
@@ -60,25 +60,25 @@ $existedUser = $_SESSION['signedUserInfo'] ;
 
             <fieldset data-role="controlgroup">
                 <legend>你的服务类型:</legend>
-                <input name="service-1" id="service-1" checked="" type="checkbox">
+                <input name="service-1" id="service-1" type="checkbox" <?php if ($existedUser['servicetype'] == 1 || $existedUser['servicetype'] == 99999) {echo 'checked="true"'; } ?> >
                 <label for="service-1">旅游</label>
-                <input name="service-2" id="service-2" type="checkbox">
+                <input name="service-2" id="service-2" type="checkbox" <?php if ($existedUser['servicetype'] == 2 || $existedUser['servicetype'] == 99999) {echo 'checked="true"'; } ?>>
                 <label for="service-2">留学</label>
             </fieldset>
 
             <label for="servicearea">您的服务地点:</label>
             <select name="servicearea" id="servicearea">
                 <optgroup label="美国">
-                    <option value="西雅图">西雅图</option>
-                    <option value="旧金山">旧金山</option>
-                    <option value="纽约">纽约</option>
-                    <option value="洛杉矶">洛杉矶</option>
+                    <option value="西雅图" <?php echo $existedUser['servicearea']=='西雅图'? 'selected = "selected"' : ''; ?> >西雅图</option>
+                    <option value="旧金山" <?php echo $existedUser['servicearea']=='旧金山'? 'selected = "selected"' : ''; ?> >旧金山</option>
+                    <option value="纽约" <?php echo $existedUser['servicearea']=='纽约'? 'selected = "selected"' : ''; ?> >纽约</option>
+                    <option value="洛杉矶" <?php echo $existedUser['servicearea']=='洛杉矶'? 'selected = "selected"' : ''; ?> >洛杉矶</option>
                 </optgroup>
                 <optgroup label="中国">
-                    <option value="北京市">北京市</option>
-                    <option value="上海市">上海市</option>
-                    <option value="天津市">天津市</option>
-                    <option value="重庆市">重庆市</option>
+                    <option value="北京市" <?php echo $existedUser['servicearea']=='北京市'? 'selected = "selected"' : ''; ?>>北京市</option>
+                    <option value="上海市" <?php echo $existedUser['servicearea']=='上海市'? 'selected = "selected"' : ''; ?>>上海市</option>
+                    <option value="天津市" <?php echo $existedUser['servicearea']=='天津市'? 'selected = "selected"' : ''; ?>>天津市</option>
+                    <option value="重庆市" <?php echo $existedUser['servicearea']=='重庆市'? 'selected = "selected"' : ''; ?>>重庆市</option>
                 </optgroup>
             </select>
 
@@ -97,7 +97,7 @@ $existedUser = $_SESSION['signedUserInfo'] ;
                 <a href="#tagpopup" data-rel="popup" class="ui-controlgroup-label ui-shadow ui-corner-all">选取或填写特长:</a>
             </label>
             <ul id="methodTags"></ul>
-            <input name="mytags" id="mytags" value="诚实守信,价格合理" type="hidden">
+            <input name="mytags" id="mytags" value="<?php echo isset($existedUser['tag']) ? $existedUser['tag']: ''; ?>" type="hidden">
             
             <input type="submit" name="yzsubmit" id="yzsubmit" value="发布">
         </form>
