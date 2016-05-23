@@ -82,30 +82,19 @@
         </form>
     </div>
 
-    <!--
-    <div data-role="panel" id="leftpanel1" data-position="left" data-display="overlay" data-theme="a">
-        <h3>特长</h3>
-        <a href="#demo-links" data-rel="close" class="ui-btn ui-shadow ui-corner-all ui-icon-delete ui-btn-icon-left ui-btn-inline">关闭</a>
-    </div>
-    -->
-
     <div data-role="popup" id="tagpopup" data-overlay-theme="a" data-corners="false" data-tolerance="30,15">
         <!--<p>是否删除该图片?</p>-->
         <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
-        <h3>特长</h3>
+        <h3>特长:</h3>
         <div class="ui-grid-a">
-            <div class="ui-block-a"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini">经验丰富</a></div>
-            <div class="ui-block-b"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini">长的帅长的帅长的帅长的帅长的帅长的帅</a></div>
-            <div class="ui-block-a"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini">长的帅</a></div>
-            <div class="ui-block-b"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini">长的帅</a></div>
-            <div class="ui-block-a"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini">长的帅</a></div>
-            <div class="ui-block-b"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini">长的帅</a></div>
-            <div class="ui-block-a"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini">长的帅</a></div>
-            <div class="ui-block-b"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini">长的帅</a></div>
-            <div class="ui-block-a"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini">长的帅</a></div>
-            <div class="ui-block-b"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini">长的帅</a></div>
-            <div class="ui-block-a"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini">经验丰富经验丰富经验丰富</a></div>
-            <div class="ui-block-b"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini">长的帅</a></div>
+            <div class="ui-block-a"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="tagwith('经验丰富1')">经验丰富1</a></div>
+            <div class="ui-block-b"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="tagwith('长的帅长的帅长的')">长的长的帅</a></div>
+            <div class="ui-block-a"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="tagwith('长的帅1')">长的帅1</a></div>
+            <div class="ui-block-b"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="tagwith('长的帅2')">长的帅2</a></div>
+            <div class="ui-block-a"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="tagwith('长的帅3')">长的帅3</a></div>
+            <div class="ui-block-b"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="tagwith('长的帅4')">guaiguaib</a></div>
+            <div class="ui-block-a"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="tagwith('经验丰富验丰富')">经验丰富</a></div>
+            <div class="ui-block-b"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="tagwith('长的帅9')">长的帅9</a></div>
         </div>
     </div>
 
@@ -114,9 +103,9 @@
     </div>
 </div>
 <script>
-    function changeshowpanel() {
-        $('#leftpanel1').popup('open');
-        //$('#leftpanel1').popup('open');
+    function tagwith(tag){
+        $('#methodTags').tagit('createTag', tag);
+        return false;
     }
 </script>
 </body>
