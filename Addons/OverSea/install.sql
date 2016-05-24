@@ -22,6 +22,21 @@ PRIMARY KEY (`id`)
 insert into `clctravel`.`clc_users`(id,phonereigon,phonenumber,password,openid,name,gender,weixin,email,description,servicearea,servicetype,
 serviceprice,servicepriceunit,stars) select id,phonereigon,phonenumber,password,openid,name,gender,weixin,email,description,servicearea,servicetype,
 serviceprice,servicepriceunit,stars from temp;
+
+--Orders
+CREATE TABLE IF NOT EXISTS `clctravel`.`clc_orders` (
+`id` bigint(12) NOT NULL AUTO_INCREMENT COMMENT '主键',
+`customerid` bigint(12)  NOT NULL COMMENT 'The people to buy',
+`sellerid` bigint(12)  NOT NULL COMMENT 'The people to sell',
+`servicearea` varchar(50) DEFAULT NULL  COMMENT '服务区域',
+`servicetype` int(10) DEFAULT -1  COMMENT '服务类型 1 旅游, 2 留学, 99999 all, -1 nothing',
+`serviceprice` int(10) DEFAULT 50  COMMENT '服务价格',
+`servicepriceunit` varchar(10)  DEFAULT "人民币"  COMMENT '服务价格单位',
+`hoursnumber` int(10) DEFAULT 50  COMMENT '服务小时数',
+`message` text DEFAULT NULL  COMMENT '留言',
+PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
+
 ------------------------Deprecated V2-------------------------
 
 --Users
