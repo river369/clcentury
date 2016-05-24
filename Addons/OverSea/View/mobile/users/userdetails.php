@@ -94,9 +94,7 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
     <div data-role="content">
         <h5>服务宣言:</h5>
         <p><?php echo $userData['description']; ?></p>
-    </div>
-
-    <div data-role="content">
+  
         <h5>图片:</h5>
         <?php if (sizeof($objArray) > 0) { ?>
             <ul id="scroller">
@@ -107,16 +105,13 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
         <?php } else { ?>
             <p>未上传图片</p>
         <?php } ?>
-    </div>
-
-    <div data-role="content">
+ 
         <h5>服务信息:</h5>
         <ul data-role="listview" data-inset="true">
             <li><?php echo $userData['stars']; ?>星服务 <span class="ui-li-count">6次咨询</span></li>
             <li>服务地点:<?php echo $userData['servicearea']; ?> <span class="ui-li-count">价格:￥<?php echo $userData['serviceprice']; ?>/小时</span></li>
         </ul>
-    </div>
-    <div data-role="content">
+
         <h5>特长</h5>
         <div class="ui-grid-a">
             <?php $tags = $userData['tag'];
