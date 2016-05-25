@@ -8,17 +8,29 @@
 namespace Addons\OverSea\Model;
 use Addons\OverSea\Common\MySqlHelper;
 
-class OrdersDao
+class OrderActionsDao
 {
-    public static function getOrderById($id)
+    public static function getOrderActionById($id)
     {
         $sql = 'SELECT * FROM clc_order_actions WHERE id= :id LIMIT 1';
         //echo $sql;
-        $order = MySqlHelper::fetchOne($sql, array(':id' => $id));
-        return $order;
+        $orderAction = MySqlHelper::fetchOne($sql, array(':id' => $id));
+        return $orderAction;
     }
-    
-    public static function insertOrder($data)
+
+    public static function getOrderActionsByOrderId($orderid)
+    {
+        $sql = 'SELECT * FROM clc_order_actions WHERE orderid= :orderid';
+        //echo $sql;
+        $orders = MySqlHelper::fetchOne($sql, array(':orderid' => $orderid));
+        return $orders;
+
+        $sql = 'SELECT * FROM clc_order_actions WHERE id= :id LIMIT 1';
+        //echo $sql;
+        $orderAction = MySqlHelper::fetchAll($sql, array(':id' => $id));
+        return $orderAction;
+    }
+    public static function insertOrderAction($data)
     {
         try {
             //$data['create_date'] = time();
@@ -27,7 +39,7 @@ class OrdersDao
                 //echo $k."-".$v;
                 $tmpData[':' . $k] = $v;
             }
-            $sql = 'INSERT INTO clc_orders (' . implode(',', array_keys($data)) . ') VALUES (' . implode(',', array_keys($tmpData)) . ')';
+            $sql = 'INSERT INTO clc_order_actions (' . implode(',', array_keys($data)) . ') VALUES (' . implode(',', array_keys($tmpData)) . ')';
             //echo $sql;
             MySqlHelper::query($sql, $tmpData);
         } catch (\Exception $e){
@@ -37,10 +49,10 @@ class OrdersDao
         return MySqlHelper::getLastInsertId();
     }
 
-    public static function updateOrder($data, $id)
+    public static function updateOrderAction($data, $id)
     {
         try {
-            $sql = "update clc_orders set ";
+            $sql = "update clc_order_actions set ";
             foreach ($data as $k => $v) {
                 //echo $k."-".$v;
                 if ($v != null && $v != ''){

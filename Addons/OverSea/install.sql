@@ -28,16 +28,18 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`clc_orders` (
 `id` bigint(12) NOT NULL AUTO_INCREMENT COMMENT '主键',
 `customerid` bigint(12)  NOT NULL COMMENT 'The people to buy',
 `sellerid` bigint(12)  NOT NULL COMMENT 'The people to sell',
-`condition` int(10) DEFAULT 0  COMMENT '服务类型 0 已经创建',
+`conditions` int(10) DEFAULT 0  COMMENT '服务类型 0 已经创建',
 `servicearea` varchar(50) DEFAULT NULL  COMMENT '服务区域',
 `servicetype` int(10) DEFAULT -1  COMMENT '服务类型 1 旅游, 2 留学, 99999 all, -1 nothing',
 `serviceprice` int(10) DEFAULT 50  COMMENT '服务价格',
 `servicepriceunit` varchar(10)  DEFAULT "人民币"  COMMENT '服务价格单位',
-`servicehours` int(10) DEFAULT 50  COMMENT '服务小时数',
+`servicehours` int(10) DEFAULT 1  COMMENT '服务小时数',
 `servicetotalfee` int(10) DEFAULT 50  COMMENT '服务小时数',
 `requestmessage` text DEFAULT NULL  COMMENT '留言',
 PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
+
+INSERT INTO clc_orders (sellerid,conditions,customerid) VALUES (1,0,2) ;
 
 CREATE TABLE IF NOT EXISTS `clctravel`.`clc_order_actions` (
 `id` bigint(12) NOT NULL AUTO_INCREMENT COMMENT '主键',
