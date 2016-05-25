@@ -1,9 +1,18 @@
 <?php
 session_start();
-$userData= $_SESSION['userData'];
+$sellerData= $_SESSION['sellerData'];
+$servicetype=$sellerData['servicetype'];
+$servicetypeDesc;
+if ($servicetype==1){
+    $servicetypeDesc = '旅游';
+} else if ($servicetype==2){
+    $servicetypeDesc = '留学';
+} else if ($servicetype==99999){
+    $servicetypeDesc = '旅游,留学';
+}
 
 $objArray;
-$objkey='objArray'.$userData['id'];
+$objkey='sellerObjArray';
 if (isset($_SESSION[$objkey])){
     $objArray = $_SESSION[$objkey] ;
 }
@@ -88,12 +97,12 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
 <body>
 <div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
     <div data-role="header" data-position="fixed">
-        <h1><?php echo $userData['name']; ?>的主页</h1>
+        <h1><?php echo $sellerData['name']; ?>的主页</h1>
     </div>
 
     <div data-role="content">
         <h5>服务宣言:</h5>
-        <p><?php echo $userData['description']; ?></p>
+        <p><?php echo $sellerData['description']; ?></p>
   
         <h5>图片:</h5>
         <?php if (sizeof($objArray) > 0) { ?>
@@ -108,13 +117,15 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
  
         <h5>服务信息:</h5>
         <ul data-role="listview" data-inset="true">
-            <li><?php echo $userData['stars']; ?>星服务 <span class="ui-li-count">6次咨询</span></li>
-            <li>服务地点:<?php echo $userData['servicearea']; ?> <span class="ui-li-count">价格:￥<?php echo $userData['serviceprice']; ?>/小时</span></li>
+            <li><?php echo $sellerData['stars']; ?>星服务 <span class="ui-li-count">6次咨询</span></li>
+            <li>服务地点: <span class="ui-li-count"><?php echo $sellerData['servicearea']; ?></span></li>
+            <li>服务类型: <span class="ui-li-count"><?php echo $servicetypeDesc; ?></span></li>
+            <li>服务价格: <span class="ui-li-count">￥<?php echo $sellerData['serviceprice']; ?>/小时</span></li>
         </ul>
 
         <h5>特长</h5>
         <div class="ui-grid-a">
-            <?php $tags = $userData['tag'];
+            <?php $tags = $sellerData['tag'];
             $tagsArray = explode(',',$tags);
             $loc = 'a';
             foreach ($tagsArray as $tag){ ?>
@@ -130,7 +141,7 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
         <div data-role="navbar">
             <ul>
                 <li><a href="../orders/submitorder.html" rel="external" >聊聊看</a></li>
-                <li><a href="../orders/submitorder.html" rel="external" >购买</a></li>
+                <li><a href="../../../Controller/AuthUserDispatcher.php?c=submitorder&sellerid=<?php echo $sellerData['id']; ?>" rel="external">购买</a></li>
             </ul>
         </div>
     </div>

@@ -43,6 +43,6 @@ if (!isset($existedUser['phonenumber'])){
     if (isset($_SESSION['weixinOpenid'])) {
         UsersDao::updateOpenid($_SESSION['weixinOpenid'], $existedUser['id']);
     }
-    header('Location:./Dispatcher.php');
+    header('Location:./AuthUserDispatcher.php');
 }
 ?>

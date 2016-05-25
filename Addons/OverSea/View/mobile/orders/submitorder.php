@@ -1,4 +1,24 @@
-<!DOCTYPE html>
+<?php
+/**
+ * Created by PhpStorm.
+ * User: jianguog
+ * Date: 16/5/9
+ * Time: 21:54
+ */
+session_start();
+$sellerData= $_SESSION['sellerData'];
+$servicetype=$sellerData['servicetype'];
+$servicetypeDesc;
+if ($servicetype==1){
+    $servicetypeDesc = '旅游';
+} else if ($servicetype==2){
+    $servicetypeDesc = '留学';
+} else if ($servicetype==99999){
+    $servicetypeDesc = '旅游,留学';
+}
+$price = $sellerData['serviceprice'];
+
+?>
 <html lang="zh-cmn-Hans">
 <head>
     <meta charset="UTF-8">
@@ -15,16 +35,16 @@
 
 <div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
     <div data-role="header" data-position="fixed">
-        <h1>购买River的服务</h1>
+        <h1>购买<?php echo $sellerData['name']; ?>的服务</h1>
     </div>
 
     <form id="submitorder" data-ajax="false" method="post" action="../../../Controller/SubmitYZ.php">
         <div data-role="content">
             <h5>服务信息:</h5>
             <ul data-role="listview" data-inset="true">
-                <li>服务地点: <span class="ui-li-count">旧金山</span></li>
-                <li>服务类型: <span class="ui-li-count">旅游,留学</span></li>
-                <li>服务价格: <span class="ui-li-count">￥1000/小时</span></li>
+                <li>服务地点: <span class="ui-li-count"><?php echo $sellerData['servicearea']; ?></span></li>
+                <li>服务类型: <span class="ui-li-count"><?php echo $servicetypeDesc; ?></span></li>
+                <li>服务价格: <span class="ui-li-count">￥<?php echo $price; ?>/小时</span></li>
             </ul>
             <h5>咨询时长:</h5>
             <div id="div-slider">
@@ -33,27 +53,26 @@
 
             <h5>总计(￥):</h5>
             <div id="totalmoney">
-                <input type="text" name="servicetotalfee" id="servicetotalfee"  value=""/>
+                <input type="text" name="servicetotalfee" id="servicetotalfee"  value="<?php echo $price; ?>"/>
             </div>
 
             <h5>咨询话题:</h5>
             <textarea cols="30" rows="8" name="requestmessage" id="requestmessage" data-mini="true"></textarea>
 
             <input type="hidden" name="customerid" id="customerid"  value=""/>
-            <input type="hidden" name="sellerid" id="sellerid"  value=""/>
-            <input type="hidden" name="servicearea" id="servicearea"  value=""/>
-            <input type="hidden" name="servicetype" id="servicetype"  value=""/>
-            <input type="hidden" name="serviceprice" id="serviceprice"  value=""/>
-            <input type="hidden" name="servicepriceunit" id="servicepriceunit"  value=""/>
+            <input type="hidden" name="sellerid" id="sellerid"  value="<?php echo $sellerData['sellerid']; ?>"/>
+            <input type="hidden" name="servicearea" id="servicearea"  value="<?php echo $sellerData['servicearea']; ?>"/>
+            <input type="hidden" name="servicetype" id="servicetype"  value="<?php echo $sellerData['servicetype']; ?>"/>
+            <input type="hidden" name="serviceprice" id="serviceprice"  value="<?php echo $sellerData['serviceprice']; ?>"/>
         </div>
 
-    <div data-role="footer" data-position="fixed">
-        <div data-role="navbar">
-            <ul>
-                <li><a href="#" onclick="JavaScript:$('#submitorder').submit();" rel="external" >去付款</a></li>
-            </ul>
+        <div data-role="footer" data-position="fixed">
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#" onclick="JavaScript:$('#submitorder').submit();" rel="external" >去付款</a></li>
+                </ul>
+            </div>
         </div>
-    </div>
 </div>
 <script type="text/javascript">
     $("#div-slider").change(function() {
@@ -65,3 +84,5 @@
 
 </body>
 </html>
+
+

@@ -116,7 +116,7 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
                                 if (i < length) {
                                     upload();
                                 } else {
-                                    window.location.href = '../../../Controller/Dispatcher.php?c=submityzpic&serverids=' + images.serverIds;
+                                    window.location.href = '../../../Controller/AuthUserDispatcher.php?c=submityzpic&serverids=' + images.serverIds;
                                 }
                             },
                             fail: function (res) {
@@ -133,7 +133,7 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
 
     function changepopup(uri) {
         $('.reviewimage').attr('src','<?php echo $imageurl; ?>'+uri);
-        var link = "../../../Controller/Dispatcher.php?c=submityzpic&objtodelete=" + uri;
+        var link = "../../../Controller/AuthUserDispatcher.php?c=submityzpic&objtodelete=" + uri;
         //alert (link);
         //$('.deletebutton').html('<a href="'+ link +'" rel="external" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-mini">删除此图片</a>');
         $('#deletebutton').attr('href', link);
