@@ -17,7 +17,7 @@ if ($servicetype==1){
     $servicetypeDesc = '旅游,留学';
 }
 $price = $sellerData['serviceprice'];
-
+$signedUser = $_SESSION['signedUser'];
 ?>
 <html lang="zh-cmn-Hans">
 <head>
@@ -38,7 +38,7 @@ $price = $sellerData['serviceprice'];
         <h1>购买<?php echo $sellerData['name']; ?>的服务</h1>
     </div>
 
-    <form id="submitorder" data-ajax="false" method="post" action="../../../Controller/SubmitYZ.php">
+    <form id="submitorder" data-ajax="false" method="post" action="../../../Controller/AuthUserDispatcher.php?c=createorder">
         <div data-role="content">
             <h5>服务信息:</h5>
             <ul data-role="listview" data-inset="true">
@@ -59,8 +59,8 @@ $price = $sellerData['serviceprice'];
             <h5>咨询话题:</h5>
             <textarea cols="30" rows="8" name="requestmessage" id="requestmessage" data-mini="true"></textarea>
 
-            <input type="hidden" name="customerid" id="customerid"  value=""/>
-            <input type="hidden" name="sellerid" id="sellerid"  value="<?php echo $sellerData['sellerid']; ?>"/>
+            <input type="hidden" name="customerid" id="customerid"  value="<?php echo $signedUser;?>"/>
+            <input type="hidden" name="sellerid" id="sellerid"  value="<?php echo $sellerData['id']; ?>"/>
             <input type="hidden" name="servicearea" id="servicearea"  value="<?php echo $sellerData['servicearea']; ?>"/>
             <input type="hidden" name="servicetype" id="servicetype"  value="<?php echo $sellerData['servicetype']; ?>"/>
             <input type="hidden" name="serviceprice" id="serviceprice"  value="<?php echo $sellerData['serviceprice']; ?>"/>

@@ -11,9 +11,10 @@ function initLoad()
     include_once dirname(__FILE__).'/Common/YunpianSMSHelper.php';
     include_once dirname(__FILE__).'/Common/OSSHelper.php';
     include_once dirname(__FILE__). '/Model/UsersDao.php';
-    include_once dirname(__FILE__). '/Model/UsersOrdersDao.php';
+    include_once dirname(__FILE__). '/Model/OrdersDao.php';
     include_once dirname(__FILE__). '/Model/UsersBo.php';
     include_once dirname(__FILE__). '/Model/SellersBo.php';
+    include_once dirname(__FILE__). '/Model/OrdersBo.php';
     include_once dirname(__FILE__). '/Model/YZPicBo.php';
     return true;
 }
