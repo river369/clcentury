@@ -61,6 +61,7 @@ $signedUser = $_SESSION['signedUser'];
 
             <input type="hidden" name="customerid" id="customerid"  value="<?php echo $signedUser;?>"/>
             <input type="hidden" name="sellerid" id="sellerid"  value="<?php echo $sellerData['id']; ?>"/>
+            <input type="hidden" name="sellername" id="sellername"  value="<?php echo $sellerData['name']; ?>"/>
             <input type="hidden" name="servicearea" id="servicearea"  value="<?php echo $sellerData['servicearea']; ?>"/>
             <input type="hidden" name="servicetype" id="servicetype"  value="<?php echo $sellerData['servicetype']; ?>"/>
             <input type="hidden" name="serviceprice" id="serviceprice"  value="<?php echo $sellerData['serviceprice']; ?>"/>
@@ -77,7 +78,8 @@ $signedUser = $_SESSION['signedUser'];
 <script type="text/javascript">
     $("#div-slider").change(function() {
         var slider_value = $("#servicehours").val();
-        html = '<input type="text" name="servicetotalfee" id="servicetotalfee"  value="' + slider_value * 1000 +'"/>';
+        var service_price = <?php echo $price;?>;
+        html = '<input type="text" name="servicetotalfee" id="servicetotalfee"  value="' + slider_value * service_price +'"/>';
         $("#totalmoney").html(html);
     });
 </script>

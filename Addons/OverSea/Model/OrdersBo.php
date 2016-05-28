@@ -21,6 +21,7 @@ class OrdersBo
         $orderData = array();
         
         $orderData['sellerid'] = isset($_POST ['sellerid']) ? $_POST ['sellerid'] : "";
+        $orderData['sellername'] = isset($_POST ['sellername']) ? $_POST ['sellername'] : "";
         $orderData['conditions'] = 0;
         $orderData['customerid'] = isset($_POST ['customerid']) ? $_POST ['customerid'] : "";
         $orderData['servicearea']  = isset($_POST ['servicearea']) ? $_POST ['servicearea'] : "";
@@ -38,6 +39,7 @@ class OrdersBo
             $orderActionData['orderid'] = $orderid;
             $orderActionData['action'] = 0;
             $orderActionData['creation_date'] = date('y-m-d h:i:s',time());
+            $orderActionData['actioner'] = 1;
             OrderActionsDao::insertOrderAction($orderActionData);
             $_SESSION['createOrderStatus'] = '成功';
         } else {
@@ -66,6 +68,22 @@ class OrdersBo
         $_SESSION['orderData']= $orderData;
     }
 
+    public function getOrderByCustomerAndCondition() {
+        $customerid  = $_GET ['customerid'];
+        $condition = $_GET ['condition'];
+        $orders = OrdersDao::getOrderByCustomerAndCondition($customerid, $condition);
+        $_SESSION['customerOrders'] = $orders;
+        $_SESSION['customerId'] = $customerid;
+        $_SESSION['customerOrdersCondition'] = $condition;
+    }
 
+    public function getOrderBySellerAndCondition() {
+        $sellerid  = $_GET ['sellerid'];
+        $condition = $_GET ['condition'];
+        $orders = OrdersDao::getOrderByCustomerAndCondition($sellerid, $condition);
+        $_SESSION['sellerOrders'] = $orders;
+        $_SESSION['sellerid'] = $sellerid;
+        $_SESSION['SellerOrdersCondition'] = $condition;
+    }
 
 }

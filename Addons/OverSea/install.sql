@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`clc_users` (
 `phonenumber` varchar(20) NOT NULL  COMMENT '电话号码',
 `password` varchar(30) NOT NULL  COMMENT '',
 `openid` varchar(100) DEFAULT NULL COMMENT '微信openid',
-`name` varchar(255)  DEFAULT NULL  COMMENT '标题',
+`name` varchar(255)  DEFAULT NULL  COMMENT '姓名',
 `gender` int(10)  DEFAULT 1 COMMENT '性别',
 `weixin` varchar(50)  DEFAULT NULL  COMMENT '微信号',
 `email` varchar(50) DEFAULT NULL  COMMENT '邮件',
@@ -28,6 +28,7 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`clc_orders` (
 `id` bigint(12) NOT NULL AUTO_INCREMENT COMMENT '主键',
 `customerid` bigint(12)  NOT NULL COMMENT 'The people to buy',
 `sellerid` bigint(12)  NOT NULL COMMENT 'The people to sell',
+`sellername` varchar(255)  DEFAULT NULL  COMMENT 'seller姓名',
 `conditions` int(10) DEFAULT 0  COMMENT '服务类型 0 已经创建',
 `servicearea` varchar(50) DEFAULT NULL  COMMENT '服务区域',
 `servicetype` int(10) DEFAULT -1  COMMENT '服务类型 1 旅游, 2 留学, 99999 all, -1 nothing',
@@ -46,6 +47,8 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`clc_order_actions` (
 `orderid` bigint(12)  NOT NULL COMMENT 'order id',
 `action` int(10) DEFAULT 0 NOT NULL COMMENT '服务类型 0 创建订单',
 `creation_date` datetime  NOT NULL COMMENT 'entry datetime',
+`actioner` int(2) DEFAULT -1  COMMENT 'Action person 1 Customer, 2 Seller',
+`comments` text DEFAULT NULL  COMMENT 'action description',
 PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
 

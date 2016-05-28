@@ -22,16 +22,14 @@ class OrderActionsDao
     {
         $sql = 'SELECT * FROM clc_order_actions WHERE orderid= :orderid';
         //echo $sql;
-        $orders = MySqlHelper::fetchOne($sql, array(':orderid' => $orderid));
-        return $orders;
+        $orderActions = MySqlHelper::fetchAll($sql, array(':orderid' => $orderid));
+        return $orderActions;
 
-        $sql = 'SELECT * FROM clc_order_actions WHERE id= :id LIMIT 1';
-        //echo $sql;
-        $orderAction = MySqlHelper::fetchAll($sql, array(':id' => $id));
-        return $orderAction;
     }
+    
     public static function insertOrderAction($data)
     {
+
         try {
             //$data['create_date'] = time();
             $tmpData = array();

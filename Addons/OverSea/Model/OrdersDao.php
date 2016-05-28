@@ -10,6 +10,23 @@ use Addons\OverSea\Common\MySqlHelper;
 
 class OrdersDao
 {
+
+    public static function getOrderBySellerAndCondition($sellerid, $condition)
+    {
+        $sql = 'SELECT * FROM clc_orders WHERE sellerid= :sellerid and conditions= :condition';
+        //echo $sql;
+        $orders = MySqlHelper::fetchAll($sql, array(':sellerid' => $sellerid, ':condition' => $condition));
+        return $orders;
+    }
+    
+    public static function getOrderByCustomerAndCondition($customerid, $condition)
+    {
+        $sql = 'SELECT * FROM clc_orders WHERE customerid= :customerid and conditions= :condition';
+        //echo $sql;
+        $orders = MySqlHelper::fetchAll($sql, array(':customerid' => $customerid, ':condition' => $condition));
+        return $orders;
+    }
+    
     public static function getOrderById($id)
     {
         $sql = 'SELECT * FROM clc_order_actions WHERE id= :id LIMIT 1';
@@ -28,7 +45,7 @@ class OrdersDao
                 $tmpData[':' . $k] = $v;
             }
             $sql = 'INSERT INTO clc_orders (' . implode(',', array_keys($data)) . ') VALUES (' . implode(',', array_keys($tmpData)) . ')';
-            //echo $sql;
+            echo $sql;
             MySqlHelper::query($sql, $tmpData);
         } catch (\Exception $e){
             echo $e;
