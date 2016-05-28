@@ -15,13 +15,16 @@ session_start();
 //c - command, like signin, m - model, f - function in model, v - view,  d - description
 $method_routes = array(
     'signin' => array('v'=>'../View/mobile/users/signin.php','d'=>''),//submit yz
-    'mine' => array('v'=>'../View/mobile/users/mine.php','d'=>''),
+    'mine' => array('v'=>'../View/mobile/users/mine.php','d'=>'我的订单'),
     'submityzpic' => array('m'=>'Addons\OverSea\Model\YZPicBo', 'f'=>'handlePics', 'v'=>'../View/mobile/users/yzpictures.php','d'=>'发易知图片'),
     'submityz' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'getCurrentUserInfo', 'v'=>'../View/mobile/users/submityz.php','d'=>'发易知信息'),
     'submitorder' => array('m'=>'Addons\OverSea\Model\SellersBo', 'f'=>'getCurrentSellerInfo', 'v'=>'../View/mobile/orders/submitorder.php','d'=>'用户订购确认'),
     'createorder' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'createOrder', 'v'=>'../View/mobile/orders/submitorderstatus.php','d'=>'创建订单'),
-    'querycustomerorder' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'getOrderByCustomerAndCondition', 'v'=>'../View/mobile/orders/customerorderlist.php','d'=>'查看买家订单'),
-    'querysellerorder' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'getOrderBySellerAndCondition', 'v'=>'../View/mobile/orders/sellerorderlist.php','d'=>'查看卖家订单'),
+    'querycustomerorder' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'getOrderByCustomerAndCondition', 'v'=>'../View/mobile/orders/customerorderlist.php', 'd'=>'查看买家订单'),
+    'querysellerorder' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'getOrderBySellerAndCondition', 'v'=>'../View/mobile/orders/sellerorderlist.php', 'd'=>'查看卖家订单'),
+    'rejectorder' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'rejectOrder', 'v'=>'../View/mobile/orders/sellerorderlist.php', 'd'=>'拒绝订单'),
+    'acceptorder' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'acceptOrder', 'v'=>'./AuthUserDispatcher.php?c=querysellerorder&condition=2', 'd'=>'接受订单'),
+
 );
 
 $command;
@@ -33,6 +36,7 @@ if (isset($_GET ['c'])){
     // get call back url from SESSION
     $command = $_SESSION['callbackurl'];
 }
+
 if (isset($_SESSION['signedUser'])) {
     // first choice is session
     goToCommand($method_routes, $command);

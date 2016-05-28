@@ -1,64 +1,92 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="zh-cmn-Hans">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>易知海外</title>
 
-    <title></title>
-    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" />
-    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-    <script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
+    <script src="../../resource/js/jquery/jquery-1.11.1.min.js"></script>
+    <script src="../../resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script >
-        /**
-         这里为listview的ul标签事先设置一个模板，然后与后台的数据key相对应
-         */
-        $(function(){
-            //1、请求数据，这里就用本地数据了
-            var data=[
-                {name:'mokai',age:'18',birthday:'1994-6-10',depat:'人事部'},
-                {name:'gongkai',age:'20',birthday:'1994-9-18',depat:'系统管理员'},
-                {name:'gongjingki',age:'23',birthday:'1984-1-10',depat:'人事部'},
-                {name:'caidi',age:'22',birthday:'1991-1-10',depat:'开发部'},
-                {name:'zhouzheng',age:'35',birthday:'1984-1-10',depat:'开发部'},
-            ];
-
-            var viewObj=$("#user_view");
-
-            /*2、循环遍历数据，并克隆模板，将数据插入到模板dbField相对应的节点中，然后增加到listview上*/
-            for(var i=0; i<data.length; i++){
-                var liTplObj=$("#li_tpl").clone();
-                for(var key in data[i]){
-                    $("[dbField='"+key+"']",liTplObj).html(data[i][key]);
-                }
-                viewObj.append(liTplObj);
-            }
-
-            //3、刷新 以上二种都可以刷新数据
-            viewObj.listview("refresh");
-            //viewObj.selectmenu("refresh",true);
-
-        });
-    </script>
+    <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
+    <style type="text/css">
+    </style>
 </head>
 <body>
-<div data-role='page' id="content_page">
-    <div data-role='header'>
-        <h1>用户列表</h1>
+<div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
+    <div data-role="header" data-position="fixed">
+        <h1>我提供的服务</h1>
     </div>
-    <div data-role='content'>
-        <div id="user_cont">
-            <ul data-role='listview' id="user_view">
-                <li id="li_tpl">
-                    <a>
-                        <p><h1 dbField='name'>Mokai</h1><p>
-                        <p>年龄：<span dbField='age'>18</span></p>
-                        <p>出生日期：<span dbField='birthday'>1994-06-10</span></p>
-                    </a>
-                </li>
+
+    <div role="main" class="ui-content jqm-content jqm-fullwidth">
+        <div data-role="navbar">
+            <ul>
+                <li><a href="../../../Controller/AuthUserDispatcher.php?c=querysellerorder&sellerid=<?php echo $sellerid;?>&condition="<?php echo $ordersCondition;?> <?php echo $ordersCondition == 0 ? "class='ui-btn-active'" : ''; ?>>待接收</a></li>
+                <li><a href="#" <?php echo $ordersCondition == 2 ? "class='ui-btn-active'" : '' ?>>已接收</a></li>
+                <li><a href="#" <?php echo $ordersCondition == 4 ? "class='ui-btn-active'" : '' ?>>已完成</a></li>
+                <li><a href="#" <?php echo $ordersCondition == 8 ? "class='ui-btn-active'" : '' ?>>已到账</a></li>
             </ul>
+        </div><!-- /navbar -->
+        <?php
+        foreach($orders as $key => $order)
+        {
+        $orderid = $order['id'];
+        ?>
+        <ul data-role="listview" data-inset="true">
+            <li data-role="list-divider">订单号: <span class="ui-li-count"><?php echo $order['id'];?></span></li>
+            <li>
+                <a href="../users/sellerdetails.html" rel="external">
+                    <img class="weui_media_appmsg_thumb" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB4CAMAAAAOusbgAAAAeFBMVEUAwAD///+U5ZTc9twOww7G8MYwzDCH4YcfyR9x23Hw+/DY9dhm2WZG0kbT9NP0/PTL8sux7LFe115T1VM+zz7i+OIXxhes6qxr2mvA8MCe6J6M4oz6/frr+us5zjn2/fa67rqB4IF13XWn6ad83nxa1loqyirn+eccHxx4AAAC/klEQVRo3u2W2ZKiQBBF8wpCNSCyLwri7v//4bRIFVXoTBBB+DAReV5sG6lTXDITiGEYhmEYhmEYhmEYhmEY5v9i5fsZGRx9PyGDne8f6K9cfd+mKXe1yNG/0CcqYE86AkBMBh66f20deBc7wA/1WFiTwvSEpBMA2JJOBsSLxe/4QEEaJRrASP8EVF8Q74GbmevKg0saa0B8QbwBdjRyADYxIhqxAZ++IKYtciPXLQVG+imw+oo4Bu56rjEJ4GYsvPmKOAB+xlz7L5aevqUXuePWVhvWJ4eWiwUQ67mK51qPj4dFDMlRLBZTqF3SDvmr4BwtkECu5gHWPkmDfQh02WLxXuvbvC8ku8F57GsI5e0CmUwLz1kq3kD17R1In5816rGvQ5VMk5FEtIiWislTffuDpl/k/PzscdQsv8r9qWq4LRWX6tQYtTxvI3XyrwdyQxChXioOngH3dLgOFjk0all56XRi/wDFQrGQU3Os5t0wJu1GNtNKHdPqYaGYQuRDfbfDf26AGLYSyGS3ZAK4S8XuoAlxGSdYMKwqZKM9XJMtyqXi7HX/CiAZS6d8bSVUz5J36mEMFDTlAFQzxOT1dzLRljjB6+++ejFqka+mXIe6F59mw22OuOw1F4T6lg/9VjL1rLDoI9Xzl1MSYDNHnPQnt3D1EE7PrXjye/3pVpr1Z45hMUdcACc5NVQI0bOdS1WA0wuz73e7/5TNqBPhQXPEFGJNV2zNqWI7QKBd2Gn6AiBko02zuAOXeWIXjV0jNqdKegaE/kJQ6Bfs4aju04lMLkA2T5wBSYPKDGF3RKhFYEa6A1L1LG2yacmsaZ6YPOSAMKNsO+N5dNTfkc5Aqe26uxHpx7ZirvgCwJpWq/lmX1hA7LyabQ34tt5RiJKXSwQ+0KU0V5xg+hZrd4Bn1n4EID+WkQdgLfRNtvil9SPfwy+WQ7PFBWQz6dGWZBLkeJFXZGCfLUjCgGgqXo5TuSu3cugdcTv/HjqnBTEMwzAMwzAMwzAMwzAMw/zf/AFbXiOA6frlMAAAAABJRU5ErkJggg==" alt="">
+                    <h2> <?php echo $order['sellername'];?> </h2>
+                    <p style="white-space:pre-wrap;"><?php echo $order['requestmessage'];?> </p>
+                    <p class="ui-li-aside">￥<?php echo $order['serviceprice'];?>/小时</p>
+                </a>
+            </li>
+            <?php if ($ordersCondition == 0) {?>
+            <li>
+                <div class="ui-grid-a">
+                    <div class="ui-block-a"><a href="#rejectDialog" data-rel="popup" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="rejectPopup('1')">拒绝</a></div>
+                    <div class="ui-block-b"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="tagwith('长的帅长的帅长的')">确认接单</a></div>
+                </div>
+            </li>
+            <?php } ?>
+        </ul>
+        <?php } ?>
+
+        <div data-role="popup" id="rejectDialog" data-overlay-theme="b" data-theme="b" style="max-width:400px;">
+            <div data-role="header" data-theme="a">
+                <h1>拒绝订单</h1>
+            </div>
+            <div role="main" class="ui-content">
+                <h3 class="ui-title" id="rejectorderid">确定拒绝订单? </h3>
+                <form id="submityz" data-ajax="false" method="post" action="../../../Controller/SignIn.php">
+                    <input type="hidden" name="orderid" id="orderid" value="">
+                    <label for="rejectreason">拒绝原因:</label>
+                    <textarea cols="30" rows="8" name="requestmessage" id="rejectreason" data-mini="true"></textarea>
+                    <input type="submit" name="rejectsubmit" id="rejectsubmit" value="坚决拒掉">
+                </form>
+                <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+            </div>
         </div>
     </div>
+
+    <div data-role="footer" data-position="fixed">
+        <h4>Copyright (c) 2016 .</h4>
+    </div>
+
 </div>
+
+<script>
+    function rejectPopup(orderid) {
+        var messages = "确定拒绝订单" + orderid + "?";
+        //alert ($('#rejectorderid').html());
+        $('#rejectorderid').html(messages);
+        $('#orderid').val(orderid);
+        $('#rejectDialog').popup('open');
+    }
+
+</script>
 </body>
 </html>
+

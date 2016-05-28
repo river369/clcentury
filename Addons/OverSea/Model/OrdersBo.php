@@ -69,7 +69,7 @@ class OrdersBo
     }
 
     public function getOrderByCustomerAndCondition() {
-        $customerid  = $_GET ['customerid'];
+        $customerid  = isset($_GET ['customerid']) ? $_GET ['customerid'] : $_SESSION['signedUser'];
         $condition = $_GET ['condition'];
         $orders = OrdersDao::getOrderByCustomerAndCondition($customerid, $condition);
         $_SESSION['customerOrders'] = $orders;
@@ -78,7 +78,7 @@ class OrdersBo
     }
 
     public function getOrderBySellerAndCondition() {
-        $sellerid  = $_GET ['sellerid'];
+        $sellerid  = $customerid  = isset($_GET ['sellerid']) ? $_GET ['sellerid'] : $_SESSION['signedUser'];
         $condition = $_GET ['condition'];
         $orders = OrdersDao::getOrderBySellerAndCondition($sellerid, $condition);
         $_SESSION['sellerOrders'] = $orders;
@@ -86,4 +86,45 @@ class OrdersBo
         $_SESSION['SellerOrdersCondition'] = $condition;
     }
 
+    public function rejectOrder() {
+        $orderid  = $_POST ['rejectorderid'];
+        $rejectreason = $_POST ['rejectreason'];
+        $condition = 100;
+        $sellerid = $_SESSION['signedUser'];
+
+        $ret = OrdersDao::updateOrderCondition($orderid, $condition, $sellerid);
+        //echo $ret;
+        if ($ret == 0){
+            $orderActionData = array();
+            $orderActionData['orderid'] = $orderid;
+            $orderActionData['action'] = $condition;
+            $orderActionData['creation_date'] = date('y-m-d h:i:s',time());
+            $orderActionData['actioner'] = 2;
+            $orderActionData['comments'] = $rejectreason;
+            OrderActionsDao::insertOrderAction($orderActionData);
+            echo "订单已被拒绝";
+            exit(1); // to be refact
+        } else {
+            
+        }
+    }
+
+    public function acceptOrder() {
+        $orderid  = $_POST ['acceptorderid'];
+        $condition = 2;
+        $sellerid = $_SESSION['signedUser'];
+
+        $ret = OrdersDao::updateOrderCondition($orderid, $condition, $sellerid);
+        //echo $ret;
+        if ($ret == 0){
+            $orderActionData = array();
+            $orderActionData['orderid'] = $orderid;
+            $orderActionData['action'] = $condition;
+            $orderActionData['creation_date'] = date('y-m-d h:i:s',time());
+            $orderActionData['actioner'] = 2;
+            OrderActionsDao::insertOrderAction($orderActionData);
+        } else {
+
+        }
+    }
 }

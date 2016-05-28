@@ -10,29 +10,56 @@ use Addons\OverSea\Common\MySqlHelper;
 
 class OrdersDao
 {
+    public static function updateOrderCondition($orderid, $condition, $sellerid)
+    {
+        try {
+            $sql = "update clc_orders set conditions = :condition where id =:id and sellerid=:sellerid";
+            //echo $sql
+            MySqlHelper::query($sql, array(':condition' => $condition, ':id' => $orderid, ':sellerid' => $sellerid ));
+            return 0;
+        } catch (\Exception $e){
+            return -1;
+            echo $e;
+        }
+    }
 
     public static function getOrderBySellerAndCondition($sellerid, $condition)
     {
-        $sql = 'SELECT * FROM clc_orders WHERE sellerid= :sellerid and conditions= :condition';
-        //echo $sql;
-        $orders = MySqlHelper::fetchAll($sql, array(':sellerid' => $sellerid, ':condition' => $condition));
-        return $orders;
+        try {
+            $sql = 'SELECT * FROM clc_orders WHERE sellerid= :sellerid and conditions= :condition';
+            //echo $sql;
+            $orders = MySqlHelper::fetchAll($sql, array(':sellerid' => $sellerid, ':condition' => $condition));
+            return $orders;
+        } catch (\Exception $e){
+            echo $e;
+            exit;
+        }
     }
     
     public static function getOrderByCustomerAndCondition($customerid, $condition)
     {
-        $sql = 'SELECT * FROM clc_orders WHERE customerid= :customerid and conditions= :condition';
-        //echo $sql;
-        $orders = MySqlHelper::fetchAll($sql, array(':customerid' => $customerid, ':condition' => $condition));
-        return $orders;
+        try {
+            $sql = 'SELECT * FROM clc_orders WHERE customerid= :customerid and conditions= :condition';
+            //echo $sql;
+            $orders = MySqlHelper::fetchAll($sql, array(':customerid' => $customerid, ':condition' => $condition));
+            return $orders;
+        } catch (\Exception $e){
+            echo $e;
+            exit;
+        }
     }
     
     public static function getOrderById($id)
     {
-        $sql = 'SELECT * FROM clc_order_actions WHERE id= :id LIMIT 1';
-        //echo $sql;
-        $order = MySqlHelper::fetchOne($sql, array(':id' => $id));
-        return $order;
+        try {
+            $sql = 'SELECT * FROM clc_order_actions WHERE id= :id LIMIT 1';
+            //echo $sql;
+            $order = MySqlHelper::fetchOne($sql, array(':id' => $id));
+            return $order;
+        } catch (\Exception $e){
+            echo $e;
+            exit;
+        }
     }
     
     public static function insertOrder($data)
