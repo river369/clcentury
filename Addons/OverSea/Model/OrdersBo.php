@@ -80,7 +80,7 @@ class OrdersBo
     public function getOrderBySellerAndCondition() {
         $sellerid  = $_GET ['sellerid'];
         $condition = $_GET ['condition'];
-        $orders = OrdersDao::getOrderByCustomerAndCondition($sellerid, $condition);
+        $orders = OrdersDao::getOrderBySellerAndCondition($sellerid, $condition);
         $_SESSION['sellerOrders'] = $orders;
         $_SESSION['sellerid'] = $sellerid;
         $_SESSION['SellerOrdersCondition'] = $condition;
