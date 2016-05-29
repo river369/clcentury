@@ -8,34 +8,36 @@
 session_start();
 $order= $_SESSION['orderDetail'];
 $orderActions = $_SESSION['orderActionDetails'] ;
+$orderStatus = getOrderStatusString($order['conditions']);
+$orderStopReason = getOrderStopReason($order['conditions'], $orderActions);
 
-function getOrderStatusString($status)
+function getOrderStatusString($condition)
 {
     $orderStatus = '';
-    switch ($status)
+    switch ($condition)
     {
         case 0:
             $orderStatus = "买家已付款,等待卖家接收";
             break;
-        case 102:
+        case 1020:
             $orderStatus = "卖家拒绝了该订单";
             break;
-        case 2:
+        case 20:
             $orderStatus = "卖家已接收";
             break;
-        case 104:
+        case 1040:
             $orderStatus = "卖家取消了该订单";
             break;
-        case 4:
+        case 40:
             $orderStatus = "卖家已将订单置为完成,等待买家确认";
             break;
-        case 106:
+        case 1060:
             $orderStatus = "买家取消了该订单";
             break;
-        case 6:
+        case 60:
             $orderStatus = "买家已将订单置为完成,等待易知付款";
             break;
-        case 8:
+        case 80:
             $orderStatus = "易知已经完成付款,订单结束";
             break;
 
@@ -43,8 +45,16 @@ function getOrderStatusString($status)
     return $orderStatus;
 }
 
-$orderStatus = getOrderStatusString($order['conditions']);
+function getOrderStopReason($condition, $orderActions)
+{
+    foreach ($orderActions as $key => $orderAction) {
 
+        if ($orderAction['action'] == $condition){
+            return $orderAction['comments'];
+        }
+    }
+    return null;
+}
 ?>
 
 <!DOCTYPE html>
@@ -82,7 +92,10 @@ $orderStatus = getOrderStatusString($order['conditions']);
             <li data-role="list-divider">卖家: <span class="ui-li-count"><?php echo $order['sellername'];?></span></li>
             <li data-role="list-divider">买家: <span class="ui-li-count"><?php echo $order['customername'];?></span></li>
             <li data-role="list-divider">订单状态: <span class="ui-li-count"><?php echo $orderStatus;?></span></li>
-            <li data-role="list-divider">买家留言: <span class="ui-li-count"><?php echo $order['requestmessage'];?></span></li>
+            <?php if(!is_null($orderStopReason)){ ?>
+                <li data-role="list-divider">订单停止原因: <span class="ui-li-count"><?php echo $orderStopReason;?></span></li>
+            <?php } ?>
+            <li data-role="list-divider">买家咨询话题: <span class="ui-li-count"><?php echo $order['requestmessage'];?></span></li>
             <li data-role="list-divider">价格: <span class="ui-li-count">￥<?php echo $order['serviceprice'];?>/小时</span></li>
             <li data-role="list-divider">已购买: <span class="ui-li-count"><?php echo $order['servicehours'];?>小时</span></li>
             <li data-role="list-divider">总计: <span class="ui-li-count"><?php echo $order['servicetotalfee'];?>元</span></li>
@@ -109,25 +122,25 @@ $orderStatus = getOrderStatusString($order['conditions']);
                     "', shortContent: '".$orderAction['creation_date'] ."',},";
             ?>
             <?php } ?>
-            <?php if ($lastAction < 2) {?>
+            <?php if ($lastAction < 20) {?>
             {
                 type: 'milestone',
                 label: '卖家确认',
             },
             <?php } ?>
-            <?php if ($lastAction < 4) {?>
+            <?php if ($lastAction < 40) {?>
             {
                 type: 'milestone',
                 label: '卖家完成任务',
             },
             <?php } ?>
-            <?php if ($lastAction < 6) {?>
+            <?php if ($lastAction < 60) {?>
             {
                 type: 'milestone',
                 label: '买家评论',
             },
             <?php } ?>
-            <?php if ($lastAction < 8) {?>
+            <?php if ($lastAction < 80) {?>
             {
                 type: 'milestone',
                 label: '易知付款',

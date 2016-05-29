@@ -43,13 +43,13 @@ PRIMARY KEY (`id`)
 
 订单状态 :
  0 customer created, seller 待接收
- 102 seller 已拒绝,
- 2 seller 已接收,
- 4 seller 已完成, customer 待确认
- 104 seller 已取消
- 106 customer 已取消
- 6 customer 已确认完成
- 8 yz已经支付
+ 1020 seller 已拒绝,
+ 20 seller 已接收,
+ 40 seller 已完成, customer 待确认
+ 1040 seller 已取消
+ 1060 customer 已取消
+ 60 customer 已确认完成
+ 80 yz已经支付
 
 INSERT INTO clc_orders (sellerid,conditions,customerid) VALUES (1,0,2) ;
 

@@ -35,9 +35,9 @@ $ordersCondition= $_SESSION['customerOrdersCondition'];
         <div data-role="navbar">
             <ul>
                 <li><a href="../../../Controller/AuthUserDispatcher.php?c=queryCustomerOrders&customerid=<?php echo $customerid;?>&condition=0" <?php echo $ordersCondition == 0 ? "class='ui-btn-active'" : ''; ?> rel="external">已购买</a></li>
-                <li><a href="../../../Controller/AuthUserDispatcher.php?c=queryCustomerOrders&customerid=<?php echo $customerid;?>&condition=4" <?php echo $ordersCondition == 4 ? "class='ui-btn-active'" : '' ?> rel="external">待确认</a></li>
-                <li><a href="../../../Controller/AuthUserDispatcher.php?c=queryCustomerOrders&customerid=<?php echo $customerid;?>&condition=6" <?php echo $ordersCondition == 6 ? "class='ui-btn-active'" : '' ?> rel="external">已完成</a></li>
-                <li><a href="../../../Controller/AuthUserDispatcher.php?c=queryCustomerOrders&customerid=<?php echo $customerid;?>&condition=102,104,106" <?php echo $ordersCondition == 102,104,106 ? "class='ui-btn-active'" : '' ?> rel="external">已取消</a></li>
+                <li><a href="../../../Controller/AuthUserDispatcher.php?c=queryCustomerOrders&customerid=<?php echo $customerid;?>&condition=40" <?php echo $ordersCondition == 40 ? "class='ui-btn-active'" : '' ?> rel="external">待确认</a></li>
+                <li><a href="../../../Controller/AuthUserDispatcher.php?c=queryCustomerOrders&customerid=<?php echo $customerid;?>&condition=60" <?php echo $ordersCondition == 60 ? "class='ui-btn-active'" : '' ?> rel="external">已完成</a></li>
+                <li><a href="../../../Controller/AuthUserDispatcher.php?c=queryCustomerOrders&customerid=<?php echo $customerid;?>&condition=1020,1040,1060" <?php echo $ordersCondition == 1020,1040,1060 ? "class='ui-btn-active'" : '' ?> rel="external">已取消</a></li>
             </ul>
         </div><!-- /navbar -->
         <?php
@@ -56,7 +56,7 @@ $ordersCondition= $_SESSION['customerOrdersCondition'];
                 </a>
             </li>
             <li data-role="list-divider">已购买: <?php echo $order['servicehours'];?>小时 <span class="ui-li-count">总计: <?php echo $order['servicetotalfee'];?>元</span></li>
-            <?php if ($ordersCondition == 4) {?>
+            <?php if ($ordersCondition == 40) {?>
                 <li>
                     <div class="ui-grid-a">
                         <div class="ui-block-a"><a href="#confirmDialog" data-rel="popup" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="confirmPopup('<?php echo $orderid; ?>')">确认完成</a></div>

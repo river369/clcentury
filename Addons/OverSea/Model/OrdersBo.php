@@ -79,7 +79,7 @@ class OrdersBo
     public function sellerRejectOrder() {
         $orderid  = $_POST ['rejectorderid'];
         $reason = $_POST ['rejectreason'];
-        $condition = 102;
+        $condition = 1020;
         $sellerid = $_SESSION['signedUser'];
         OrdersDao::updateSellerOrderCondition($orderid, $condition, $sellerid);
         self::storeOrderActions($orderid, $condition, 2, $reason);
@@ -87,7 +87,7 @@ class OrdersBo
 
     public function sellerAcceptOrder() {
         $orderid  = $_POST ['acceptorderid'];
-        $condition = 2;
+        $condition = 20;
         $sellerid = $_SESSION['signedUser'];
         OrdersDao::updateSellerOrderCondition($orderid, $condition, $sellerid);
         self::storeOrderActions($orderid, $condition, 2);
@@ -96,7 +96,7 @@ class OrdersBo
     public function sellerCancelOrder() {
         $orderid  = $_POST ['cancelorderid'];
         $reason = $_POST ['cancelreason'];
-        $condition = 104;
+        $condition = 1040;
         $sellerid = $_SESSION['signedUser'];
         OrdersDao::updateSellerOrderCondition($orderid, $condition, $sellerid);
         self::storeOrderActions($orderid, $condition, 2, $reason);
@@ -104,7 +104,7 @@ class OrdersBo
 
     public function sellerFinishOrder() {
         $orderid  = $_POST ['finishorderid'];
-        $condition = 4;
+        $condition = 40;
         $sellerid = $_SESSION['signedUser'];
         OrdersDao::updateSellerOrderCondition($orderid, $condition, $sellerid);
         self::storeOrderActions($orderid, $condition, 2);
@@ -112,7 +112,7 @@ class OrdersBo
 
     public function customerConfirmOrder() {
         $orderid  = $_POST ['confirmorderid'];
-        $condition = 6;
+        $condition = 60;
         $customerid = $_SESSION['signedUser'];
         OrdersDao::updateCustomerOrderCondition($orderid, $condition, $customerid);
         self::storeOrderActions($orderid, $condition, 1);
@@ -126,6 +126,7 @@ class OrdersBo
         date_default_timezone_set('PRC');
         $orderActionData['creation_date'] = date('y-m-d H:i:s',time());
         $orderActionData['actioner'] = $actioner;
+        $orderActionData['comments'] = $reason;
         OrderActionsDao::insertOrderAction($orderActionData);
     }
 }
