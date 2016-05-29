@@ -92,7 +92,7 @@ function getOrderStopReason($condition, $orderActions)
             <li data-role="list-divider">卖家: <span class="ui-li-count"><?php echo $order['sellername'];?></span></li>
             <li data-role="list-divider">买家: <span class="ui-li-count"><?php echo $order['customername'];?></span></li>
             <li data-role="list-divider">订单状态: <span class="ui-li-count"><?php echo $orderStatus;?></span></li>
-            <?php if(!is_null($orderStopReason)){ ?>
+            <?php if(!is_null($orderStopReason) && !empty($orderStopReason)){ ?>
                 <li data-role="list-divider">订单停止原因: <span class="ui-li-count"><?php echo $orderStopReason;?></span></li>
             <?php } ?>
             <li data-role="list-divider">买家咨询话题: <span class="ui-li-count"><?php echo $order['requestmessage'];?></span></li>
