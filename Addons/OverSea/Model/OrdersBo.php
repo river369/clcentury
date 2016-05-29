@@ -68,39 +68,48 @@ class OrdersBo
     }
 
     // Order Operations
-    public function rejectOrder() {
+    public function sellerRejectOrder() {
         $orderid  = $_POST ['rejectorderid'];
         $reason = $_POST ['rejectreason'];
         $condition = 102;
         $sellerid = $_SESSION['signedUser'];
-        OrdersDao::updateOrderCondition($orderid, $condition, $sellerid);
+        OrdersDao::updateSellerOrderCondition($orderid, $condition, $sellerid);
         self::storeOrderActions($orderid, $condition, 2, $reason);
     }
 
-    public function acceptOrder() {
+    public function sellerAcceptOrder() {
         $orderid  = $_POST ['acceptorderid'];
         $condition = 2;
         $sellerid = $_SESSION['signedUser'];
-        OrdersDao::updateOrderCondition($orderid, $condition, $sellerid);
+        OrdersDao::updateSellerOrderCondition($orderid, $condition, $sellerid);
         self::storeOrderActions($orderid, $condition, 2);
     }
 
-    public function cancelOrder() {
+    public function sellerCancelOrder() {
         $orderid  = $_POST ['cancelorderid'];
         $reason = $_POST ['cancelreason'];
         $condition = 104;
         $sellerid = $_SESSION['signedUser'];
-        OrdersDao::updateOrderCondition($orderid, $condition, $sellerid);
+        OrdersDao::updateSellerOrderCondition($orderid, $condition, $sellerid);
         self::storeOrderActions($orderid, $condition, 2, $reason);
     }
 
-    public function finishOrder() {
+    public function sellerFinishOrder() {
         $orderid  = $_POST ['finishorderid'];
         $condition = 4;
         $sellerid = $_SESSION['signedUser'];
-        OrdersDao::updateOrderCondition($orderid, $condition, $sellerid);
+        OrdersDao::updateSellerOrderCondition($orderid, $condition, $sellerid);
         self::storeOrderActions($orderid, $condition, 2);
     }
+
+    public function customerConfirmOrder() {
+        $orderid  = $_POST ['confirmorderid'];
+        $condition = 6;
+        $customerid = $_SESSION['signedUser'];
+        OrdersDao::updateCustomerOrderCondition($orderid, $condition, $customerid);
+        self::storeOrderActions($orderid, $condition, 1);
+    }
+
 
     public function storeOrderActions($orderid, $condition, $actioner, $reason = '') {
         $orderActionData = array();

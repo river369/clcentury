@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`clc_orders` (
 `customerid` bigint(12)  NOT NULL COMMENT 'The people to buy',
 `sellerid` bigint(12)  NOT NULL COMMENT 'The people to sell',
 `sellername` varchar(255)  DEFAULT NULL  COMMENT 'seller姓名',
-`conditions` int(10) DEFAULT 0  COMMENT '订单状态 0 created, 2 accepted, 4 finished, 102 Rejected, 104 canceled' ,
+`conditions` int(10) DEFAULT 0  COMMENT '订单状态 0 created...' ,
 `servicearea` varchar(50) DEFAULT NULL  COMMENT '服务区域',
 `servicetype` int(10) DEFAULT -1  COMMENT '服务类型 1 旅游, 2 留学, 99999 all, -1 nothing',
 `serviceprice` int(10) DEFAULT 50  COMMENT '服务价格',
@@ -39,6 +39,16 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`clc_orders` (
 `requestmessage` text DEFAULT NULL  COMMENT '留言',
 PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
+
+订单状态 :
+ 0 customer created, seller 待接收
+ 102 seller 已拒绝,
+ 2 seller 已接收,
+ 4 seller 已完成, customer 待确认
+ 104 seller 已取消
+ 106 customer 已取消
+ 6 customer 已确认完成
+ 8 yz已经支付
 
 INSERT INTO clc_orders (sellerid,conditions,customerid) VALUES (1,0,2) ;
 

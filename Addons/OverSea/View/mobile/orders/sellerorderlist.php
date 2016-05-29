@@ -38,11 +38,11 @@ $_SESSION[''] = $condition;
     <div role="main" class="ui-content jqm-content jqm-fullwidth">
         <div data-role="navbar">
             <ul>
-                <li><a href="../../../Controller/AuthUserDispatcher.php?c=querysellerorder&sellerid=<?php echo $sellerid;?>&condition=0" <?php echo $ordersCondition == 0 ? "class='ui-btn-active'" : ''; ?> rel="external">待接收</a></li>
-                <li><a href="../../../Controller/AuthUserDispatcher.php?c=querysellerorder&sellerid=<?php echo $sellerid;?>&condition=2" <?php echo $ordersCondition == 2 ? "class='ui-btn-active'" : ''; ?> rel="external">已接收</a></li>
-                <li><a href="../../../Controller/AuthUserDispatcher.php?c=querysellerorder&sellerid=<?php echo $sellerid;?>&condition=4" <?php echo $ordersCondition == 4 ? "class='ui-btn-active'" : ''; ?> rel="external">已完成</a></li>
-                <li><a href="../../../Controller/AuthUserDispatcher.php?c=querysellerorder&sellerid=<?php echo $sellerid;?>&condition=8" <?php echo $ordersCondition == 8 ? "class='ui-btn-active'" : ''; ?> rel="external">已到账</a></li>
-                <li><a href="../../../Controller/AuthUserDispatcher.php?c=querysellerorder&sellerid=<?php echo $sellerid;?>&condition=102,104" <?php echo $ordersCondition == '102,104' ? "class='ui-btn-active'" : '' ?>>已放弃</a></li>
+                <li><a href="../../../Controller/AuthUserDispatcher.php?c=querySellerOrder&sellerid=<?php echo $sellerid;?>&condition=0" <?php echo $ordersCondition == 0 ? "class='ui-btn-active'" : ''; ?> rel="external">待接收</a></li>
+                <li><a href="../../../Controller/AuthUserDispatcher.php?c=querySellerOrder&sellerid=<?php echo $sellerid;?>&condition=2" <?php echo $ordersCondition == 2 ? "class='ui-btn-active'" : ''; ?> rel="external">已接收</a></li>
+                <li><a href="../../../Controller/AuthUserDispatcher.php?c=querySellerOrder&sellerid=<?php echo $sellerid;?>&condition=4" <?php echo $ordersCondition == 4 ? "class='ui-btn-active'" : ''; ?> rel="external">已完成</a></li>
+                <li><a href="../../../Controller/AuthUserDispatcher.php?c=querySellerOrder&sellerid=<?php echo $sellerid;?>&condition=8" <?php echo $ordersCondition == 8 ? "class='ui-btn-active'" : ''; ?> rel="external">已到账</a></li>
+                <li><a href="../../../Controller/AuthUserDispatcher.php?c=querySellerOrder&sellerid=<?php echo $sellerid;?>&condition=102,104,106" <?php echo $ordersCondition == '102,104,106' ? "class='ui-btn-active'" : '' ?>>已放弃</a></li>
             </ul>
         </div><!-- /navbar -->
         <?php
@@ -88,7 +88,7 @@ $_SESSION[''] = $condition;
             </div>
             <div role="main" class="ui-content">
                 <h3 class="ui-title" id="acceptOrderString">确定接收订单? </h3>
-                <form id="acceptorder" data-ajax="false" method="post" action="../../../Controller/AuthUserDispatcher.php?c=acceptorder">
+                <form id="acceptorder" data-ajax="false" method="post" action="../../../Controller/AuthUserDispatcher.php?c=sellerAcceptOrder">
                     <input type="hidden" name="acceptorderid" id="acceptorderid" value="">
                     <input type="submit" name="acceptsubmit" id="acceptsubmit" value="果断接单">
                 </form>
@@ -102,7 +102,7 @@ $_SESSION[''] = $condition;
             </div>
             <div role="main" class="ui-content">
                 <h3 class="ui-title" id="rejectOrderString">确定拒绝订单? </h3>
-                <form id="rejectorder" data-ajax="false" method="post" action="../../../Controller/AuthUserDispatcher.php?c=rejectorder">
+                <form id="rejectorder" data-ajax="false" method="post" action="../../../Controller/AuthUserDispatcher.php?c=sellerRejectOrder">
                     <input type="hidden" name="rejectorderid" id="rejectorderid" value="">
                     <label for="rejectreason">拒绝原因:</label>
                     <textarea cols="30" rows="8" name="rejectreason" id="rejectreason" data-mini="true"></textarea>
@@ -118,7 +118,7 @@ $_SESSION[''] = $condition;
             </div>
             <div role="main" class="ui-content">
                 <h3 class="ui-title" id="finishOrderString">确定完成订单? </h3>
-                <form id="finishOrder" data-ajax="false" method="post" action="../../../Controller/AuthUserDispatcher.php?c=finishorder">
+                <form id="finishOrder" data-ajax="false" method="post" action="../../../Controller/AuthUserDispatcher.php?c=sellerFinishOrder">
                     <input type="hidden" name="finishorderid" id="finishorderid" value="">
                     <input type="submit" name="finishsubmit" id="finishsubmit" value="圆满完成">
                 </form>
@@ -132,7 +132,7 @@ $_SESSION[''] = $condition;
             </div>
             <div role="main" class="ui-content">
                 <h3 class="ui-title" id="cancelOrderString">确定取消订单? </h3>
-                <form id="cancelOrder" data-ajax="false" method="post" action="../../../Controller/AuthUserDispatcher.php?c=cancelorder">
+                <form id="cancelOrder" data-ajax="false" method="post" action="../../../Controller/AuthUserDispatcher.php?c=sellerCancelOrder">
                     <input type="hidden" name="cancelorderid" id="cancelorderid" value="">
                     <label for="cancelreason">取消原因:</label>
                     <textarea cols="30" rows="8" name="cancelreason" id="cancelreason" data-mini="true"></textarea>

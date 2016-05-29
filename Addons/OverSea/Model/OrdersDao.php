@@ -10,12 +10,25 @@ use Addons\OverSea\Common\MySqlHelper;
 
 class OrdersDao
 {
-    public static function updateOrderCondition($orderid, $condition, $sellerid)
+    public static function updateSellerOrderCondition($orderid, $condition, $sellerid)
     {
         try {
             $sql = "update clc_orders set conditions = :condition where id =:id and sellerid=:sellerid";
             //echo $sql
             MySqlHelper::query($sql, array(':condition' => $condition, ':id' => $orderid, ':sellerid' => $sellerid ));
+            return 0;
+        } catch (\Exception $e){
+            return -1;
+            echo $e;
+        }
+    }
+
+    public static function updateCustomerOrderCondition($orderid, $condition, $customerid)
+    {
+        try {
+            $sql = "update clc_orders set conditions = :condition where id =:id and customerid=:customerid";
+            //echo $sql
+            MySqlHelper::query($sql, array(':condition' => $condition, ':id' => $orderid, ':customerid' => $customerid ));
             return 0;
         } catch (\Exception $e){
             return -1;

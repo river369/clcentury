@@ -34,15 +34,16 @@ $ordersCondition= $_SESSION['customerOrdersCondition'];
     <div role="main" class="ui-content jqm-content jqm-fullwidth">
         <div data-role="navbar">
             <ul>
-                <li><a href="../../../Controller/AuthUserDispatcher.php?c=querycustomerorder&customerid=<?php echo $customerid;?>&condition="<?php echo $ordersCondition;?> <?php echo $ordersCondition == 0 ? "class='ui-btn-active'" : ''; ?>>已购买</a></li>
-                <li><a href="#" <?php echo $ordersCondition == 2 ? "class='ui-btn-active'" : '' ?>>待确认</a></li>
-                <li><a href="#" <?php echo $ordersCondition == 4 ? "class='ui-btn-active'" : '' ?>>已完成</a></li>
-                <li><a href="#" <?php echo $ordersCondition == 8 ? "class='ui-btn-active'" : '' ?>>已取消</a></li>
+                <li><a href="../../../Controller/AuthUserDispatcher.php?c=queryCustomerOrder&customerid=<?php echo $customerid;?>&condition=0" <?php echo $ordersCondition == 0 ? "class='ui-btn-active'" : ''; ?> rel="external">已购买</a></li>
+                <li><a href="../../../Controller/AuthUserDispatcher.php?c=queryCustomerOrder&customerid=<?php echo $customerid;?>&condition=4" <?php echo $ordersCondition == 4 ? "class='ui-btn-active'" : '' ?> rel="external">待确认</a></li>
+                <li><a href="../../../Controller/AuthUserDispatcher.php?c=queryCustomerOrder&customerid=<?php echo $customerid;?>&condition=6" <?php echo $ordersCondition == 6 ? "class='ui-btn-active'" : '' ?> rel="external">已完成</a></li>
+                <li><a href="../../../Controller/AuthUserDispatcher.php?c=queryCustomerOrder&customerid=<?php echo $customerid;?>&condition=102,104,106" <?php echo $ordersCondition == 102,104,106 ? "class='ui-btn-active'" : '' ?> rel="external">已取消</a></li>
             </ul>
         </div><!-- /navbar -->
         <?php
         foreach($orders as $key => $order)
         {
+            $orderid = $order['id'];
         ?>
         <ul data-role="listview" data-inset="true">
             <li data-role="list-divider">订单号: <span class="ui-li-count"><?php echo $order['id'];?></span></li>
@@ -55,9 +56,29 @@ $ordersCondition= $_SESSION['customerOrdersCondition'];
                 </a>
             </li>
             <li data-role="list-divider">已购买: <?php echo $order['servicehours'];?>小时 <span class="ui-li-count">总计: <?php echo $order['servicetotalfee'];?>元</span></li>
+            <?php if ($ordersCondition == 4) {?>
+                <li>
+                    <div class="ui-grid-a">
+                        <div class="ui-block-a"><a href="#confirmDialog" data-rel="popup" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="confirmPopup('<?php echo $orderid; ?>')">确认完成</a></div>
+                    </div>
+                </li>
+            <?php } ?>
         </ul>
         <?php } ?>
 
+        <div data-role="popup" id="confirmDialog" data-overlay-theme="a" data-theme="a" style="max-width:400px;">
+            <div data-role="header" data-theme="a">
+                <h1>确认完成</h1>
+            </div>
+            <div role="main" class="ui-content">
+                <h3 class="ui-title" id="confirmOrderString">确认订单已履约完成? </h3>
+                <form id="confirmorder" data-ajax="false" method="post" action="../../../Controller/AuthUserDispatcher.php?c=customerConfirmOrder">
+                    <input type="hidden" name="confirmorderid" id="confirmorderid" value="">
+                    <input type="submit" name="confirmsubmit" id="confirmsubmit" value="确定">
+                </form>
+                <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+            </div>
+        </div>
 
     </div>
 
@@ -65,7 +86,15 @@ $ordersCondition= $_SESSION['customerOrdersCondition'];
         <h4>Copyright (c) 2016 .</h4>
     </div>
 </div>
-
+<script>
+    function confirmPopup(orderid) {
+        var messages = "确认订单" + orderid + "已履约完成?";
+        //alert (messages);
+        $('#confirmOrderString').html(messages);
+        $('#confirmorderid').val(orderid);
+        $('#confirmDialog').popup('open');
+    };
+</script>
 </body>
 </html>
 

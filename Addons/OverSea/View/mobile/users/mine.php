@@ -31,12 +31,12 @@ $customerid = $_SESSION['signedUser'];
                 </a>
             </li>
             <li>
-                <a href="../../../Controller/AuthUserDispatcher.php?c=querycustomerorder&customerid=<?php echo $customerid;?>&condition=0" rel="external">
+                <a href="../../../Controller/AuthUserDispatcher.php?c=queryCustomerOrder&customerid=<?php echo $customerid;?>&condition=0" rel="external">
     我购买的服务
                 </a>
             </li>
             <li>
-                <a href="../../../Controller/AuthUserDispatcher.php?c=querysellerorder&sellerid=<?php echo $customerid;?>&condition=0" rel="external">
+                <a href="../../../Controller/AuthUserDispatcher.php?c=querySellerOrder&sellerid=<?php echo $customerid;?>&condition=0" rel="external">
     我提供的服务
                 </a>
             </li>

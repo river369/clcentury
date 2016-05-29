@@ -38,7 +38,7 @@ $signedUser = $_SESSION['signedUser'];
         <h1>购买<?php echo $sellerData['name']; ?>的服务</h1>
     </div>
 
-    <form id="submitorder" data-ajax="false" method="post" action="../../../Controller/AuthUserDispatcher.php?c=createorder">
+    <form id="submitorder" data-ajax="false" method="post" action="../../../Controller/AuthUserDispatcher.php?c=createOrder">
         <div data-role="content">
             <h5>服务信息:</h5>
             <ul data-role="listview" data-inset="true">
