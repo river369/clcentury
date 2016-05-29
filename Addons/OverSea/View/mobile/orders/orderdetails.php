@@ -8,35 +8,43 @@
 session_start();
 $order= $_SESSION['orderDetail'];
 $orderActions = $_SESSION['orderActionDetails'] ;
-$orderStatus = 0;
-switch ($order['conditions'])
-{
-    case 0:
-        $orderStatus = "订单已创建,等待卖家接收";
-        break;
-    case 102:
-        $orderStatus = "卖家拒绝了该订单";
-        break;
-    case 2:
-        $orderStatus = "卖家已接收";
-        break;
-    case 104:
-        $orderStatus = "卖家取消了该订单";
-        break;
-    case 4:
-        $orderStatus = "卖家已将订单置为完成,等待买家确认";
-        break;
-    case 106:
-        $orderStatus = "买家取消了该订单";
-        break;
-    case 6:
-        $orderStatus = "买家已将订单置为完成,等待易知付款";
-        break;
-    case 8:
-        $orderStatus = "易知已经完成付款,订单结束";
-        break;
 
+function getOrderStatusString($status)
+{
+    $orderStatus = '';
+    switch ($status)
+    {
+        case 0:
+            $orderStatus = "买家已付款,等待卖家接收";
+            break;
+        case 102:
+            $orderStatus = "卖家拒绝了该订单";
+            break;
+        case 2:
+            $orderStatus = "卖家已接收";
+            break;
+        case 104:
+            $orderStatus = "卖家取消了该订单";
+            break;
+        case 4:
+            $orderStatus = "卖家已将订单置为完成,等待买家确认";
+            break;
+        case 106:
+            $orderStatus = "买家取消了该订单";
+            break;
+        case 6:
+            $orderStatus = "买家已将订单置为完成,等待易知付款";
+            break;
+        case 8:
+            $orderStatus = "易知已经完成付款,订单结束";
+            break;
+
+    }
+    return $orderStatus;
 }
+
+$orderStatus = getOrderStatusString($order['conditions']);
+
 ?>
 
 <!DOCTYPE html>
@@ -60,7 +68,7 @@ switch ($order['conditions'])
     </div>
     <div data-role="navbar">
         <ul>
-            <li><a href="javascript:showStatus()">订单状态</a></li>
+            <li><a href="javascript:showStatus()">订单状态(北京时间)</a></li>
             <li><a href="javascript:showOrderDetail()" class="ui-btn-active">订单详情</a></li>
         </ul>
     </div><!-- /navbar -->
@@ -91,21 +99,40 @@ switch ($order['conditions'])
     $('#orderstatus').hide();
     $('#timeline-container-basic').timelineMe({
         items: [
+            <?php
+            $lastAction = 0;
+            foreach($orderActions as $key => $orderAction)
             {
-                type: 'smallItem',
-                label: '付款',
-                shortContent: '已经付款, 日期:20160304',
-                picto: '<img src="../../resource/images/right.png" />',
-            },{
+                $lastAction = $orderAction['action'];
+                $actionString = getOrderStatusString($lastAction);
+                echo "{ type: 'smallItem', label: '".$actionString.
+                    "', shortContent: '".$orderAction['creation_date'] ."',},";
+            ?>
+            <?php } ?>
+            <?php if ($lastAction < 2) {?>
+            {
                 type: 'milestone',
                 label: '卖家确认',
-            },{
-                type: 'milestone',
-                label: '完成任务'
-            },{
-                type: 'milestone',
-                label: '评论'
             },
+            <?php } ?>
+            <?php if ($lastAction < 4) {?>
+            {
+                type: 'milestone',
+                label: '卖家完成任务',
+            },
+            <?php } ?>
+            <?php if ($lastAction < 6) {?>
+            {
+                type: 'milestone',
+                label: '买家评论',
+            },
+            <?php } ?>
+            <?php if ($lastAction < 8) {?>
+            {
+                type: 'milestone',
+                label: '易知付款',
+            },
+            <?php } ?>
         ]
     });
     function showOrderDetail() {

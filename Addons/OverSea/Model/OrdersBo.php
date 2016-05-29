@@ -39,12 +39,7 @@ class OrdersBo
 
         $orderid = OrdersDao::insertOrder($orderData);
         if ($orderid) {
-            $orderActionData = array();
-            $orderActionData['orderid'] = $orderid;
-            $orderActionData['action'] = 0;
-            $orderActionData['creation_date'] = date('y-m-d h:i:s',time());
-            $orderActionData['actioner'] = 1;
-            OrderActionsDao::insertOrderAction($orderActionData);
+            self::storeOrderActions($orderid, 0, 1);
             $_SESSION['createOrderStatus'] = '成功';
         } else {
             $_SESSION['createOrderStatus'] = '失败';
@@ -128,8 +123,9 @@ class OrdersBo
         $orderActionData = array();
         $orderActionData['orderid'] = $orderid;
         $orderActionData['action'] = $condition;
-        $orderActionData['creation_date'] = date('y-m-d h:i:s',time());
-        $orderActionData['actioner'] = 2;
+        date_default_timezone_set('PRC');
+        $orderActionData['creation_date'] = date('y-m-d H:i:s',time());
+        $orderActionData['actioner'] = $actioner;
         OrderActionsDao::insertOrderAction($orderActionData);
     }
 }
