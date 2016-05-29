@@ -27,6 +27,7 @@ serviceprice,servicepriceunit,stars from temp;
 CREATE TABLE IF NOT EXISTS `clctravel`.`clc_orders` (
 `id` bigint(12) NOT NULL AUTO_INCREMENT COMMENT '主键',
 `customerid` bigint(12)  NOT NULL COMMENT 'The people to buy',
+`customername` varchar(255)  DEFAULT NULL  COMMENT 'seller姓名',
 `sellerid` bigint(12)  NOT NULL COMMENT 'The people to sell',
 `sellername` varchar(255)  DEFAULT NULL  COMMENT 'seller姓名',
 `conditions` int(10) DEFAULT 0  COMMENT '订单状态 0 created...' ,

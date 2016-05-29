@@ -17,6 +17,7 @@ class OrdersBo
     public function __construct() {
     }
 
+    // create order
     public function createOrder() {
         $orderData = array();
         
@@ -32,6 +33,9 @@ class OrdersBo
         $orderData['servicetotalfee']  = isset($_POST ['servicetotalfee']) ? $_POST ['servicetotalfee'] : "";
         $orderData['requestmessage']  = isset($_POST ['requestmessage']) ? $_POST ['requestmessage'] : "";
 
+        $userData=UsersDao::getUserById($orderData['customerid']);
+        $customername = (isset($userData['name']) && !is_null($userData['name']))? $userData['name']: "匿名用户";
+        $orderData['customername'] = $customername;
 
         $orderid = OrdersDao::insertOrder($orderData);
         if ($orderid) {
@@ -65,6 +69,15 @@ class OrdersBo
         $_SESSION['sellerOrders'] = $orders;
         $_SESSION['sellerid'] = $sellerid;
         $_SESSION['SellerOrdersCondition'] = $condition;
+    }
+
+    // Get order details
+    public function getOrderDetailsById(){
+        $orderId = $_GET['orderid'];
+        $orderDetail = OrdersDao::getOrderById($orderId);
+        $orderActionDetails = OrderActionsDao::getOrderActionsByOrderId($orderId);
+        $_SESSION['orderDetail'] = $orderDetail;
+        $_SESSION['orderActionDetails'] = $orderActionDetails;
     }
 
     // Order Operations

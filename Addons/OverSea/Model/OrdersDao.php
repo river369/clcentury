@@ -66,7 +66,7 @@ class OrdersDao
     public static function getOrderById($id)
     {
         try {
-            $sql = 'SELECT * FROM clc_order_actions WHERE id= :id LIMIT 1';
+            $sql = 'SELECT * FROM clc_orders WHERE id= :id LIMIT 1';
             //echo $sql;
             $order = MySqlHelper::fetchOne($sql, array(':id' => $id));
             return $order;

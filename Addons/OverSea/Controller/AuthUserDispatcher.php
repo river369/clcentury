@@ -18,17 +18,31 @@ $method_routes = array(
     'mine' => array('v'=>'../View/mobile/users/mine.php','d'=>'我的订单'),
     'submityzpic' => array('m'=>'Addons\OverSea\Model\YZPicBo', 'f'=>'handlePics', 'v'=>'../View/mobile/users/yzpictures.php','d'=>'发易知图片'),
     'submityz' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'getCurrentUserInfo', 'v'=>'../View/mobile/users/submityz.php','d'=>'发易知信息'),
-    'submitOrder' => array('m'=>'Addons\OverSea\Model\SellersBo', 'f'=>'getCurrentSellerInfo', 'v'=>'../View/mobile/orders/submitorder.php','d'=>'用户订购确认'),
-    'createOrder' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'createOrder', 'v'=>'../View/mobile/orders/submitorderstatus.php','d'=>'创建订单'),
     
-    'queryCustomerOrder' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'getOrderByCustomerAndCondition', 'v'=>'../View/mobile/orders/customerorderlist.php', 'd'=>'查看买家订单'),
-    'querySellerOrder' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'getOrderBySellerAndCondition', 'v'=>'../View/mobile/orders/sellerorderlist.php', 'd'=>'查看卖家订单'),
+    'submitOrder' => array('m'=>'Addons\OverSea\Model\SellersBo', 'f'=>'getCurrentSellerInfo', 
+        'v'=>'../View/mobile/orders/submitorder.php','d'=>'用户订购确认'),
+    'createOrder' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'createOrder', 
+        'v'=>'../View/mobile/orders/submitorderstatus.php','d'=>'创建订单'),
     
-    'sellerRejectOrder' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'sellerRejectOrder', 'v'=>'./AuthUserDispatcher.php?c=querySellerOrder&condition=102,104,106', 'd'=>'拒绝订单'),
-    'sellerAcceptOrder' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'sellerAcceptOrder', 'v'=>'./AuthUserDispatcher.php?c=querySellerOrder&condition=2', 'd'=>'接受订单'),
-    'sellerCancelOrder' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'sellerCancelOrder', 'v'=>'./AuthUserDispatcher.php?c=querySellerOrder&condition=102,104,106', 'd'=>'取消订单'),
-    'sellerFinishOrder' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'sellerFinishOrder', 'v'=>'./AuthUserDispatcher.php?c=querySellerOrder&condition=4', 'd'=>'卖家完成订单'),
-    'customerConfirmOrder' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'customerConfirmOrder', 'v'=>'./AuthUserDispatcher.php?c=queryCustomerOrder&condition=6', 'd'=>'买家完成订单'),
+    'queryCustomerOrders' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'getOrderByCustomerAndCondition',
+        'v'=>'../View/mobile/orders/customerorderlist.php', 'd'=>'查看买家订单'),
+    'querySellerOrders' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'getOrderBySellerAndCondition', 
+        'v'=>'../View/mobile/orders/sellerorderlist.php', 'd'=>'查看卖家订单'),
+    
+    'sellerRejectOrder' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'sellerRejectOrder', 
+        'v'=>'./AuthUserDispatcher.php?c=querySellerOrders&condition=102,104,106', 'd'=>'拒绝订单'),
+    'sellerAcceptOrder' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'sellerAcceptOrder', 
+        'v'=>'./AuthUserDispatcher.php?c=querySellerOrders&condition=2', 'd'=>'接受订单'),
+    'sellerCancelOrder' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'sellerCancelOrder', 
+        'v'=>'./AuthUserDispatcher.php?c=querySellerOrders&condition=102,104,106', 'd'=>'取消订单'),
+    'sellerFinishOrder' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'sellerFinishOrder', 
+        'v'=>'./AuthUserDispatcher.php?c=querySellerOrders&condition=4', 'd'=>'卖家完成订单'),
+    'customerConfirmOrder' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'customerConfirmOrder', 
+        'v'=>'./AuthUserDispatcher.php?c=queryCustomerOrders&condition=6', 'd'=>'买家完成订单'),
+
+    'queryOrderDetails' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'getOrderDetailsById',
+        'v'=>'../View/mobile/orders/orderdetails.php', 'd'=>'查看订单详情'),
+
 );
 
 $command;
@@ -75,10 +89,13 @@ function needSignin($method_routes, $command) {
 }
 
 function goToCommand($method_routes, $command) {
+
     if (isset($method_routes[$command]['m']) && isset($method_routes[$command]['f'])){
         try {
             $class = $method_routes[$command]['m'];
             $fun = $method_routes[$command]['f'];
+            //echo $class.$fun;
+            //exit(1);
             $class = new $class();
             call_user_func(array($class, $fun));
         } catch (Exception $e) {

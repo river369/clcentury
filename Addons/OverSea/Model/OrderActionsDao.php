@@ -20,7 +20,7 @@ class OrderActionsDao
 
     public static function getOrderActionsByOrderId($orderid)
     {
-        $sql = 'SELECT * FROM clc_order_actions WHERE orderid= :orderid';
+        $sql = 'SELECT * FROM clc_order_actions WHERE orderid= :orderid order by creation_date asc' ;
         //echo $sql;
         $orderActions = MySqlHelper::fetchAll($sql, array(':orderid' => $orderid));
         return $orderActions;
