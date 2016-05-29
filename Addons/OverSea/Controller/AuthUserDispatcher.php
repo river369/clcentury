@@ -22,9 +22,10 @@ $method_routes = array(
     'createorder' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'createOrder', 'v'=>'../View/mobile/orders/submitorderstatus.php','d'=>'创建订单'),
     'querycustomerorder' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'getOrderByCustomerAndCondition', 'v'=>'../View/mobile/orders/customerorderlist.php', 'd'=>'查看买家订单'),
     'querysellerorder' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'getOrderBySellerAndCondition', 'v'=>'../View/mobile/orders/sellerorderlist.php', 'd'=>'查看卖家订单'),
-    'rejectorder' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'rejectOrder', 'v'=>'../View/mobile/orders/sellerorderlist.php', 'd'=>'拒绝订单'),
+    'rejectorder' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'rejectOrder', 'v'=>'./AuthUserDispatcher.php?c=querysellerorder&condition=102,104', 'd'=>'拒绝订单'),
     'acceptorder' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'acceptOrder', 'v'=>'./AuthUserDispatcher.php?c=querysellerorder&condition=2', 'd'=>'接受订单'),
-
+    'cancelorder' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'cancelOrder', 'v'=>'./AuthUserDispatcher.php?c=querysellerorder&condition=102,104', 'd'=>'取消订单'),
+    'finishorder' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'finishOrder', 'v'=>'./AuthUserDispatcher.php?c=querysellerorder&condition=4', 'd'=>'完成订单'),
 );
 
 $command;

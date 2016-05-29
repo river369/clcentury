@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`clc_orders` (
 `customerid` bigint(12)  NOT NULL COMMENT 'The people to buy',
 `sellerid` bigint(12)  NOT NULL COMMENT 'The people to sell',
 `sellername` varchar(255)  DEFAULT NULL  COMMENT 'seller姓名',
-`conditions` int(10) DEFAULT 0  COMMENT '订单状态 0 created, 2 accepted, 20 Rejected',
+`conditions` int(10) DEFAULT 0  COMMENT '订单状态 0 created, 2 accepted, 4 finished, 102 Rejected, 104 canceled' ,
 `servicearea` varchar(50) DEFAULT NULL  COMMENT '服务区域',
 `servicetype` int(10) DEFAULT -1  COMMENT '服务类型 1 旅游, 2 留学, 99999 all, -1 nothing',
 `serviceprice` int(10) DEFAULT 50  COMMENT '服务价格',

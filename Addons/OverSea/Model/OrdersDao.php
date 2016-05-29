@@ -26,9 +26,10 @@ class OrdersDao
     public static function getOrderBySellerAndCondition($sellerid, $condition)
     {
         try {
-            $sql = 'SELECT * FROM clc_orders WHERE sellerid= :sellerid and conditions= :condition';
-            //echo $sql;
-            $orders = MySqlHelper::fetchAll($sql, array(':sellerid' => $sellerid, ':condition' => $condition));
+            //$sql = 'SELECT * FROM clc_orders WHERE sellerid= :sellerid and conditions in ( :condition )';
+            //$orders = MySqlHelper::fetchAll($sql, array(':sellerid' => $sellerid, ':condition' => $condition));
+            $sql = 'SELECT * FROM clc_orders WHERE sellerid= :sellerid and conditions in (' . $condition . ')';
+            $orders = MySqlHelper::fetchAll($sql, array(':sellerid' => $sellerid));
             return $orders;
         } catch (\Exception $e){
             echo $e;
