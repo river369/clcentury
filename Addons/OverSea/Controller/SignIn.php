@@ -6,6 +6,7 @@
  * Time: 17:05
  */
 use Addons\OverSea\Model\UsersDao;
+use Addons\OverSea\Common\EncryptHelper;
 require dirname(__FILE__).'/../init.php';
 
 //$day2=48*3600;
@@ -40,9 +41,14 @@ if (!isset($existedUser['phonenumber'])){
 } else {
     //echo $existedUser['id'].$_SESSION['weixinOpenid'];
     $_SESSION['signedUser'] = $existedUser['id'];
+    // try to set uid in cookie
+    $cookieValue = EncryptHelper::encrypt($existedUser['id']);
+    setcookie("signedUser", $cookieValue, time()+7*24*3600);
+
     if (isset($_SESSION['weixinOpenid'])) {
         UsersDao::updateOpenid($_SESSION['weixinOpenid'], $existedUser['id']);
     }
+
     header('Location:./AuthUserDispatcher.php');
 }
 ?>

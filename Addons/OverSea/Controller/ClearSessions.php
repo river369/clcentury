@@ -37,8 +37,9 @@ if (isset($userData['phonenumber'])){
 } else {
     echo "] [not got by weixinOpenid]";
 }
-
+echo "[".$_SESSION['signedUser']."]";
 UsersDao::updateOpenid(-1, $_SESSION['signedUser']);
+setcookie("signedUser", "", time()-1000);
 unset($_SESSION['signedUser']);
 unset($_SESSION['weixinOpenid']);
 unset($_SESSION['weixinOpenidTried']);

@@ -7,6 +7,7 @@
  */
 use Addons\OverSea\Model\UsersDao;
 use Addons\OverSea\Common\WeixinHelper;
+use Addons\OverSea\Common\EncryptHelper;
 
 require dirname(__FILE__).'/../init.php';
 
@@ -59,11 +60,15 @@ if (isset($_SESSION['signedUser'])) {
     // first choice is session
     goToCommand($method_routes, $command);
 } else {
-    if (isset($_SESSION['weixinOpenid'])) {
+    $cookieValue = isset($_COOKIE["signedUser"])? EncryptHelper::decrypt($_COOKIE["signedUser"]) : "";
+    if (isset($cookieValue) && !empty($cookieValue) && !is_null($cookieValue)){
+        saveId($cookieValue);
+        goToCommand($method_routes, $command);
+    } else if (isset($_SESSION['weixinOpenid'])) {
         // check if weixin openid match the db saving values
         $existedUser=UsersDao::getUserByOpenid($_SESSION['weixinOpenid']);
         if (isset($existedUser['openid']) && $existedUser['openid'] == $_SESSION['weixinOpenid']){
-            $_SESSION['signedUser'] = $existedUser['id'];
+            saveId($existedUser['id']);
             goToCommand($method_routes, $command);
         } else {
             needSignin($method_routes, $command);
@@ -75,9 +80,16 @@ if (isset($_SESSION['signedUser'])) {
     } else {
         needSignin($method_routes, $command);
     }
-
 }
-
+/**
+ * try to set uid in cookie and session
+ * @param $id
+ */
+function saveId($id) {
+    $cookieValue = EncryptHelper::encrypt($id);
+    $_SESSION['signedUser'] = $id;
+    setcookie("signedUser", $cookieValue, time()+7*24*3600);
+}
 /**
  * redirect to sign in pages
  * @param $method_routes

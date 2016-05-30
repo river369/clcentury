@@ -6,6 +6,7 @@
  * Time: 17:05
  */
 use Addons\OverSea\Model\UsersDao;
+use Addons\OverSea\Common\EncryptHelper;
 require dirname(__FILE__).'/../init.php';
 
 session_start();
@@ -19,6 +20,7 @@ foreach($usersData as $key => $userData)
 }
 */
 
+/*
 echo '  [session_weixinOpenid='.$_SESSION['weixinOpenid'];
 echo '  ] [session_weixinOpenidTried='.$_SESSION['weixinOpenidTried'];
 echo '  ] [id='.$_SESSION['signedUser'];
@@ -39,8 +41,19 @@ if (isset($userData['phonenumber'])){
 }
 
 UsersDao::updateOpenid(-1, $_SESSION['signedUser']);
+*/
+echo "[".$_COOKIE['signedUser']."]";
+//unset($_COOKIE['signedUser']);
+//setcookie("signedUser", "", time()-10);
+echo "[".$_COOKIE['signedUser']."]";
+unset($_SESSION['signedUser']);
+unset($_SESSION['weixinOpenid']);
+unset($_SESSION['weixinOpenidTried']);
 
+$cookieValue = isset($_COOKIE["signedUser"])? EncryptHelper::decrypt($_COOKIE["signedUser"]) : "";
+echo $cookieValue."|".$_COOKIE["signedUser"]."|".EncryptHelper::decrypt($_COOKIE["signedUser"]);
 
-
-
+if (isset($cookieValue) && !empty($cookieValue) && !is_null($cookieValue)){
+echo "ddafds";
+}
 ?>

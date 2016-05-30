@@ -3,6 +3,7 @@ use Addons\OverSea\Common\MySqlHelper;
 use Addons\OverSea\Common\WeixinHelper;
 use Addons\OverSea\Common\YunpianSMSHelper;
 use Addons\OverSea\Common\OSSHelper;
+use Addons\OverSea\Common\EncryptHelper;
 
 function initLoad()
 {
@@ -10,6 +11,7 @@ function initLoad()
     include_once dirname(__FILE__).'/Common/WeixinHelper.php';
     include_once dirname(__FILE__).'/Common/YunpianSMSHelper.php';
     include_once dirname(__FILE__).'/Common/OSSHelper.php';
+    include_once dirname(__FILE__).'/Common/EncryptHelper.php';
     include_once dirname(__FILE__). '/Model/UsersDao.php';
     include_once dirname(__FILE__). '/Model/OrdersDao.php';
     include_once dirname(__FILE__). '/Model/OrderActionsDao.php';

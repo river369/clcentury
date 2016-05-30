@@ -88,10 +88,16 @@ class UsersDao
     
     public static function getUserByOpenid($openid)
     {
-        $sql = 'SELECT * FROM clc_users WHERE openid = :openid LIMIT 1';
-        //echo $sql;
-        $user = MySqlHelper::fetchOne($sql, array(':openid' => $openid));
-        return $user;
+        try {
+            $sql = 'SELECT * FROM clc_users WHERE openid = :openid LIMIT 1';
+            //echo $sql;
+            $user = MySqlHelper::fetchOne($sql, array(':openid' => $openid));
+            return $user;
+        }catch (\Exception $e){
+            echo $e;
+            exit(1);
+        }
+
     }
 
     public static function getUsersByServiceType($servicetype)

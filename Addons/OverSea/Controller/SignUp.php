@@ -6,6 +6,7 @@
  * Time: 17:05
  */
 use Addons\OverSea\Model\UsersDao;
+use Addons\OverSea\Common\EncryptHelper;
 require dirname(__FILE__).'/../init.php';
 
 //$day2=48*3600;
@@ -40,6 +41,10 @@ if (isset($_SESSION['verifcationCode']) && isset($_POST['verifycode']) && $_SESS
         if ($id>0) {
             $_SESSION['signupstatus'] = '成功';
             $_SESSION['signedUser'] = $id;
+            // try to set uid in cookie
+            $cookieValue = EncryptHelper::encrypt($existedUser['id']);
+            setcookie("signedUser", $cookieValue, time()+7*24*3600);
+
         } else {
             $_SESSION['signupstatus'] = '失败';
         }
