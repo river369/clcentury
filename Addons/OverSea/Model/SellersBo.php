@@ -18,6 +18,8 @@ class SellersBo
     }
 
     public function getCurrentSellerInfo() {
+        unset($_SESSION['sellerData']);
+
         $sellerid = $_GET ['sellerid'];
 
         $sellerData = UsersDao::getUserById($sellerid);
@@ -25,6 +27,7 @@ class SellersBo
     }
 
     public function getCurrentSellerInfoAndPictures() {
+        unset($_SESSION['sellerObjArray']);
 
         $sellerid = $_GET ['sellerid'];
         self::getCurrentSellerInfo();

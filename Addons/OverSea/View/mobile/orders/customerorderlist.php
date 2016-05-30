@@ -80,6 +80,22 @@ $ordersCondition= $_SESSION['customerOrdersCondition'];
             </div>
         </div>
 
+        <div data-role="popup" id="cancelDialog" data-overlay-theme="a" data-theme="a" style="max-width:400px;">
+            <div data-role="header" data-theme="a">
+                <h1>取消订单</h1>
+            </div>
+            <div role="main" class="ui-content">
+                <h3 class="ui-title" id="cancelOrderString">确定取消订单? </h3>
+                <form id="cancelOrder" data-ajax="false" method="post" action="../../../Controller/AuthUserDispatcher.php?c=customerCancelOrder">
+                    <input type="hidden" name="cancelorderid" id="cancelorderid" value="">
+                    <label for="cancelreason">取消原因:</label>
+                    <textarea cols="30" rows="8" name="cancelreason" id="cancelreason" data-mini="true"></textarea>
+                    <input type="submit" name="cancelsubmit" id="cancelsubmit" value="无奈取消">
+                </form>
+                <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+            </div>
+        </div>
+
     </div>
 
     <div data-role="footer" data-position="fixed">
