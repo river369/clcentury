@@ -31,6 +31,7 @@ class SellersBo
 
         $sellerid = $_GET ['sellerid'];
         self::getCurrentSellerInfo();
+        
         // list data
         $object = "yzphoto/pics/".$sellerid."/";
         //echo $object;

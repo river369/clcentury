@@ -108,7 +108,8 @@ class OSSHelper
             echo $e;
             printf(__FUNCTION__ . ": FAILED\n");
             printf($e->getMessage() . "\n");
-            return;
+            exit(1);
+            //return;
         }
         print(__FUNCTION__ . ": OK" . "\n");
         $objectList = $listObjectInfo->getObjectList(); // 文件列表
