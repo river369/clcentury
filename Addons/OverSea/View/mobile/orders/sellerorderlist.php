@@ -39,7 +39,7 @@ $ordersCondition= $_SESSION['SellerOrdersCondition'];
                 <li><a href="../../../Controller/AuthUserDispatcher.php?c=querySellerOrders&sellerid=<?php echo $sellerid;?>&condition=20" <?php echo $ordersCondition == 20 ? "class='ui-btn-active'" : ''; ?> rel="external">已接收</a></li>
                 <li><a href="../../../Controller/AuthUserDispatcher.php?c=querySellerOrders&sellerid=<?php echo $sellerid;?>&condition=40" <?php echo $ordersCondition == 40 ? "class='ui-btn-active'" : ''; ?> rel="external">已完成</a></li>
                 <li><a href="../../../Controller/AuthUserDispatcher.php?c=querySellerOrders&sellerid=<?php echo $sellerid;?>&condition=80" <?php echo $ordersCondition == 80 ? "class='ui-btn-active'" : ''; ?> rel="external">已到账</a></li>
-                <li><a href="../../../Controller/AuthUserDispatcher.php?c=querySellerOrders&sellerid=<?php echo $sellerid;?>&condition=1020,1040,1060" <?php echo $ordersCondition == '1020,1040,1060' ? "class='ui-btn-active'" : '' ?>>已放弃</a></li>
+                <li><a href="../../../Controller/AuthUserDispatcher.php?c=querySellerOrders&sellerid=<?php echo $sellerid;?>&condition=1020,1040,1060" <?php echo $ordersCondition == '1020,1040,1060' ? "class='ui-btn-active'" : '' ?>>已取消</a></li>
             </ul>
         </div><!-- /navbar -->
         <?php

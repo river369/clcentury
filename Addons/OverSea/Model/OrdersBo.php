@@ -118,6 +118,14 @@ class OrdersBo
         self::storeOrderActions($orderid, $condition, 1);
     }
 
+    public function customerCancelOrder() {
+        $orderid  = $_POST ['cancelorderid'];
+        $reason = $_POST ['cancelreason'];
+        $condition = 1060;
+        $customerid = $_SESSION['signedUser'];
+        OrdersDao::updateCustomerOrderCondition($orderid, $condition, $customerid);
+        self::storeOrderActions($orderid, $condition, 1, $reason);
+    }
 
     public function storeOrderActions($orderid, $condition, $actioner, $reason = '') {
         $orderActionData = array();

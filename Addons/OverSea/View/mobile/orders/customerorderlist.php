@@ -35,9 +35,10 @@ $ordersCondition= $_SESSION['customerOrdersCondition'];
         <div data-role="navbar">
             <ul>
                 <li><a href="../../../Controller/AuthUserDispatcher.php?c=queryCustomerOrders&customerid=<?php echo $customerid;?>&condition=0" <?php echo $ordersCondition == 0 ? "class='ui-btn-active'" : ''; ?> rel="external">已购买</a></li>
+                <li><a href="../../../Controller/AuthUserDispatcher.php?c=queryCustomerOrders&customerid=<?php echo $customerid;?>&condition=20" <?php echo $ordersCondition == 20 ? "class='ui-btn-active'" : '' ?> rel="external">已接收</a></li>
                 <li><a href="../../../Controller/AuthUserDispatcher.php?c=queryCustomerOrders&customerid=<?php echo $customerid;?>&condition=40" <?php echo $ordersCondition == 40 ? "class='ui-btn-active'" : '' ?> rel="external">待确认</a></li>
                 <li><a href="../../../Controller/AuthUserDispatcher.php?c=queryCustomerOrders&customerid=<?php echo $customerid;?>&condition=60" <?php echo $ordersCondition == 60 ? "class='ui-btn-active'" : '' ?> rel="external">已完成</a></li>
-                <li><a href="../../../Controller/AuthUserDispatcher.php?c=queryCustomerOrders&customerid=<?php echo $customerid;?>&condition=1020,1040,1060" <?php echo $ordersCondition == 1020,1040,1060 ? "class='ui-btn-active'" : '' ?> rel="external">已取消</a></li>
+                <li><a href="../../../Controller/AuthUserDispatcher.php?c=queryCustomerOrders&customerid=<?php echo $customerid;?>&condition=1020,1040,1060" <?php echo $ordersCondition == '1020,1040,1060' ? "class='ui-btn-active'" : '' ?> rel="external">已取消</a></li>
             </ul>
         </div><!-- /navbar -->
         <?php
@@ -56,6 +57,13 @@ $ordersCondition= $_SESSION['customerOrdersCondition'];
                 </a>
             </li>
             <li data-role="list-divider">已购买: <?php echo $order['servicehours'];?>小时 <span class="ui-li-count">总计: <?php echo $order['servicetotalfee'];?>元</span></li>
+            <?php if ($ordersCondition == 0 || $ordersCondition == 20) {?>
+                <li>
+                    <div class="ui-grid-a">
+                        <div class="ui-block-a"><a href="#cancelDialog" data-rel="popup" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="cancelPopup('<?php echo $orderid; ?>')">取消</a></div>
+                    </div>
+                </li>
+            <?php } ?>
             <?php if ($ordersCondition == 40) {?>
                 <li>
                     <div class="ui-grid-a">
@@ -109,6 +117,12 @@ $ordersCondition= $_SESSION['customerOrdersCondition'];
         $('#confirmOrderString').html(messages);
         $('#confirmorderid').val(orderid);
         $('#confirmDialog').popup('open');
+    };
+    function cancelPopup(orderid) {
+        var messages = "确定取消订单" + orderid + "?";
+        $('#cancelOrderString').html(messages);
+        $('#cancelorderid').val(orderid);
+        $('#cancelDialog').popup('open');
     };
 </script>
 </body>

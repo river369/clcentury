@@ -53,9 +53,9 @@ class OrdersDao
     public static function getOrderByCustomerAndCondition($customerid, $condition)
     {
         try {
-            $sql = 'SELECT * FROM clc_orders WHERE customerid= :customerid and conditions= :condition';
+            $sql = 'SELECT * FROM clc_orders WHERE customerid= :customerid and conditions in (' . $condition . ')';
             //echo $sql;
-            $orders = MySqlHelper::fetchAll($sql, array(':customerid' => $customerid, ':condition' => $condition));
+            $orders = MySqlHelper::fetchAll($sql, array(':customerid' => $customerid));
             return $orders;
         } catch (\Exception $e){
             echo $e;
