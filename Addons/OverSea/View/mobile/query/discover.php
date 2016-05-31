@@ -22,10 +22,11 @@ $serviceType = isset($_SESSION['servicetype'])? $_SESSION['servicetype'] : 1;
     <script src="../../resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
 
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
+    <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
 </head>
 <body>
-<div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
-    <div data-role="header" data-position="fixed">
+<div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外" data-theme="d">
+    <div data-role="header" data-position="fixed" data-theme="c">
         <a href="#nav-panel"data-icon="home">地球</a>
         <h1>发现</h1>
         <a href="../query/search.html" rel="external" data-icon="search">搜索</a>
@@ -65,7 +66,7 @@ $serviceType = isset($_SESSION['servicetype'])? $_SESSION['servicetype'] : 1;
             <?php } ?>
     </div>
 
-    <div data-role="footer" data-position="fixed">
+    <div data-role="footer" data-position="fixed" data-theme="c">
         <h4>Copyright (c) 2016 .</h4>
     </div>
 

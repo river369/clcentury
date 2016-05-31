@@ -21,6 +21,7 @@ $existedUser = $_SESSION['signedUserInfo'] ;
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
     <link rel="stylesheet" href="../../resource/style/tag/jquery.tagit.css"type="text/css" />
     <link rel="stylesheet" href="../../resource/style/tag/tagit.ui-zendesk.css"type="text/css" />
+    <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
 
     <script src="../../resource/js/jquery/jquery-1.11.1.min.js"></script>
     <script src="../../resource/js/jquery/jquery-ui-1.11.1.min.js"></script>
@@ -46,8 +47,8 @@ $existedUser = $_SESSION['signedUserInfo'] ;
 
 </head>
 <body>
-<div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
-    <div data-role="header" data-position="fixed">
+<div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外" data-theme="d">
+    <div data-role="header" data-position="fixed" data-theme="c">
         <h1>易知信息</h1>
     </div>
 
@@ -119,7 +120,7 @@ $existedUser = $_SESSION['signedUserInfo'] ;
         </div>
     </div>
 
-    <div data-role="footer" data-position="fixed">
+    <div data-role="footer" data-position="fixed" data-theme="c">
         <h4>Copyright (c) 2016 .</h4>
     </div>
 </div>
