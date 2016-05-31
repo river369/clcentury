@@ -42,7 +42,8 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
 
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.simplyscroll.css" media="all" type="text/css">
-
+    <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
+    
     <style type="text/css">
         /* Container DIV - automatically generated */
         .simply-scroll-container {
@@ -103,7 +104,7 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
 </head>
 <body>
 <div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
-    <div data-role="header" data-position="fixed">
+    <div data-role="header" data-position="fixed" data-theme="c">
         <h1><?php echo $sellerData['name']; ?>的主页</h1>
     </div>
 
@@ -148,7 +149,7 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
         <div data-role="navbar">
             <ul>
                 <li><a href="../orders/submitorder.html" rel="external" >聊聊看</a></li>
-                <li><a href="../../../Controller/AuthUserDispatcher.php?c=submitOrder&sellerid=<?php echo $orderId ?>" rel="external">购买</a></li>
+                <li><a href="../../../Controller/AuthUserDispatcher.php?c=submitOrder&sellerid=<?php echo $orderId ?>" rel="external" class="ui-btn-active">购买</a></li>
             </ul>
         </div>
     </div>

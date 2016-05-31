@@ -25,7 +25,7 @@ $serviceType = isset($_SESSION['servicetype'])? $_SESSION['servicetype'] : 1;
     <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
 </head>
 <body>
-<div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外" data-theme="d">
+<div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
     <div data-role="header" data-position="fixed" data-theme="c">
         <a href="#nav-panel"data-icon="home">地球</a>
         <h1>发现</h1>

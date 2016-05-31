@@ -22,12 +22,13 @@ $ordersCondition= $_SESSION['customerOrdersCondition'];
     <script src="../../resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
 
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
+    <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
     <style type="text/css">
     </style>
 </head>
 <body>
 <div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
-    <div data-role="header" data-position="fixed">
+    <div data-role="header" data-position="fixed" data-theme="c">
         <h1>我购买的服务</h1>
     </div>
 
@@ -106,7 +107,7 @@ $ordersCondition= $_SESSION['customerOrdersCondition'];
 
     </div>
 
-    <div data-role="footer" data-position="fixed">
+    <div data-role="footer" data-position="fixed" data-theme="c">
         <h4>Copyright (c) 2016 .</h4>
     </div>
 </div>

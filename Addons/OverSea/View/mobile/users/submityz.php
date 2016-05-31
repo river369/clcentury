@@ -21,12 +21,12 @@ $existedUser = $_SESSION['signedUserInfo'] ;
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
     <link rel="stylesheet" href="../../resource/style/tag/jquery.tagit.css"type="text/css" />
     <link rel="stylesheet" href="../../resource/style/tag/tagit.ui-zendesk.css"type="text/css" />
-    <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
 
     <script src="../../resource/js/jquery/jquery-1.11.1.min.js"></script>
     <script src="../../resource/js/jquery/jquery-ui-1.11.1.min.js"></script>
     <script src="../../resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
     <script src="../../resource/js/tag/tag-it.min.js"></script>
+    <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
 
     <script>
         $(function(){

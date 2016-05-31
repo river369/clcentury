@@ -36,10 +36,11 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
     <link rel="stylesheet" href="../../resource/style/weiui/weui.css"/>
     <link rel="stylesheet" href="../../resource/style/weiui/example.css"/>
+    <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
 </head>
 <body>
 <div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
-    <div data-role="header" data-position="fixed">
+    <div data-role="header" data-position="fixed" data-theme="c">
         <h1>个人图片</h1>
     </div>
 
@@ -68,7 +69,7 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
         </div>
     </div>
 
-    <div data-role="footer" data-position="fixed">
+    <div data-role="footer" data-position="fixed" data-theme="c">
         <h4>Copyright (c) 2016 .</h4>
     </div>
 </div>

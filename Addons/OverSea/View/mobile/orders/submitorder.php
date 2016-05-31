@@ -28,13 +28,13 @@ $signedUser = $_SESSION['signedUser'];
     <script src="../../resource/js/jquery/jquery-1.11.1.min.js"></script>
     <script src="../../resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
-
+    <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
 
 </head>
 <body>
 
 <div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
-    <div data-role="header" data-position="fixed">
+    <div data-role="header" data-position="fixed" data-theme="c">
         <h1>购买<?php echo $sellerData['name']; ?>的服务</h1>
     </div>
 
@@ -67,7 +67,7 @@ $signedUser = $_SESSION['signedUser'];
             <input type="hidden" name="serviceprice" id="serviceprice"  value="<?php echo $sellerData['serviceprice']; ?>"/>
         </div>
 
-        <div data-role="footer" data-position="fixed">
+        <div data-role="footer" data-position="fixed" data-theme="c">
             <div data-role="navbar">
                 <ul>
                     <li><a href="#" onclick="JavaScript:$('#submitorder').submit();" rel="external" >去付款</a></li>
