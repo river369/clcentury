@@ -8,7 +8,11 @@
 session_start();
 $usersData= $_SESSION['usersData'];
 $serviceType = isset($_SESSION['servicetype'])? $_SESSION['servicetype'] : 1;
-
+require("../common/locations.php");
+$servicearea = '地球';
+if (isset($_SESSION ['servicearea'])){
+    $servicearea = $_SESSION ['servicearea'];
+}
 ?>
 
 <!DOCTYPE html>
@@ -27,7 +31,7 @@ $serviceType = isset($_SESSION['servicetype'])? $_SESSION['servicetype'] : 1;
 <body>
 <div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
     <div data-role="header" data-position="fixed" data-theme="c">
-        <a href="#nav-panel"data-icon="home">地球</a>
+        <a href="#nav-panel"data-icon="home"><?php echo $servicearea; ?></a>
         <h1>发现</h1>
         <a href="../query/search.html" rel="external" data-icon="search">搜索</a>
     </div>
@@ -73,34 +77,17 @@ $serviceType = isset($_SESSION['servicetype'])? $_SESSION['servicetype'] : 1;
     <div data-role="panel" data-position-fixed="true" data-display="push" data-theme="o" id="nav-panel">
         <ul data-role="listview">
             <li data-role="list-divider" data-icon="delete"><a href="#" data-rel="close">返回</a></li>
-            <li data-role="list-divider">美国</li>
-            <li><a onclick="alert();" data-rel="close" >西雅图</a></li>
-            <li><a href="../common/location.html" rel="external" data-rel="close" >西雅图</a></li>
-            <li><a href="./discover.html" rel="external" data-rel="close" >西雅图</a></li>
-            <li><a>西雅图</a></li>
-            <li><a>西雅图</a></li>
-            <li><a>西雅图</a></li>
-            <li><a>西雅图</a></li>
-            <li><a>西雅图</a></li>
-            <li><a>西雅图</a></li>
-            <li><a>西雅图</a></li>
-            <li><a>西雅图</a></li>
-            <li><a>西雅图</a></li>
-            <li><a>西雅图</a></li>
-            <li><a>西雅图</a></li>
-            <li data-role="list-divider">中国</li>
-            <li><a>北京市</a></li>
-            <li><a>天津市</a></li>
-            <li><a>上海市</a></li>
-            <li><a>重庆市</a></li>
-            <li><a>北京市</a></li>
-            <li><a>天津市</a></li>
-            <li><a>上海市</a></li>
-            <li><a>重庆市</a></li>
-            <li><a>北京市</a></li>
-            <li><a>天津市</a></li>
-            <li><a>上海市</a></li>
-            <li><a>重庆市</a></li>
+            <li><a href="../../../Controller/Discover.php?servicearea=地球" rel="external" data-rel="close"> 地球</a></li>
+            <?php
+                foreach ($country_city as $key => $value) {
+            ?>
+                    <li data-role="list-divider"><?php echo $key; ?></li>
+                    <?php
+                        foreach ($value as $city) {
+                    ?>
+                        <li><a href="../../../Controller/Discover.php?servicearea=<?php echo $city; ?>" rel="external" data-rel="close" ><?php echo $city; ?></a></li>
+                    <?php } ?>
+            <?php } ?>
         </ul>
     </div><!-- /panel -->
 </div>

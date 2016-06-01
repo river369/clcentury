@@ -59,14 +59,14 @@ $ordersCondition= $_SESSION['customerOrdersCondition'];
             </li>
             <li data-role="list-divider">已购买: <?php echo $order['servicehours'];?>小时 <span class="ui-li-count">总计: <?php echo $order['servicetotalfee'];?>元</span></li>
             <?php if ($ordersCondition == 0 || $ordersCondition == 20) {?>
-                <li>
+                <li data-theme="c">
                     <div class="ui-grid-a">
                         <div class="ui-block-a"><a href="#cancelDialog" data-rel="popup" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="cancelPopup('<?php echo $orderid; ?>')">取消</a></div>
                     </div>
                 </li>
             <?php } ?>
             <?php if ($ordersCondition == 40) {?>
-                <li>
+                <li data-theme="c">
                     <div class="ui-grid-a">
                         <div class="ui-block-a"><a href="#confirmDialog" data-rel="popup" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="confirmPopup('<?php echo $orderid; ?>')">确认完成</a></div>
                     </div>

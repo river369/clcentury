@@ -61,7 +61,7 @@ $ordersCondition= $_SESSION['SellerOrdersCondition'];
             <li data-role="list-divider">已购买: <?php echo $order['servicehours'];?>小时 <span class="ui-li-count">总计: <?php echo $order['servicetotalfee'];?>元</span></li>
             
             <?php if ($ordersCondition == 0) {?>
-                <li>
+                <li data-theme="c">
                     <div class="ui-grid-a">
                         <div class="ui-block-a"><a href="#rejectDialog" data-rel="popup" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="rejectPopup('<?php echo $orderid; ?>')">拒绝</a></div>
                         <div class="ui-block-b"><a href="#acceptDialog" data-rel="popup" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="acceptPopup('<?php echo $orderid; ?>')">确认接单</a></div>
@@ -70,7 +70,7 @@ $ordersCondition= $_SESSION['SellerOrdersCondition'];
             <?php } ?>
             
             <?php if ($ordersCondition == 20) {?>
-                <li>
+                <li data-theme="c">
                     <div class="ui-grid-a">
                         <div class="ui-block-a"><a href="#cancelDialog" data-rel="popup" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="cancelPopup('<?php echo $orderid; ?>')">取消订单</a></div>
                         <div class="ui-block-b"><a href="#finishDialog" data-rel="popup" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="finishPopup('<?php echo $orderid; ?>')">完成定单</a></div>

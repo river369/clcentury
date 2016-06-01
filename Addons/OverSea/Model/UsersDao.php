@@ -100,6 +100,26 @@ class UsersDao
 
     }
 
+    /**
+     * Get users in special type and city
+     * @param $servicetype
+     * @param $city
+     * @return mixed
+     */
+    public static function getUsersByServiceTypeInArea($servicetype, $servicearea)
+    {
+        $sql = 'SELECT * FROM clc_users WHERE servicetype in (99999, :servicetype) and servicearea = :servicearea order by stars desc';
+        $users = MySqlHelper::fetchAll($sql, array(':servicetype' => $servicetype, ':servicearea' => $servicearea));
+        return $users;
+    }
+
+    /**
+     * 
+     * Get users in special type.
+     * @param $servicetype
+     * @param $city
+     * @return mixed
+     */
     public static function getUsersByServiceType($servicetype)
     {
         $sql = 'SELECT * FROM clc_users WHERE servicetype in (99999, :servicetype) order by stars desc';

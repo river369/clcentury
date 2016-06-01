@@ -9,6 +9,7 @@
     <script src="../../resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
 
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
+    <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
     <style type="text/css">
         .ui-li-thumb, .ui-li-icon {
         left: 1px;
@@ -21,7 +22,7 @@
 </head>
 <body>
 <div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
-    <div data-role="header" data-position="fixed">
+    <div data-role="header" data-position="fixed" data-theme="c" >
         <h1>我购买的服务</h1>
     </div>
 
@@ -46,6 +47,11 @@
             </li>
             <li data-role="list-divider">订单号: 1 <p class="ui-li-aside">已购买: 2小时</p></li>
             <li data-role="list-divider">总计:  <p class="ui-li-aside">200元</p></li>
+            <li data-theme="c">
+                <div class="ui-grid-a" >
+                    <div class="ui-block-a"><a href="#confirmDialog"  data-rel="popup" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="confirmPopup('<?php echo $orderid; ?>')">确认完成</a></div>
+                </div>
+            </li>
         </ul>
     </div>
 
