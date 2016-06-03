@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <link  rel="stylesheet" type="text/css" href="jquerymobile1.4.0-green/zms-green.css"/>
+    <link rel="stylesheet" href="jquerymobile1.4.0-green/jQuery.mobile.icons.min.css" />
+    <link rel="stylesheet" href="jquerymobile1.4.0-green/jquery.mobile.structure-1.4.0.css" />
+
+
+    <link rel="stylesheet" href="css/my.css" />
+
+
+    <script src="commond-plug/jquery.min.js" type="text/JavaScript"></script>
+    <script src="jquerymobile1.4.0-green/jquery.mobile-1.4.0.min.js" type="text/javascript"></script>
+    <title>HTML-ZMS</title>
+    <script>
+        $(document).ready(function () {
+
+
+        });
+    </script>
+
+
+    <stytle>
+
+
+    </stytle>
+</head>
+
+
+<body>
+
+
+<div data-role="page">
+
+
+    <div data-role="header" data-position="fixed" style="background: #ff6932;color: #ffffff;text-shadow: none;">
+        <h1>Jquery mobile 1.4</h1>
+        <!--   <a href="#" class="ui-btn">返回</a>-->
+    </div>
+
+
+    <div   class="ui-content">
+        <div class="file-box">
+            <form action="../servlet/phonegapUp" method="post" enctype="multipart/form-data"  data-ajax="false">
+
+
+                <input type="text" id="zms" name="zms">
+                <input type="text" id="value1" name="value1">
+                <input type="text" id="value2" name="value2">
+
+
+
+
+                <input type="file"   accept="image/png" name="fileField" id="fileField"  />
+
+
+                <input type="submit" name="submit" class="btn" value="上22传" />
+            </form>
+        </div>
+    </div>
+
+
+    <div data-role="footer" data-position="fixed" style="background: #ff6932;color: #ffffff;text-shadow: none;">
+        <h4>中兴长天（南昌）信息技术有限公司</h4>
+    </div>
+
+
+
+
+</div>
+
+
+</body>
+</html>

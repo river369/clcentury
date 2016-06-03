@@ -45,6 +45,7 @@ class YZPicBo
         $timestamp = time();
         $_SESSION['$timestamp'] = $timestamp;
         $jsapi_ticket = WeixinHelper::make_ticket();
+        //$url = 'http://'.$_SERVER['HTTP_HOST']."/weiphp/Addons/OverSea/View/mobile/users/mine1.html";
         $url = 'http://'.$_SERVER['HTTP_HOST']."/weiphp/Addons/OverSea/View/mobile/users/yzpictures.php";
         $signature = WeixinHelper::make_signature($nonceStr,$timestamp,$jsapi_ticket,$url);
         $_SESSION['$signature'] = $signature;
