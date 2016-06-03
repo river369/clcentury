@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>易知海外</title>
+
+    <link rel="stylesheet" href="../../resource/style/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../resource/style/cropper/cropper.min.css" />
+    <link rel="stylesheet" href="../../resource/style/cropper/main.css" />
+    <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
+    <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
+</head>
+<body>
+<div class="container" id="crop-avatar">
+
+    <!-- Current avatar -->
+    <div class="avatar-view" title="Change the avatar">
+        <img src="../../resource/images/add.jpg" alt="Avatar">
+    </div>
+
+
+    <!-- Cropping modal -->
+    <div class="modal fade" id="avatar-modal" aria-hidden="true" aria-labelledby="avatar-modal-label" role="dialog" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form class="avatar-form" action="crop.php" enctype="multipart/form-data" method="post">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title" id="avatar-modal-label">Change Avatar</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="avatar-body">
+
+                            <!-- Upload image and data -->
+                            <div class="avatar-upload">
+                                <input type="hidden" class="avatar-src" name="avatar_src">
+                                <input type="hidden" class="avatar-data" name="avatar_data">
+                                <label for="avatarInput">Local upload</label>
+                                <input type="file" class="avatar-input" id="avatarInput" name="avatar_file">
+                            </div>
+
+                            <!-- Crop and preview -->
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <div class="avatar-wrapper"></div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="avatar-preview preview-md"></div>
+                                </div>
+                            </div>
+
+                            <div class="row avatar-btns">
+                                <div class="col-md-3">
+                                    <button type="submit" class="btn btn-primary btn-block avatar-save">Done</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div> -->
+                </form>
+            </div>
+        </div>
+    </div><!-- /.modal -->
+
+    <!-- Loading state -->
+    <div class="loading" aria-label="Loading" role="img" tabindex="-1"></div>
+</div>
+
+<script src="../../resource/js/jquery/jquery-1.11.1.min.js"></script>
+<script src="../../resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
+<script src="../../resource/js/bootstrap/bootstrap.min.js"></script>
+<script src="../../resource/js/cropper/cropper.min.js"></script>
+<script src="../../resource/js/cropper/main.js"></script>
+
+</body>
+</html>
+
