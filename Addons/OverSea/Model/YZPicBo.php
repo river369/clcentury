@@ -9,10 +9,39 @@
 namespace Addons\OverSea\Model;
 use Addons\OverSea\Common\OSSHelper;
 use Addons\OverSea\Common\WeixinHelper;
+use Addons\OverSea\Common\Logs;
+use Addons\OverSea\Model\CropAvatar;
+
+require dirname(__FILE__).'/PicCrop.php';
 
 class YZPicBo
 {
     public function __construct() {
+    }
+
+    public function handleHeads() {
+        $userID = $_SESSION['signedUser'];
+
+        $crop = new CropAvatar(
+            isset($_POST['avatar_src']) ? $_POST['avatar_src'] : null,
+            isset($_POST['avatar_data']) ? $_POST['avatar_data'] : null,
+            isset($_FILES['avatar_file']) ? $_FILES['avatar_file'] : null
+        );
+
+
+        $response = array(
+            'status'  => 200,
+            'msg' => $crop -> getMsg(),
+            'result' => $crop -> getResult()
+        );
+
+        echo json_encode($response);
+
+        /*
+        $ret= move_uploaded_file($_FILES["avatar_file"]["tmp_name"], "/tmp/" . $_FILES["avatar_file"]["name"]);
+        self::savePictureFromFile($_FILES["avatar_file"]["tmp_name"],$userID);
+        Logs::writeClcLog("YZPicBo,handleHeads(),"."it is here:".$_FILES["avatar_file"]["tmp_name"]."  ".$ret);
+        */
     }
 
     public function handlePics() {
@@ -25,7 +54,7 @@ class YZPicBo
             $serveridsArray = explode(',',$serverids);
             $i=1;
             foreach ($serveridsArray as $serverid){
-                self::getmedia($serverid, $userID, $i);
+                self::savePictureFromWeixin($serverid, $userID, $i);
                 $i++;
             }
         }
@@ -63,14 +92,20 @@ class YZPicBo
         }
     }
     // 获取图片地址
-    function getmedia($media_id, $userID, $i){
-        echo "fk";
+    function savePictureFromWeixin($media_id, $userID, $i){
         // access_token 应该全局存储与更新，以下代码以写入到文件中做示例
         $access_token = WeixinHelper::getAccessTokenWithLocalFile();
         $url = "http://file.api.weixin.qq.com/cgi-bin/media/get?access_token=".$access_token."&media_id=".$media_id;
         $object = "yzphoto/pics/".$userID."/".date('YmdHis')."_".$i.".jpg";
         $options = array();
         OSSHelper::putObject($object, file_get_contents($url), $options);
+        return ;
+    }
+
+    function savePictureFromFile($path, $userID){
+        $object = "yzphoto/heads/".$userID."/head.jpg";
+        $options = array();
+        OSSHelper::putObject($object, $path, $options);
         return ;
     }
 

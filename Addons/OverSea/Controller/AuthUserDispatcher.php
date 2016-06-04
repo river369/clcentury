@@ -8,6 +8,7 @@
 use Addons\OverSea\Model\UsersDao;
 use Addons\OverSea\Common\WeixinHelper;
 use Addons\OverSea\Common\EncryptHelper;
+use Addons\OverSea\Common\Logs;
 
 require dirname(__FILE__).'/../init.php';
 
@@ -19,7 +20,8 @@ $method_routes = array(
     'mine' => array('v'=>'../View/mobile/users/mine.php','d'=>'我的订单'),
     'submityzpic' => array('m'=>'Addons\OverSea\Model\YZPicBo', 'f'=>'handlePics', 'v'=>'../View/mobile/users/yzpictures.php','d'=>'发易知图片'),
     'submityz' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'getCurrentUserInfo', 'v'=>'../View/mobile/users/submityz.php','d'=>'发易知信息'),
-    
+    'submitheadpic' => array('m'=>'Addons\OverSea\Model\YZPicBo', 'f'=>'handleHeads', 'd'=>'发个人头像'),
+
     'submitOrder' => array('m'=>'Addons\OverSea\Model\SellersBo', 'f'=>'getCurrentSellerInfo', 
         'v'=>'../View/mobile/orders/submitorder.php','d'=>'用户订购确认'),
     'createOrder' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'createOrder', 
@@ -116,6 +118,8 @@ function goToCommand($method_routes, $command) {
             echo $e->getTrace();
         }
     }
-    header('Location:'.$method_routes[$command]['v']);
+    if (isset($method_routes[$command]['f'])){
+        header('Location:'.$method_routes[$command]['v']);
+    }
 }
 ?>

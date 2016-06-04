@@ -11,6 +11,14 @@
     <link rel="stylesheet" href="../../resource/style/cropper/main.css" />
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
     <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
+    <style type="text/css">
+        body{ font-size:14px;}
+        input{ vertical-align:middle; margin:0; padding:0}
+        .file-box{ position:relative;width:340px}
+        .txt{ height:22px; border:1px solid #cdcdcd; width:180px;}
+        .btn{ background-color:#FFF; border:1px solid #CDCDCD;height:24px; width:70px;}
+        .file{ position:absolute; top:0; right:80px; height:24px; filter:alpha(opacity:0);opacity: 0;width:260px }
+    </style>
 </head>
 <body>
 <div class="container" id="crop-avatar">
@@ -26,10 +34,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <form class="avatar-form" action="crop.php" enctype="multipart/form-data" method="post">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title" id="avatar-modal-label">Change Avatar</h4>
-                    </div>
+
                     <div class="modal-body">
                         <div class="avatar-body">
 
@@ -37,11 +42,20 @@
                             <div class="avatar-upload">
                                 <input type="hidden" class="avatar-src" name="avatar_src">
                                 <input type="hidden" class="avatar-data" name="avatar_data">
+                                <!--
                                 <label for="avatarInput">Local upload</label>
-                                <input type="file" class="avatar-input" id="avatarInput" name="avatar_file">
-                            </div>
+                                <input type="file" class="avatar-input" id="avatarInput" name="avatar_file" capture="camera">
 
-                            <!-- Crop and preview -->
+                                -->
+                            </div>
+                            <label class="btn btn-primary btn-upload" for="inputImage" title="Upload image file">
+                                <input type="file" class="sr-only" id="inputImage" name="file" accept="image/*">
+                                <span class="docs-tooltip" data-toggle="tooltip" title="Import image with Blob URLs">
+                                  <span class="fa fa-upload"></span>
+                                </span>
+                            </label>
+
+                              <!-- Crop and preview -->
                             <div class="row">
                                 <div class="col-md-9">
                                     <div class="avatar-wrapper"></div>
