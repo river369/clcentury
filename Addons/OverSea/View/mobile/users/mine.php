@@ -113,7 +113,6 @@ $customerid = $_SESSION['signedUser'];
 </div>
 <script src="../../resource/js/cropper/cropper.min.js"></script>
 <script src="../../resource/js/cropper/main.js"></script>
-
 <script>
     $(document).ready(function(){
         $("img").error(function () {

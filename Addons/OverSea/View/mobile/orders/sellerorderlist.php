@@ -52,8 +52,8 @@ $ordersCondition= $_SESSION['SellerOrdersCondition'];
             <li data-role="list-divider">订单号: <span class="ui-li-count"><?php echo $order['id'];?></span></li>
             <li>
                 <a href="../../../Controller/AuthUserDispatcher.php?c=queryOrderDetails&orderid=<?php echo $orderid; ?>" rel="external">
-                    <img class="weui_media_appmsg_thumb" src="../../resource/images/head_default.jpg" alt="">
-                    <h2> <?php echo $order['customername'];?> </h2>
+                    <img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $order['customerid'];?>/head.png" alt="">
+                    <h2> 买家:<?php echo $order['customername'];?> </h2>
                     <p style="white-space:pre-wrap;"><?php echo $order['requestmessage'];?> </p>
                     <p class="ui-li-aside">￥<?php echo $order['serviceprice'];?>/小时</p>
                 </a>
@@ -175,6 +175,12 @@ $ordersCondition= $_SESSION['SellerOrdersCondition'];
         $('#cancelorderid').val(orderid);
         $('#cancelDialog').popup('open');
     };
+
+    $(document).ready(function(){
+        $("img").error(function () {
+            $(this).attr("src", "../../resource/images/head_default.jpg");
+        });
+    });
 </script>
 </body>
 </html>

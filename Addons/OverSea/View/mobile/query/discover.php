@@ -51,7 +51,7 @@ if (isset($_SESSION ['servicearea'])){
             <li data-role="list-divider"><?php echo $userData['stars']?>星服务 <span class="ui-li-count">6次咨询</span></li>
             <li>
                 <a href="../../../Controller/FreelookDispatcher.php?c=sellerdetails&sellerid=<?php echo $userData['id']; ?>" rel="external">
-                    <img class="weui_media_appmsg_thumb" src="../../resource/images/head_default.jpg" alt="">
+                    <img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $userData['id'];?>/head.png" alt="">
                     <h2><?php echo $userData['name']?></h2>
                     <p style="white-space:pre-wrap;"><?php echo $userData['description']?></p>
                     <p class="ui-li-aside">￥<?php echo $userData['serviceprice']?>/小时</p>
@@ -91,6 +91,14 @@ if (isset($_SESSION ['servicearea'])){
         </ul>
     </div><!-- /panel -->
 </div>
+
+<script>
+    $(document).ready(function(){
+        $("img").error(function () {
+            $(this).attr("src", "../../resource/images/head_default.jpg");
+        });
+    });
+</script>
 </body>
 </html>
 
