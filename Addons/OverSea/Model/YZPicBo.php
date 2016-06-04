@@ -34,8 +34,11 @@ class YZPicBo
             'msg' => $crop -> getMsg(),
             'result' => $crop -> getResult()
         );
-
+        Logs::writeClcLog("msg".$crop -> getMsg());
+        Logs::writeClcLog("result".$crop -> getResult());
         echo json_encode($response);
+
+        exit;
 
         /*
         $ret= move_uploaded_file($_FILES["avatar_file"]["tmp_name"], "/tmp/" . $_FILES["avatar_file"]["name"]);

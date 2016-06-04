@@ -100,8 +100,19 @@ function saveId($id) {
  * @param $command
  */
 function needSignin($method_routes, $command) {
-    $_SESSION['$signInErrorMsg']= "请先登陆,然后可以".$method_routes[$command]['d'];
-    header('Location:../View/mobile/users/signin.php');
+    $msg = "请先登陆,然后可以" . $method_routes[$command]['d'];
+    if (isset($method_routes[$command]['v'])) {
+        $_SESSION['$signInErrorMsg'] = $msg;
+        header('Location:../View/mobile/users/signin.php');
+    } else {
+        $response = array(
+            'status'  => 200,
+            'msg' => $msg,
+            'result' => ""
+        );
+        echo json_encode($response);
+        exit;
+    }
 }
 
 function goToCommand($method_routes, $command) {
@@ -118,7 +129,7 @@ function goToCommand($method_routes, $command) {
             echo $e->getTrace();
         }
     }
-    if (isset($method_routes[$command]['f'])){
+    if (isset($method_routes[$command]['v'])){
         header('Location:'.$method_routes[$command]['v']);
     }
 }

@@ -23,7 +23,7 @@
         <h5>我的头像:</h5>
         <!-- Current avatar -->
         <div class="avatar-view" title="Change the avatar">
-            <img src="../../resource/images/head_default.jpg" alt="Avatar" onclick="chooseImages()">
+            <img src="../../resource/images/head_default.jpg" id='myhead' alt="Avatar" onclick="chooseImages()">
         </div>
     </div>
 
@@ -128,7 +128,7 @@
     });
     */
     function chooseImages(){
-        $('.reviewpopup').popup('open');
+        $('#reviewpopup').popup('open');
         $('#avatarInput').click();
 
         /*
