@@ -5,7 +5,8 @@ if (is_file(__DIR__ . '/../lib/aliyun-oss-php-sdk/autoload.php')) {
 }
 
 use OSS\OssClient;
-use OSS\Core\OssException;
+use Addons\OverSea\Common\Logs;
+
 
 class OSSHelper
 {
@@ -31,9 +32,7 @@ class OSSHelper
         try {
             $ossClient = new OssClient(self::$accessKeyId, self::$accessKeySecret, self::$endpoint, false);
         } catch (OssException $e) {
-            echo $e;
-            printf(__FUNCTION__ . "creating OssClient instance: FAILED\n");
-            printf($e->getMessage() . "\n");
+            Logs::writeClcLog(__CLASS__.",".__FUNCTION__.":"."creating OssClient instance: FAILED\n".$e->getMessage());
             return null;
         }
         return $ossClient;
@@ -54,14 +53,31 @@ class OSSHelper
         try {
             $ossClient->putObject(self::$bucket, $object, $content, $option);
         } catch (OssException $e) {
-            echo $e;
-            printf(__FUNCTION__ . ": FAILED\n");
-            printf($e->getMessage() . "\n");
+            Logs::writeClcLog(__CLASS__.",".__FUNCTION__.":".$e->getMessage());
             return;
         }
-        print(__FUNCTION__ . ": OK" . "\n");
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.":OK");
     }
-
+    
+    /**
+     * 上传指定的本地文件内容
+     *
+     * @param OssClient $ossClient OssClient实例
+     * @param string $bucket 存储空间名称
+     * @return null
+     */
+    function uploadFile($object, $path, $option)
+    {
+        $ossClient = self::getOssClient();
+        try {
+            $ossClient->uploadFile(self::$bucket, $object, $path, $option);
+        } catch (OssException $e) {
+            Logs::writeClcLog(__CLASS__.",".__FUNCTION__.":".$e->getMessage());
+            return;
+        }
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.":OK");
+    }
+    
     /**
      * 删除object
      *
@@ -75,11 +91,10 @@ class OSSHelper
         try {
             $ossClient->deleteObject(self::$bucket, $object);
         } catch (OssException $e) {
-            printf(__FUNCTION__ . ": FAILED\n");
-            printf($e->getMessage() . "\n");
+            Logs::writeClcLog(__CLASS__.",".__FUNCTION__.":".$e->getMessage());
             return;
         }
-        print(__FUNCTION__ . ": OK" . "\n");
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.":OK");
     }
 
     /**
@@ -105,13 +120,11 @@ class OSSHelper
         try {
             $listObjectInfo = $ossClient->listObjects(self::$bucket, $options);
         } catch (OssException $e) {
-            echo $e;
-            printf(__FUNCTION__ . ": FAILED\n");
-            printf($e->getMessage() . "\n");
+            Logs::writeClcLog(__CLASS__.",".__FUNCTION__.":".$e->getMessage());
             exit(1);
             //return;
         }
-        print(__FUNCTION__ . ": OK" . "\n");
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.":OK");
         $objectList = $listObjectInfo->getObjectList(); // 文件列表
         return $objectList;
         /*

@@ -118,6 +118,7 @@ function needSignin($method_routes, $command) {
 function goToCommand($method_routes, $command) {
 
     if (isset($method_routes[$command]['m']) && isset($method_routes[$command]['f'])){
+        Logs::writeClcLog("AuthUserDispatcher,goToCommand(),"."method=".$method_routes[$command]['m']."function=".$method_routes[$command]['f']);
         try {
             $class = $method_routes[$command]['m'];
             $fun = $method_routes[$command]['f'];

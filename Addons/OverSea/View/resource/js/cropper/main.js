@@ -21,6 +21,9 @@
     //this.$avatarModal = this.$container.find('#avatar-modal');
     this.$avatarModal = $('#avatar-modal');
     this.$loading  = $('#loading');
+    this.$myhead = $('#myhead');
+    this.$reviewpopup = $('#reviewpopup');
+    this.$uid = $('#uid');
 
     this.$avatarForm = this.$avatarModal.find('.avatar-form');
     this.$avatarUpload = this.$avatarForm.find('.avatar-upload');
@@ -230,7 +233,7 @@
         error: function (XMLHttpRequest, textStatus, errorThrown) {
           //alert (XMLHttpRequest);
           //alert (textStatus);
-          //alert (errorThrown);
+          alert (errorThrown);
           _this.submitFail(textStatus || errorThrown);
         },
 
@@ -279,11 +282,11 @@
     },
 
     cropDone: function () {
+      var link = "http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/" + this.$uid.attr("value") + "/head.png";
       this.$avatarForm.get(0).reset();
-      //$('#myhead').attr('src', this.url);
+      this.$myhead.attr('src', link);
       this.stopCropper();
-      $('.reviewpopup').popup('close');
-      //this.$avatarModal.modal('hide');
+      this.$reviewpopup.popup('close');
     },
 
     alert: function (msg) {

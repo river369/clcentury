@@ -21,31 +21,31 @@ class YZPicBo
 
     public function handleHeads() {
         $userID = $_SESSION['signedUser'];
-
-        $crop = new CropAvatar(
+        Logs::writeClcLog("YZPicBo,handleHeads(),"."Userid=".$userID);
+        $crop = new CropAvatar( $userID,
             isset($_POST['avatar_src']) ? $_POST['avatar_src'] : null,
             isset($_POST['avatar_data']) ? $_POST['avatar_data'] : null,
             isset($_FILES['avatar_file']) ? $_FILES['avatar_file'] : null
         );
-
+        if (is_null($crop -> getMsg())
+            && !is_null($crop -> getResult()) && file_exists($crop -> getResult())) {
+            Logs::writeClcLog("YZPicBo,handleHeads(),"."Uploading to OSS");
+            self::savePictureFromFile($crop -> getResult(), $userID);
+        }
 
         $response = array(
             'status'  => 200,
             'msg' => $crop -> getMsg(),
             'result' => $crop -> getResult()
         );
-        Logs::writeClcLog("msg".$crop -> getMsg());
-        Logs::writeClcLog("result".$crop -> getResult());
+        Logs::writeClcLog("YZPicBo,handleHeads(),"."msg=".$crop -> getMsg());
+        Logs::writeClcLog("YZPicBo,handleHeads(),"."result=".$crop -> getResult());
         echo json_encode($response);
 
         exit;
-
-        /*
-        $ret= move_uploaded_file($_FILES["avatar_file"]["tmp_name"], "/tmp/" . $_FILES["avatar_file"]["name"]);
-        self::savePictureFromFile($_FILES["avatar_file"]["tmp_name"],$userID);
-        Logs::writeClcLog("YZPicBo,handleHeads(),"."it is here:".$_FILES["avatar_file"]["tmp_name"]."  ".$ret);
-        */
+        
     }
+
 
     public function handlePics() {
         $userID = $_SESSION['signedUser'];
@@ -106,9 +106,9 @@ class YZPicBo
     }
 
     function savePictureFromFile($path, $userID){
-        $object = "yzphoto/heads/".$userID."/head.jpg";
+        $object = "yzphoto/heads/".$userID."/head.png";
         $options = array();
-        OSSHelper::putObject($object, $path, $options);
+        OSSHelper::uploadFile($object, $path, $options);
         return ;
     }
 

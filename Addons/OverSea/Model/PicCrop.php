@@ -10,8 +10,10 @@ class CropAvatar {
     private $type;
     private $extension;
     private $msg;
+    private $uid;
 
-    function __construct($src, $data, $file) {
+    function __construct($userid, $src, $data, $file) {
+        $this ->uid = $userid;
         $this -> setSrc($src);
         $this -> setData($data);
         $this -> setFile($file);
@@ -43,7 +45,7 @@ class CropAvatar {
             $type = exif_imagetype($file['tmp_name']);
             if ($type) {
                 $extension = image_type_to_extension($type);
-                $src = UPLOAD_DIR . date('YmdHis') . '.original' . $extension;
+                $src = UPLOAD_DIR . "u".$this->uid.".".date('YmdHis') . '.original' . $extension;
 
                 if ($type == IMAGETYPE_GIF || $type == IMAGETYPE_JPEG || $type == IMAGETYPE_PNG) {
 
@@ -72,7 +74,7 @@ class CropAvatar {
     }
 
     private function setDst() {
-        $this -> dst = UPLOAD_DIR . date('YmdHis') . '.png';
+        $this -> dst = UPLOAD_DIR ."u".$this->uid.".". date('YmdHis') . '.png';
     }
 
     private function crop($src, $dst, $data) {
