@@ -58,10 +58,32 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`clc_order_actions` (
 `orderid` bigint(12)  NOT NULL COMMENT 'order id',
 `action` int(10) DEFAULT 0 NOT NULL COMMENT '服务类型 0 创建订单',
 `creation_date` datetime  NOT NULL COMMENT 'entry datetime',
-`actioner` int(2) DEFAULT -1  COMMENT 'Action person 1 Customer, 2 Seller',
+`actioner` int(2) DEFAULT -1  COMMENT 'Action person 0 System, 1 Customer, 2 Seller',
 `comments` text DEFAULT NULL  COMMENT 'action description',
-PRIMARY KEY (`id`)
+PRIMARY KEY (`id`),
+KEY `order_id` (`order_id`)
 ) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
+
+----pay
+CREATE TABLE IF NOT EXISTS `clctravel`.`clc_payments` (
+`id` bigint(12) NOT NULL AUTO_INCREMENT COMMENT '主键',
+`order_id` bigint(12) NOT NULL COMMENT 'foreign key',
+`transaction_id` varchar(64)  DEFAULT NULL  COMMENT 'transaction id in payside',
+`out_trade_no` varchar(64)  DEFAULT NULL  COMMENT 'the payment number in yz',
+`cash_fee` decimal(10,2)  DEFAULT NULL COMMENT 'cache fee',
+`total_fee` decimal(10,2)  DEFAULT NULL COMMENT 'total fee',
+`fee_type` varchar(5)  DEFAULT NULL  COMMENT 'fee type like CYN',
+`openid` varchar(100) DEFAULT NULL COMMENT '微信openid',
+`is_subscribe` varchar(5)  DEFAULT NULL  COMMENT 'is_subscribe',
+`result_code` varchar(25)  DEFAULT NULL  COMMENT 'result_code',
+`return_code` varchar(25)  DEFAULT NULL  COMMENT 'return_code',
+`trade_type` varchar(10)  DEFAULT NULL  COMMENT 'trade type',
+`start_date` datetime  DEFAULT NULL COMMENT 'time_start',
+`end_date` datetime  DEFAULT NULL COMMENT 'time_end',
+PRIMARY KEY (`id`),
+KEY `order_id` (`order_id`)
+) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
+
 
 
 ------------------------Deprecated V2-------------------------

@@ -36,7 +36,7 @@ $ordersCondition= $_SESSION['SellerOrdersCondition'];
     <div role="main" class="ui-content jqm-content jqm-fullwidth">
         <div data-role="navbar">
             <ul>
-                <li><a href="../../../Controller/AuthUserDispatcher.php?c=querySellerOrders&sellerid=<?php echo $sellerid;?>&condition=0" <?php echo $ordersCondition == 0 ? "class='ui-btn-active'" : ''; ?> rel="external">待接收</a></li>
+                <li><a href="../../../Controller/AuthUserDispatcher.php?c=querySellerOrders&sellerid=<?php echo $sellerid;?>&condition=10" <?php echo $ordersCondition == 10 ? "class='ui-btn-active'" : ''; ?> rel="external">待接收</a></li>
                 <li><a href="../../../Controller/AuthUserDispatcher.php?c=querySellerOrders&sellerid=<?php echo $sellerid;?>&condition=20" <?php echo $ordersCondition == 20 ? "class='ui-btn-active'" : ''; ?> rel="external">已接收</a></li>
                 <li><a href="../../../Controller/AuthUserDispatcher.php?c=querySellerOrders&sellerid=<?php echo $sellerid;?>&condition=40" <?php echo $ordersCondition == 40 ? "class='ui-btn-active'" : ''; ?> rel="external">已完成</a></li>
                 <li><a href="../../../Controller/AuthUserDispatcher.php?c=querySellerOrders&sellerid=<?php echo $sellerid;?>&condition=80" <?php echo $ordersCondition == 80 ? "class='ui-btn-active'" : ''; ?> rel="external">已到账</a></li>
@@ -60,7 +60,7 @@ $ordersCondition= $_SESSION['SellerOrdersCondition'];
             </li>
             <li data-role="list-divider">已购买: <?php echo $order['servicehours'];?>小时 <span class="ui-li-count">总计: <?php echo $order['servicetotalfee'];?>元</span></li>
             
-            <?php if ($ordersCondition == 0) {?>
+            <?php if ($ordersCondition == 10) {?>
                 <li data-theme="c">
                     <div class="ui-grid-a">
                         <div class="ui-block-a"><a href="#rejectDialog" data-rel="popup" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="rejectPopup('<?php echo $orderid; ?>')">拒绝</a></div>

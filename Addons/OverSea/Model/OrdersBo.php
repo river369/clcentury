@@ -10,6 +10,7 @@ namespace Addons\OverSea\Model;
 
 use Addons\OverSea\Model\OrdersDao;
 use Addons\OverSea\Model\OrderActionsDao;
+use Addons\OverSea\Model\PaymentsDao;
 
 
 class OrdersBo
@@ -50,6 +51,17 @@ class OrdersBo
         }
 
     }
+
+    //For the case order are created but pay is delayed by user
+    public function repayOrder() {
+        $orderId = $_GET['orderid'];
+        $orderDetail = OrdersDao::getOrderById($orderId);
+        $_SESSION['orderData']= $orderDetail;
+        $_SESSION['createOrderStatus'] = '成功';
+        header('Location:'."../Controller/wxpayv3/PrePayJs.php");
+        exit;
+    }
+
 
     // Get Order Lists
     public function getOrderByCustomerAndCondition() {
@@ -141,4 +153,17 @@ class OrdersBo
         $orderActionData['comments'] = $reason;
         OrderActionsDao::insertOrderAction($orderActionData);
     }
+
+    /**
+     * When weixin call back with notify, the function is used
+     * @param $paymentData
+     */
+    public static function paymentConfirmOrder($paymentData) {
+        $orderid  = $paymentData ['order_id'];
+        $condition = 10;
+        OrdersDao::updateOrderCondition($orderid, $condition);
+        self::storeOrderActions($orderid, $condition, 0);
+        PaymentsDao::insertOrder($paymentData);
+    }
+    
 }

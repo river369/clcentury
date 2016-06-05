@@ -26,7 +26,9 @@ $method_routes = array(
         'v'=>'../View/mobile/orders/submitorder.php','d'=>'用户订购确认'),
     'createOrder' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'createOrder', 
         'v'=>'../View/mobile/orders/submitorderstatus.php','d'=>'创建订单'),
-    
+    'repayOrder' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'repayOrder',
+        'v'=>'../View/mobile/orders/submitorderstatus.php','d'=>'创建订单'),
+
     'queryCustomerOrders' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'getOrderByCustomerAndCondition',
         'v'=>'../View/mobile/orders/customerorderlist.php', 'd'=>'查看买家订单'),
     'querySellerOrders' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'getOrderBySellerAndCondition', 

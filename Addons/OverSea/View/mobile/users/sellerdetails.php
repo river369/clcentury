@@ -2,11 +2,6 @@
 session_start();
 $sellerData= $_SESSION['sellerData'];
 $orderId = $sellerData['id'];
-if (! isset($orderId) || is_null($orderId) || empty($orderId)){
-    echo "hi river, here is the bug";
-    exit(1);
-}
-echo $orderId;
 
 $servicetype=$sellerData['servicetype'];
 $servicetypeDesc;

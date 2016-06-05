@@ -3,7 +3,6 @@ ini_set('date.timezone','Asia/Shanghai');
 //error_reporting(E_ERROR);
 require_once "../../lib/wx-pay-v3/WxPay.Api.php";
 require_once "WxPay.JsApiPay.php";
-require_once 'log.php';
 
 require dirname(__FILE__).'/../../init.php';
 use Addons\OverSea\Common\Logs;
@@ -24,9 +23,9 @@ $openId = $tools->GetOpenid();
 
 //②、统一下单
 $input = new WxPayUnifiedOrder();
-$input->SetBody($orderData['sellername']);
+$input->SetBody("易知海外订单:".$orderData['id']." 服务提供者:".$orderData['sellername']);
 $input->SetAttach("yz");
-$input->SetOut_trade_no(WxPayConfig::MCHID.date("YmdHis")."_".$orderData['id']);
+$input->SetOut_trade_no(WxPayConfig::MCHID."_".date("YmdHis")."_".$orderData['id']);
 $input->SetTotal_fee($orderData['servicetotalfee']);
 $input->SetTime_start(date("YmdHis"));
 $input->SetTime_expire(date("YmdHis", time() + 600));

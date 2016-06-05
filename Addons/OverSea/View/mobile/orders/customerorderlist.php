@@ -35,7 +35,7 @@ $ordersCondition= $_SESSION['customerOrdersCondition'];
     <div role="main" class="ui-content jqm-content jqm-fullwidth">
         <div data-role="navbar">
             <ul>
-                <li><a href="../../../Controller/AuthUserDispatcher.php?c=queryCustomerOrders&customerid=<?php echo $customerid;?>&condition=0" <?php echo $ordersCondition == 0 ? "class='ui-btn-active'" : ''; ?> rel="external">已购买</a></li>
+                <li><a href="../../../Controller/AuthUserDispatcher.php?c=queryCustomerOrders&customerid=<?php echo $customerid;?>&condition=0,10" <?php echo $ordersCondition == '0,10' ? "class='ui-btn-active'" : ''; ?> rel="external">已下单</a></li>
                 <li><a href="../../../Controller/AuthUserDispatcher.php?c=queryCustomerOrders&customerid=<?php echo $customerid;?>&condition=20" <?php echo $ordersCondition == 20 ? "class='ui-btn-active'" : '' ?> rel="external">已接收</a></li>
                 <li><a href="../../../Controller/AuthUserDispatcher.php?c=queryCustomerOrders&customerid=<?php echo $customerid;?>&condition=40" <?php echo $ordersCondition == 40 ? "class='ui-btn-active'" : '' ?> rel="external">待确认</a></li>
                 <li><a href="../../../Controller/AuthUserDispatcher.php?c=queryCustomerOrders&customerid=<?php echo $customerid;?>&condition=60" <?php echo $ordersCondition == 60 ? "class='ui-btn-active'" : '' ?> rel="external">已完成</a></li>
@@ -46,6 +46,7 @@ $ordersCondition= $_SESSION['customerOrdersCondition'];
         foreach($orders as $key => $order)
         {
             $orderid = $order['id'];
+            $orderCondition = $order['conditions'];
         ?>
         <ul data-role="listview" data-inset="true">
             <li data-role="list-divider">订单号: <span class="ui-li-count"><?php echo $order['id'];?></span></li>
@@ -58,10 +59,13 @@ $ordersCondition= $_SESSION['customerOrdersCondition'];
                 </a>
             </li>
             <li data-role="list-divider">已购买: <?php echo $order['servicehours'];?>小时 <span class="ui-li-count">总计: <?php echo $order['servicetotalfee'];?>元</span></li>
-            <?php if ($ordersCondition == 0 || $ordersCondition == 20) {?>
+            <?php if ($ordersCondition <= 20) {?>
                 <li data-theme="c">
                     <div class="ui-grid-a">
                         <div class="ui-block-a"><a href="#cancelDialog" data-rel="popup" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="cancelPopup('<?php echo $orderid; ?>')">取消</a></div>
+                        <?php if ($orderCondition == 0) {?>
+                          <div class="ui-block-b"><a href="../../../Controller/AuthUserDispatcher.php?c=repayOrder&orderid=<?php echo $orderid; ?>" rel="external" class="ui-shadow ui-btn ui-corner-all ui-mini">去付款</a></div>
+                        <?php } ?>
                     </div>
                 </li>
             <?php } ?>

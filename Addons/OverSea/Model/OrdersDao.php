@@ -36,6 +36,19 @@ class OrdersDao
         }
     }
 
+    public static function updateOrderCondition($orderid, $condition)
+    {
+        try {
+            $sql = "update clc_orders set conditions = :condition where id =:id";
+            //echo $sql
+            MySqlHelper::query($sql, array(':condition' => $condition, ':id' => $orderid));
+            return 0;
+        } catch (\Exception $e){
+            return -1;
+            echo $e;
+        }
+    }
+
     public static function getOrderBySellerAndCondition($sellerid, $condition)
     {
         try {
@@ -86,7 +99,7 @@ class OrdersDao
                 $tmpData[':' . $k] = $v;
             }
             $sql = 'INSERT INTO clc_orders (' . implode(',', array_keys($data)) . ') VALUES (' . implode(',', array_keys($tmpData)) . ')';
-            echo $sql;
+            //echo $sql;
             MySqlHelper::query($sql, $tmpData);
         } catch (\Exception $e){
             echo $e;

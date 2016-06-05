@@ -17,6 +17,9 @@ function getOrderStatusString($condition)
     switch ($condition)
     {
         case 0:
+            $orderStatus = "订单已创建";
+            break;
+        case 10:
             $orderStatus = "买家已付款,等待卖家接收";
             break;
         case 1020:
@@ -122,6 +125,12 @@ function getOrderStopReason($condition, $orderActions)
                 echo "{ type: 'smallItem', label: '".$actionString.
                     "', shortContent: '".$orderAction['creation_date'] ."',},";
             ?>
+            <?php } ?>
+            <?php if ($lastAction < 10) {?>
+            {
+                type: 'milestone',
+                label: '买家支付',
+            },
             <?php } ?>
             <?php if ($lastAction < 20) {?>
             {
