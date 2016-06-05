@@ -68,7 +68,16 @@ $jsApiParameters = $tools->GetJsApiParameters($order);
 				<?php echo $jsApiParameters; ?>,
 				function(res){
 					WeixinJSBridge.log(res.err_msg);
-					alert(res.err_code+res.err_desc+res.err_msg);
+					//alert(res.err_code+res.err_desc+res.err_msg);
+					if(res.err_msg=='get_brand_wcpay_request:ok'){
+						//document.getElementById('payDom').style.display='none';
+						document.getElementById('successDom').style.display='block';
+     					window.location.href = '../../View/mobile/orders/submitorderstatus.php';
+					}else{
+						//document.getElementById('payDom').style.display='none';
+						document.getElementById('failDom').style.display='block';
+						document.getElementById('failRt').innerHTML='错误提示：'+res.err_msg;
+					}
 				}
 			);
 		};
@@ -91,12 +100,27 @@ $jsApiParameters = $tools->GetJsApiParameters($order);
 <body>
 <div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
 	<div data-role="header" data-position="fixed" data-theme="c">
-		<h1>支付</h1>
+		<h1>支付信息</h1>
 	</div>
     <br/>
 	<div align="center" data-role="content" data-theme="c">
 		<font color="#9ACD32"><b>该笔订单支付金额为<span style="color:#f00;font-size:50px"><?php echo $orderData['servicetotalfee'];?></span>元</b></font><br/><br/>
+		<p>收款方为:易知海外 </p>
 		<input data-mini="true" value="立即支付" type="button" onclick="callpay()">
+	</div>
+	<div id="failDom" style="display:none">
+		<div class="failMsg">
+			支付结果:支付失败
+			<div id="failRt">
+			</div>
+		</div>
+		<div id="footReturn">
+			<a href="javascript:void(0);" class="button" onClick="callpay()">重新进行支付</a>
+		</div>
+	</div>
+	<div id="successDom" style="display:none">
+		<span>支付成功</span>
+		<span>您已支付成功，页面正在跳转...</span>
 	</div>
 
 	<div data-role="footer" data-position="fixed" data-theme="c">
