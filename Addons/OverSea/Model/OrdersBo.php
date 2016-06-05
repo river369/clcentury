@@ -38,13 +38,17 @@ class OrdersBo
         $orderData['customername'] = $customername;
 
         $orderid = OrdersDao::insertOrder($orderData);
+        $orderData['id'] = $orderid;
+        $_SESSION['orderData']= $orderData;
         if ($orderid) {
             self::storeOrderActions($orderid, 0, 1);
             $_SESSION['createOrderStatus'] = '成功';
+            header('Location:'."../Controller/wxpayv3/PrePayJs.php");
+            exit;
         } else {
             $_SESSION['createOrderStatus'] = '失败';
         }
-        $_SESSION['orderData']= $orderData;
+
     }
 
     // Get Order Lists

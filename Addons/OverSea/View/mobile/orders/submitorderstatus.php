@@ -7,6 +7,9 @@
  */
 session_start();
 $status= $_SESSION['createOrderStatus'];
+//if ($status == '成功'){
+//    header('Location:'."../../../Controller/wxpayv3/PrePayJs.php");
+//}
 $orderData= $_SESSION['orderData'];
 ?>
 

@@ -65,10 +65,12 @@ if (isset($_SESSION['signedUser'])) {
     goToCommand($method_routes, $command);
 } else {
     $cookieValue = isset($_COOKIE["signedUser"])? EncryptHelper::decrypt($_COOKIE["signedUser"]) : "";
+    $cookieValue = null;
     if (isset($cookieValue) && !empty($cookieValue) && !is_null($cookieValue)){
         saveId($cookieValue);
         goToCommand($method_routes, $command);
     } else if (isset($_SESSION['weixinOpenid'])) {
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.":"."Got weixin openid=");
         // check if weixin openid match the db saving values
         $existedUser=UsersDao::getUserByOpenid($_SESSION['weixinOpenid']);
         if (isset($existedUser['openid']) && $existedUser['openid'] == $_SESSION['weixinOpenid']){
@@ -79,6 +81,7 @@ if (isset($_SESSION['signedUser'])) {
         }
         /**/
     } else if (!isset($_SESSION['weixinOpenidTried'])) {
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.":"."try to call weixin to verify");
         // Try to get weixin open id 1 times
         WeixinHelper::triggerWeixinGetToken();
     } else {
@@ -118,7 +121,7 @@ function needSignin($method_routes, $command) {
 function goToCommand($method_routes, $command) {
 
     if (isset($method_routes[$command]['m']) && isset($method_routes[$command]['f'])){
-        Logs::writeClcLog("AuthUserDispatcher,goToCommand(),"."method=".$method_routes[$command]['m']."function=".$method_routes[$command]['f']);
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.":"."method=".$method_routes[$command]['m']."function=".$method_routes[$command]['f']);
         try {
             $class = $method_routes[$command]['m'];
             $fun = $method_routes[$command]['f'];

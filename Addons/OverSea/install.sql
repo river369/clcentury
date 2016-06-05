@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`clc_orders` (
 `serviceprice` int(10) DEFAULT 50  COMMENT '服务价格',
 `servicepriceunit` varchar(10)  DEFAULT "人民币"  COMMENT '服务价格单位',
 `servicehours` int(10) DEFAULT 1  COMMENT '服务小时数',
-`servicetotalfee` int(10) DEFAULT 50  COMMENT '服务小时数',
+`servicetotalfee` int(10) DEFAULT 50  COMMENT '支付金额',
 `requestmessage` text DEFAULT NULL  COMMENT '留言',
 PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
