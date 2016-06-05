@@ -21,7 +21,7 @@ if (isset($_POST ['servicearea'] )){
     $userData['servicearea'] = $_POST ['servicearea'];
 }
 if (isset($_POST ['description'] )){
-    $userData['description'] = $_POST ['description'];
+    $userData['description'] = ltrim($_POST ['description']);
 }
 $i=0;
 if (isset($_POST ['service-1']) &&  $_POST ['service-1'] == 'on'){

@@ -282,7 +282,7 @@
     },
 
     cropDone: function () {
-      var link = "http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/" + this.$uid.attr("value") + "/head.png";
+      var link = "http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/" + this.$uid.attr("value") + "/head.png?t=" + Math.random();
       this.$avatarForm.get(0).reset();
       this.$myhead.attr('src', link);
       this.stopCropper();
