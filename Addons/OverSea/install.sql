@@ -14,6 +14,8 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`yz_users` (
 `stars` int(3) DEFAULT 3  COMMENT '星',
 `tag` varchar(255) DEFAULT "" COMMENT 'user tags',
 `status` int(10) DEFAULT 0  COMMENT 'user状态 0 created, 20 个人信息不完整, 40 已经实名, 60 已发布过服务, 80 完成一次服务, 100 多次服务' ,
+`creation_date` datetime  DEFAULT NULL COMMENT 'creation datetime',
+`update_date` datetime  DEFAULT NULL COMMENT 'update datetime',
 PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
 
@@ -30,6 +32,8 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`yz_services` (
 `service_price_unit` varchar(10)  DEFAULT "人民币"  COMMENT '服务价格单位',
 `stars` int(3) DEFAULT 3  COMMENT '星',
 `tag` varchar(255) DEFAULT "" COMMENT 'user tags',
+`creation_date` datetime  DEFAULT NULL COMMENT 'creation datetime',
+`update_date` datetime  DEFAULT NULL COMMENT 'update datetime',
 PRIMARY KEY (`id`),
 KEY `seller_id` (`seller_id`)
 ) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
@@ -50,6 +54,8 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`yz_orders` (
 `service_hours` int(10) DEFAULT 1  COMMENT '服务小时数',
 `service_total_fee` int(10) DEFAULT 50  COMMENT '支付金额',
 `request_message` text DEFAULT NULL  COMMENT '留言',
+`creation_date` datetime  DEFAULT NULL COMMENT 'creation datetime',
+`update_date` datetime  DEFAULT NULL COMMENT 'update datetime',
 PRIMARY KEY (`id`),
 KEY `service_id` (`service_id`),
 KEY `seller_id` (`seller_id`),

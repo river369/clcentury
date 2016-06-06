@@ -7,23 +7,25 @@
  */
 namespace Addons\OverSea\Model;
 use Addons\OverSea\Common\MySqlHelper;
+use Addons\OverSea\Common\Log;
 
 class UsersDao
 {
     public static function insertUser($data)
     {
         try {
-            //$data['create_date'] = time();
+            date_default_timezone_set('PRC');
+            $data['creation_date'] = date('y-m-d H:i:s',time());
             $tmpData = array();
             foreach ($data as $k => $v) {
                 //echo $k."-".$v;
                 $tmpData[':' . $k] = $v;
             }
-            $sql = 'INSERT INTO clc_users (' . implode(',', array_keys($data)) . ') VALUES (' . implode(',', array_keys($tmpData)) . ')';
+            $sql = 'INSERT INTO yz_users (' . implode(',', array_keys($data)) . ') VALUES (' . implode(',', array_keys($tmpData)) . ')';
             //echo $sql;
             MySqlHelper::query($sql, $tmpData);
         } catch (\Exception $e){
-            echo $e;
+            Logs::writeClcLog(__CLASS__.",".__FUNCTION__.$e);
         }
         return MySqlHelper::getLastInsertId();
     }
@@ -31,7 +33,9 @@ class UsersDao
     public static function updateUser($data, $id)
     {
         try {
-            $sql = "update clc_users set ";
+            date_default_timezone_set('PRC');
+            $data['creation_date'] = date('y-m-d H:i:s',time());
+            $sql = "update yz_users set ";
             foreach ($data as $k => $v) {
                 //echo $k."-".$v;
                 if ($v != null && $v != ''){
@@ -45,56 +49,52 @@ class UsersDao
             return 0;
         } catch (\Exception $e){
             return -1;
-            echo $e;
+            Logs::writeClcLog(__CLASS__.",".__FUNCTION__.$e);
         }
     }
-
-    public static function updateOpenid($openid, $id)
+    public static function updateExternalId($external_id, $id)
     {
         try {
-            //$sql = "update clc_users set openid = '".$openid."' where id =".$id;
-            //echo $sql ;
-            //MySqlHelper::query($sql);
-            $sql = "update clc_users set openid = :openid where id =:id";
+            $sql = "update yz_users set external_id = :external_id where id =:id";
             //echo $sql . $id .$openid;
-            MySqlHelper::query($sql, array(':openid' => $openid, ':id' => $id));
+            MySqlHelper::query($sql, array(':external_id' => $external_id, ':id' => $id));
             return 0;
         } catch (\Exception $e){
             return -1;
-            echo $e;
+            Logs::writeClcLog(__CLASS__.",".__FUNCTION__.$e);
         }
     }
 
-    public static function getUserByPhone($phonereigon, $phonenumber)
+    public static function getUserByPhone($phone_reigon, $phone_number)
     {
-        $sql = 'SELECT * FROM clc_users WHERE phonereigon = :phonereigon and phonenumber = :phonenumber LIMIT 1';
-        $user = MySqlHelper::fetchOne($sql, array(':phonereigon' => $phonereigon, ':phonenumber' => $phonenumber));
+        $sql = 'SELECT * FROM yz_users WHERE phone_reigon = :phone_reigon and phone_number = :phone_number LIMIT 1';
+        $user = MySqlHelper::fetchOne($sql, array(':phone_reigon' => $phone_reigon, ':phone_number' => $phone_number));
         return $user;
     }
 
     public static function getUserById($id)
     {
         try {
-            $sql = 'SELECT * FROM clc_users WHERE id= :id LIMIT 1';
+            $sql = 'SELECT * FROM yz_users WHERE id= :id LIMIT 1';
             //echo $sql;
             $user = MySqlHelper::fetchOne($sql, array(':id' => $id));
             return $user;
         }catch (\Exception $e){
-            echo $e;
+            Logs::writeClcLog(__CLASS__.",".__FUNCTION__.$e);
             exit(1);
         }
 
     }
     
-    public static function getUserByOpenid($openid)
+    public static function getUserByExternalId($external_id)
     {
         try {
-            $sql = 'SELECT * FROM clc_users WHERE openid = :openid LIMIT 1';
+            $sql = 'SELECT * FROM yz_users WHERE external_id = :external_id LIMIT 1';
             //echo $sql;
-            $user = MySqlHelper::fetchOne($sql, array(':openid' => $openid));
+            $user = MySqlHelper::fetchOne($sql, array(':external_id' => $external_id));
             return $user;
         }catch (\Exception $e){
-            echo $e;
+            Logs::writeClcLog(__CLASS__.",".__FUNCTION__.$e);
             exit(1);
         }
 
@@ -106,10 +106,10 @@ class UsersDao
      * @param $city
      * @return mixed
      */
-    public static function getUsersByServiceTypeInArea($servicetype, $servicearea)
+    public static function getUsersByServiceTypeInArea($service_type, $service_area)
     {
-        $sql = 'SELECT * FROM clc_users WHERE servicetype in (99999, :servicetype) and servicearea = :servicearea order by stars desc';
-        $users = MySqlHelper::fetchAll($sql, array(':servicetype' => $servicetype, ':servicearea' => $servicearea));
+        $sql = 'SELECT * FROM yz_users WHERE service_type in (99999, :service_type) and service_area = :service_area order by stars desc';
+        $users = MySqlHelper::fetchAll($sql, array(':service_type' => $service_type, ':service_area' => $service_area));
         return $users;
     }
 
@@ -120,10 +120,10 @@ class UsersDao
      * @param $city
      * @return mixed
      */
-    public static function getUsersByServiceType($servicetype)
+    public static function getUsersByServiceType($service_type)
     {
-        $sql = 'SELECT * FROM clc_users WHERE servicetype in (99999, :servicetype) order by stars desc';
-        $users = MySqlHelper::fetchAll($sql, array(':servicetype' => $servicetype));
+        $sql = 'SELECT * FROM yz_users WHERE service_type in (99999, :service_type) order by stars desc';
+        $users = MySqlHelper::fetchAll($sql, array(':service_type' => $service_type));
         return $users;
     }
     

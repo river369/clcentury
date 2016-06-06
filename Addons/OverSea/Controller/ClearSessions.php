@@ -25,20 +25,20 @@ echo '  ] [id='.$_SESSION['signedUser'];
 
 //$userData=UsersDao::getUserByPhone('+86','13520143438');
 $userData=UsersDao::getUserById($_SESSION['signedUser']);
-if (isset($userData['phonenumber'])){
-    echo "] [got phone by id=".$userData['phonenumber'];
+if (isset($userData['phone_number'])){
+    echo "] [got phone by id=".$userData['phone_number'];
 } else {
     echo "] [not got by id";
 }
 
-$userData=UsersDao::getUserByOpenid($_SESSION['weixinOpenid']);
-if (isset($userData['phonenumber'])){
-    echo "] [got phone by weixinOpenid=".$userData['phonenumber'];
+$userData=UsersDao::getUserByExternalId($_SESSION['weixinOpenid']);
+if (isset($userData['phone_number'])){
+    echo "] [got phone by weixinOpenid=".$userData['phone_number'];
 } else {
     echo "] [not got by weixinOpenid]";
 }
 echo "[".$_SESSION['signedUser']."]";
-UsersDao::updateOpenid(-1, $_SESSION['signedUser']);
+UsersDao::updateExternalId(-1, $_SESSION['signedUser']);
 setcookie("signedUser", "", time()-1000);
 unset($_SESSION['signedUser']);
 unset($_SESSION['weixinOpenid']);

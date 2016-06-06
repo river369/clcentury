@@ -21,6 +21,7 @@ $method_routes = array(
     'mine' => array('v'=>'../View/mobile/users/mine.php','d'=>'我的订单'),
     'myinfo' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'getCurrentUserInfo', 'v'=>'../View/mobile/users/myinfo.php','d'=>'发易知信息'),
     
+     //to be deleted
     'submityzpic' => array('m'=>'Addons\OverSea\Model\YZPicBo', 'f'=>'handlePics', 'v'=>'../View/mobile/users/yzpictures.php','d'=>'发易知图片'),
     'submityz' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'getCurrentUserInfo', 'v'=>'../View/mobile/users/submityz.php','d'=>'发易知信息'),
     'submitheadpic' => array('m'=>'Addons\OverSea\Model\YZPicBo', 'f'=>'handleHeads', 'd'=>'发个人头像'),
@@ -75,14 +76,14 @@ if (isset($_SESSION['signedUser'])) {
     goToCommand($method_routes, $command);
 } else {
     $cookieValue = isset($_COOKIE["signedUser"])? EncryptHelper::decrypt($_COOKIE["signedUser"]) : "";
-    //$cookieValue = null; //to temp disable cookie for test weixin
+    $cookieValue = null; //to temp disable cookie for test weixin
     if (isset($cookieValue) && !empty($cookieValue) && !is_null($cookieValue)){
         Logs::writeClcLog("AuthUserDipatcher.php, Get user from cookie as ".$_SESSION['signedUser']);
         saveId($cookieValue);
         goToCommand($method_routes, $command);
     } else if (isset($_SESSION['weixinOpenid'])) {
         // check if weixin openid match the db saving values
-        $existedUser=UsersDao::getUserByOpenid($_SESSION['weixinOpenid']);
+        $existedUser=UsersDao::getUserByExternalId($_SESSION['weixinOpenid']);
         if (isset($existedUser['openid']) && $existedUser['openid'] == $_SESSION['weixinOpenid']){
             Logs::writeClcLog("AuthUserDipatcher.php, Get user from session openid as ".$existedUser['id']);
             saveId($existedUser['id']);

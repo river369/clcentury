@@ -18,37 +18,41 @@ require dirname(__FILE__).'/../init.php';
 
 session_start();
 $userData;
-if (isset($_POST ['phonereigon'])){
-    $userData['phonereigon'] = $_POST ['phonereigon'];
-}
-if (isset($_POST ['phonenumber'])){
-    $userData['phonenumber'] = $_POST ['phonenumber'];
-}
-if (isset($_POST ['password'] )){
-    $userData['password'] = $_POST ['password'];
-}
+$userData['user_type'] = 1;
 
-// verifycode to be implement
-
-$existedUser=UsersDao::getUserByPhone($userData['phonereigon'] , $userData['phonenumber']);
-if (!isset($existedUser['phonenumber'])){
-    //echo $userData['phonereigon'] . $userData['phonenumber']. " 号码尚未注册.";
-    $_SESSION['$signInErrorMsg']= $userData['phonereigon'] . $userData['phonenumber']. " 号码尚未注册.";
-    header('Location:../View/mobile/users/signin.php');
-} else if ($_POST ['password'] != $existedUser['password']){
-    $_SESSION['$signInErrorMsg']= $userData['phonereigon'] . $userData['phonenumber']. " 密码错误.";
-    header('Location:../View/mobile/users/signin.php');
-} else {
-    //echo $existedUser['id'].$_SESSION['weixinOpenid'];
-    $_SESSION['signedUser'] = $existedUser['id'];
-    // try to set uid in cookie
-    $cookieValue = EncryptHelper::encrypt($existedUser['id']);
-    setcookie("signedUser", $cookieValue, time()+7*24*3600);
-
-    if (isset($_SESSION['weixinOpenid'])) {
-        UsersDao::updateOpenid($_SESSION['weixinOpenid'], $existedUser['id']);
+if ($userData['user_type'] == 1) { // register by phone user
+    if (isset($_POST ['phone_reigon'])){
+        $userData['phone_reigon'] = $_POST ['phone_reigon'];
+    }
+    if (isset($_POST ['phone_number'])){
+        $userData['phone_number'] = $_POST ['phone_number'];
+    }
+    if (isset($_POST ['password'] )){
+        $userData['password'] = $_POST ['password'];
     }
 
-    header('Location:./AuthUserDispatcher.php');
+    // verifycode to be implement
+    $existedUser=UsersDao::getUserByPhone($userData['phone_reigon'] , $userData['phone_number']);
+    if (!isset($existedUser['phone_number'])){
+        //echo $userData['phone_reigon'] . $userData['phone_number']. " 号码尚未注册.";
+        $_SESSION['$signInErrorMsg']= $userData['phone_reigon'] . $userData['phone_number']. " 号码尚未注册.";
+        header('Location:../View/mobile/users/signin.php');
+    } else if ($_POST ['password'] != $existedUser['password']){
+        $_SESSION['$signInErrorMsg']= $userData['phone_reigon'] . $userData['phone_number']. " 密码错误.";
+        header('Location:../View/mobile/users/signin.php');
+    } else {
+        //echo $existedUser['id'].$_SESSION['weixinOpenid'];
+        $_SESSION['signedUser'] = $existedUser['id'];
+        // try to set uid in cookie
+        $cookieValue = EncryptHelper::encrypt($existedUser['id']);
+        setcookie("signedUser", $cookieValue, time()+7*24*3600);
+
+        if (isset($_SESSION['weixinOpenid'])) {
+            UsersDao::updateExternalId($_SESSION['weixinOpenid'], $existedUser['id']);
+        }
+
+        header('Location:./AuthUserDispatcher.php');
+    }
 }
+
 ?>

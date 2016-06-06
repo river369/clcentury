@@ -27,11 +27,11 @@
 
     <div data-role="content">
         <form id="signupform" data-ajax="false" method="post" action="../../../Controller/SignUp.php">
-            <select name="phonereigon" id="phonereigon">
+            <select name="phone_reigon" id="phone_reigon">
                 <option value="+86">中国 +86</option>
                 <option value="+1">美国 +1</option>
             </select>
-            <input type="number" name="phonenumber" id="phonenumber" placeholder="请输入手机号码:">
+            <input type="number" name="phone_number" id="phone_number" placeholder="请输入手机号码:">
             <input type="password" name="password" id="password" placeholder="请输入密码:">
             <input type="number" name="verifycode" id="verifycode" placeholder="请输入验证码:">
             <button type="button" name="getvcode" id="getvcode" onclick="getSMS(this);"> 免费获取验证码</button>
@@ -51,7 +51,6 @@
             url:'../../../Controller/SendSMS.php',
             type:'POST',
             data : $('#signupform').serialize(),
-            <!--data:{phonenumber:$.trim($("input[name=phonenumber]").val()), phonereigon:$.trim($("input[name=phonereigon]").val())}, -->
             dataType:'json',
             async:false,
             success:function(result) {

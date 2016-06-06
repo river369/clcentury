@@ -16,8 +16,8 @@ session_start();
 //echo json_encode(array('status'=> $result['code'], 'msg'=> $result['msg']));
 
 $mobile;
-if (isset($_POST['phonereigon']) && isset($_POST['phonenumber'])){
-    $mobile = $_POST['phonereigon'].$_POST['phonenumber'];
+if (isset($_POST['phone_reigon']) && isset($_POST['phone_number'])){
+    $mobile = $_POST['phone_reigon'].$_POST['phone_number'];
     $_SESSION['verifcationCode'] = rand(1000,9999);
     $text="【易知海外】您的验证码是".$_SESSION['verifcationCode'];
     if ($_POST['phonereigon'] != '+86') {
