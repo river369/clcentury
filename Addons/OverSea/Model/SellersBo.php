@@ -10,7 +10,7 @@ namespace Addons\OverSea\Model;
 
 use Addons\OverSea\Model\UsersDao;
 use Addons\OverSea\Common\OSSHelper;
-
+use Addons\OverSea\Common\HttpHelper;
 
 class SellersBo
 {
@@ -20,7 +20,7 @@ class SellersBo
     public function getCurrentSellerInfo() {
         unset($_SESSION['sellerData']);
 
-        $sellerid = $_GET ['sellerid'];
+        $sellerid = HttpHelper::getVale('sellerid');
 
         $sellerData = UsersDao::getUserById($sellerid);
         $_SESSION['sellerData']= $sellerData;

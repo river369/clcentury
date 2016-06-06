@@ -6,7 +6,7 @@
  * Time: 17:05
  */
 require dirname(__FILE__).'/../init.php';
-
+use Addons\OverSea\Common\HttpHelper;
 session_start();
 
 //c - command, like signin, m - model, f - function in model, v - view,  d - description
@@ -14,11 +14,15 @@ $method_routes = array(
     'sellerdetails' => array('m'=>'Addons\OverSea\Model\SellersBo', 'f'=>'getCurrentSellerInfoAndPictures','v'=>'../View/mobile/users/sellerdetails.php','d'=>'卖家详细信息'),
 );
 
+HttpHelper::saveServerQueryStringVales($_SERVER['QUERY_STRING']);
+$command = HttpHelper::getVale('c');
+/*
 $command;
 if (isset($_GET ['c'])){
     // get call back url from GET
     $command = $_GET ['c'];
 }
+*/
 
 goToCommand($method_routes, $command);
 

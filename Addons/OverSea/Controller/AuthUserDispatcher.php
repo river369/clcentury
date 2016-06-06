@@ -8,6 +8,7 @@
 use Addons\OverSea\Model\UsersDao;
 use Addons\OverSea\Common\WeixinHelper;
 use Addons\OverSea\Common\EncryptHelper;
+use Addons\OverSea\Common\HttpHelper;
 use Addons\OverSea\Common\Logs;
 
 require dirname(__FILE__).'/../init.php';
@@ -27,7 +28,7 @@ $method_routes = array(
     'createOrder' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'createOrder', 
         'v'=>'../View/mobile/orders/submitorderstatus.php','d'=>'创建订单'),
     'repayOrder' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'repayOrder',
-        'v'=>'../View/mobile/orders/submitorderstatus.php','d'=>'创建订单'),
+        'v'=>'../View/mobile/orders/submitorderstatus.php','d'=>'支付订单'),
 
     'queryCustomerOrders' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'getOrderByCustomerAndCondition',
         'v'=>'../View/mobile/orders/customerorderlist.php', 'd'=>'查看买家订单'),
@@ -52,6 +53,9 @@ $method_routes = array(
 
 );
 
+HttpHelper::saveServerQueryStringVales($_SERVER['QUERY_STRING']);
+$command = HttpHelper::getVale('c');
+/*
 $command;
 if (isset($_GET ['c'])){
     // get call back url from GET
@@ -60,7 +64,8 @@ if (isset($_GET ['c'])){
 } else if (isset($_SESSION['callbackurl'])){
     // get call back url from SESSION
     $command = $_SESSION['callbackurl'];
-}
+}*/
+
 
 if (isset($_SESSION['signedUser'])) {
     // first choice is session
