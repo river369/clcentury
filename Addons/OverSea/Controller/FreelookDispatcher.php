@@ -11,7 +11,7 @@ session_start();
 
 //c - command, like signin, m - model, f - function in model, v - view,  d - description
 $method_routes = array(
-    'sellerdetails' => array('m'=>'Addons\OverSea\Model\SellersBo', 'f'=>'getCurrentSellerInfoAndPictures','v'=>'../View/mobile/users/sellerdetails.php','d'=>'卖家详细信息'),
+    'sellerdetails' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'getCurrentSellerInfoAndPictures','v'=>'../View/mobile/users/sellerdetails.php','d'=>'卖家详细信息'),
 );
 
 HttpHelper::saveServerQueryStringVales($_SERVER['QUERY_STRING']);

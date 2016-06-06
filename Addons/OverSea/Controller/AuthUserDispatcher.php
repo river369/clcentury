@@ -19,11 +19,13 @@ session_start();
 $method_routes = array(
     'signin' => array('v'=>'../View/mobile/users/signin.php','d'=>''),//submit yz
     'mine' => array('v'=>'../View/mobile/users/mine.php','d'=>'我的订单'),
+    'myinfo' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'getCurrentUserInfo', 'v'=>'../View/mobile/users/myinfo.php','d'=>'发易知信息'),
+    
     'submityzpic' => array('m'=>'Addons\OverSea\Model\YZPicBo', 'f'=>'handlePics', 'v'=>'../View/mobile/users/yzpictures.php','d'=>'发易知图片'),
     'submityz' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'getCurrentUserInfo', 'v'=>'../View/mobile/users/submityz.php','d'=>'发易知信息'),
     'submitheadpic' => array('m'=>'Addons\OverSea\Model\YZPicBo', 'f'=>'handleHeads', 'd'=>'发个人头像'),
 
-    'submitOrder' => array('m'=>'Addons\OverSea\Model\SellersBo', 'f'=>'getCurrentSellerInfo', 
+    'submitOrder' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'getCurrentSellerInfo', 
         'v'=>'../View/mobile/orders/submitorder.php','d'=>'用户订购确认'),
     'createOrder' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'createOrder', 
         'v'=>'../View/mobile/orders/submitorderstatus.php','d'=>'创建订单'),

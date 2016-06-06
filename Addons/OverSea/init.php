@@ -20,7 +20,6 @@ function initLoad()
     include_once dirname(__FILE__). '/Model/OrderActionsDao.php';
     include_once dirname(__FILE__). '/Model/PaymentsDao.php';
     include_once dirname(__FILE__). '/Model/UsersBo.php';
-    include_once dirname(__FILE__). '/Model/SellersBo.php';
     include_once dirname(__FILE__). '/Model/OrdersBo.php';
     include_once dirname(__FILE__). '/Model/YZPicBo.php';
     return true;

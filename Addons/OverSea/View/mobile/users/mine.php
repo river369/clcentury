@@ -25,17 +25,17 @@ $customerid = $_SESSION['signedUser'];
     </div>
 
     <div class="container" id="crop-avatar" data-role="content">
-        <h5>我的头像:</h5>
+        <h3>我的头像:</h3>
         <!-- Current avatar -->
         <div class="avatar-view" title="Change the avatar">
             <img src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $customerid;?>/head.png" id='myhead' alt="Avatar" onclick="chooseImages()">
         </div>
         <input type="hidden" id="uid" value="<?php echo $customerid;?>">
 
-        <h5>服务信息:</h5>
+        <h3>服务信息:</h3>
         <ul data-role="listview" data-inset="true">
             <li>
-                <a href="sellerdetails.html" rel="external">
+                <a href="../../../Controller/AuthUserDispatcher.php?c=myinfo&customerid=<?php echo $customerid;?>" rel="external">
                     个人信息
                 </a>
             </li>
