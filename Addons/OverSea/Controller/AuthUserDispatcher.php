@@ -53,6 +53,7 @@ $method_routes = array(
 
 );
 
+Logs::writeClcLog("AuthUserDipatcher.php, Starting");
 HttpHelper::saveServerQueryStringVales($_SERVER['QUERY_STRING']);
 $command = HttpHelper::getVale('c');
 /*
@@ -66,32 +67,35 @@ if (isset($_GET ['c'])){
     $command = $_SESSION['callbackurl'];
 }*/
 
-
 if (isset($_SESSION['signedUser'])) {
+    Logs::writeClcLog("AuthUserDipatcher.php, Get user from session as ".$_SESSION['signedUser']);
     // first choice is session
     goToCommand($method_routes, $command);
 } else {
     $cookieValue = isset($_COOKIE["signedUser"])? EncryptHelper::decrypt($_COOKIE["signedUser"]) : "";
-    $cookieValue = null;
+    //$cookieValue = null; //to temp disable cookie for test weixin
     if (isset($cookieValue) && !empty($cookieValue) && !is_null($cookieValue)){
+        Logs::writeClcLog("AuthUserDipatcher.php, Get user from cookie as ".$_SESSION['signedUser']);
         saveId($cookieValue);
         goToCommand($method_routes, $command);
     } else if (isset($_SESSION['weixinOpenid'])) {
-        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.":"."Got weixin openid=");
         // check if weixin openid match the db saving values
         $existedUser=UsersDao::getUserByOpenid($_SESSION['weixinOpenid']);
         if (isset($existedUser['openid']) && $existedUser['openid'] == $_SESSION['weixinOpenid']){
+            Logs::writeClcLog("AuthUserDipatcher.php, Get user from session openid as ".$existedUser['id']);
             saveId($existedUser['id']);
             goToCommand($method_routes, $command);
         } else {
+            Logs::writeClcLog("AuthUserDipatcher.php, go to sign in page");
             needSignin($method_routes, $command);
         }
         /**/
     } else if (!isset($_SESSION['weixinOpenidTried'])) {
-        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.":"."try to call weixin to verify");
+        Logs::writeClcLog("AuthUserDipatcher.php,try to call weixin to verify");
         // Try to get weixin open id 1 times
         WeixinHelper::triggerWeixinGetToken();
     } else {
+        Logs::writeClcLog("AuthUserDipatcher.php, go to sign in page");
         needSignin($method_routes, $command);
     }
 }
@@ -126,14 +130,11 @@ function needSignin($method_routes, $command) {
 }
 
 function goToCommand($method_routes, $command) {
-
     if (isset($method_routes[$command]['m']) && isset($method_routes[$command]['f'])){
-        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.":"."method=".$method_routes[$command]['m']."function=".$method_routes[$command]['f']);
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",method=".$method_routes[$command]['m'].",function=".$method_routes[$command]['f']);
         try {
             $class = $method_routes[$command]['m'];
             $fun = $method_routes[$command]['f'];
-            //echo $class.$fun;
-            //exit(1);
             $class = new $class();
             call_user_func(array($class, $fun));
         } catch (Exception $e) {
