@@ -31,24 +31,37 @@ $customerid = $_SESSION['signedUser'];
             <img src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $customerid;?>/head.png" id='myhead' alt="Avatar" onclick="chooseImages()">
         </div>
         <input type="hidden" id="uid" value="<?php echo $customerid;?>">
-    </div>
 
-    <div data-role="content">
         <h5>服务信息:</h5>
         <ul data-role="listview" data-inset="true">
             <li>
                 <a href="sellerdetails.html" rel="external">
-    实名认证
+                    个人信息
+                </a>
+            </li>
+            <li>
+                <a href="sellerdetails.html" rel="external">
+                    申请实名认证
+                </a>
+            </li>
+            <li>
+                <a href="sellerdetails.html" rel="external">
+                    发布易知服务
+                </a>
+            </li>
+            <li>
+                <a href="sellerdetails.html" rel="external">
+                    我发布的易服务知列表
                 </a>
             </li>
             <li>
                 <a href="../../../Controller/AuthUserDispatcher.php?c=queryCustomerOrders&customerid=<?php echo $customerid;?>&condition=0,10" rel="external">
-    我购买的服务
+                    我购买的服务订单
                 </a>
             </li>
             <li>
                 <a href="../../../Controller/AuthUserDispatcher.php?c=querySellerOrders&sellerid=<?php echo $customerid;?>&condition=10" rel="external">
-    我提供的服务
+                    购买我服务的订单
                 </a>
             </li>
             <li>
