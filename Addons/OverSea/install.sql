@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`yz_users` (
 `password` varchar(50) DEFAULT NULL  COMMENT '',
 `external_id` varchar(100) DEFAULT NULL COMMENT '1微信,openid 2 ...',
 `name` varchar(255)  DEFAULT NULL  COMMENT '姓名',
-`gender` int(2)  DEFAULT 1 COMMENT '性别',
+`gender` int(2)  DEFAULT 1 COMMENT '性别 1 male, 2 female',
 `weixin` varchar(50)  DEFAULT NULL  COMMENT '微信号',
 `email` varchar(50) DEFAULT NULL  COMMENT '邮件',
 `description` text DEFAULT NULL  COMMENT '个人详细介绍',

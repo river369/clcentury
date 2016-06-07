@@ -27,6 +27,32 @@ $existedUser = $_SESSION['signedUserInfo'] ;
     <script src="../../resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
     <script src="../../resource/js/tag/tag-it.min.js"></script>
     <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
+    <style>
+        label{
+            display: inline-block;
+            padding: 0 10px;
+            vertical-align: middle;
+        }
+        input{
+            outline: none;
+            border: 1px solid rgb(216, 216, 216);
+            padding: 2px 10px 2px 10px;
+        }
+        input[type="text"]{
+            height: 14px;
+            line-height: 14px;
+            border-radius: 5px;
+            padding:10px 10px;
+            vertical-align: middle;
+            color:#666;
+        }
+        input[type="button"]{
+            padding: 0px 10px;
+            height:40px;
+        }
+    </style>
+
+
 
     <script>
         $(function(){
@@ -47,60 +73,46 @@ $existedUser = $_SESSION['signedUserInfo'] ;
 
 </head>
 <body>
-<div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外" data-theme="d">
+<div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
     <div data-role="header" data-position="fixed" data-theme="c">
-        <h1>易知信息</h1>
+        <h1>个人信息</h1>
     </div>
 
     <div data-role="content">
-        <form id="submityz" data-ajax="false" method="post" action="../../../Controller/SubmitYZ.php">
-            <label for="name">您的姓名:</label>
-            <input type="text" name="name" id="name" value="<?php echo isset($existedUser['name']) ? $existedUser['name']: ''; ?> ">
-            <label for="weixin">您的微信号:</label>
-            <input type="text" name="weixin" id="weixin" value="<?php echo isset($existedUser['weixin']) ? $existedUser['weixin']: ''; ?> ">
+        <form id="submityz" data-ajax="false" method="post" action="../../../Controller/AuthUserDispatcher.php?c=updateMyinfo">
+                <label for="name" >您的姓名:</label>
+                <input type="text" name="name" id="name" value="<?php echo isset($existedUser['name']) ? $existedUser['name']: ''; ?> ">
 
-            <fieldset data-role="controlgroup">
-                <legend>你的服务类型:</legend>
-                <input name="service-1" id="service-1" type="checkbox" <?php if ($existedUser['servicetype'] == 1 || $existedUser['servicetype'] == 99999) {echo 'checked="true"'; } ?> >
-                <label for="service-1">旅游</label>
-                <input name="service-2" id="service-2" type="checkbox" <?php if ($existedUser['servicetype'] == 2 || $existedUser['servicetype'] == 99999) {echo 'checked="true"'; } ?>>
-                <label for="service-2">留学</label>
-            </fieldset>
+                <label for="weixin">您的微信号:</label>
+                <input type="text" name="weixin" id="weixin" value="<?php echo isset($existedUser['weixin']) ? $existedUser['weixin']: ''; ?> ">
 
-            <label for="servicearea">您的服务地点:</label>
-            <select name="servicearea" id="servicearea">
-                <optgroup label="美国">
-                    <option value="西雅图" <?php echo $existedUser['servicearea']=='西雅图'? 'selected = "selected"' : ''; ?> >西雅图</option>
-                    <option value="旧金山" <?php echo $existedUser['servicearea']=='旧金山'? 'selected = "selected"' : ''; ?> >旧金山</option>
-                    <option value="纽约" <?php echo $existedUser['servicearea']=='纽约'? 'selected = "selected"' : ''; ?> >纽约</option>
-                    <option value="洛杉矶" <?php echo $existedUser['servicearea']=='洛杉矶'? 'selected = "selected"' : ''; ?> >洛杉矶</option>
-                </optgroup>
-                <optgroup label="中国">
-                    <option value="北京市" <?php echo $existedUser['servicearea']=='北京市'? 'selected = "selected"' : ''; ?>>北京市</option>
-                    <option value="上海市" <?php echo $existedUser['servicearea']=='上海市'? 'selected = "selected"' : ''; ?>>上海市</option>
-                    <option value="天津市" <?php echo $existedUser['servicearea']=='天津市'? 'selected = "selected"' : ''; ?>>天津市</option>
-                    <option value="重庆市" <?php echo $existedUser['servicearea']=='重庆市'? 'selected = "selected"' : ''; ?>>重庆市</option>
-                </optgroup>
-            </select>
+                <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+                    <legend>我是:</legend>
+                    <input name="gender" id="radio-choice-c" value="1" <?php if ($existedUser['gender'] == 1) {echo 'checked="true"'; } ?> type="radio">
+                    <label for="radio-choice-c">男生</label>
+                    <input name="gender" id="radio-choice-d" value="2" <?php if ($existedUser['gender'] == 2) {echo 'checked="true"'; } ?> type="radio">
+                    <label for="radio-choice-d">女生</label>
+                </fieldset>
 
-            <label for="serviceprice">您的服务价格(￥/小时):</label>
-            <input type="text" name="serviceprice" id="serviceprice" value="<?php echo isset($existedUser['serviceprice']) ? $existedUser['serviceprice']: ''; ?>" >
+                <label for="name">您的电子邮件:</label>
+                <input type="text" name="email" id="email" value="<?php echo isset($existedUser['email']) ? $existedUser['email']: ''; ?> ">
 
-            <label for="description">自我介绍:</label>
-            <textarea cols="30" rows="8" name="description" id="description" data-mini="true">
-                <?php echo isset($existedUser['description']) ? $existedUser['description']: ''; ?>
-            </textarea>
+                <label for="description">自我介绍:</label>
+                <textarea cols="30" rows="8" name="description" id="description" data-mini="true">
+                    <?php echo isset($existedUser['description']) ? $existedUser['description']: ''; ?>
+                </textarea>
 
-            <!--
-            <input name="tags" id="methodTags" value="诚实守信,价格合理">
-            -->
-            <label for="methodTags">
-                <a href="#tagpopup" data-rel="popup" class="ui-controlgroup-label ui-shadow ui-corner-all">选取或填写特长:</a>
-            </label>
-            <ul id="methodTags"></ul>
-            <input name="mytags" id="mytags" value="<?php echo isset($existedUser['tag']) ? $existedUser['tag']: ''; ?>" type="hidden">
-            
-            <input type="submit" name="yzsubmit" id="yzsubmit" value="发布">
+                <!--
+                <input name="tags" id="methodTags" value="诚实守信,价格合理">
+                -->
+                <label for="methodTags">
+                    <a href="#tagpopup" data-rel="popup" class="ui-controlgroup-label ui-shadow ui-corner-all">选取或填写特长:</a>
+                </label>
+                <ul id="methodTags"></ul>
+                <input name="mytags" id="mytags" value="<?php echo isset($existedUser['tag']) ? $existedUser['tag']: ''; ?>" type="hidden">
+
+                <input type="submit" name="yzsubmit" id="yzsubmit" value="发布">
+
         </form>
     </div>
 

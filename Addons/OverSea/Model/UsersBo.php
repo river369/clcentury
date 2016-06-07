@@ -52,5 +52,24 @@ class UsersBo
         }
     }
 
+    public function updateUserInfo() {
+        $userData['name'] = isset($_POST ['name']) ? $_POST ['name'] : '';
+        $userData['weixin'] = isset($_POST ['weixin']) ? $_POST ['weixin'] : '';
+        $userData['gender'] = $_POST ['gender'];
+        $userData['email'] = isset($_POST ['email']) ? $_POST ['email'] : '';
+        $userData['description'] = isset($_POST ['description']) ? ltrim($_POST ['description']) : '';
+
+        if (isset( $_POST ['mytags'])){
+            $userData['tag'] = $_POST ['mytags'];
+        }
+        if (UsersDao::updateUser($userData,$_SESSION['signedUser'])==0) {
+            $_SESSION['submityzstatus'] = '成功';
+        } else {
+            $_SESSION['submityzstatus'] = '失败';
+        }
+        $_SESSION['userData']= $userData;
+
+    }
+
 
 }

@@ -40,46 +40,54 @@
 
     <div data-role="content">
         <form id="submityz" data-ajax="false" method="post" action="../../../Controller/SubmitYZ.php">
-            <label for="name">您的姓名:</label>
-            <input type="text" name="name" id="name">
-            <label for="weixin">您的微信号:</label>
-            <input type="text" name="weixin" id="weixin">
+                <label for="name">您的姓名:</label>
+                <input type="text" name="name" id="name">
+                <label for="weixin">您的微信号:</label>
+                <input type="text" name="weixin" id="weixin">
 
-            <fieldset data-role="controlgroup">
-                <legend>你的服务类型:</legend>
-                <input name="service-1" id="service-1" checked="" type="checkbox">
-                <label for="service-1">旅游</label>
-                <input name="service-2" id="service-2" checked="" type="checkbox">
-                <label for="service-2">留学</label>
-            </fieldset>
+                <fieldset data-role="controlgroup">
+                    <legend>我是:</legend>
+                    <input name="gender" id="gender-1" value="1" checked="checked" type="radio">
+                    <label for="gender-1">男生</label>
+                    <input name="gender" id="gender-2" value="2" type="radio">
+                    <label for="gender-2">女生</label>
+                </fieldset>
 
-            <label for="servicearea">您的服务地点:</label>
-            <select name="servicearea" id="servicearea">
-                <optgroup label="美国">
-                    <option value="西雅图">西雅图</option>
-                    <option value="旧金山">旧金山</option>
-                    <option value="纽约">纽约</option>
-                    <option value="洛杉矶">洛杉矶</option>
-                </optgroup>
-                <optgroup label="中国">
-                    <option value="北京市">北京市</option>
-                    <option value="上海市">上海市</option>
-                    <option value="天津市">天津市</option>
-                    <option value="重庆市">重庆市</option>
-                </optgroup>
-            </select>
+                <fieldset data-role="controlgroup">
+                    <legend>你的服务类型:</legend>
+                    <input name="service-1" id="service-1" checked="" type="checkbox">
+                    <label for="service-1">旅游</label>
+                    <input name="service-2" id="service-2" checked="" type="checkbox">
+                    <label for="service-2">留学</label>
+                </fieldset>
 
-            <label for="serviceprice">您的服务价格(￥/小时):</label>
-            <input type="text" name="serviceprice" id="serviceprice">
+                <label for="servicearea">您的服务地点:</label>
+                <select name="servicearea" id="servicearea">
+                    <optgroup label="美国">
+                        <option value="西雅图">西雅图</option>
+                        <option value="旧金山">旧金山</option>
+                        <option value="纽约">纽约</option>
+                        <option value="洛杉矶">洛杉矶</option>
+                    </optgroup>
+                    <optgroup label="中国">
+                        <option value="北京市">北京市</option>
+                        <option value="上海市">上海市</option>
+                        <option value="天津市">天津市</option>
+                        <option value="重庆市">重庆市</option>
+                    </optgroup>
+                </select>
 
-            <label for="description">自我介绍:</label>
-            <textarea cols="30" rows="8" name="description" id="description" data-mini="true"></textarea>
+                <label for="serviceprice">您的服务价格(￥/小时):</label>
+                <input type="text" name="serviceprice" id="serviceprice">
 
-            <label for="methodTags">
-                <a href="#tagpopup" data-rel="popup" class="ui-controlgroup-label ui-shadow ui-corner-all">选取或填写特长:</a>
-            </label>
-            <ul id="methodTags"></ul>
-            <input type="submit" name="yzsubmit" id="yzsubmit" value="发布">
+                <label for="description">自我介绍:</label>
+                <textarea cols="30" rows="8" name="description" id="description" data-mini="true"></textarea>
+
+                <label for="methodTags">
+                    <a href="#tagpopup" data-rel="popup" class="ui-controlgroup-label ui-shadow ui-corner-all">选取或填写特长:</a>
+                </label>
+                <ul id="methodTags"></ul>
+                <input type="submit" name="yzsubmit" id="yzsubmit" value="发布">
         </form>
     </div>
 

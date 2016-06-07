@@ -7,7 +7,7 @@
  */
 namespace Addons\OverSea\Model;
 use Addons\OverSea\Common\MySqlHelper;
-use Addons\OverSea\Common\Log;
+use Addons\OverSea\Common\Logs;
 
 class UsersDao
 {
@@ -34,7 +34,7 @@ class UsersDao
     {
         try {
             date_default_timezone_set('PRC');
-            $data['creation_date'] = date('y-m-d H:i:s',time());
+            $data['update_date'] = date('y-m-d H:i:s',time());
             $sql = "update yz_users set ";
             foreach ($data as $k => $v) {
                 //echo $k."-".$v;
