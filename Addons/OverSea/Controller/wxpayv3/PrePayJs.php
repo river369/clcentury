@@ -24,7 +24,7 @@ $openId = $tools->GetOpenid();
 //②、统一下单
 $input = new WxPayUnifiedOrder();
 $input->SetBody("易知海外订单:".$orderData['id']." 服务提供者:".$orderData['sellername']);
-$input->SetAttach("yz");
+$input->SetAttach("service");
 $input->SetOut_trade_no(WxPayConfig::MCHID."_".date("YmdHis")."_".$orderData['id']);
 $input->SetTotal_fee($orderData['servicetotalfee']);
 $input->SetTime_start(date("YmdHis"));

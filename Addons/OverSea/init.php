@@ -15,13 +15,14 @@ function initLoad()
     include_once dirname(__FILE__).'/Common/EncryptHelper.php';
     include_once dirname(__FILE__).'/Common/HttpHelper.php';
     include_once dirname(__FILE__).'/Common/Logs.php';
-    include_once dirname(__FILE__). '/Model/UsersDao.php';
-    include_once dirname(__FILE__). '/Model/OrdersDao.php';
-    include_once dirname(__FILE__). '/Model/OrderActionsDao.php';
-    include_once dirname(__FILE__). '/Model/PaymentsDao.php';
-    include_once dirname(__FILE__). '/Model/UsersBo.php';
-    include_once dirname(__FILE__). '/Model/OrdersBo.php';
-    include_once dirname(__FILE__). '/Model/YZPicBo.php';
+    include_once dirname(__FILE__).'/Model/UsersBo.php';
+    include_once dirname(__FILE__).'/Model/UsersDao.php';
+    include_once dirname(__FILE__) . '/Model/YZBo.php';
+    include_once dirname(__FILE__).'/Model/YZDao.php';
+    include_once dirname(__FILE__).'/Model/OrdersBo.php';
+    include_once dirname(__FILE__).'/Model/OrdersDao.php';
+    include_once dirname(__FILE__).'/Model/OrderActionsDao.php';
+    include_once dirname(__FILE__).'/Model/PaymentsDao.php';
     return true;
 }
 
