@@ -124,7 +124,6 @@ class OSSHelper
             exit(1);
             //return;
         }
-        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.":OK");
         $objectList = $listObjectInfo->getObjectList(); // 文件列表
         return $objectList;
         /*
@@ -139,7 +138,7 @@ class OSSHelper
             print("prefixList: \n");
             foreach ($prefixList as $prefixInfo) {
                 print($prefixInfo->getPrefix() . "\n");
-            }
+            }clc_2016-06-08.log
         }
         */
 

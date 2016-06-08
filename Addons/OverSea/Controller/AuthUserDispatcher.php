@@ -22,6 +22,7 @@ $method_routes = array(
     'myinfo' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'getCurrentUserInfo', 'v'=>'../View/mobile/users/myinfo.php','d'=>'查看我的新的'),
     'updateMyinfo' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'updateUserInfo', 'v'=>'../View/mobile/users/submityzsuccess.php','d'=>'完善我的信息'),
     'publishService' => array('m'=>'Addons\OverSea\Model\YZBo', 'f'=>'getCurrentYZ', 'v'=>'../View/mobile/service/publishyz.php','d'=>'发易知信息'),
+    'publishServicePics' => array('m'=>'Addons\OverSea\Model\YZBo', 'f'=>'publishServicePics','d'=>'发易知图片'),
 
     
     //===========to be deleted

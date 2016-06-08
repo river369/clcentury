@@ -79,6 +79,7 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
         <p>请点击加号添加图片, 最多上传<?=$maxcount?>张. </p>
         <p>您可以点击图片预览或删除.</p>
         -->
+        <div class="errmsgstring" style="color:red"></div>
         <ul class="weui_uploader_files">
             <?php foreach ($objArray as $obj) { ?>
                 <li class="weui_uploader_file" onclick="changepopup('<?php echo $obj; ?>')" style="background-image:url(<?php echo $imageurl.$obj; ?>)"></li>
@@ -90,9 +91,10 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
 
         <div data-role="popup" id="reviewpopup" class="reviewpopup" data-overlay-theme="a" data-corners="false" data-tolerance="30,15">
             <!--<p>是否删除该图片?</p>-->
-            <div><a id="deletebutton" href="" rel="external" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-mini">删除此图片</a></div>
+            <div><a id="deletebutton" href="" onclick="deletePic();" rel="external" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-mini">删除此图片</a></div>
             <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
             <img src="" alt="review" class="reviewimage">
+            <input type="hidden" name="delobj" id="delobj" value="">
         </div>
     </div>
 
@@ -164,12 +166,9 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
             localIds: [],
             serverIds: []
         };
-
-        alert ($('#remainingCount').val());
-        $('#remainingCount').val(2);
-        alert ($('#remainingCount').val());
+        var rcount = parseInt($('#remainingCount').val());
         wx.chooseImage({
-            count: <?=$remainingcount?>,
+            count: rcount,
             success: function (res) {
                 images.localIds = res.localIds;
                 //alert('已选择 ' + res.localIds.length + ' 张图片');
@@ -186,7 +185,7 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
                             if (i < length) {
                                 upload();
                             } else {
-                                window.location.href = '../../../Controller/AuthUserDispatcher.php?c=submityzpic&serverids=' + images.serverIds;
+                                publishServicePics(images.serverIds);
                             }
                         },
                         fail: function (res) {
@@ -200,10 +199,71 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
         });
     };
 
-    function tagwith(tag){
-        $('#methodTags').tagit('createTag', tag);
+    function publishServicePics(serverIds) {
+        $.ajax({
+            url:'../../../Controller/AuthUserDispatcher.php?c=publishServicePics&serverids=' + serverIds,
+            type:'POST',
+            data : $('#submityz').serialize(),
+            dataType:'json',
+            async:false,
+            success:function(result) {
+                //alert(result.status);
+                if (result.status == 0){
+                    var rcount = $('#remainingCount').val();
+                    var htmlString = '<ul class="weui_uploader_files">';
+                    for(var i in result.objLists) {
+                        htmlString = htmlString + '<li class="weui_uploader_file" onclick="changepopup(\'' + result.objLists[i] + '\')" style="background-image:url(<?php echo $imageurl; ?>' + result.objLists[i] + ')"></li>';
+                        rcount--;
+                    }
+                    $('#remainingCount').val(rcount);
+                    if (rcount > 0) {
+                        htmlString = htmlString + '<li class="weui_uploader_file" id="uplaodImages" onclick="selectImages()" style="background-image:url(../../resource/images/add.jpg)"></li>';
+                    }
+                    htmlString = htmlString + '</ul>';
+                    $('.weui_uploader_files').html(htmlString);
+                } else {
+                    $(".errmsgstring").html('Error:图片上传失败.' + result.msg);
+                }
+            },
+            error:function(msg){
+                $(".errmsgstring").html('Error:图片上传失败.' + msg.toSource());
+            }
+        })
         return false;
-    };
+    }
+
+    function deletePic(serverIds) {
+        var delobj = $('#delobj').val();
+        $.ajax({
+            url:'../../../Controller/AuthUserDispatcher.php?c=publishServicePics&objtodelete=' + delobj,
+            type:'POST',
+            data : $('#submityz').serialize(),
+            dataType:'json',
+            async:false,
+            success:function(result) {
+                //alert(result.status);
+                if (result.status == 0){
+                    var rcount = $('#remainingCount').val();
+                    rcount++;
+                    $('#remainingCount').val(rcount);
+                    var htmlString = '<ul class="weui_uploader_files">';
+                    for(var i in result.objLists) {
+                        htmlString = htmlString + '<li class="weui_uploader_file" onclick="changepopup(\'' + result.objLists[i] + '\')" style="background-image:url(<?php echo $imageurl; ?>' + result.objLists[i] + ')"></li>';
+                    }
+                    htmlString = htmlString + '<li class="weui_uploader_file" id="uplaodImages" onclick="selectImages()" style="background-image:url(../../resource/images/add.jpg)"></li>';
+                    htmlString = htmlString + '</ul>';
+                    $('.weui_uploader_files').html(htmlString);
+                    $('.reviewpopup').popup('close');
+                } else {
+                    $(".errmsgstring").html('Error:图片删除失败.' + result.msg);
+                }
+            },
+            error:function(msg){
+                $(".errmsgstring").html('Error:图片删除失败.' + msg.toSource());
+            }
+        })
+        return false;
+    }
 
     wx.config({
         debug: false,
@@ -217,17 +277,18 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
         ]
     });
 
-
-
-
     function changepopup(uri) {
         $('.reviewimage').attr('src','<?php echo $imageurl; ?>'+uri);
-        var link = "../../../Controller/AuthUserDispatcher.php?c=submityzpic&objtodelete=" + uri;
-        //alert (link);
-        //$('.deletebutton').html('<a href="'+ link +'" rel="external" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-mini">删除此图片</a>');
-        $('#deletebutton').attr('href', link);
+        $('#delobj').val(uri);
+        //var link = "../../../Controller/AuthUserDispatcher.php?c=publishServicePics&objtodelete=" + uri;
+        //$('#deletebutton').attr('href', link);
         $('.reviewpopup').popup('open');
     }
+
+    function tagwith(tag){
+        $('#methodTags').tagit('createTag', tag);
+        return false;
+    };
 
 </script>
 

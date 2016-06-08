@@ -103,11 +103,53 @@ class YZBo
             $_SESSION['objArray'.$sellerid] = $objArray;
         }
     }
-    
+
     /**
      * YZ 图片处理
      */
-    public function handlePicsUpload() {
+    public function publishServicePics() {
+        $userID = $_SESSION['signedUser'];
+        $serviceId = $_SESSION['serviceData']['id'] ;
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__." userid=".$userID." serviceid=".$serviceId);
+        // upload image if need to
+        if (isset($_GET ['serverids'])){
+            $serverids = $_GET ['serverids'];
+            //echo $serverids;
+            $serveridsArray = explode(',',$serverids);
+            $i=1;
+            foreach ($serveridsArray as $serverid){
+                self::savePictureFromWeixin($serverid, $userID, $serviceId, $i);
+                $i++;
+            }
+        }
+
+        // delete image if need
+        if (isset($_GET ['objtodelete'])){
+            $obj = $_GET ['objtodelete'];
+            //echo $obj;
+            OSSHelper::deleteObject($obj);
+            //exit(1);
+        }
+
+        // list data
+        $object = "yzphoto/pics/".$userID."/".$serviceId."/";
+        //echo $object;
+        $objectList = OSSHelper::listObjects($object);
+        $objArray = array();
+        if (!empty($objectList)) {
+            foreach ($objectList as $objectInfo) {
+                $objArray[] = $objectInfo->getKey();
+                Logs::writeClcLog(__CLASS__.",".__FUNCTION__.$objectInfo->getKey());
+            }
+        }
+        echo json_encode(array('status'=> 0, 'msg'=> 'done', 'objLists' => $objArray));
+        exit;
+    }
+    
+    /**
+     * YZ 图片处理 to be delete
+     */
+    public function publishServicePicsbak() {
         $userID = $_SESSION['signedUser'];
         $serviceId = $_SESSION['yzData']['id'] ;
 
@@ -118,7 +160,7 @@ class YZBo
             $serveridsArray = explode(',',$serverids);
             $i=1;
             foreach ($serveridsArray as $serverid){
-                self::savePictureFromWeixin($serverid, $userID, $yzId, $i);
+                self::savePictureFromWeixin($serverid, $userID, $serviceId, $i);
                 $i++;
             }
         }
@@ -169,8 +211,6 @@ class YZBo
         OSSHelper::putObject($object, file_get_contents($url), $options);
         return ;
     }
-
-
 
 
     /**
