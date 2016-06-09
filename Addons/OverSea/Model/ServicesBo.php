@@ -209,9 +209,9 @@ class ServicesBo
             $_SESSION['querystatus'] = $status;
         }
     }
-
+    
     /**
-     * 
+     * delete a service with service id, reason for seller themselves
      */
     public function deleteService(){
         $userID = $_SESSION['signedUser'];
@@ -221,4 +221,32 @@ class ServicesBo
         $serviceDao -> deleteService($serviceId,  $deleteReason, $userID);
         self::getMyServicesByStatus();
     }
+
+    /**
+     * Get the pending review service (admin now)
+     */
+    public function getServices() {
+        $status = HttpHelper::getVale('status');
+        $serviceDao = new ServicesDao();
+        $allServices = $serviceDao->getServiceByStatus($status);
+        $_SESSION['allServices'] = $allServices;
+    }
+
+    /**
+     * Admin reject or approve service  (admin now)
+     */
+    public function checkService(){
+        $serviceId = $_POST['serviceId'];
+        $reason = $_POST['checkreason'];
+        $action = $_POST['checkaction'];
+        $status = 60;
+        if ($action == 1){
+            $status = 40;
+        }
+        $serviceDao = new ServicesDao();
+        $serviceDao -> checkService($serviceId,  $reason, $status);
+        self::getServices();
+    }
+
+
 }

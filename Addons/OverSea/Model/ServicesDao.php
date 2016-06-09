@@ -20,12 +20,22 @@ class ServicesDao extends BaseDao
         parent::__construct("yz_services");
     }
 
+    public function getServiceByStatus($status)
+    {
+        $sql = 'SELECT * FROM yz_services WHERE status = :status order by creation_date desc';
+        $parameter = array(':status' => $status);
+        Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",sql=".$sql);
+        Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",parameters=".json_encode($parameter));
+        $services = MySqlHelper::fetchAll($sql, $parameter);
+        return $services;
+    }
+    
     public function getServiceByUserStatus($seller_id, $status)
     {
         $sql = 'SELECT * FROM yz_services WHERE seller_id =:seller_id and status = :status order by creation_date desc';
         $parameter = array(':seller_id' => $seller_id, ':status' => $status);
-        Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . "sql=".$sql);
-        Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . "parameters=".json_encode($parameter));
+        Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",sql=".$sql);
+        Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",parameters=".json_encode($parameter));
         $services = MySqlHelper::fetchAll($sql, $parameter);
         return $services;
     }
@@ -36,8 +46,24 @@ class ServicesDao extends BaseDao
             $sql = "update yz_services set status = 80, delete_reason = :delete_reason where id =:id and seller_id=:seller_id";
             //echo $sql
             $parameter =  array(':delete_reason' => $delete_reason, ':id' => $id, ':seller_id' => $seller_id);
-            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . "sql=".$sql);
-            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . "parameters=".json_encode($parameter));
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",sql=".$sql);
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",parameters=".json_encode($parameter));
+            MySqlHelper::query($sql,$parameter);
+            return 0;
+        } catch (\Exception $e){
+            return -1;
+            echo $e;
+        }
+    }
+
+    public static function checkService($id,  $reject_reason, $status)
+    {
+        try {
+            $sql = "update yz_services set status = :status, reject_reason = :reject_reason where id =:id ";
+            //echo $sql
+            $parameter =  array(':reject_reason' => $reject_reason, ':id' => $id, ':status' => $status);
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",sql=".$sql);
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",parameters=".json_encode($parameter));
             MySqlHelper::query($sql,$parameter);
             return 0;
         } catch (\Exception $e){

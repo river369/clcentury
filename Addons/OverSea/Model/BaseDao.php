@@ -32,8 +32,8 @@ class BaseDao
                 $tmpData[':' . $k] = $v;
             }
             $sql = 'INSERT INTO '. $this->talbeName .' (' . implode(',', array_keys($data)) . ') VALUES (' . implode(',', array_keys($tmpData)) . ')';
-            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . "sql=".$sql);
-            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . "parameters=".json_encode($tmpData));
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",sql=".$sql);
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",parameters=".json_encode($tmpData));
             MySqlHelper::query($sql, $tmpData);
         } catch (\Exception $e) {
             Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . $e);
@@ -55,8 +55,8 @@ class BaseDao
             }
             $sql = substr($sql, 0, strlen($sql) - 1);
             $sql = $sql . ' where id =:id';
-            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . "sql=".$sql);
-            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . "parameters=".json_encode(array(':id' => $id)));
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",sql=".$sql);
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",parameters=".json_encode(array(':id' => $id)));
             MySqlHelper::query($sql, array(':id' => $id));
             return 0;
         } catch (\Exception $e) {
@@ -70,8 +70,8 @@ class BaseDao
         try {
             $sql = 'SELECT * FROM '. $this->talbeName. ' WHERE id= :id LIMIT 1';
             //echo $sql;
-            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . "sql=".$sql);
-            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . "parameters=".json_encode(array(':id' => $id)));
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",sql=".$sql);
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",parameters=".json_encode(array(':id' => $id)));
             $user = MySqlHelper::fetchOne($sql, array(':id' => $id));
             return $user;
         }catch (\Exception $e){

@@ -24,12 +24,13 @@ $method_routes = array(
     'updateMyinfo' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'updateUserInfo', 'v'=>'../View/mobile/users/submityzsuccess.php','d'=>'完善我的信息'),
     'submitheadpic' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'handleHeads', 'd'=>'发个人头像'),
     
-    'publishService' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'getCurrentYZ', 'v'=>'../View/mobile/service/publishservice.php','d'=>'发易知信息'),
+    'publishService' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'getCurrentYZ', 'v'=>'../View/mobile/service/publishservice.php','d'=>'发易知服务信息'),
     'publishServicePics' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'publishServicePics','d'=>'发易知图片'),
-    'publishServiceInfo' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'publishServiceInfo', 'v'=>'../View/mobile/users/submityzsuccess.php', 'd'=>'发易知信息'),
-    'myServices' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'getMyServicesByStatus', 'v'=>'../View/mobile/service/my_services.php', 'd'=>'发易知信息'),
-    'deleteService' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'deleteService', 'v'=>'../View/mobile/service/my_services.php', 'd'=>'发易知信息'),
-
+    'publishServiceInfo' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'publishServiceInfo', 'v'=>'../View/mobile/users/submityzsuccess.php', 'd'=>'发易知服务信息'),
+    'myServices' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'getMyServicesByStatus', 'v'=>'../View/mobile/service/my_services.php', 'd'=>'查看我发布的易知服务信息'),
+    'deleteService' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'deleteService', 'v'=>'../View/mobile/service/my_services.php', 'd'=>'删除易知服务信息'),
+    'getServices' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'getServices', 'v'=>'../View/admin/all_services.php', 'd'=>'admin查看易知服务信息'),
+    'checkService' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'checkService', 'v'=>'../View/admin/all_services.php', 'd'=>'admin查看易知服务信息'),
     
     'submitOrder' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'getCurrentSellerInfo', 
         'v'=>'../View/mobile/orders/submitorder.php','d'=>'用户订购确认'),

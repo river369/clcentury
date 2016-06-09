@@ -76,7 +76,7 @@ $querystatus = $_SESSION['querystatus'];
                 <h1>删除服务</h1>
             </div>
             <div role="main" class="ui-content">
-                <h3 class="ui-title" id="deleteOrderString">确定删除服务? </h3>
+                <h3 class="ui-title" id="deleteServiceString">确定删除服务? </h3>
                 <form id="deleteService" data-ajax="false" method="post" action="../../../Controller/AuthUserDispatcher.php?c=deleteService&sellerid=<?php echo $sellerid;?>&status=<?php echo $querystatus;?>">
                     <input type="hidden" name="deleteServiceId" id="deleteServiceId" value="">
                     <label for="deletereason">删除原因:</label>
@@ -94,10 +94,10 @@ $querystatus = $_SESSION['querystatus'];
     </div>
 </div>
 <script>
-    function deletePopup(orderid) {
-        var messages = "确定删除服务" + orderid + "?";
-        $('#deleteOrderString').html(messages);
-        $('#deleteServiceId').val(orderid);
+    function deletePopup(serviceId) {
+        var messages = "确定删除服务" + serviceId + "?";
+        $('#deleteServiceString').html(messages);
+        $('#deleteServiceId').val(serviceId);
         $('#deleteDialog').popup('open');
     };
     $(document).ready(function(){
