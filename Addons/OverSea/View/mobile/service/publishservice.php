@@ -125,7 +125,7 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
             </select>
 
             <label for="service_price">您的服务价格(￥/小时):</label>
-            <input type="text" name="service_price" id="service_price" value="<?php echo isset($serviceData['service_price']) ? $serviceData['service_price']: ''; ?>" >
+            <input type="number" name="service_price" id="service_price" value="<?php echo isset($serviceData['service_price']) ? $serviceData['service_price']: ''; ?>" >
 
             <label for="description">服务介绍:</label>
             <textarea cols="30" rows="8" name="description" id="description" data-mini="true">
