@@ -99,7 +99,7 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
     </div>
 
     <div data-role="content">
-        <form id="submityz" data-ajax="false" method="post" action="../../../Controller/SubmitYZ.php">
+        <form id="submityz" data-ajax="false" method="post" action="../../../Controller/AuthUserDispatcher.php?c=publishServiceInfo">
             <input type="hidden" name="id" id="id" value="<?php echo $serviceData['id']; ?> ">
 
             <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
@@ -140,7 +140,7 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
             <ul id="methodTags"></ul>
             <input name="mytags" id="mytags" value="<?php echo isset($serviceData['tag']) ? $serviceData['tag']: ''; ?>" type="hidden">
             
-            <input type="submit" name="yzsubmit" id="yzsubmit" value="发布">
+            <input type="submit" name="yzsubmit" id="yzsubmit" value="提交审核">
         </form>
     </div>
 

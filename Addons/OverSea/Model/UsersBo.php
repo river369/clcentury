@@ -9,6 +9,8 @@
 namespace Addons\OverSea\Model;
 
 use Addons\OverSea\Model\UsersDao;
+use Addons\OverSea\Common\OSSHelper;
+use Addons\OverSea\Common\Logs;
 
 class UsersBo
 {
@@ -43,7 +45,42 @@ class UsersBo
             $_SESSION['submityzstatus'] = '失败';
         }
         $_SESSION['userData']= $userData;
+    }
 
+    /**
+     * 头像处理
+     */
+    public function handleHeads() {
+        $userID = $_SESSION['signedUser'];
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",Userid=".$userID);
+        $crop = new CropAvatar( $userID,
+            isset($_POST['avatar_src']) ? $_POST['avatar_src'] : null,
+            isset($_POST['avatar_data']) ? $_POST['avatar_data'] : null,
+            isset($_FILES['avatar_file']) ? $_FILES['avatar_file'] : null
+        );
+        if (is_null($crop -> getMsg())
+            && !is_null($crop -> getResult()) && file_exists($crop -> getResult())) {
+            Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",Uploading to OSS");
+            self::savePictureFromFile($crop -> getResult(), $userID);
+        }
+
+        $response = array(
+            'status'  => 200,
+            'msg' => $crop -> getMsg(),
+            'result' => $crop -> getResult()
+        );
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",msg=".$crop -> getMsg());
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",result=".$crop -> getResult());
+        echo json_encode($response);
+
+        exit;
+
+    }
+    function savePictureFromFile($path, $userID){
+        $object = "yzphoto/heads/".$userID."/head.png";
+        $options = array();
+        OSSHelper::uploadFile($object, $path, $options);
+        return ;
     }
 
 

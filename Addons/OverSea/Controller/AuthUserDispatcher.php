@@ -19,18 +19,16 @@ session_start();
 $method_routes = array(
     'signin' => array('v'=>'../View/mobile/users/signin.php','d'=>''),//submit service
     'mine' => array('v'=>'../View/mobile/users/mine.php','d'=>'我的订单'),
+    
     'myinfo' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'getCurrentUserInfo', 'v'=>'../View/mobile/users/myinfo.php','d'=>'查看我的新的'),
     'updateMyinfo' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'updateUserInfo', 'v'=>'../View/mobile/users/submityzsuccess.php','d'=>'完善我的信息'),
+    'submitheadpic' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'handleHeads', 'd'=>'发个人头像'),
+    
     'publishService' => array('m'=>'Addons\OverSea\Model\YZBo', 'f'=>'getCurrentYZ', 'v'=>'../View/mobile/service/publishyz.php','d'=>'发易知信息'),
     'publishServicePics' => array('m'=>'Addons\OverSea\Model\YZBo', 'f'=>'publishServicePics','d'=>'发易知图片'),
+    'publishServiceInfo' => array('m'=>'Addons\OverSea\Model\YZBo', 'f'=>'publishServiceInfo', 'v'=>'../View/mobile/users/submityzsuccess.php', 'd'=>'发易知信息'),
 
-    
-    //===========to be deleted
-    'submityzpic' => array('m'=>'Addons\OverSea\Model\YZBo', 'f'=>'handlePics', 'v'=>'../View/mobile/users/yzpictures.php','d'=>'发易知图片'),
-    'submityz' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'getCurrentUserInfo', 'v'=>'../View/mobile/users/submityz.php','d'=>'发易知信息'),
-    'submitheadpic' => array('m'=>'Addons\OverSea\Model\YZBo', 'f'=>'handleHeads', 'd'=>'发个人头像'),
-    //=========== 
-    
+
     'submitOrder' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'getCurrentSellerInfo', 
         'v'=>'../View/mobile/orders/submitorder.php','d'=>'用户订购确认'),
     'createOrder' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'createOrder', 
@@ -64,16 +62,6 @@ $method_routes = array(
 Logs::writeClcLog("AuthUserDipatcher.php, Starting");
 HttpHelper::saveServerQueryStringVales($_SERVER['QUERY_STRING']);
 $command = HttpHelper::getVale('c');
-/*
-$command;
-if (isset($_GET ['c'])){
-    // get call back url from GET
-    $command = $_GET ['c'];
-    $_SESSION['callbackurl']= $command;
-} else if (isset($_SESSION['callbackurl'])){
-    // get call back url from SESSION
-    $command = $_SESSION['callbackurl'];
-}*/
 
 if (isset($_SESSION['signedUser'])) {
     Logs::writeClcLog("AuthUserDipatcher.php, Get user from session as ".$_SESSION['signedUser']);

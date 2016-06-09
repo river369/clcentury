@@ -6,7 +6,7 @@
  * Time: 17:05
  */
 use Addons\OverSea\Model\UsersDao;
-require dirname(__FILE__).'/../init.php';
+require dirname(__FILE__) . '/../init.php';
 
 session_start();
 $userData;

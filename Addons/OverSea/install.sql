@@ -24,10 +24,10 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`yz_services` (
 `id` bigint(12) NOT NULL AUTO_INCREMENT COMMENT '主键',
 `seller_id` bigint(12)  NOT NULL COMMENT 'The people to sell',
 `seller_name` varchar(255)  DEFAULT NULL  COMMENT 'seller姓名',
-`status` int(10) DEFAULT 0  COMMENT 'service状态 0 created, 1 using, 2 deleted' ,
+`status` int(10) DEFAULT 0  COMMENT 'service状态 0 created, ...' ,
 `description` text DEFAULT NULL  COMMENT 'service详细介绍',
 `service_area` varchar(50) DEFAULT NULL  COMMENT '服务区域',
-`service_type` int(10) DEFAULT -1  COMMENT '服务类型 1 旅游, 2 留学, 99999 all, -1 nothing',
+`service_type` int(10) DEFAULT 1  COMMENT '服务类型 1 旅游, 2 留学, 99999 all, -1 nothing',
 `service_price` int(10) DEFAULT 50  COMMENT '服务价格',
 `service_price_unit` varchar(10)  DEFAULT "人民币"  COMMENT '服务价格单位',
 `stars` int(3) DEFAULT 3  COMMENT '星',
@@ -37,6 +37,12 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`yz_services` (
 PRIMARY KEY (`id`),
 KEY `seller_id` (`seller_id`)
 ) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
+
+service status:
+0 created,
+1 wait for approve
+2 approved,
+3 deleted
 
 --Orders
 CREATE TABLE IF NOT EXISTS `clctravel`.`yz_orders` (
@@ -61,6 +67,17 @@ KEY `service_id` (`service_id`),
 KEY `seller_id` (`seller_id`),
 KEY `customer_id` (`customer_id`)
 ) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
+
+订单状态 :
+ 0 customer created, seller 待接收
+ 10 customer 已经支付
+ 1020 seller 已拒绝,
+ 20 seller 已接收,
+ 40 seller 已完成, customer 待确认
+ 1040 seller 已取消
+ 1060 customer 已取消
+ 60 customer 已确认完成
+ 80 eknowhow已经支付
 
 --order actions
 CREATE TABLE IF NOT EXISTS `clctravel`.`yz_order_actions` (

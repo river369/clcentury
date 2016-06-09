@@ -18,15 +18,15 @@ $existedUser = $_SESSION['signedUserInfo'] ;
     <meta content="application/xhtml+xml;charset=UTF-8" http-equiv="Content-Type">
     <title>易知海外</title>
 
-    <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
-    <link rel="stylesheet" href="../../resource/style/tag/jquery.tagit.css"type="text/css" />
-    <link rel="stylesheet" href="../../resource/style/tag/tagit.ui-zendesk.css"type="text/css" />
+    <link rel="stylesheet" href="../../View/resource/style/jquery/jquery.mobile-1.4.5.min.css" />
+    <link rel="stylesheet" href="../../View/resource/style/tag/jquery.tagit.css" type="text/css" />
+    <link rel="stylesheet" href="../../View/resource/style/tag/tagit.ui-zendesk.css" type="text/css" />
 
-    <script src="../../resource/js/jquery/jquery-1.11.1.min.js"></script>
-    <script src="../../resource/js/jquery/jquery-ui-1.11.1.min.js"></script>
-    <script src="../../resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
-    <script src="../../resource/js/tag/tag-it.min.js"></script>
-    <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
+    <script src="../../View/resource/js/jquery/jquery-1.11.1.min.js"></script>
+    <script src="../../View/resource/js/jquery/jquery-ui-1.11.1.min.js"></script>
+    <script src="../../View/resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
+    <script src="../../View/resource/js/tag/tag-it.min.js"></script>
+    <link rel="stylesheet" href="../../View/resource/style/themes/my-theme.min.css" />
 
     <script>
         $(function(){
@@ -53,7 +53,7 @@ $existedUser = $_SESSION['signedUserInfo'] ;
     </div>
 
     <div data-role="content">
-        <form id="submityz" data-ajax="false" method="post" action="../../../Controller/SubmitYZ.php">
+        <form id="submityz" data-ajax="false" method="post" action="../SubmitYZ.php">
             <label for="name">您的姓名:</label>
             <input type="text" name="name" id="name" value="<?php echo isset($existedUser['name']) ? $existedUser['name']: ''; ?> ">
             <label for="weixin">您的微信号:</label>

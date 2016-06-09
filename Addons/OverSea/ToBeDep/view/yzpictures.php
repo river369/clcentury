@@ -30,13 +30,13 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
     <title>易知海外</title>
 
-    <script src="../../resource/js/jquery/jquery-1.11.1.min.js"></script>
-    <script src="../../resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
+    <script src="../../View/resource/js/jquery/jquery-1.11.1.min.js"></script>
+    <script src="../../View/resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
 
-    <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
-    <link rel="stylesheet" href="../../resource/style/weiui/weui.css"/>
-    <link rel="stylesheet" href="../../resource/style/weiui/example.css"/>
-    <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
+    <link rel="stylesheet" href="../../View/resource/style/jquery/jquery.mobile-1.4.5.min.css" />
+    <link rel="stylesheet" href="../../View/resource/style/weiui/weui.css"/>
+    <link rel="stylesheet" href="../../View/resource/style/weiui/example.css"/>
+    <link rel="stylesheet" href="../../View/resource/style/themes/my-theme.min.css" />
 </head>
 <body>
 <div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
@@ -57,7 +57,7 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
                 <li class="weui_uploader_file" onclick="changepopup('<?php echo $obj; ?>')" style="background-image:url(<?php echo $imageurl.$obj; ?>)"></li>
             <?php }
             if ($remainingcount > 0) {?>
-            <li class="weui_uploader_file" id="uplaodImages" style="background-image:url(../../resource/images/add.jpg)"></li>
+            <li class="weui_uploader_file" id="uplaodImages" style="background-image:url(../../View/resource/images/add.jpg)"></li>
             <?php } ?>
         </ul>
 

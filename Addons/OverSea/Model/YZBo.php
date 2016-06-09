@@ -37,8 +37,11 @@ class YZBo
      */
     public function getCurrentSellerInfo($sellerid) {
         unset($_SESSION['sellerData']);
-        $sellerData = UsersDao::getUserById($sellerid);
-        $_SESSION['sellerData']= $sellerData;
+        $userID = $_SESSION['signedUser'];
+        if ($userID == $sellerid)  {
+            $sellerData = UsersDao::getUserById($sellerid);
+            $_SESSION['sellerData']= $sellerData;
+        }
     }
 
     /**
@@ -49,20 +52,6 @@ class YZBo
         if (!is_null($service_id) && strlen($service_id) >0 ){
             $serviceData = YZDao::getYZById($service_id);
             $_SESSION['serviceData']= $serviceData;
-        } else {
-            $sellerData = $_SESSION['sellerData'] ;
-            $serviceData = array();
-            $serviceData['seller_id'] = $sellerData['id'];
-            $serviceData['seller_name'] = $sellerData['name'];
-            $serviceData['status'] = 0;
-            $serviceid = YZDao::insertYZ($serviceData);
-            $serviceData['id'] = $serviceid;
-            $_SESSION['serviceData']= $serviceData;
-            if ($serviceid <= 0) {
-                $_SESSION['submityzstatus'] = '失败';
-                header('Location:'."../View/mobile/users/submityzsuccess.php");
-                exit;
-            }
         }
     }
 
@@ -109,6 +98,9 @@ class YZBo
      */
     public function publishServicePics() {
         $userID = $_SESSION['signedUser'];
+        if (!isset($_SESSION['serviceData'])){
+            self::createNewService();
+        }
         $serviceId = $_SESSION['serviceData']['id'] ;
         Logs::writeClcLog(__CLASS__.",".__FUNCTION__." userid=".$userID." serviceid=".$serviceId);
         // upload image if need to
@@ -146,61 +138,6 @@ class YZBo
         exit;
     }
     
-    /**
-     * YZ 图片处理 to be delete
-     */
-    public function publishServicePicsbak() {
-        $userID = $_SESSION['signedUser'];
-        $serviceId = $_SESSION['yzData']['id'] ;
-
-        // upload image if need to
-        if (isset($_GET ['serverids'])){
-            $serverids = $_GET ['serverids'];
-            //echo $serverids;
-            $serveridsArray = explode(',',$serverids);
-            $i=1;
-            foreach ($serveridsArray as $serverid){
-                self::savePictureFromWeixin($serverid, $userID, $serviceId, $i);
-                $i++;
-            }
-        }
-
-        // delete image if need
-        if (isset($_GET ['objtodelete'])){
-            $obj = $_GET ['objtodelete'];
-            //echo $obj;
-            OSSHelper::deleteObject($obj);
-            //exit(1);
-        }
-
-        // Create sessions
-        $_SESSION['$appid'] = WeixinHelper::getAppid();
-        $nonceStr = WeixinHelper::make_nonceStr();
-        $_SESSION['$nonceStr'] = $nonceStr;
-        $timestamp = time();
-        $_SESSION['$timestamp'] = $timestamp;
-        $jsapi_ticket = WeixinHelper::make_ticket();
-        //$url = 'http://'.$_SERVER['HTTP_HOST']."/weiphp/Addons/OverSea/View/mobile/users/mine1.html";
-        //$url = 'http://'.$_SERVER['HTTP_HOST']."/weiphp/Addons/OverSea/View/mobile/users/yzpictures.php";
-        $url = 'http://'.$_SERVER['HTTP_HOST']."/weiphp/Addons/OverSea/View/mobile/service/publishyz.php";
-        $signature = WeixinHelper::make_signature($nonceStr,$timestamp,$jsapi_ticket,$url);
-        $_SESSION['$signature'] = $signature;
-        
-        // list data
-        $object = "yzphoto/pics/".$userID."/".$serviceId."/";
-        //echo $object;
-        $objectList = OSSHelper::listObjects($object);
-        $objArray = array();
-        if (!empty($objectList)) {
-            foreach ($objectList as $objectInfo) {
-                $objArray[] = $objectInfo->getKey();
-            }
-            $_SESSION['objArray'.$userID] = $objArray;
-        }
-    }
-
-
-
     // 获yz取图片地址
     function savePictureFromWeixin($media_id, $userID, $yzId, $i){
         // access_token 应该全局存储与更新，以下代码以写入到文件中做示例
@@ -212,41 +149,37 @@ class YZBo
         return ;
     }
 
-
-    /**
-     * 头像处理
-     */
-    public function handleHeads() {
-        $userID = $_SESSION['signedUser'];
-        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",Userid=".$userID);
-        $crop = new CropAvatar( $userID,
-            isset($_POST['avatar_src']) ? $_POST['avatar_src'] : null,
-            isset($_POST['avatar_data']) ? $_POST['avatar_data'] : null,
-            isset($_FILES['avatar_file']) ? $_FILES['avatar_file'] : null
-        );
-        if (is_null($crop -> getMsg())
-            && !is_null($crop -> getResult()) && file_exists($crop -> getResult())) {
-            Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",Uploading to OSS");
-            self::savePictureFromFile($crop -> getResult(), $userID);
+    public function publishServiceInfo(){
+        if (!isset($_SESSION['serviceData'])){
+            self::createNewService();
         }
+        $serviceData = $_SESSION['serviceData'];
+        $serviceData['status'] = 1;// change satus to waiting for approve
+        $userData['service_area'] = isset($_POST ['service_area']) ? $_POST ['service_area'] : '';
+        $userData['description'] = isset($_POST ['description']) ? $_POST ['description'] : '';
+        $userData['service_type'] = $_POST ['service_type'];
+        $userData['service_price'] = isset($_POST ['service_price']) ? $_POST ['service_price'] : '';
+        $userData['tag'] = isset($_POST ['mytags']) ? $_POST ['mytags'] : '';
+        
+        if (YZDao::updateYZ($userData, $serviceData['id'])==0) {
+            $_SESSION['submityzstatus'] = '成功';
+        } else {
+            $_SESSION['submityzstatus'] = '失败';
+        }
+        $_SESSION['userData']= $userData;
 
-        $response = array(
-            'status'  => 200,
-            'msg' => $crop -> getMsg(),
-            'result' => $crop -> getResult()
-        );
-        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",msg=".$crop -> getMsg());
-        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",result=".$crop -> getResult());
-        echo json_encode($response);
-
-        exit;
-
+        //header('Location:../View/mobile/users/submityzsuccess.php');
     }
-    function savePictureFromFile($path, $userID){
-        $object = "yzphoto/heads/".$userID."/head.png";
-        $options = array();
-        OSSHelper::uploadFile($object, $path, $options);
-        return ;
+
+    public function createNewService(){
+        $sellerData = $_SESSION['sellerData'] ;
+        $serviceData = array();
+        $serviceData['seller_id'] = $sellerData['id'];
+        $serviceData['seller_name'] = $sellerData['name'];
+        $serviceData['status'] = 0;
+        $serviceid = YZDao::insertYZ($serviceData);
+        $serviceData['id'] = $serviceid;
+        $_SESSION['serviceData']= $serviceData;
     }
 
 }
