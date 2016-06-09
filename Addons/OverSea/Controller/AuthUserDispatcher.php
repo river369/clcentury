@@ -27,8 +27,10 @@ $method_routes = array(
     'publishService' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'getCurrentYZ', 'v'=>'../View/mobile/service/publishservice.php','d'=>'发易知信息'),
     'publishServicePics' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'publishServicePics','d'=>'发易知图片'),
     'publishServiceInfo' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'publishServiceInfo', 'v'=>'../View/mobile/users/submityzsuccess.php', 'd'=>'发易知信息'),
+    'myServices' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'getMyServicesByStatus', 'v'=>'../View/mobile/service/my_services.php', 'd'=>'发易知信息'),
+    'deleteService' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'deleteService', 'v'=>'../View/mobile/service/my_services.php', 'd'=>'发易知信息'),
 
-
+    
     'submitOrder' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'getCurrentSellerInfo', 
         'v'=>'../View/mobile/orders/submitorder.php','d'=>'用户订购确认'),
     'createOrder' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'createOrder', 

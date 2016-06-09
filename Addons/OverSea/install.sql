@@ -19,6 +19,8 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`yz_users` (
 PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
 
+user状态 0 created, 20 个人信息不完整, 40 已经实名, 60 已发布过服务, 80 完成一次服务, 100 多次服务, 120 封号 ,
+
 --Services
 CREATE TABLE IF NOT EXISTS `clctravel`.`yz_services` (
 `id` bigint(12) NOT NULL AUTO_INCREMENT COMMENT '主键',
@@ -31,6 +33,8 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`yz_services` (
 `service_price` int(10) DEFAULT 50  COMMENT '服务价格',
 `service_price_unit` varchar(10)  DEFAULT "人民币"  COMMENT '服务价格单位',
 `stars` int(3) DEFAULT 3  COMMENT '星',
+`reject_reason` varchar(255) DEFAULT NULL  COMMENT '管理员拒绝理由',
+`delete_reason` varchar(255) DEFAULT NULL  COMMENT 'seller删除原因,当有用户购买时必须输入',
 `tag` varchar(255) DEFAULT "" COMMENT 'user tags',
 `creation_date` datetime  DEFAULT NULL COMMENT 'creation datetime',
 `update_date` datetime  DEFAULT NULL COMMENT 'update datetime',
@@ -40,9 +44,10 @@ KEY `seller_id` (`seller_id`)
 
 service status:
 0 created,
-1 wait for approve
-2 approved,
-3 deleted
+20 wait for approve
+40 rejected
+60 approved,
+80 deleted
 
 --Orders
 CREATE TABLE IF NOT EXISTS `clctravel`.`yz_orders` (

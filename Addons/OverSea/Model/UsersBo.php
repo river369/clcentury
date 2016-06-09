@@ -31,10 +31,10 @@ class UsersBo
      * Update User info
      */
     public function updateUserInfo() {
-        $userData['name'] = isset($_POST ['name']) ? $_POST ['name'] : '';
-        $userData['weixin'] = isset($_POST ['weixin']) ? $_POST ['weixin'] : '';
+        $userData['name'] = isset($_POST ['name']) ? trim($_POST ['name']) : '';
+        $userData['weixin'] = isset($_POST ['weixin']) ? trim($_POST ['weixin']) : '';
         $userData['gender'] = $_POST ['gender'];
-        $userData['email'] = isset($_POST ['email']) ? $_POST ['email'] : '';
+        $userData['email'] = isset($_POST ['email']) ? trim($_POST ['email']) : '';
         $userData['description'] = isset($_POST ['description']) ? trim($_POST ['description']) : '';
 
         if (isset( $_POST ['mytags'])){

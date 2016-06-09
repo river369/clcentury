@@ -25,7 +25,7 @@ class ServicesBo
     public function getCurrentYZ() {
         $sellerid = HttpHelper::getVale('sellerid');
         $service_id = HttpHelper::getVale('service_id');
-        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.$sellerid." ".$service_id);
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",".$sellerid." ".$service_id);
         self::getCurrentSellerInfo($sellerid);
         self::getServiceInfo($service_id);
         self::prepareWeixinPicsParameters();
@@ -52,7 +52,7 @@ class ServicesBo
         unset($_SESSION['serviceData']);
         if (!is_null($service_id) && strlen($service_id) >0 ){
             $serviceDao = new ServicesDao();
-            $serviceData = $serviceDao ->getById();
+            $serviceData = $serviceDao ->getById($service_id);
             $_SESSION['serviceData']= $serviceData;
         }
     }
@@ -151,12 +151,15 @@ class ServicesBo
         return ;
     }
 
+    /**
+     * User update service info
+     */
     public function publishServiceInfo(){
         if (!isset($_SESSION['serviceData'])){
             self::createNewService();
         }
         $serviceData = $_SESSION['serviceData'];
-        $serviceData['status'] = 1;// change satus to waiting for approve
+        $serviceData['status'] = 20;// change satus to waiting for approve
         $serviceData['service_area'] = isset($_POST ['service_area']) ? $_POST ['service_area'] : '';
         $serviceData['description'] = isset($_POST ['description']) ? trim($_POST ['description']) : '';
         $serviceData['service_type'] = $_POST ['service_type'];
@@ -176,6 +179,9 @@ class ServicesBo
         //header('Location:../View/mobile/users/submityzsuccess.php');
     }
 
+    /**
+     * create new service
+     */
     public function createNewService(){
         $sellerData = $_SESSION['sellerData'] ;
         $serviceData = array();
@@ -188,4 +194,31 @@ class ServicesBo
         $_SESSION['serviceData']= $serviceData;
     }
 
+    /**
+     * Get my service list
+     */
+    public function getMyServicesByStatus(){
+        $sellerid = HttpHelper::getVale('sellerid');
+        $userID = $_SESSION['signedUser'];
+        if ($userID == $sellerid)  {
+            $status = HttpHelper::getVale('status');
+            $serviceDao = new ServicesDao();
+            $myServices = $serviceDao->getServiceByUserStatus($sellerid, $status);
+            $_SESSION['myServices'] = $myServices;
+            $_SESSION['sellerId'] = $sellerid;
+            $_SESSION['querystatus'] = $status;
+        }
+    }
+
+    /**
+     * 
+     */
+    public function deleteService(){
+        $userID = $_SESSION['signedUser'];
+        $serviceId = $_POST['deleteServiceId'];
+        $deleteReason = $_POST['deletereason'];
+        $serviceDao = new ServicesDao(); 
+        $serviceDao -> deleteService($serviceId,  $deleteReason, $userID);
+        self::getMyServicesByStatus();
+    }
 }

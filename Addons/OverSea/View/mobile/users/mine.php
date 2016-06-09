@@ -50,7 +50,7 @@ $customerid = $_SESSION['signedUser'];
                 </a>
             </li>
             <li>
-                <a href="sellerdetails.html" rel="external">
+                <a href="../../../Controller/AuthUserDispatcher.php?c=myServices&sellerid=<?php echo $customerid;?>&status=20" rel="external">
                     我发布的易服务知列表
                 </a>
             </li>

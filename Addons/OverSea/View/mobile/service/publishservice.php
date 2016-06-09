@@ -138,7 +138,7 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
             <ul id="methodTags"></ul>
             <input name="mytags" id="mytags" value="<?php echo isset($serviceData['tag']) ? $serviceData['tag']: ''; ?>" type="hidden">
             
-            <input type="submit" name="yzsubmit" id="yzsubmit" value="提交审核">
+            <input type="submit" name="yzsubmit" id="yzsubmit" value="发布信息">
         </form>
     </div>
 
