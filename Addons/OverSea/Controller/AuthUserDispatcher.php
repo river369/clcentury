@@ -24,9 +24,9 @@ $method_routes = array(
     'updateMyinfo' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'updateUserInfo', 'v'=>'../View/mobile/users/submityzsuccess.php','d'=>'完善我的信息'),
     'submitheadpic' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'handleHeads', 'd'=>'发个人头像'),
     
-    'publishService' => array('m'=>'Addons\OverSea\Model\YZBo', 'f'=>'getCurrentYZ', 'v'=>'../View/mobile/service/publishyz.php','d'=>'发易知信息'),
-    'publishServicePics' => array('m'=>'Addons\OverSea\Model\YZBo', 'f'=>'publishServicePics','d'=>'发易知图片'),
-    'publishServiceInfo' => array('m'=>'Addons\OverSea\Model\YZBo', 'f'=>'publishServiceInfo', 'v'=>'../View/mobile/users/submityzsuccess.php', 'd'=>'发易知信息'),
+    'publishService' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'getCurrentYZ', 'v'=>'../View/mobile/service/publishservice.php','d'=>'发易知信息'),
+    'publishServicePics' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'publishServicePics','d'=>'发易知图片'),
+    'publishServiceInfo' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'publishServiceInfo', 'v'=>'../View/mobile/users/submityzsuccess.php', 'd'=>'发易知信息'),
 
 
     'submitOrder' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'getCurrentSellerInfo', 

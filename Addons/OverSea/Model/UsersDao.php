@@ -13,7 +13,7 @@ use Addons\OverSea\Model\BaseDao;
 class UsersDao extends BaseDao
 {
     /**
-     * YZDao constructor.
+     * UsersDao constructor.
      */
     public function __construct()
     {

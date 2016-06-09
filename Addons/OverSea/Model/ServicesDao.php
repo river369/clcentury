@@ -10,10 +10,10 @@ use Addons\OverSea\Common\MySqlHelper;
 use Addons\OverSea\Common\Logs;
 use Addons\OverSea\Model\BaseDao;
 
-class YZDao extends BaseDao
+class ServicesDao extends BaseDao
 {
     /**
-     * YZDao constructor.
+     * ServicesDao constructor.
      */
     public function __construct()
     {

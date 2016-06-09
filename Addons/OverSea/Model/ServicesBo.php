@@ -13,11 +13,11 @@ use Addons\OverSea\Common\Logs;
 use Addons\OverSea\Model\CropAvatar;
 use Addons\OverSea\Common\HttpHelper;
 use Addons\OverSea\Model\UsersDao;
-use Addons\OverSea\Model\YZDao;
+use Addons\OverSea\Model\ServicesDao;
 
 require dirname(__FILE__).'/PicCrop.php';
 
-class YZBo
+class ServicesBo
 {
     public function __construct() {
     }
@@ -51,7 +51,7 @@ class YZBo
     public function getServiceInfo($service_id) {
         unset($_SESSION['serviceData']);
         if (!is_null($service_id) && strlen($service_id) >0 ){
-            $serviceDao = new YZDao();
+            $serviceDao = new ServicesDao();
             $serviceData = $serviceDao ->getById();
             $_SESSION['serviceData']= $serviceData;
         }
@@ -70,7 +70,7 @@ class YZBo
         $jsapi_ticket = WeixinHelper::make_ticket();
         //$url = 'http://'.$_SERVER['HTTP_HOST']."/weiphp/Addons/OverSea/View/mobile/users/mine1.html";
         //$url = 'http://'.$_SERVER['HTTP_HOST']."/weiphp/Addons/OverSea/View/mobile/users/yzpictures.php";
-        $url = 'http://'.$_SERVER['HTTP_HOST']."/weiphp/Addons/OverSea/View/mobile/service/publishyz.php";
+        $url = 'http://'.$_SERVER['HTTP_HOST']."/weiphp/Addons/OverSea/View/mobile/service/publishservice.php";
         $signature = WeixinHelper::make_signature($nonceStr,$timestamp,$jsapi_ticket,$url);
         $_SESSION['$signature'] = $signature;
     }
@@ -163,7 +163,7 @@ class YZBo
         $serviceData['service_price'] = isset($_POST ['service_price']) ? $_POST ['service_price'] : '';
         $serviceData['tag'] = isset($_POST ['mytags']) ? $_POST ['mytags'] : '';
 
-        $serviceDao = new YZDao();
+        $serviceDao = new ServicesDao();
         $serviceid = $serviceDao ->update($serviceData, $serviceData['id']);
 
         if ($serviceid==0) {
@@ -182,7 +182,7 @@ class YZBo
         $serviceData['seller_id'] = $sellerData['id'];
         $serviceData['seller_name'] = $sellerData['name'];
         $serviceData['status'] = 0;
-        $serviceDao = new YZDao();
+        $serviceDao = new ServicesDao();
         $serviceid = $serviceDao ->insert($serviceData);
         $serviceData['id'] = $serviceid;
         $_SESSION['serviceData']= $serviceData;
