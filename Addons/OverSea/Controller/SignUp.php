@@ -36,13 +36,15 @@ if ($userData['user_type'] == 1) { // register by phone user
     if ((isset($_SESSION['verifcationCode']) && isset($_POST['verifycode'])
             && $_SESSION['verifcationCode'] == $_POST['verifycode'])
         || $_POST['verifycode'] == '20160606') {
-        $existedUser=UsersDao::getUserByPhone($userData['phone_reigon'] , $userData['phone_number']);
+        $userDao = new UsersDao();
+        $existedUser = $userDao->getUserByPhone($userData['phone_reigon'] , $userData['phone_number']);
         if (isset($existedUser['phone_number'])){
             $_SESSION['existedUserPhoneReigon']= $existedUser['phone_reigon'];
             $_SESSION['existedUserPhoneNumber']= $existedUser['phone_number'];
             header('Location:../View/mobile/users/signin.php');
         } else {
-            $id = UsersDao::insertUser($userData);
+            $userDao = new UsersDao();
+            $id = $userDao->insert($userData);
             if ($id>0) {
                 $_SESSION['signupstatus'] = '成功';
                 $_SESSION['signedUser'] = $id;

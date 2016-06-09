@@ -32,7 +32,8 @@ if ($userData['user_type'] == 1) { // register by phone user
     }
 
     // verifycode to be implement
-    $existedUser=UsersDao::getUserByPhone($userData['phone_reigon'] , $userData['phone_number']);
+    $userDao = new UsersDao();
+    $existedUser = $userDao->getUserByPhone($userData['phone_reigon'] , $userData['phone_number']);
     if (!isset($existedUser['phone_number'])){
         //echo $userData['phone_reigon'] . $userData['phone_number']. " 号码尚未注册.";
         $_SESSION['$signInErrorMsg']= $userData['phone_reigon'] . $userData['phone_number']. " 号码尚未注册.";
@@ -48,7 +49,7 @@ if ($userData['user_type'] == 1) { // register by phone user
         setcookie("signedUser", $cookieValue, time()+7*24*3600);
 
         if (isset($_SESSION['weixinOpenid'])) {
-            UsersDao::updateExternalId($_SESSION['weixinOpenid'], $existedUser['id']);
+            $userDao->updateExternalId($_SESSION['weixinOpenid'], $existedUser['id']);
         }
 
         header('Location:./AuthUserDispatcher.php');

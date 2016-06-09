@@ -76,7 +76,8 @@ if (isset($_SESSION['signedUser'])) {
         goToCommand($method_routes, $command);
     } else if (isset($_SESSION['weixinOpenid'])) {
         // check if weixin openid match the db saving values
-        $existedUser=UsersDao::getUserByExternalId($_SESSION['weixinOpenid']);
+        $userDao = new UsersDao();
+        $existedUser=$userDao->getUserByExternalId($_SESSION['weixinOpenid']);
         if (isset($existedUser['openid']) && $existedUser['openid'] == $_SESSION['weixinOpenid']){
             Logs::writeClcLog("AuthUserDipatcher.php, Get user from session openid as ".$existedUser['id']);
             saveId($existedUser['id']);

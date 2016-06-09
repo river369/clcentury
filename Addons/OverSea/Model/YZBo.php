@@ -39,7 +39,8 @@ class YZBo
         unset($_SESSION['sellerData']);
         $userID = $_SESSION['signedUser'];
         if ($userID == $sellerid)  {
-            $sellerData = UsersDao::getUserById($sellerid);
+            $userDao = new UsersDao();
+            $sellerData = $userDao ->getById($sellerid);
             $_SESSION['sellerData']= $sellerData;
         }
     }
@@ -50,7 +51,8 @@ class YZBo
     public function getServiceInfo($service_id) {
         unset($_SESSION['serviceData']);
         if (!is_null($service_id) && strlen($service_id) >0 ){
-            $serviceData = YZDao::getYZById($service_id);
+            $serviceDao = new YZDao();
+            $serviceData = $serviceDao ->getById();
             $_SESSION['serviceData']= $serviceData;
         }
     }
@@ -155,18 +157,21 @@ class YZBo
         }
         $serviceData = $_SESSION['serviceData'];
         $serviceData['status'] = 1;// change satus to waiting for approve
-        $userData['service_area'] = isset($_POST ['service_area']) ? $_POST ['service_area'] : '';
-        $userData['description'] = isset($_POST ['description']) ? $_POST ['description'] : '';
-        $userData['service_type'] = $_POST ['service_type'];
-        $userData['service_price'] = isset($_POST ['service_price']) ? $_POST ['service_price'] : '';
-        $userData['tag'] = isset($_POST ['mytags']) ? $_POST ['mytags'] : '';
-        
-        if (YZDao::updateYZ($userData, $serviceData['id'])==0) {
+        $serviceData['service_area'] = isset($_POST ['service_area']) ? $_POST ['service_area'] : '';
+        $serviceData['description'] = isset($_POST ['description']) ? trim($_POST ['description']) : '';
+        $serviceData['service_type'] = $_POST ['service_type'];
+        $serviceData['service_price'] = isset($_POST ['service_price']) ? $_POST ['service_price'] : '';
+        $serviceData['tag'] = isset($_POST ['mytags']) ? $_POST ['mytags'] : '';
+
+        $serviceDao = new YZDao();
+        $serviceid = $serviceDao ->update($serviceData, $serviceData['id']);
+
+        if ($serviceid==0) {
             $_SESSION['submityzstatus'] = '成功';
         } else {
             $_SESSION['submityzstatus'] = '失败';
         }
-        $_SESSION['userData']= $userData;
+        $_SESSION['$serviceData']= $serviceData;
 
         //header('Location:../View/mobile/users/submityzsuccess.php');
     }
@@ -177,7 +182,8 @@ class YZBo
         $serviceData['seller_id'] = $sellerData['id'];
         $serviceData['seller_name'] = $sellerData['name'];
         $serviceData['status'] = 0;
-        $serviceid = YZDao::insertYZ($serviceData);
+        $serviceDao = new YZDao();
+        $serviceid = $serviceDao ->insert($serviceData);
         $serviceData['id'] = $serviceid;
         $_SESSION['serviceData']= $serviceData;
     }

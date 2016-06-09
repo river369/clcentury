@@ -22,7 +22,8 @@ class UsersBo
      */
     public function getCurrentUserInfo() {
         $userid = $_SESSION['signedUser'];
-        $existedUser = UsersDao::getUserById($userid);
+        $userDao = new UsersDao();
+        $existedUser = $userDao ->getById($userid);
         $_SESSION['signedUserInfo'] = $existedUser;
     }
     
@@ -39,7 +40,9 @@ class UsersBo
         if (isset( $_POST ['mytags'])){
             $userData['tag'] = $_POST ['mytags'];
         }
-        if (UsersDao::updateUser($userData,$_SESSION['signedUser'])==0) {
+        $userDao = new UsersDao();
+        $userid = $userDao ->update($userData,$_SESSION['signedUser'])==0;
+        if ($userid) {
             $_SESSION['submityzstatus'] = '成功';
         } else {
             $_SESSION['submityzstatus'] = '失败';

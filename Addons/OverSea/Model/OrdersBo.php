@@ -34,7 +34,8 @@ class OrdersBo
         $orderData['servicetotalfee']  = isset($_POST ['servicetotalfee']) ? $_POST ['servicetotalfee'] : "";
         $orderData['requestmessage']  = isset($_POST ['requestmessage']) ? $_POST ['requestmessage'] : "";
 
-        $userData=UsersDao::getUserById($orderData['customerid']);
+        $userDao = new UsersDao();
+        $userData=$userDao->getById($orderData['customerid']);
         $customername = (isset($userData['name']) && !is_null($userData['name']))? $userData['name']: "匿名用户";
         $orderData['customername'] = $customername;
 

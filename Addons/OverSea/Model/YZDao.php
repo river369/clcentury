@@ -8,69 +8,20 @@
 namespace Addons\OverSea\Model;
 use Addons\OverSea\Common\MySqlHelper;
 use Addons\OverSea\Common\Logs;
+use Addons\OverSea\Model\BaseDao;
 
-class YZDao
+class YZDao extends BaseDao
 {
-    public static function insertYZ($data)
+    /**
+     * YZDao constructor.
+     */
+    public function __construct()
     {
-        try {
-            date_default_timezone_set('PRC');
-            $data['creation_date'] = date('y-m-d H:i:s',time());
-            $tmpData = array();
-            foreach ($data as $k => $v) {
-                //echo $k."-".$v;
-                $tmpData[':' . $k] = $v;
-            }
-            $sql = 'INSERT INTO yz_services (' . implode(',', array_keys($data)) . ') VALUES (' . implode(',', array_keys($tmpData)) . ')';
-            //echo $sql;
-            MySqlHelper::query($sql, $tmpData);
-        } catch (\Exception $e){
-            Logs::writeClcLog(__CLASS__.",".__FUNCTION__.$e);
-        }
-        return MySqlHelper::getLastInsertId();
+        parent::__construct("yz_services");
     }
 
-    public static function updateYZ($data, $id)
-    {
-        try {
-            date_default_timezone_set('PRC');
-            $data['update_date'] = date('y-m-d H:i:s',time());
-            $sql = "update yz_services set ";
-            foreach ($data as $k => $v) {
-                //echo $k."-".$v;
-                if ($v != null && $v != ''){
-                    $sql = $sql. $k."='".$v."',";
-                }
-            }
-            $sql = substr($sql,0, strlen($sql) -1 );
-            $sql= $sql.' where id =:id';
-            //echo $sql . $id;
-            MySqlHelper::query($sql, array(':id' => $id));
-            return 0;
-        } catch (\Exception $e){
-            return -1;
-            Logs::writeClcLog(__CLASS__.",".__FUNCTION__.$e);
-        }
-    }
 
-    public static function getYZById($id)
-    {
-        try {
-            $sql = 'SELECT * FROM yz_services WHERE id= :id LIMIT 1';
-            //echo $sql;
-            $user = MySqlHelper::fetchOne($sql, array(':id' => $id));
-            return $user;
-        }catch (\Exception $e){
-            Logs::writeClcLog(__CLASS__.",".__FUNCTION__.$e);
-            exit(1);
-        }
-
-    }
-    
    // To be change
-
-    
-
     /**
      * Get users in special type and city
      * @param $servicetype
