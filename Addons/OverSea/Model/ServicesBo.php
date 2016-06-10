@@ -49,6 +49,15 @@ class ServicesBo
     }
 
     /**
+     * Prepare for service info for order confirm
+     */
+    public function getServiceInfoById() {
+        $service_id = HttpHelper::getVale('service_id');
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",service_id=".$service_id);
+        $service = self::getServiceInfo($service_id);
+    }
+
+    /**
      * Get a user by seller id
      */
     public function getCurrentSellerInfo($sellerid) {
@@ -64,7 +73,7 @@ class ServicesBo
     /**
      * Get a user by seller id
      */
-    public function getServiceInfo($service_id) {
+    private function getServiceInfo($service_id) {
         unset($_SESSION['serviceData']);
         if (!is_null($service_id) && strlen($service_id) >0 ){
             $serviceDao = new ServicesDao();
@@ -77,7 +86,7 @@ class ServicesBo
     /*
     * get picture info by seller id
     */
-    public function getServicePictures($sellerid, $service_id) {
+    private function getServicePictures($sellerid, $service_id) {
         unset($_SESSION['objArray']);
 
         // list data
@@ -142,7 +151,7 @@ class ServicesBo
     }
     
     // 获yz取图片地址
-    function savePictureFromWeixin($media_id, $userID, $yzId, $i){
+    private function savePictureFromWeixin($media_id, $userID, $yzId, $i){
         // access_token 应该全局存储与更新，以下代码以写入到文件中做示例
         $access_token = WeixinHelper::getAccessTokenWithLocalFile();
         $url = "http://file.api.weixin.qq.com/cgi-bin/media/get?access_token=".$access_token."&media_id=".$media_id;
@@ -183,7 +192,7 @@ class ServicesBo
     /**
      * create new service
      */
-    public function createNewService(){
+    private function createNewService(){
         $sellerData = $_SESSION['sellerData'] ;
         $serviceData = array();
         $serviceData['seller_id'] = $sellerData['id'];

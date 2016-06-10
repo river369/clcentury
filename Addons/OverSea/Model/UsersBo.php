@@ -81,7 +81,8 @@ class UsersBo
         exit;
 
     }
-    function savePictureFromFile($path, $userID){
+
+    private function savePictureFromFile($path, $userID){
         $object = "yzphoto/heads/".$userID."/head.png";
         $options = array();
         OSSHelper::uploadFile($object, $path, $options);
@@ -104,7 +105,7 @@ class UsersBo
     /*
     * get real name pictures
     */
-    public function getRealNamePictures($userId) {
+    private function getRealNamePictures($userId) {
         unset($_SESSION['objArray']);
 
         // list data
@@ -166,7 +167,7 @@ class UsersBo
     }
 
     // 获yz取图片地址
-    function savePictureFromWeixin($media_id, $userID, $i){
+    private function savePictureFromWeixin($media_id, $userID, $i){
         // access_token 应该全局存储与更新，以下代码以写入到文件中做示例
         $access_token = WeixinHelper::getAccessTokenWithLocalFile();
         $url = "http://file.api.weixin.qq.com/cgi-bin/media/get?access_token=".$access_token."&media_id=".$media_id;

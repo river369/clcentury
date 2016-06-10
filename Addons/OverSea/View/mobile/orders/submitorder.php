@@ -6,17 +6,17 @@
  * Time: 21:54
  */
 session_start();
-$sellerData= $_SESSION['sellerData'];
-$servicetype=$sellerData['servicetype'];
+$serviceData= $_SESSION['serviceData'];
+$sellerName = $serviceData['seller_name'];
+$serviceArea = $serviceData['service_area'];
+$serviceType=$serviceData['service_type'];
 $servicetypeDesc;
-if ($servicetype==1){
-    $servicetypeDesc = '旅游';
-} else if ($servicetype==2){
-    $servicetypeDesc = '留学';
-} else if ($servicetype==99999){
-    $servicetypeDesc = '旅游,留学';
+if ($serviceType==1){
+    $serviceTypeDesc = '旅游';
+} else if ($serviceType==2){
+    $serviceTypeDesc = '留学';
 }
-$price = $sellerData['serviceprice'];
+$price = $serviceData['service_price'];
 $signedUser = $_SESSION['signedUser'];
 ?>
 <html lang="zh-cmn-Hans">
@@ -35,15 +35,15 @@ $signedUser = $_SESSION['signedUser'];
 
 <div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
     <div data-role="header" data-position="fixed" data-theme="c">
-        <h1>购买<?php echo $sellerData['name']; ?>的服务</h1>
+        <h1>购买<?php echo $sellerName; ?>的服务</h1>
     </div>
 
     <form id="submitorder" data-ajax="false" method="post" action="../../../Controller/AuthUserDispatcher.php?c=createOrder">
         <div data-role="content">
             <h5>服务信息:</h5>
             <ul data-role="listview" data-inset="true">
-                <li>服务地点: <span class="ui-li-count"><?php echo $sellerData['servicearea']; ?></span></li>
-                <li>服务类型: <span class="ui-li-count"><?php echo $servicetypeDesc; ?></span></li>
+                <li>服务地点: <span class="ui-li-count"><?php echo $serviceArea; ?></span></li>
+                <li>服务类型: <span class="ui-li-count"><?php echo $serviceTypeDesc; ?></span></li>
                 <li>服务价格: <span class="ui-li-count">￥<?php echo $price; ?>/小时</span></li>
             </ul>
             <h5>咨询时长:</h5>
@@ -60,11 +60,11 @@ $signedUser = $_SESSION['signedUser'];
             <textarea cols="30" rows="8" name="requestmessage" id="requestmessage" data-mini="true"></textarea>
 
             <input type="hidden" name="customerid" id="customerid"  value="<?php echo $signedUser;?>"/>
-            <input type="hidden" name="sellerid" id="sellerid"  value="<?php echo $sellerData['id']; ?>"/>
-            <input type="hidden" name="sellername" id="sellername"  value="<?php echo $sellerData['name']; ?>"/>
-            <input type="hidden" name="servicearea" id="servicearea"  value="<?php echo $sellerData['servicearea']; ?>"/>
-            <input type="hidden" name="servicetype" id="servicetype"  value="<?php echo $sellerData['servicetype']; ?>"/>
-            <input type="hidden" name="serviceprice" id="serviceprice"  value="<?php echo $sellerData['serviceprice']; ?>"/>
+            <input type="hidden" name="sellerid" id="sellerid"  value="<?php echo $serviceData['seller_id']; ?>"/>
+            <input type="hidden" name="sellername" id="sellername"  value="<?php echo $sellerName; ?>"/>
+            <input type="hidden" name="servicearea" id="servicearea"  value="<?php echo $serviceArea; ?>"/>
+            <input type="hidden" name="servicetype" id="servicetype"  value="<?php echo $serviceType; ?>"/>
+            <input type="hidden" name="serviceprice" id="serviceprice"  value="<?php echo $price; ?>"/>
         </div>
 
         <div data-role="footer" data-position="fixed" data-theme="c">

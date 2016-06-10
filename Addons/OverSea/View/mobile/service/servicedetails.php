@@ -140,7 +140,7 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
     <div data-role="footer" data-position="fixed">
         <div data-role="navbar">
             <ul>
-                <li><a href="../../../Controller/AuthUserDispatcher.php?c=submitOrder&$seller_id=<?php echo $seller_id; ?>" rel="external" class="ui-btn-active">购买</a></li>
+                <li><a href="../../../Controller/AuthUserDispatcher.php?c=submitOrder&$service_id=<?php echo $seller_id; ?>" rel="external" class="ui-btn-active">购买</a></li>
             </ul>
         </div>
     </div>
