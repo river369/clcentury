@@ -7,6 +7,21 @@
  */
 session_start();
 $existedUser = $_SESSION['signedUserInfo'] ;
+$status = $existedUser['status'];
+$statusString = '用户已经注册,请提交实名认证申请';
+switch ($status)
+{
+    case 20:
+        $statusString = "实名认证审核中";
+        break;
+    case 40:
+        $statusString = "实名认证被拒绝";
+        break;
+    case 60:
+        $statusString = "实名认证已通过";
+        break;
+
+}
 ?>
 
 <!DOCTYPE html>
@@ -27,6 +42,7 @@ $existedUser = $_SESSION['signedUserInfo'] ;
     <script src="../../resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
     <script src="../../resource/js/tag/tag-it.min.js"></script>
     <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
+    <!--
     <style>
         label{
             display: inline-block;
@@ -51,9 +67,7 @@ $existedUser = $_SESSION['signedUserInfo'] ;
             height:40px;
         }
     </style>
-
-
-
+    -->
     <script>
         $(function(){
             var sampleTags = ['c++', 'lua'];
@@ -79,13 +93,20 @@ $existedUser = $_SESSION['signedUserInfo'] ;
     </div>
 
     <div data-role="content">
+        <ul data-role="listview" data-inset="true">
+            <li>您的用户状态: <span class="ui-li-count"><?php echo $statusString; ?></span></li>
+            <?php if ($status == 40) {?>
+                <li>拒绝原因: <span class="ui-li-count"><?php echo $existedUser['check_reason']; ?></span></li>
+            <?php } ?>
+        </ul>
         <form id="submityz" data-ajax="false" method="post" action="../../../Controller/AuthUserDispatcher.php?c=updateMyinfo">
-                <label for="name" >您的姓名:</label>
+            <div data-role="fieldcontain">
+                <label for="name" >您的昵称:</label>
                 <input type="text" name="name" id="name" value="<?php echo isset($existedUser['name']) ? $existedUser['name']: ''; ?> ">
-
+                </br>
                 <label for="weixin">您的微信号:</label>
                 <input type="text" name="weixin" id="weixin" value="<?php echo isset($existedUser['weixin']) ? $existedUser['weixin']: ''; ?> ">
-
+                </br>
                 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
                     <legend>我是:</legend>
                     <input name="gender" id="radio-choice-c" value="1" <?php if ($existedUser['gender'] == 1) {echo 'checked="true"'; } ?> type="radio">
@@ -93,26 +114,25 @@ $existedUser = $_SESSION['signedUserInfo'] ;
                     <input name="gender" id="radio-choice-d" value="2" <?php if ($existedUser['gender'] == 2) {echo 'checked="true"'; } ?> type="radio">
                     <label for="radio-choice-d">女生</label>
                 </fieldset>
-
+                </br>
                 <label for="name">您的电子邮件:</label>
                 <input type="text" name="email" id="email" value="<?php echo isset($existedUser['email']) ? $existedUser['email']: ''; ?> ">
-
+                </br>
                 <label for="description">自我介绍:</label>
                 <textarea cols="30" rows="8" name="description" id="description" data-mini="true">
                     <?php echo isset($existedUser['description']) ? $existedUser['description']: ''; ?>
                 </textarea>
-
+                </br>
                 <!--
                 <input name="tags" id="methodTags" value="诚实守信,价格合理">
                 -->
                 <label for="methodTags">
-                    <a href="#tagpopup" data-rel="popup" class="ui-controlgroup-label ui-shadow ui-corner-all">选取或填写特长:</a>
+                    <a href="#tagpopup" data-rel="popup" class="ui-controlgroup-label">选取或填写特长:</a>
                 </label>
                 <ul id="methodTags"></ul>
                 <input name="mytags" id="mytags" value="<?php echo isset($existedUser['tag']) ? $existedUser['tag']: ''; ?>" type="hidden">
-
-                <input type="submit" name="yzsubmit" id="yzsubmit" value="发布">
-
+            </div>
+            <input type="submit" name="yzsubmit" id="yzsubmit" value="发布">
         </form>
     </div>
 

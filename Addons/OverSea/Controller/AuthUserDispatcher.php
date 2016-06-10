@@ -18,13 +18,16 @@ session_start();
 //c - command, like signin, m - model, f - function in model, v - view,  d - description
 $method_routes = array(
     'signin' => array('v'=>'../View/mobile/users/signin.php','d'=>''),//submit service
-    'mine' => array('v'=>'../View/mobile/users/mine.php','d'=>'我的订单'),
+    'mine' => array('v'=>'../View/mobile/users/mine.php','d'=>'我的信息'),
     
     'myinfo' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'getCurrentUserInfo', 'v'=>'../View/mobile/users/myinfo.php','d'=>'查看我的新的'),
     'updateMyinfo' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'updateUserInfo', 'v'=>'../View/mobile/users/submityzsuccess.php','d'=>'完善我的信息'),
     'submitheadpic' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'handleHeads', 'd'=>'发个人头像'),
-    
-    'publishService' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'getCurrentYZ', 'v'=>'../View/mobile/service/publishservice.php','d'=>'发易知服务信息'),
+    'publishRealName' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'prepareRealName', 'v'=>'../View/mobile/users/realname.php','d'=>'发易知服务信息'),
+    'publishRealNamePics' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'publishRealNamePics','d'=>'发实名认证图片'),
+    'publishRealNameInfo' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'publishRealNameInfo', 'v'=>'../View/mobile/users/submityzsuccess.php', 'd'=>'发实名认证信息'),
+
+    'publishService' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'getCurrentService', 'v'=>'../View/mobile/service/publishservice.php','d'=>'发易知服务信息'),
     'publishServicePics' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'publishServicePics','d'=>'发易知图片'),
     'publishServiceInfo' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'publishServiceInfo', 'v'=>'../View/mobile/users/submityzsuccess.php', 'd'=>'发易知服务信息'),
     'myServices' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'getMyServicesByStatus', 'v'=>'../View/mobile/service/my_services.php', 'd'=>'查看我发布的易知服务信息'),

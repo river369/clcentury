@@ -128,6 +128,22 @@ class WeixinHelper
 
 
     //======The following part is for upload pictures======
+    /**
+     * 准备显示微信图片JS的参数
+     */
+    public function prepareWeixinPicsParameters($uri) {
+        // Create sessions
+        $_SESSION['$appid'] = self::getAppid();
+        $nonceStr = self::make_nonceStr();
+        $_SESSION['$nonceStr'] = $nonceStr;
+        $timestamp = time();
+        $_SESSION['$timestamp'] = $timestamp;
+        $jsapi_ticket = self::make_ticket();
+        //$url = 'http://'.$_SERVER['HTTP_HOST']."/weiphp/Addons/OverSea/View/mobile/service/publishservice.php";
+        $url = 'http://'.$_SERVER['HTTP_HOST'].$uri;
+        $signature = self::make_signature($nonceStr,$timestamp,$jsapi_ticket,$url);
+        $_SESSION['$signature'] = $signature;
+    }
     /*
      * something like : nonceStr: '3YbIykt3eW4wXnyY',
      */

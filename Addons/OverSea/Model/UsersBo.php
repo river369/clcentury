@@ -10,6 +10,8 @@ namespace Addons\OverSea\Model;
 
 use Addons\OverSea\Model\UsersDao;
 use Addons\OverSea\Common\OSSHelper;
+use Addons\OverSea\Common\HttpHelper;
+use Addons\OverSea\Common\WeixinHelper;
 use Addons\OverSea\Common\Logs;
 
 class UsersBo
@@ -41,8 +43,8 @@ class UsersBo
             $userData['tag'] = $_POST ['mytags'];
         }
         $userDao = new UsersDao();
-        $userid = $userDao ->update($userData,$_SESSION['signedUser'])==0;
-        if ($userid) {
+        $userid = $userDao ->update($userData,$_SESSION['signedUser']);
+        if ($userid == 0) {
             $_SESSION['submityzstatus'] = '成功';
         } else {
             $_SESSION['submityzstatus'] = '失败';
@@ -86,5 +88,116 @@ class UsersBo
         return ;
     }
 
+    /**
+     * prepare some info for realname certification
+     */
+    public function prepareRealName(){
+        $userId = HttpHelper::getVale('userid');
+        $signedUserID = $_SESSION['signedUser'];
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",signedUserId=".$signedUserID.",userid=".$userId);
+        if ($userId == $signedUserID)  {
+            self::getCurrentUserInfo() ;
+            WeixinHelper::prepareWeixinPicsParameters("/weiphp/Addons/OverSea/View/mobile/users/realname.php");
+            self::getRealNamePictures($userId);
+        }
+
+    }
+
+    /*
+    * get real name pictures
+    */
+    public function getRealNamePictures($userId) {
+        unset($_SESSION['objArray'.$userId]);
+
+        // list data
+        $object = "yzphoto/realname/".$userId."/";
+        //echo $object;
+        $objectList = OSSHelper::listObjects($object);
+        $objArray = array();
+        if (!empty($objectList)) {
+            foreach ($objectList as $objectInfo) {
+                $objArray[] = $objectInfo->getKey();
+            }
+            $_SESSION['objArray'.$userId] = $objArray;
+        }
+    }
+
+    /**
+     * YZ 图片处理
+     */
+    public function publishRealNamePics() {
+        $userID = $_SESSION['signedUser'];
+
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__." userid=".$userID);
+        // upload image if need to
+        if (isset($_GET ['serverids'])){
+            $serverids = $_GET ['serverids'];
+            //echo $serverids;
+            $serveridsArray = explode(',',$serverids);
+            $i=1;
+            foreach ($serveridsArray as $serverid){
+                self::savePictureFromWeixin($serverid, $userID, $i);
+                $i++;
+            }
+        }
+
+        // delete image if need
+        if (isset($_GET ['objtodelete'])){
+            $obj = $_GET ['objtodelete'];
+            //echo $obj;
+            OSSHelper::deleteObject($obj);
+            //exit(1);
+        }
+
+        // list data
+        $object = "yzphoto/realname/".$userID."/";
+        //echo $object;
+        $objectList = OSSHelper::listObjects($object);
+        $objArray = array();
+        if (!empty($objectList)) {
+            foreach ($objectList as $objectInfo) {
+                $objArray[] = $objectInfo->getKey();
+            }
+        }
+        $retJson =  json_encode(array('status'=> 0, 'msg'=> 'done', 'objLists' => $objArray));
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__." retJson=".$retJson);
+        echo json_encode(array('status'=> 0, 'msg'=> 'done', 'objLists' => $objArray));
+        exit;
+    }
+
+    // 获yz取图片地址
+    function savePictureFromWeixin($media_id, $userID, $i){
+        // access_token 应该全局存储与更新，以下代码以写入到文件中做示例
+        $access_token = WeixinHelper::getAccessTokenWithLocalFile();
+        $url = "http://file.api.weixin.qq.com/cgi-bin/media/get?access_token=".$access_token."&media_id=".$media_id;
+        $object = "yzphoto/realname/".$userID."/".date('YmdHis')."_".$i.".jpg";
+        $options = array();
+        OSSHelper::putObject($object, file_get_contents($url), $options);
+        return ;
+    }
+
+    /**
+     * User update realname info
+     */
+    public function publishRealNameInfo(){
+
+        $userID = $_SESSION['signedUser'];
+        $realNameData = array();
+        $realNameData['status'] = 20;// change satus to waiting for approve
+        $realNameData['real_name'] = isset($_POST ['real_name']) ? $_POST ['real_name'] : '';
+        $realNameData['certificate_type'] = $_POST ['certificate_type'];
+        $realNameData['certificate_no'] = isset($_POST ['certificate_no']) ? $_POST ['certificate_no'] : '';
+
+        $usersDao = new UsersDao();
+        $userid = $usersDao ->update($realNameData, $userID);
+
+        if ($userid==0) {
+            $_SESSION['submityzstatus'] = '成功';
+        } else {
+            $_SESSION['submityzstatus'] = '失败';
+        }
+
+        //header('Location:../View/mobile/users/submityzsuccess.php');
+    }
 
 }

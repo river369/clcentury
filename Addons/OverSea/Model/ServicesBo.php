@@ -22,14 +22,20 @@ class ServicesBo
     public function __construct() {
     }
 
-    public function getCurrentYZ() {
+    /**
+     * Prepare for service info
+     */
+    public function getCurrentService() {
         $sellerid = HttpHelper::getVale('sellerid');
         $service_id = HttpHelper::getVale('service_id');
-        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",".$sellerid." ".$service_id);
-        self::getCurrentSellerInfo($sellerid);
-        self::getServiceInfo($service_id);
-        self::prepareWeixinPicsParameters();
-        self::getYZPictures($sellerid, $service_id);
+        $userID = $_SESSION['signedUser'];
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",userId=".$userID.",sellerId=".$sellerid.",service_id=".$service_id);
+        if ($userID == $sellerid)  {
+            self::getCurrentSellerInfo($sellerid);
+            self::getServiceInfo($service_id);
+            WeixinHelper::prepareWeixinPicsParameters("/weiphp/Addons/OverSea/View/mobile/service/publishservice.php");
+            self::getServicePictures($sellerid, $service_id);
+        }
     }
 
     /**
@@ -57,28 +63,10 @@ class ServicesBo
         }
     }
 
-    /**
-     * YZ 图片处理
-     */
-    public function prepareWeixinPicsParameters() {
-        // Create sessions
-        $_SESSION['$appid'] = WeixinHelper::getAppid();
-        $nonceStr = WeixinHelper::make_nonceStr();
-        $_SESSION['$nonceStr'] = $nonceStr;
-        $timestamp = time();
-        $_SESSION['$timestamp'] = $timestamp;
-        $jsapi_ticket = WeixinHelper::make_ticket();
-        //$url = 'http://'.$_SERVER['HTTP_HOST']."/weiphp/Addons/OverSea/View/mobile/users/mine1.html";
-        //$url = 'http://'.$_SERVER['HTTP_HOST']."/weiphp/Addons/OverSea/View/mobile/users/yzpictures.php";
-        $url = 'http://'.$_SERVER['HTTP_HOST']."/weiphp/Addons/OverSea/View/mobile/service/publishservice.php";
-        $signature = WeixinHelper::make_signature($nonceStr,$timestamp,$jsapi_ticket,$url);
-        $_SESSION['$signature'] = $signature;
-    }
-
     /*
     * get picture info by seller id
     */
-    public function getYZPictures($sellerid, $service_id) {
+    public function getServicePictures($sellerid, $service_id) {
         unset($_SESSION['objArray'.$sellerid]);
 
         // list data
@@ -136,6 +124,8 @@ class ServicesBo
                 Logs::writeClcLog(__CLASS__.",".__FUNCTION__.$objectInfo->getKey());
             }
         }
+        $retJson =  json_encode(array('status'=> 0, 'msg'=> 'done', 'objLists' => $objArray));
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__." retJson=".$retJson);
         echo json_encode(array('status'=> 0, 'msg'=> 'done', 'objLists' => $objArray));
         exit;
     }

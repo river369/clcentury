@@ -40,7 +40,7 @@ $customerid = $_SESSION['signedUser'];
                 </a>
             </li>
             <li>
-                <a href="../../../Controller/AuthUserDispatcher.php?c=createYZ&Sellerid=<?php echo $customerid;?>" rel="external">
+                <a href="../../../Controller/AuthUserDispatcher.php?c=publishRealName&userid=<?php echo $customerid;?>" rel="external">
                     申请实名认证
                 </a>
             </li>

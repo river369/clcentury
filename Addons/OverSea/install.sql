@@ -1,7 +1,7 @@
 --Users
 CREATE TABLE IF NOT EXISTS `clctravel`.`yz_users` (
 `id` bigint(12) NOT NULL AUTO_INCREMENT COMMENT '主键',
-`user_type` int(10) DEFAULT 1  COMMENT 'User类型 1 phone, 2 weixin, 3 qq ...',
+`user_type` int(5) DEFAULT 1  COMMENT 'User类型 1 phone, 2 weixin, 3 qq ...',
 `phone_reigon` varchar(6) DEFAULT NULL  COMMENT '电话区号',
 `phone_number` varchar(20) DEFAULT NULL  COMMENT '电话号码',
 `password` varchar(50) DEFAULT NULL  COMMENT '',
@@ -13,20 +13,25 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`yz_users` (
 `description` text DEFAULT NULL  COMMENT '个人详细介绍',
 `stars` int(3) DEFAULT 3  COMMENT '星',
 `tag` varchar(255) DEFAULT "" COMMENT 'user tags',
-`status` int(10) DEFAULT 0  COMMENT 'user状态 0 created, 20 个人信息不完整, 40 已经实名, 60 已发布过服务, 80 完成一次服务, 100 多次服务' ,
+`status` int(5) DEFAULT 0  COMMENT 'user状态 0 created...' ,
+`real_name` varchar(255)  DEFAULT NULL  COMMENT '真实姓名',
+`certificate_type` int(5) DEFAULT 1  COMMENT 'User类型 1 身份证, 2 Passport',
+`certificate_no` varchar(25)  DEFAULT NULL  COMMENT '身份号码',
+`check_reason` varchar(255)  DEFAULT NULL  COMMENT 'approve or reject reason',
 `creation_date` datetime  DEFAULT NULL COMMENT 'creation datetime',
 `update_date` datetime  DEFAULT NULL COMMENT 'update datetime',
 PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
 
 user状态 0 created, 20 个人信息不完整, 40 已经实名, 60 已发布过服务, 80 完成一次服务, 100 多次服务, 120 封号 ,
+user状态 0 created已经注册, 20 已经提交实名, 40, rejected 60 approved, 120 封号 ,
 
 --Services
 CREATE TABLE IF NOT EXISTS `clctravel`.`yz_services` (
 `id` bigint(12) NOT NULL AUTO_INCREMENT COMMENT '主键',
 `seller_id` bigint(12)  NOT NULL COMMENT 'The people to sell',
 `seller_name` varchar(255)  DEFAULT NULL  COMMENT 'seller姓名',
-`status` int(10) DEFAULT 0  COMMENT 'service状态 0 created, ...' ,
+`status` int(5) DEFAULT 0  COMMENT 'service状态 0 created, ...' ,
 `description` text DEFAULT NULL  COMMENT 'service详细介绍',
 `service_area` varchar(50) DEFAULT NULL  COMMENT '服务区域',
 `service_type` int(10) DEFAULT 1  COMMENT '服务类型 1 旅游, 2 留学, 99999 all, -1 nothing',
@@ -57,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`yz_orders` (
 `customer_name` varchar(255)  DEFAULT NULL  COMMENT 'seller姓名',
 `seller_id` bigint(12)  NOT NULL COMMENT 'The people to sell',
 `seller_name` varchar(255)  DEFAULT NULL  COMMENT 'seller姓名',
-`status` int(10) DEFAULT 0  COMMENT '订单状态 0 created...' ,
+`status` int(5) DEFAULT 0  COMMENT '订单状态 0 created...' ,
 `service_area` varchar(50) DEFAULT NULL  COMMENT '服务区域',
 `service_type` int(10) DEFAULT -1  COMMENT '服务类型 1 旅游, 2 留学, 99999 all, -1 nothing',
 `service_price` int(10) DEFAULT 50  COMMENT '服务价格',
