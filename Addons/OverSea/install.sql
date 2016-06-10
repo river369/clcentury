@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`yz_services` (
 `service_price` int(10) DEFAULT 50  COMMENT '服务价格',
 `service_price_unit` varchar(10)  DEFAULT "人民币"  COMMENT '服务价格单位',
 `stars` int(3) DEFAULT 3  COMMENT '星',
-`reject_reason` varchar(255) DEFAULT NULL  COMMENT '管理员拒绝理由',
+`check_reason` varchar(255) DEFAULT NULL  COMMENT '管理员拒绝理由',
 `delete_reason` varchar(255) DEFAULT NULL  COMMENT 'seller删除原因,当有用户购买时必须输入',
 `tag` varchar(255) DEFAULT "" COMMENT 'user tags',
 `creation_date` datetime  DEFAULT NULL COMMENT 'creation datetime',

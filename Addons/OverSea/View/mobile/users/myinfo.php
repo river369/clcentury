@@ -8,7 +8,7 @@
 session_start();
 $existedUser = $_SESSION['signedUserInfo'] ;
 $status = $existedUser['status'];
-$statusString = '用户已经注册,请提交实名认证申请';
+$statusString = '用户已经注册,尚未进行实名认证';
 switch ($status)
 {
     case 20:

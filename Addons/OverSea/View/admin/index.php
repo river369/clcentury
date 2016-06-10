@@ -26,13 +26,23 @@ $customerid = $_SESSION['signedUser'];
         <h3>服务信息:</h3>
         <ul data-role="listview" data-inset="true">
             <li>
-                <a href="../../Controller/AuthUserDispatcher.php?c=myinfo&customerid=<?php echo $customerid;?>" rel="external">
+                <a href="../mobile/users/signin.php" rel="external">
+                    登录
+                </a>
+            </li>
+            <li>
+                <a href="../../Controller/AuthUserDispatcher.php?c=getUsers&status=20" rel="external">
                     审核实名认证
                 </a>
             </li>
             <li>
                 <a href="../../Controller/AuthUserDispatcher.php?c=getServices&status=20" rel="external">
                     审核新发布的服务
+                </a>
+            </li>
+            <li>
+                <a href="../../Controller/ClearSessions.php" rel="external">
+                    退出登录
                 </a>
             </li>
         </ul>

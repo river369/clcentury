@@ -78,6 +78,34 @@ class BaseDao
             Logs::writeClcLog(__CLASS__.",".__FUNCTION__.$e);
             exit(1);
         }
+    }
 
+
+    //The following 2 functions is fit for the table with satus and check_reason, not so common, still need a new class above base.
+
+    public function getByStatus($status)
+    {
+        $sql = 'SELECT * FROM '. $this->talbeName .' WHERE status = :status order by creation_date desc';
+        $parameter = array(':status' => $status);
+        Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",sql=".$sql);
+        Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",parameters=".json_encode($parameter));
+        $services = MySqlHelper::fetchAll($sql, $parameter);
+        return $services;
+    }
+
+    public function check($id,  $check_reason, $status)
+    {
+        try {
+            $sql = "update ". $this->talbeName. " set status = :status, check_reason = :check_reason where id =:id ";
+            //echo $sql
+            $parameter =  array(':check_reason' => $check_reason, ':id' => $id, ':status' => $status);
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",sql=".$sql);
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",parameters=".json_encode($parameter));
+            MySqlHelper::query($sql,$parameter);
+            return 0;
+        } catch (\Exception $e){
+            return -1;
+            echo $e;
+        }
     }
 }

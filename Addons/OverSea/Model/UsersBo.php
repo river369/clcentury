@@ -95,12 +95,10 @@ class UsersBo
         $userId = HttpHelper::getVale('userid');
         $signedUserID = $_SESSION['signedUser'];
         Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",signedUserId=".$signedUserID.",userid=".$userId);
-        if ($userId == $signedUserID)  {
-            self::getCurrentUserInfo() ;
-            WeixinHelper::prepareWeixinPicsParameters("/weiphp/Addons/OverSea/View/mobile/users/realname.php");
-            self::getRealNamePictures($userId);
-        }
 
+        self::getCurrentUserInfo() ;
+        WeixinHelper::prepareWeixinPicsParameters("/weiphp/Addons/OverSea/View/mobile/users/realname.php");
+        self::getRealNamePictures($userId);
     }
 
     /*
@@ -199,5 +197,32 @@ class UsersBo
 
         //header('Location:../View/mobile/users/submityzsuccess.php');
     }
+
+    /**
+     * Get the pending review realname users (admin now)
+     */
+    public function getUsers() {
+        $status = HttpHelper::getVale('status');
+        $usersDao = new UsersDao();
+        $allServices = $usersDao->getByStatus($status);
+        $_SESSION['allUsers'] = $allServices;
+    }
+
+    /**
+     * Admin reject or approve realname user  (admin now)
+     */
+    public function checkUser(){
+        $userId = $_POST['userId'];
+        $reason = $_POST['checkreason'];
+        $action = $_POST['checkaction'];
+        $status = 60;
+        if ($action == 1){
+            $status = 40;
+        }
+        $usersDao = new UsersDao();
+        $usersDao -> check($userId,  $reason, $status);
+        self::getUsers();
+    }
+
 
 }

@@ -23,9 +23,11 @@ $method_routes = array(
     'myinfo' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'getCurrentUserInfo', 'v'=>'../View/mobile/users/myinfo.php','d'=>'查看我的新的'),
     'updateMyinfo' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'updateUserInfo', 'v'=>'../View/mobile/users/submityzsuccess.php','d'=>'完善我的信息'),
     'submitheadpic' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'handleHeads', 'd'=>'发个人头像'),
-    'publishRealName' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'prepareRealName', 'v'=>'../View/mobile/users/realname.php','d'=>'发易知服务信息'),
+    'publishRealName' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'prepareRealName', 'v'=>'../View/mobile/users/realname.php','d'=>'发实名认证信息'),
     'publishRealNamePics' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'publishRealNamePics','d'=>'发实名认证图片'),
     'publishRealNameInfo' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'publishRealNameInfo', 'v'=>'../View/mobile/users/submityzsuccess.php', 'd'=>'发实名认证信息'),
+    'getUsers' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'getUsers', 'v'=>'../View/admin/all_users.php', 'd'=>'admin查看用户信息'),
+    'checkUser' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'checkUser', 'v'=>'../View/admin/all_users.php', 'd'=>'admin查看用户信息'),
 
     'publishService' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'getCurrentService', 'v'=>'../View/mobile/service/publishservice.php','d'=>'发易知服务信息'),
     'publishServicePics' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'publishServicePics','d'=>'发易知图片'),

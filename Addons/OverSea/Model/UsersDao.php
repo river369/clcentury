@@ -24,8 +24,10 @@ class UsersDao extends BaseDao
     {
         try {
             $sql = "update yz_users set external_id = :external_id where id =:id";
-            //echo $sql . $id .$openid;
-            MySqlHelper::query($sql, array(':external_id' => $external_id, ':id' => $id));
+            $parameter = array(':external_id' => $external_id, ':id' => $id);
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",sql=".$sql);
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",parameters=".json_encode($parameter));
+            MySqlHelper::query($sql, $parameter);
             return 0;
         } catch (\Exception $e){
             return -1;
@@ -36,7 +38,10 @@ class UsersDao extends BaseDao
     public function getUserByPhone($phone_reigon, $phone_number)
     {
         $sql = 'SELECT * FROM yz_users WHERE phone_reigon = :phone_reigon and phone_number = :phone_number LIMIT 1';
-        $user = MySqlHelper::fetchOne($sql, array(':phone_reigon' => $phone_reigon, ':phone_number' => $phone_number));
+        $parameter = array(':phone_reigon' => $phone_reigon, ':phone_number' => $phone_number);
+        Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",sql=".$sql);
+        Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",parameters=".json_encode($parameter));
+        $user = MySqlHelper::fetchOne($sql, $parameter);
         return $user;
     }
     
@@ -44,8 +49,10 @@ class UsersDao extends BaseDao
     {
         try {
             $sql = 'SELECT * FROM yz_users WHERE external_id = :external_id LIMIT 1';
-            //echo $sql;
-            $user = MySqlHelper::fetchOne($sql, array(':external_id' => $external_id));
+            $parameter = array(':external_id' => $external_id);
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",sql=".$sql);
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",parameters=".json_encode($parameter));
+            $user = MySqlHelper::fetchOne($sql, $parameter);
             return $user;
         }catch (\Exception $e){
             Logs::writeClcLog(__CLASS__.",".__FUNCTION__.$e);
@@ -54,6 +61,7 @@ class UsersDao extends BaseDao
 
     }
 
+    // To be deleted
     /**
      * Get users in special type and city
      * @param $servicetype
@@ -80,6 +88,6 @@ class UsersDao extends BaseDao
         $users = MySqlHelper::fetchAll($sql, array(':service_type' => $service_type));
         return $users;
     }
-    
+
 }
 ?>

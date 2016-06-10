@@ -90,7 +90,7 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
         <ul data-role="listview" data-inset="true">
             <li>您的服务状态: <span class="ui-li-count"><?php echo $statusString; ?></span></li>
             <?php if ($status == 40) {?>
-                <li>拒绝原因: <span class="ui-li-count"><?php echo $serviceData['reject_reason']; ?></span></li>
+                <li>拒绝原因: <span class="ui-li-count"><?php echo $serviceData['check_reason']; ?></span></li>
             <?php } ?>
         </ul>
         <ul data-role="listview" data-inset="true">
@@ -150,7 +150,7 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
                 <label for="service_price">您的服务价格(￥/小时):</label>
                 <input type="number" name="service_price" id="service_price" value="<?php echo isset($serviceData['service_price']) ? $serviceData['service_price']: ''; ?>" >
                 </br>
-                <label for="description">服务介绍:</label>
+                <label for="description">您的服务介绍:</label>
                 <textarea cols="30" rows="8" name="description" id="description" data-mini="true">
                     <?php echo isset($serviceData['description']) ? $serviceData['description']: ''; ?>
                 </textarea>

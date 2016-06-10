@@ -6,7 +6,7 @@
  * Time: 21:54
  */
 session_start();
-$allServices= $_SESSION['allServices'];
+$allUsers= $_SESSION['allUsers'];
 
 ?>
 
@@ -28,36 +28,29 @@ $allServices= $_SESSION['allServices'];
 <body>
 <div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
     <div data-role="header" data-position="fixed" data-theme="c">
-        <h1>审核服务</h1>
+        <h1>审核实名认证</h1>
     </div>
 
     <div role="main" class="ui-content jqm-content jqm-fullwidth">
         <?php
-        foreach($allServices as $key => $service)
+        foreach($allUsers as $key => $user)
         {
-            $serviceid= $service['id'];
-            $status = $service['status'];
-            $serviceType = $service['service_type'];
-            $serviceTypeDesc = '旅游';
-            if ($serviceType == 2) {
-                $serviceTypeDesc = '留学';
-            }
+            $userid= $user['id'];
+            $status = $user['status'];
         ?>
         <ul data-role="listview" data-inset="true">
-            <li data-role="list-divider">服务编号: <span class="ui-li-count"><?php echo $service['id'];?></span></li>
+            <li data-role="list-divider">用户编号: <span class="ui-li-count"><?php echo $userid;?></span></li>
             <li>
-                <a href="../../Controller/AuthUserDispatcher.php?c=publishService&sellerid=<?php echo $service['seller_id'];?>&service_id=<?php echo $serviceid; ?>" rel="external">
-                    <img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $service['seller_id'];?>/head.png" alt="">
-                    <h2> <?php echo $service['service_area'];?>:<?php echo $serviceTypeDesc;?> </h2>
-                    <p style="white-space:pre-wrap;"><?php echo $service['description'];?> </p>
-                    <p class="ui-li-aside">￥<?php echo $service['service_price'];?>/小时</p>
+                <a href="../../Controller/AuthUserDispatcher.php?c=publishRealName&userid=<?php echo $userid; ?>" rel="external">
+                    <img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $userid;?>/head.png" alt="">
+                    <h2> <?php echo $user['real_name'];?> </h2>
+                    <p style="white-space:pre-wrap;"><?php echo $user['certificate_no'];?> </p>
                 </a>
             </li>
-            <li data-role="list-divider">创建日期: <span class="ui-li-count"><?php echo $service['creation_date'];?></span></li>
             <li data-theme="c">
                 <div class="ui-grid-a">
-                    <div class="ui-block-a"><a href="#checkDialog" data-rel="popup" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="checkPopup('<?php echo $serviceid; ?>', 0)">批准服务</a></div>
-                    <div class="ui-block-b"><a href="#checkDialog" data-rel="popup" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="checkPopup('<?php echo $serviceid; ?>', 1)">拒绝服务</a></div>
+                    <div class="ui-block-a"><a href="#checkDialog" data-rel="popup" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="checkPopup('<?php echo $userid; ?>', 0)">批准认证</a></div>
+                    <div class="ui-block-b"><a href="#checkDialog" data-rel="popup" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="checkPopup('<?php echo $userid; ?>', 1)">拒绝认证</a></div>
                 </div>
             </li>
         </ul>
@@ -65,12 +58,12 @@ $allServices= $_SESSION['allServices'];
 
         <div data-role="popup" id="checkDialog" data-overlay-theme="a" data-theme="a" style="max-width:400px;">
             <div data-role="header" data-theme="a">
-                <h1>检查服务</h1>
+                <h1>检查认证</h1>
             </div>
             <div role="main" class="ui-content">
                 <h3 class="ui-title" id="checkString">.</h3>
-                <form id="checkService" data-ajax="false" method="post" action="../../Controller/AuthUserDispatcher.php?c=checkService&status=20">
-                    <input type="hidden" name="serviceId" id="serviceId" value="">
+                <form id="checkService" data-ajax="false" method="post" action="../../Controller/AuthUserDispatcher.php?c=checkUser&status=20">
+                    <input type="hidden" name="userId" id="userId" value="">
                     <input type="hidden" name="checkaction" id="checkaction" value="">
                     <label for="reason">原因:</label>
                     <textarea cols="30" rows="8" name="checkreason" id="checkreason" data-mini="true"></textarea>
@@ -87,17 +80,17 @@ $allServices= $_SESSION['allServices'];
     </div>
 </div>
 <script>
-    function checkPopup(serviceId, type) {
+    function checkPopup(userId, type) {
         var messages = "确定";
         if (type == 0){
             messages = messages + "批准";
         } else {
             messages = messages + "拒绝";
         }
-        messages = messages + "服务" + serviceId + "?";
+        messages = messages + "认证" + userId + "?";
         //alert(messages);
         $('#checkString').html(messages);
-        $('#serviceId').val(serviceId);
+        $('#userId').val(userId);
         $('#checkaction').val(type);
         $('#checkDialog').popup('open');
     };

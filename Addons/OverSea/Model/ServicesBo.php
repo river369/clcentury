@@ -30,12 +30,11 @@ class ServicesBo
         $service_id = HttpHelper::getVale('service_id');
         $userID = $_SESSION['signedUser'];
         Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",userId=".$userID.",sellerId=".$sellerid.",service_id=".$service_id);
-        if ($userID == $sellerid)  {
-            self::getCurrentSellerInfo($sellerid);
-            self::getServiceInfo($service_id);
-            WeixinHelper::prepareWeixinPicsParameters("/weiphp/Addons/OverSea/View/mobile/service/publishservice.php");
-            self::getServicePictures($sellerid, $service_id);
-        }
+        
+        self::getCurrentSellerInfo($sellerid);
+        self::getServiceInfo($service_id);
+        WeixinHelper::prepareWeixinPicsParameters("/weiphp/Addons/OverSea/View/mobile/service/publishservice.php");
+        self::getServicePictures($sellerid, $service_id);
     }
 
     /**
@@ -218,7 +217,7 @@ class ServicesBo
     public function getServices() {
         $status = HttpHelper::getVale('status');
         $serviceDao = new ServicesDao();
-        $allServices = $serviceDao->getServiceByStatus($status);
+        $allServices = $serviceDao->getByStatus($status);
         $_SESSION['allServices'] = $allServices;
     }
 
@@ -234,7 +233,7 @@ class ServicesBo
             $status = 40;
         }
         $serviceDao = new ServicesDao();
-        $serviceDao -> checkService($serviceId,  $reason, $status);
+        $serviceDao -> check($serviceId,  $reason, $status);
         self::getServices();
     }
 
