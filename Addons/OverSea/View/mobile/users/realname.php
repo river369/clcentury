@@ -30,7 +30,7 @@ $nonceStr=$_SESSION['$nonceStr'];
 $signature=$_SESSION['$signature'];
 
 $objArray;
-$objkey='objArray'.$userid;
+$objkey='objArray';
 if (isset($_SESSION[$objkey])){
     $objArray = $_SESSION[$objkey] ;
 }

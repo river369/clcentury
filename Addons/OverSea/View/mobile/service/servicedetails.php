@@ -1,20 +1,17 @@
 <?php
 session_start();
-$sellerData= $_SESSION['sellerData'];
-$orderId = $sellerData['id'];
-
-$servicetype=$sellerData['servicetype'];
+$serviceData= $_SESSION['serviceData'];
+$seller_id = $serviceData['seller_id'];
+$servicetype = $serviceData['service_type'];
 $servicetypeDesc;
 if ($servicetype==1){
     $servicetypeDesc = '旅游';
 } else if ($servicetype==2){
     $servicetypeDesc = '留学';
-} else if ($servicetype==99999){
-    $servicetypeDesc = '旅游,留学';
 }
 
 $objArray;
-$objkey='sellerObjArray';
+$objkey='objArray';
 if (isset($_SESSION[$objkey])){
     $objArray = $_SESSION[$objkey] ;
 }
@@ -100,12 +97,12 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
 <body>
 <div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
     <div data-role="header" data-position="fixed" data-theme="c">
-        <h1><?php echo $sellerData['name']; ?>的主页</h1>
+        <h1><?php echo $serviceData['seller_name']; ?>的服务</h1>
     </div>
 
     <div data-role="content">
-        <h5>服务宣言:</h5>
-        <p><?php echo $sellerData['description']; ?></p>
+        <h5>服务介绍:</h5>
+        <p><?php echo $serviceData['description']; ?></p>
   
         <h5>图片:</h5>
         <?php if (sizeof($objArray) > 0) { ?>
@@ -120,15 +117,15 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
  
         <h5>服务信息:</h5>
         <ul data-role="listview" data-inset="true">
-            <li><?php echo $sellerData['stars']; ?>星服务 <span class="ui-li-count">6次咨询</span></li>
-            <li>服务地点: <span class="ui-li-count"><?php echo $sellerData['servicearea']; ?></span></li>
+            <li><?php echo $serviceData['stars']; ?>星服务 <span class="ui-li-count">6次咨询</span></li>
+            <li>服务地点: <span class="ui-li-count"><?php echo $serviceData['service_area']; ?></span></li>
             <li>服务类型: <span class="ui-li-count"><?php echo $servicetypeDesc; ?></span></li>
-            <li>服务价格: <span class="ui-li-count">￥<?php echo $sellerData['serviceprice']; ?>/小时</span></li>
+            <li>服务价格: <span class="ui-li-count">￥<?php echo $serviceData['service_price']; ?>/小时</span></li>
         </ul>
 
-        <h5>特长</h5>
+        <h5>服务标签</h5>
         <div class="ui-grid-a">
-            <?php $tags = $sellerData['tag'];
+            <?php $tags = $serviceData['tag'];
             $tagsArray = explode(',',$tags);
             $loc = 'a';
             foreach ($tagsArray as $tag){ ?>
@@ -143,7 +140,7 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
     <div data-role="footer" data-position="fixed">
         <div data-role="navbar">
             <ul>
-                <li><a href="../../../Controller/AuthUserDispatcher.php?c=submitOrder&sellerid=<?php echo $orderId ?>" rel="external" class="ui-btn-active">购买</a></li>
+                <li><a href="../../../Controller/AuthUserDispatcher.php?c=submitOrder&$seller_id=<?php echo $seller_id; ?>" rel="external" class="ui-btn-active">购买</a></li>
             </ul>
         </div>
     </div>

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zh-cmn-Hans">
 <head>
@@ -77,37 +78,42 @@
 <body>
 <div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
     <div data-role="header" data-position="fixed" data-theme="c">
-        <h1>River的主页</h1>
+        <h1><?php echo $serviceData['seller_name']; ?>的服务</h1>
     </div>
 
     <div data-role="content">
-        <h5>服务宣言:</h5>
-        <p>由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道.</p>
-    </div>
+        <h5>服务介绍:</h5>
+        <p><?php echo $serviceData['description']; ?></p>
 
-    <div data-role="content">
         <h5>图片:</h5>
+        <?php if (sizeof($objArray) > 0) { ?>
         <ul id="scroller">
-            <li><img src="http://www.clcentury.com/weiphp/Uploads/Picture/test/201605020044186186.jpg" width="290" height="200"></li>
-            <li><img src="http://logicbox.net/jquery/simplyscroll/assets/20080608_38CG51J2_tb.jpg" width="290" height="200"></li>
-            <li><img src="http://logicbox.net/jquery/simplyscroll/assets/20080513_4D3SD1BQ_tb.jpg" width="290" height="200"></li>
+            <?php foreach ($objArray as $obj) { ?>
+            <li><img src="<?php echo $imageurl.$obj; ?>" width="290" height="200"></li>
+            <?php } ?>
         </ul>
-    </div>
+        <?php } else { ?>
+        <p>未上传图片</p>
+        <?php } ?>
 
-    <div data-role="content">
         <h5>服务信息:</h5>
         <ul data-role="listview" data-inset="true">
-            <li>5星服务 <span class="ui-li-count">6次咨询</span></li>
-            <li>服务地点:旧金山 <span class="ui-li-count">价格:￥1000/小时</span></li>
+            <li><?php echo $serviceData['stars']; ?>星服务 <span class="ui-li-count">6次咨询</span></li>
+            <li>服务地点: <span class="ui-li-count"><?php echo $serviceData['service_area']; ?></span></li>
+            <li>服务类型: <span class="ui-li-count"><?php echo $servicetypeDesc; ?></span></li>
+            <li>服务价格: <span class="ui-li-count">￥<?php echo $serviceData['service_price']; ?>/小时</span></li>
         </ul>
-    </div>
-    <div data-role="content">
-        <h5>特长</h5>
-        <div class="ui-grid-b">
-            <div class="ui-block-a"><a href="#" class="ui-shadow ui-btn ui-corner-all">Anchor</a></div>
-            <div class="ui-block-b"><a href="#" class="ui-shadow ui-btn ui-corner-all">Anchor</a></div>
-            <div class="ui-block-c"><a href="#" class="ui-shadow ui-btn ui-corner-all">Anchor</a></div>
-            <div class="ui-block-a"><a href="#" class="ui-shadow ui-btn ui-corner-all">Anchor</a></div>
+
+        <h5>服务标签</h5>
+        <div class="ui-grid-a">
+            <?php $tags = $serviceData['tag'];
+            $tagsArray = explode(',',$tags);
+            $loc = 'a';
+            foreach ($tagsArray as $tag){ ?>
+            <div class="ui-block-<?php echo $loc;?>"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini"><?php echo $tag;?></a></div>
+            <?php
+                $loc = $loc=='a'? 'b' : 'a';
+            } ?>
         </div>
     </div>
 
@@ -115,8 +121,7 @@
     <div data-role="footer" data-position="fixed">
         <div data-role="navbar">
             <ul>
-                <li><a href="../orders/submitorder.html" rel="external" >聊聊看</a></li>
-                <li><a href="../orders/submitorder.html" rel="external" class="ui-btn-active">购买</a></li>
+                <li><a href="../../../Controller/AuthUserDispatcher.php?c=submitOrder&$seller_id=<?php echo $seller_id; ?>" rel="external" class="ui-btn-active">购买</a></li>
             </ul>
         </div>
     </div>
@@ -132,3 +137,4 @@
 
 </body>
 </html>
+

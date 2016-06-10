@@ -23,7 +23,7 @@ class ServicesBo
     }
 
     /**
-     * Prepare for service info
+     * Prepare for service info for service create or update
      */
     public function getCurrentService() {
         $sellerid = HttpHelper::getVale('sellerid');
@@ -35,6 +35,17 @@ class ServicesBo
         self::getServiceInfo($service_id);
         WeixinHelper::prepareWeixinPicsParameters("/weiphp/Addons/OverSea/View/mobile/service/publishservice.php");
         self::getServicePictures($sellerid, $service_id);
+    }
+
+
+    /**
+     * Prepare for service info for service read only when discover
+     */
+    public function getServiceById() {
+        $service_id = HttpHelper::getVale('service_id');
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",service_id=".$service_id);
+        $service = self::getServiceInfo($service_id);
+        self::getServicePictures($service['seller_id'], $service_id);
     }
 
     /**
@@ -59,6 +70,7 @@ class ServicesBo
             $serviceDao = new ServicesDao();
             $serviceData = $serviceDao ->getById($service_id);
             $_SESSION['serviceData']= $serviceData;
+            return $serviceData;
         }
     }
 
@@ -66,7 +78,7 @@ class ServicesBo
     * get picture info by seller id
     */
     public function getServicePictures($sellerid, $service_id) {
-        unset($_SESSION['objArray'.$sellerid]);
+        unset($_SESSION['objArray']);
 
         // list data
         $object = "yzphoto/pics/".$sellerid."/".$service_id."/";
@@ -77,8 +89,9 @@ class ServicesBo
             foreach ($objectList as $objectInfo) {
                 $objArray[] = $objectInfo->getKey();
             }
-
-            $_SESSION['objArray'.$sellerid] = $objArray;
+            $retObjArray =  json_encode(array('status'=> 0, 'msg'=> 'done', 'objLists' => $objArray));
+            Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",ret=".$retObjArray);
+            $_SESSION['objArray'] = $objArray;
         }
     }
 
@@ -91,7 +104,7 @@ class ServicesBo
             self::createNewService();
         }
         $serviceId = $_SESSION['serviceData']['id'] ;
-        Logs::writeClcLog(__CLASS__.",".__FUNCTION__." userid=".$userID." serviceid=".$serviceId);
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",userid=".$userID." serviceid=".$serviceId);
         // upload image if need to
         if (isset($_GET ['serverids'])){
             $serverids = $_GET ['serverids'];
@@ -120,11 +133,10 @@ class ServicesBo
         if (!empty($objectList)) {
             foreach ($objectList as $objectInfo) {
                 $objArray[] = $objectInfo->getKey();
-                Logs::writeClcLog(__CLASS__.",".__FUNCTION__.$objectInfo->getKey());
             }
         }
         $retJson =  json_encode(array('status'=> 0, 'msg'=> 'done', 'objLists' => $objArray));
-        Logs::writeClcLog(__CLASS__.",".__FUNCTION__." retJson=".$retJson);
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",retJson=".$retJson);
         echo json_encode(array('status'=> 0, 'msg'=> 'done', 'objLists' => $objArray));
         exit;
     }
@@ -214,7 +226,7 @@ class ServicesBo
     /**
      * Get the pending review service (admin now)
      */
-    public function getServices() {
+    public function getServicesByStatus() {
         $status = HttpHelper::getVale('status');
         $serviceDao = new ServicesDao();
         $allServices = $serviceDao->getByStatus($status);
@@ -234,8 +246,33 @@ class ServicesBo
         }
         $serviceDao = new ServicesDao();
         $serviceDao -> check($serviceId,  $reason, $status);
-        self::getServices();
+        self::getServicesByStatus();
     }
 
+    /**
+     * Get the pending review service (admin now)
+     */
+    public function getServices() {
+        $servicearea = '';
+        if (isset($_SESSION ['servicearea'])){
+            $servicearea = $_SESSION ['servicearea'];
+        }
+        if (isset($_GET ['servicearea'])){
+            $servicearea = $_GET ['servicearea'];
+            $_SESSION ['servicearea'] = $servicearea;
+        }
+        $serviceType = isset($_GET ['servicetype'])? $_GET ['servicetype'] : 1;
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",servicearea=".$servicearea.",servicetype=".$serviceType);
+
+        $servicesData = null;
+        $serviceDao = new ServicesDao();
+        if (isset($servicearea) && !empty($servicearea) && !is_null($servicearea) && $servicearea != '地球'){
+            $servicesData=$serviceDao->getServicesByServiceTypeInArea($serviceType, $servicearea);
+        } else {
+            $servicesData=$serviceDao->getServicesByServiceType($serviceType);
+        }
+        $_SESSION['servicetype'] = $serviceType;
+        $_SESSION['servicesData']= $servicesData;
+    }
 
 }

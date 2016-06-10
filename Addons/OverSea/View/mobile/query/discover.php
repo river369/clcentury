@@ -6,7 +6,7 @@
  * Time: 21:54
  */
 session_start();
-$usersData= $_SESSION['usersData'];
+$servicesData= $_SESSION['servicesData'];
 $serviceType = isset($_SESSION['servicetype'])? $_SESSION['servicetype'] : 1;
 require("../common/locations.php");
 $servicearea = '地球';
@@ -39,27 +39,27 @@ if (isset($_SESSION ['servicearea'])){
     <div role="main" class="ui-content jqm-content jqm-fullwidth">
         <div data-role="navbar">
             <ul>
-                <li><a href="../../../Controller/Discover.php?servicetype=1" rel="external" <?php if ($serviceType == 1) { ?> class="ui-btn-active" <?php } ?> >旅游</a></li>
-                <li><a href="../../../Controller/Discover.php?servicetype=2" rel="external" <?php if ($serviceType == 2) { ?> class="ui-btn-active" <?php } ?>>留学</a></li>
+                <li><a href="../../../Controller/FreelookDispatcher.php?c=getServices&servicetype=1" rel="external" <?php if ($serviceType == 1) { ?> class="ui-btn-active" <?php } ?> >旅游</a></li>
+                <li><a href="../../../Controller/FreelookDispatcher.php?c=getServices&servicetype=2" rel="external" <?php if ($serviceType == 2) { ?> class="ui-btn-active" <?php } ?>>留学</a></li>
             </ul>
         </div><!-- /navbar -->
             <?php
-                foreach($usersData as $key => $userData)
+                foreach($servicesData as $key => $serviceData)
                 {
             ?>
         <ul data-role="listview" data-inset="true">
-            <li data-role="list-divider"><?php echo $userData['stars']?>星服务 <span class="ui-li-count">6次咨询</span></li>
+            <li data-role="list-divider"><?php echo $serviceData['stars']?>星服务 <span class="ui-li-count">6次咨询</span></li>
             <li>
-                <a href="../../../Controller/FreelookDispatcher.php?c=sellerdetails&sellerid=<?php echo $userData['id']; ?>" rel="external">
-                    <img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $userData['id'];?>/head.png" alt="">
-                    <h2><?php echo $userData['name']?></h2>
-                    <p style="white-space:pre-wrap;"><?php echo $userData['description']?></p>
-                    <p class="ui-li-aside">￥<?php echo $userData['serviceprice']?>/小时</p>
+                <a href="../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id=<?php echo $serviceData['id']; ?>" rel="external">
+                    <img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $serviceData['seller_id'];?>/head.png" alt="">
+                    <h2><?php echo $serviceData['seller_name']?></h2>
+                    <p style="white-space:pre-wrap;"><?php echo $serviceData['description']?></p>
+                    <p class="ui-li-aside">￥<?php echo $serviceData['service_price']?>/小时</p>
                 </a>
             </li>
             <li data-role="list-divider">
                 <p>
-            <?php $tags = $userData['tag'];
+            <?php $tags = $serviceData['tag'];
                 $tagsArray = explode(',',$tags);
                 foreach ($tagsArray as $tag){ ?>
                     <a href="javascript:alert('developing...');"> <?php echo $tag; ?></a>
@@ -77,7 +77,7 @@ if (isset($_SESSION ['servicearea'])){
     <div data-role="panel" data-position-fixed="true" data-display="push" data-theme="o" id="nav-panel">
         <ul data-role="listview">
             <li data-role="list-divider" data-icon="delete"><a href="#" data-rel="close">返回</a></li>
-            <li><a href="../../../Controller/Discover.php?servicearea=地球" rel="external" data-rel="close"> 地球</a></li>
+            <li><a href="../../../Controller/FreelookDispatcher.php?c=getServices&servicearea=地球" rel="external" data-rel="close"> 地球</a></li>
             <?php
                 foreach ($country_city as $key => $value) {
             ?>
@@ -85,7 +85,7 @@ if (isset($_SESSION ['servicearea'])){
                     <?php
                         foreach ($value as $city) {
                     ?>
-                        <li><a href="../../../Controller/Discover.php?servicearea=<?php echo $city; ?>" rel="external" data-rel="close" ><?php echo $city; ?></a></li>
+                        <li><a href="../../../Controller/FreelookDispatcher.php?c=getServices&servicearea=<?php echo $city; ?>" rel="external" data-rel="close" ><?php echo $city; ?></a></li>
                     <?php } ?>
             <?php } ?>
         </ul>

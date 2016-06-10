@@ -5,6 +5,7 @@
  * Date: 16/5/9
  * Time: 07:52
  */
+require("../common/locations.php");
 session_start();
 $sellerData = $_SESSION['sellerData'];
 $serviceData = $_SESSION['serviceData'];
@@ -32,7 +33,7 @@ $signature=$_SESSION['$signature'];
 //unset($_SESSION['serviceData'], $_SESSION['sellerData'], $_SESSION['$timestamp'], $_SESSION['$nonceStr'], $_SESSION['$signature']);
 
 $objArray;
-$objkey='objArray'.$_SESSION['signedUser'];
+$objkey='objArray';
 if (isset($_SESSION[$objkey])){
     $objArray = $_SESSION[$objkey] ;
 }
@@ -133,18 +134,13 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
                 </br>
                 <label for="service_area">您的服务地点:</label>
                 <select name="service_area" id="service_area">
-                    <optgroup label="美国">
-                        <option value="西雅图" <?php echo $serviceData['service_area']=='西雅图'? 'selected = "selected"' : ''; ?> >西雅图</option>
-                        <option value="旧金山" <?php echo $serviceData['service_area']=='旧金山'? 'selected = "selected"' : ''; ?> >旧金山</option>
-                        <option value="纽约" <?php echo $serviceData['service_area']=='纽约'? 'selected = "selected"' : ''; ?> >纽约</option>
-                        <option value="洛杉矶" <?php echo $serviceData['service_area']=='洛杉矶'? 'selected = "selected"' : ''; ?> >洛杉矶</option>
-                    </optgroup>
-                    <optgroup label="中国">
-                        <option value="北京市" <?php echo $serviceData['service_area']=='北京市'? 'selected = "selected"' : ''; ?>>北京市</option>
-                        <option value="上海市" <?php echo $serviceData['service_area']=='上海市'? 'selected = "selected"' : ''; ?>>上海市</option>
-                        <option value="天津市" <?php echo $serviceData['service_area']=='天津市'? 'selected = "selected"' : ''; ?>>天津市</option>
-                        <option value="重庆市" <?php echo $serviceData['service_area']=='重庆市'? 'selected = "selected"' : ''; ?>>重庆市</option>
-                    </optgroup>
+                    <?php foreach ($country_city as $key => $value) {?>
+                        <optgroup label="<?php echo $key; ?>">
+                        <?php foreach ($value as $city) {?>
+                            <option value="<?php echo $city; ?>" <?php echo $serviceData['service_area']==$city ? 'selected = "selected"' : ''; ?> ><?php echo $city; ?></option>
+                        <?php } ?>
+                        </optgroup>
+                    <?php } ?>
                 </select>
                 </br>
                 <label for="service_price">您的服务价格(￥/小时):</label>

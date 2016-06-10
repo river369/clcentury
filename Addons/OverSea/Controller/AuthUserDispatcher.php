@@ -34,7 +34,7 @@ $method_routes = array(
     'publishServiceInfo' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'publishServiceInfo', 'v'=>'../View/mobile/users/submityzsuccess.php', 'd'=>'发易知服务信息'),
     'myServices' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'getMyServicesByStatus', 'v'=>'../View/mobile/service/my_services.php', 'd'=>'查看我发布的易知服务信息'),
     'deleteService' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'deleteService', 'v'=>'../View/mobile/service/my_services.php', 'd'=>'删除易知服务信息'),
-    'getServices' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'getServices', 'v'=>'../View/admin/all_services.php', 'd'=>'admin查看易知服务信息'),
+    'getServices' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'getServicesByStatus', 'v'=>'../View/admin/all_services.php', 'd'=>'admin查看易知服务信息'),
     'checkService' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'checkService', 'v'=>'../View/admin/all_services.php', 'd'=>'admin查看易知服务信息'),
     
     'submitOrder' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'getCurrentSellerInfo', 

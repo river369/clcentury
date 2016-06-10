@@ -105,7 +105,7 @@ class UsersBo
     * get real name pictures
     */
     public function getRealNamePictures($userId) {
-        unset($_SESSION['objArray'.$userId]);
+        unset($_SESSION['objArray']);
 
         // list data
         $object = "yzphoto/realname/".$userId."/";
@@ -116,7 +116,9 @@ class UsersBo
             foreach ($objectList as $objectInfo) {
                 $objArray[] = $objectInfo->getKey();
             }
-            $_SESSION['objArray'.$userId] = $objArray;
+            $retObjArray =  json_encode(array('status'=> 0, 'msg'=> 'done', 'objLists' => $objArray));
+            Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",ret=".$retObjArray);
+            $_SESSION['objArray'] = $objArray;
         }
     }
 

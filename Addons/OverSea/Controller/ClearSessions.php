@@ -39,10 +39,11 @@ if (isset($userData['phone_number'])){
 echo "[".$_SESSION['signedUser']."]";
 $userDao->updateExternalId(-1, $_SESSION['signedUser']);
 setcookie("signedUser", "", time()-1000);
+
 unset($_SESSION['signedUser']);
 unset($_SESSION['weixinOpenid']);
 unset($_SESSION['weixinOpenidTried']);
 unset($_SESSION['serviceData'], $_SESSION['sellerData'], $_SESSION['$timestamp'], $_SESSION['$nonceStr'], $_SESSION['$signature']);
-
+unset($_SESSION['objArray']);
 
 ?>

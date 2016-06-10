@@ -60,34 +60,5 @@ class UsersDao extends BaseDao
         }
 
     }
-
-    // To be deleted
-    /**
-     * Get users in special type and city
-     * @param $servicetype
-     * @param $city
-     * @return mixed
-     */
-    public function getUsersByServiceTypeInArea($service_type, $service_area)
-    {
-        $sql = 'SELECT * FROM yz_users WHERE service_type in (99999, :service_type) and service_area = :service_area order by stars desc';
-        $users = MySqlHelper::fetchAll($sql, array(':service_type' => $service_type, ':service_area' => $service_area));
-        return $users;
-    }
-
-    /**
-     * 
-     * Get users in special type.
-     * @param $servicetype
-     * @param $city
-     * @return mixed
-     */
-    public function getUsersByServiceType($service_type)
-    {
-        $sql = 'SELECT * FROM yz_users WHERE service_type in (99999, :service_type) order by stars desc';
-        $users = MySqlHelper::fetchAll($sql, array(':service_type' => $service_type));
-        return $users;
-    }
-
 }
 ?>
