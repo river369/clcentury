@@ -7,6 +7,8 @@
  */
 session_start();
 $serviceData= $_SESSION['serviceData'];
+$serviceId = $serviceData['id'];
+$sellerId = $serviceData['seller_id'];
 $sellerName = $serviceData['seller_name'];
 $serviceArea = $serviceData['service_area'];
 $serviceType=$serviceData['service_type'];
@@ -42,29 +44,31 @@ $signedUser = $_SESSION['signedUser'];
         <div data-role="content">
             <h5>服务信息:</h5>
             <ul data-role="listview" data-inset="true">
+                <li>服务编号: <span class="ui-li-count"><?php echo $serviceId; ?></span></li>
                 <li>服务地点: <span class="ui-li-count"><?php echo $serviceArea; ?></span></li>
                 <li>服务类型: <span class="ui-li-count"><?php echo $serviceTypeDesc; ?></span></li>
                 <li>服务价格: <span class="ui-li-count">￥<?php echo $price; ?>/小时</span></li>
             </ul>
             <h5>咨询时长:</h5>
             <div id="div-slider">
-                <input type="range" name="servicehours" id="servicehours" value="1" min="0" max="100" data-highlight="true" />
+                <input type="range" name="service_hours" id="service_hours" value="1" min="0" max="100" data-highlight="true" />
             </div>
 
             <h5>总计(￥):</h5>
             <div id="totalmoney">
-                <input type="text" name="servicetotalfee" id="servicetotalfee"  value="<?php echo $price; ?>"/>
+                <input type="text" name="service_total_fee" id="service_total_fee"  value="<?php echo $price; ?>"/>
             </div>
 
             <h5>咨询话题:</h5>
-            <textarea cols="30" rows="8" name="requestmessage" id="requestmessage" data-mini="true"></textarea>
+            <textarea cols="30" rows="8" name="request_message" id="request_message" data-mini="true"></textarea>
 
-            <input type="hidden" name="customerid" id="customerid"  value="<?php echo $signedUser;?>"/>
-            <input type="hidden" name="sellerid" id="sellerid"  value="<?php echo $serviceData['seller_id']; ?>"/>
-            <input type="hidden" name="sellername" id="sellername"  value="<?php echo $sellerName; ?>"/>
-            <input type="hidden" name="servicearea" id="servicearea"  value="<?php echo $serviceArea; ?>"/>
-            <input type="hidden" name="servicetype" id="servicetype"  value="<?php echo $serviceType; ?>"/>
-            <input type="hidden" name="serviceprice" id="serviceprice"  value="<?php echo $price; ?>"/>
+            <input type="hidden" name="service_id" id="service_id"  value="<?php echo $serviceId;?>"/>
+            <input type="hidden" name="customer_id" id="customer_id"  value="<?php echo $signedUser;?>"/>
+            <input type="hidden" name="seller_id" id="seller_id"  value="<?php echo $sellerId; ?>"/>
+            <input type="hidden" name="seller_name" id="seller_name"  value="<?php echo $sellerName; ?>"/>
+            <input type="hidden" name="service_area" id="service_area"  value="<?php echo $serviceArea; ?>"/>
+            <input type="hidden" name="service_type" id="service_type"  value="<?php echo $serviceType; ?>"/>
+            <input type="hidden" name="service_price" id="service_price"  value="<?php echo $price; ?>"/>
         </div>
 
         <div data-role="footer" data-position="fixed" data-theme="c">
@@ -77,9 +81,9 @@ $signedUser = $_SESSION['signedUser'];
 </div>
 <script type="text/javascript">
     $("#div-slider").change(function() {
-        var slider_value = $("#servicehours").val();
+        var slider_value = $("#service_hours").val();
         var service_price = <?php echo $price;?>;
-        html = '<input type="text" name="servicetotalfee" id="servicetotalfee"  value="' + slider_value * service_price +'"/>';
+        html = '<input type="text" name="service_total_fee" id="service_total_fee"  value="' + slider_value * service_price +'"/>';
         $("#totalmoney").html(html);
     });
 </script>

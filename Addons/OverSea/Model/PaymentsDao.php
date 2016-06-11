@@ -7,26 +7,13 @@
  */
 namespace Addons\OverSea\Model;
 use Addons\OverSea\Common\MySqlHelper;
+use Addons\OverSea\Model\BaseDao;
 
-class PaymentsDao
+class PaymentsDao extends BaseDao
 {
-    public static function insertOrder($data)
+    public function __construct()
     {
-        try {
-            $tmpData = array();
-            foreach ($data as $k => $v) {
-                //echo $k."-".$v;
-                $tmpData[':' . $k] = $v;
-            }
-            $sql = 'INSERT INTO clc_payments (' . implode(',', array_keys($data)) . ') VALUES (' . implode(',', array_keys($tmpData)) . ')';
-            //echo $sql;
-            MySqlHelper::query($sql, $tmpData);
-        } catch (\Exception $e){
-            echo $e;
-            exit;
-        }
-        return MySqlHelper::getLastInsertId();
+        parent::__construct("yz_payments");
     }
-    
 }
 ?>

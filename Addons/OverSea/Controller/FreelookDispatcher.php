@@ -12,7 +12,7 @@ session_start();
 //c - command, like signin, m - model, f - function in model, v - view,  d - description
 $method_routes = array(
     'getServices' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'getServices','v'=>'../View/mobile/query/discover.php','d'=>'服务信息列表'),
-    'serviceDetails' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'getServiceInfoById','v'=>'../View/mobile/service/servicedetails.php','d'=>'卖家详细信息'),
+    'serviceDetails' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'getServiceById','v'=>'../View/mobile/service/servicedetails.php','d'=>'卖家详细信息'),
 );
 
 HttpHelper::saveServerQueryStringVales($_SERVER['QUERY_STRING']);

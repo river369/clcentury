@@ -23,10 +23,10 @@ $openId = $tools->GetOpenid();
 
 //②、统一下单
 $input = new WxPayUnifiedOrder();
-$input->SetBody("易知海外订单:".$orderData['id']." 服务提供者:".$orderData['sellername']);
+$input->SetBody("易知海外订单:".$orderData['id']." 服务提供者:".$orderData['seller_name']);
 $input->SetAttach("service");
 $input->SetOut_trade_no(WxPayConfig::MCHID."_".date("YmdHis")."_".$orderData['id']);
-$input->SetTotal_fee($orderData['servicetotalfee']);
+$input->SetTotal_fee($orderData['service_total_fee']);
 $input->SetTime_start(date("YmdHis"));
 $input->SetTime_expire(date("YmdHis", time() + 600));
 $input->SetGoods_tag("test");
@@ -103,7 +103,7 @@ $jsApiParameters = $tools->GetJsApiParameters($order);
 	</div>
     <br/>
 	<div align="center" data-role="content" data-theme="c">
-		<font color="#9ACD32"><b>该笔订单支付金额为<span style="color:#f00;font-size:50px"><?php echo $orderData['servicetotalfee'];?></span>元</b></font><br/><br/>
+		<font color="#9ACD32"><b>该笔订单支付金额为<span style="color:#f00;font-size:50px"><?php echo $orderData['service_total_fee'];?></span>元</b></font><br/><br/>
 		<p>收款方为:易知海外 </p>
 		<input data-mini="true" value="立即支付" type="button" onclick="callpay()">
 	</div>

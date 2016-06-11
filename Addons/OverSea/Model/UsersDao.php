@@ -12,9 +12,6 @@ use Addons\OverSea\Model\BaseDao;
 
 class UsersDao extends BaseDao
 {
-    /**
-     * UsersDao constructor.
-     */
     public function __construct()
     {
         parent::__construct("yz_users");

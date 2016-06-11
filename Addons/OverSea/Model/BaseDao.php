@@ -20,6 +20,10 @@ class BaseDao
     {
         $this->talbeName = $table;
     }
+    
+    public function getTableName(){
+        return $this->talbeName; 
+    }
 
     public function insert($data)
     {

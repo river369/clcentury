@@ -7,15 +7,27 @@
  */
 namespace Addons\OverSea\Model;
 use Addons\OverSea\Common\MySqlHelper;
+use Addons\OverSea\Common\Logs;
+use Addons\OverSea\Model\BaseDao;
 
-class OrdersDao
+class OrdersDao extends BaseDao
 {
-    public static function updateSellerOrderCondition($orderid, $condition, $sellerid)
+    /**
+     * OrdersDao constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct("yz_orders");
+    }
+
+    public function updateSellerOrderStatus($order_id, $status, $seller_id)
     {
         try {
-            $sql = "update clc_orders set conditions = :condition where id =:id and sellerid=:sellerid";
-            //echo $sql
-            MySqlHelper::query($sql, array(':condition' => $condition, ':id' => $orderid, ':sellerid' => $sellerid ));
+            $sql = "update " . parent::getTableName(). " set status = :status where id =:id and seller_id=:seller_id";
+            $parameter = array(':status' => $status, ':id' => $order_id, ':seller_id' => $seller_id );
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",sql=".$sql);
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",parameters=".json_encode($parameter));
+            MySqlHelper::query($sql, $parameter);
             return 0;
         } catch (\Exception $e){
             return -1;
@@ -23,12 +35,14 @@ class OrdersDao
         }
     }
 
-    public static function updateCustomerOrderCondition($orderid, $condition, $customerid)
+    public function updateCustomerOrderStatus($order_id, $status, $customer_id)
     {
         try {
-            $sql = "update clc_orders set conditions = :condition where id =:id and customerid=:customerid";
-            //echo $sql
-            MySqlHelper::query($sql, array(':condition' => $condition, ':id' => $orderid, ':customerid' => $customerid ));
+            $sql = "update " . parent::getTableName(). " set status = :status where id =:id and customer_id=:customer_id";
+            $parameter = array(':status' => $status, ':id' => $order_id, ':customer_id' => $customer_id );
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",sql=".$sql);
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",parameters=".json_encode($parameter));
+            MySqlHelper::query($sql, $parameter);
             return 0;
         } catch (\Exception $e){
             return -1;
@@ -36,12 +50,14 @@ class OrdersDao
         }
     }
 
-    public static function updateOrderCondition($orderid, $condition)
+    public function updateOrderStatus($order_id, $status)
     {
         try {
-            $sql = "update clc_orders set conditions = :condition where id =:id";
-            //echo $sql
-            MySqlHelper::query($sql, array(':condition' => $condition, ':id' => $orderid));
+            $sql = "update " . parent::getTableName(). " set status = :status where id =:id";
+            $parameter = array(':status' => $status, ':id' => $order_id);
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",sql=".$sql);
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",parameters=".json_encode($parameter));
+            MySqlHelper::query($sql, $parameter);
             return 0;
         } catch (\Exception $e){
             return -1;
@@ -49,13 +65,16 @@ class OrdersDao
         }
     }
 
-    public static function getOrderBySellerAndCondition($sellerid, $condition)
+    public function getOrderBySellerAndStatus($seller_id, $status)
     {
         try {
-            //$sql = 'SELECT * FROM clc_orders WHERE sellerid= :sellerid and conditions in ( :condition )';
-            //$orders = MySqlHelper::fetchAll($sql, array(':sellerid' => $sellerid, ':condition' => $condition));
-            $sql = 'SELECT * FROM clc_orders WHERE sellerid= :sellerid and conditions in (' . $condition . ')';
-            $orders = MySqlHelper::fetchAll($sql, array(':sellerid' => $sellerid));
+            $sql = 'SELECT * FROM ' . parent::getTableName(). ' WHERE seller_id= :seller_id and status in ( :status )';
+            //$sql = 'SELECT * FROM ' . parent::getTableName(). ' WHERE seller_id= :seller_id and status in (' . $status . ')';
+            $parameter = array(':seller_id' => $seller_id, ':status' => $status);
+            //$parameter = array(':seller_id' => $seller_id);
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",sql=".$sql);
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",parameters=".json_encode($parameter));
+            $orders = MySqlHelper::fetchAll($sql, $parameter);
             return $orders;
         } catch (\Exception $e){
             echo $e;
@@ -63,69 +82,20 @@ class OrdersDao
         }
     }
     
-    public static function getOrderByCustomerAndCondition($customerid, $condition)
+    public function getOrderByCustomerAndStatus($customer_id, $status)
     {
         try {
-            $sql = 'SELECT * FROM clc_orders WHERE customerid= :customerid and conditions in (' . $condition . ')';
-            //echo $sql;
-            $orders = MySqlHelper::fetchAll($sql, array(':customerid' => $customerid));
+            //$sql = 'SELECT * FROM ' . parent::getTableName(). ' WHERE customer_id= :customer_id and status in (' . $status . ')';
+            $sql = "SELECT * FROM " . parent::getTableName(). " WHERE customer_id= :customer_id and status in ( :status )";
+            //$parameter = array(':customer_id' => $customer_id);
+            $parameter = array(':customer_id' => $customer_id, ':status' => $status);
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",sql=".$sql);
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",parameters=".json_encode($parameter));
+            $orders = MySqlHelper::fetchAll($sql, $parameter);
             return $orders;
         } catch (\Exception $e){
             echo $e;
             exit;
-        }
-    }
-    
-    public static function getOrderById($id)
-    {
-        try {
-            $sql = 'SELECT * FROM clc_orders WHERE id= :id LIMIT 1';
-            //echo $sql;
-            $order = MySqlHelper::fetchOne($sql, array(':id' => $id));
-            return $order;
-        } catch (\Exception $e){
-            echo $e;
-            exit;
-        }
-    }
-    
-    public static function insertOrder($data)
-    {
-        try {
-            //$data['create_date'] = time();
-            $tmpData = array();
-            foreach ($data as $k => $v) {
-                //echo $k."-".$v;
-                $tmpData[':' . $k] = $v;
-            }
-            $sql = 'INSERT INTO clc_orders (' . implode(',', array_keys($data)) . ') VALUES (' . implode(',', array_keys($tmpData)) . ')';
-            //echo $sql;
-            MySqlHelper::query($sql, $tmpData);
-        } catch (\Exception $e){
-            echo $e;
-            exit;
-        }
-        return MySqlHelper::getLastInsertId();
-    }
-
-    public static function updateOrder($data, $id)
-    {
-        try {
-            $sql = "update clc_orders set ";
-            foreach ($data as $k => $v) {
-                //echo $k."-".$v;
-                if ($v != null && $v != ''){
-                    $sql = $sql. $k."='".$v."',";
-                }
-            }
-            $sql = substr($sql,0, strlen($sql) -1 );
-            $sql= $sql.' where id =:id';
-            //echo $sql . $id;
-            MySqlHelper::query($sql, array(':id' => $id));
-            return 0;
-        } catch (\Exception $e){
-            return -1;
-            echo $e;
         }
     }
     

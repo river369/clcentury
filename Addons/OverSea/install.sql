@@ -95,6 +95,7 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`yz_order_actions` (
 `order_id` bigint(12)  NOT NULL COMMENT 'order id',
 `action` int(10) DEFAULT 0 NOT NULL COMMENT '服务类型 0 创建订单',
 `creation_date` datetime  NOT NULL COMMENT 'entry datetime',
+`update_date` datetime  DEFAULT NULL COMMENT 'update datetime',
 `actioner` int(2) DEFAULT -1  COMMENT 'Action person 0 System, 1 Customer, 2 Seller',
 `comments` text DEFAULT NULL  COMMENT 'action description',
 PRIMARY KEY (`id`),
@@ -117,6 +118,8 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`yz_payments` (
 `trade_type` varchar(10)  DEFAULT NULL  COMMENT 'trade type',
 `start_date` datetime  DEFAULT NULL COMMENT 'time_start',
 `end_date` datetime  DEFAULT NULL COMMENT 'time_end',
+`creation_date` datetime  DEFAULT NULL COMMENT 'creation datetime',
+`update_date` datetime  DEFAULT NULL COMMENT 'update datetime',
 PRIMARY KEY (`id`),
 KEY `order_id` (`order_id`)
 ) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
