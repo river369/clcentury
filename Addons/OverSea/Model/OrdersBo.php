@@ -68,21 +68,21 @@ class OrdersBo
 
 
     // Get Order Lists
-    public function getOrderByCustomerAndStatus() {
+    public function getOrdersByCustomerAndStatus() {
         $customerid  = isset($_GET ['customer_id']) ? $_GET ['customer_id'] : $_SESSION['signedUser'];
         $status= $_GET ['status'];
         $ordersDao = new OrdersDao();
-        $orders = $ordersDao->getOrderByCustomerAndStatus($customerid, $status);
+        $orders = $ordersDao->getOrdersByCustomerAndStatus($customerid, $status);
         $_SESSION['customerOrders'] = $orders;
         $_SESSION['customerId'] = $customerid;
         $_SESSION['customerOrdersStatus'] = $status;
     }
 
-    public function getOrderBySellerAndStatus() {
+    public function getOrdersBySellerAndStatus() {
         $sellerid  = $customerid  = isset($_GET ['seller_id']) ? $_GET ['seller_id'] : $_SESSION['signedUser'];
         $status = $_GET ['status'];
         $ordersDao = new OrdersDao();
-        $orders = $ordersDao->getOrderBySellerAndStatus($sellerid, $status);
+        $orders = $ordersDao->getOrdersBySellerAndStatus($sellerid, $status);
         $_SESSION['sellerOrders'] = $orders;
         $_SESSION['sellerid'] = $sellerid;
         $_SESSION['SellerOrdersStatus'] = $status;
@@ -92,7 +92,7 @@ class OrdersBo
     public function getOrderDetailsById(){
         $orderId = $_GET['order_id'];
         $ordersDao = new OrdersDao();
-        $orderDetail = $ordersDao->getOrderById($orderId);
+        $orderDetail = $ordersDao->getById($orderId);
         $orderActionsDao = new OrderActionsDao ();
         $orderActionDetails = $orderActionsDao->getOrderActionsByOrderId($orderId);
         $_SESSION['orderDetail'] = $orderDetail;

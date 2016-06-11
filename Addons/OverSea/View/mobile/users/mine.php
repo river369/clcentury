@@ -55,12 +55,12 @@ $customerid = $_SESSION['signedUser'];
                 </a>
             </li>
             <li>
-                <a href="../../../Controller/AuthUserDispatcher.php?c=queryCustomerOrders&customerid=<?php echo $customerid;?>&condition=0,10" rel="external">
+                <a href="../../../Controller/AuthUserDispatcher.php?c=queryCustomerOrders&customerid=<?php echo $customerid;?>&status=0,10" rel="external">
                     我购买的服务订单
                 </a>
             </li>
             <li>
-                <a href="../../../Controller/AuthUserDispatcher.php?c=querySellerOrders&sellerid=<?php echo $customerid;?>&condition=10" rel="external">
+                <a href="../../../Controller/AuthUserDispatcher.php?c=querySellerOrders&sellerid=<?php echo $customerid;?>&status=10" rel="external">
                     购买我服务的订单
                 </a>
             </li>

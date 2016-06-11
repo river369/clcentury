@@ -8,7 +8,7 @@
 session_start();
 $orders= $_SESSION['customerOrders'];
 $customerid = $_SESSION['customerId'] ;
-$ordersCondition= $_SESSION['customerOrdersCondition'];
+$ordersStatus= $_SESSION['SellerOrdersStatus'];
 ?>
 
 <!DOCTYPE html>
@@ -35,41 +35,41 @@ $ordersCondition= $_SESSION['customerOrdersCondition'];
     <div role="main" class="ui-content jqm-content jqm-fullwidth">
         <div data-role="navbar">
             <ul>
-                <li><a href="../../../Controller/AuthUserDispatcher.php?c=queryCustomerOrders&customerid=<?php echo $customerid;?>&condition=0,10" <?php echo $ordersCondition == '0,10' ? "class='ui-btn-active'" : ''; ?> rel="external">已下单</a></li>
-                <li><a href="../../../Controller/AuthUserDispatcher.php?c=queryCustomerOrders&customerid=<?php echo $customerid;?>&condition=20" <?php echo $ordersCondition == 20 ? "class='ui-btn-active'" : '' ?> rel="external">已接收</a></li>
-                <li><a href="../../../Controller/AuthUserDispatcher.php?c=queryCustomerOrders&customerid=<?php echo $customerid;?>&condition=40" <?php echo $ordersCondition == 40 ? "class='ui-btn-active'" : '' ?> rel="external">待确认</a></li>
-                <li><a href="../../../Controller/AuthUserDispatcher.php?c=queryCustomerOrders&customerid=<?php echo $customerid;?>&condition=60" <?php echo $ordersCondition == 60 ? "class='ui-btn-active'" : '' ?> rel="external">已完成</a></li>
-                <li><a href="../../../Controller/AuthUserDispatcher.php?c=queryCustomerOrders&customerid=<?php echo $customerid;?>&condition=1020,1040,1060" <?php echo $ordersCondition == '1020,1040,1060' ? "class='ui-btn-active'" : '' ?> rel="external">已取消</a></li>
+                <li><a href="../../../Controller/AuthUserDispatcher.php?c=queryCustomerOrders&customerid=<?php echo $customerid;?>&status=0,10" <?php echo $ordersStatus == '0,10' ? "class='ui-btn-active'" : ''; ?> rel="external">已下单</a></li>
+                <li><a href="../../../Controller/AuthUserDispatcher.php?c=queryCustomerOrders&customerid=<?php echo $customerid;?>&status=20" <?php echo $ordersStatus == 20 ? "class='ui-btn-active'" : '' ?> rel="external">已接收</a></li>
+                <li><a href="../../../Controller/AuthUserDispatcher.php?c=queryCustomerOrders&customerid=<?php echo $customerid;?>&status=40" <?php echo $ordersStatus == 40 ? "class='ui-btn-active'" : '' ?> rel="external">待确认</a></li>
+                <li><a href="../../../Controller/AuthUserDispatcher.php?c=queryCustomerOrders&customerid=<?php echo $customerid;?>&status=60" <?php echo $ordersStatus == 60 ? "class='ui-btn-active'" : '' ?> rel="external">已完成</a></li>
+                <li><a href="../../../Controller/AuthUserDispatcher.php?c=queryCustomerOrders&customerid=<?php echo $customerid;?>&status=1020,1040,1060" <?php echo $ordersStatus == '1020,1040,1060' ? "class='ui-btn-active'" : '' ?> rel="external">已取消</a></li>
             </ul>
         </div><!-- /navbar -->
         <?php
         foreach($orders as $key => $order)
         {
             $orderid = $order['id'];
-            $orderCondition = $order['conditions'];
+            $orderStatus = $order['status'];
         ?>
         <ul data-role="listview" data-inset="true">
             <li data-role="list-divider">订单号: <span class="ui-li-count"><?php echo $order['id'];?></span></li>
             <li>
-                <a href="../../../Controller/AuthUserDispatcher.php?c=queryOrderDetails&orderid=<?php echo $orderid; ?>" rel="external">
-                    <img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $order['sellerid'];?>/head.png" alt="">
-                    <h2> 卖家:<?php echo $order['sellername'];?> </h2>
-                    <p style="white-space:pre-wrap;"><?php echo $order['requestmessage'];?> </p>
-                    <p class="ui-li-aside">￥<?php echo $order['serviceprice'];?>/小时</p>
+                <a href="../../../Controller/AuthUserDispatcher.php?c=queryOrderDetails&order_id=<?php echo $orderid; ?>" rel="external">
+                    <img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $order['seller_id'];?>/head.png" alt="">
+                    <h2> 卖家:<?php echo $order['seller_name'];?> </h2>
+                    <p style="white-space:pre-wrap;"><?php echo $order['request_message'];?> </p>
+                    <p class="ui-li-aside">￥<?php echo $order['service_price'];?>/小时</p>
                 </a>
             </li>
-            <li data-role="list-divider">已购买: <?php echo $order['servicehours'];?>小时 <span class="ui-li-count">总计: <?php echo $order['servicetotalfee'];?>元</span></li>
-            <?php if ($ordersCondition <= 20) {?>
+            <li data-role="list-divider">已购买: <?php echo $order['service_hours'];?>小时 <span class="ui-li-count">总计: <?php echo $order['service_total_fee'];?>元</span></li>
+            <?php if ($ordersStatus <= 20) {?>
                 <li data-theme="c">
                     <div class="ui-grid-a">
                         <div class="ui-block-a"><a href="#cancelDialog" data-rel="popup" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="cancelPopup('<?php echo $orderid; ?>')">取消</a></div>
-                        <?php if ($orderCondition == 0) {?>
+                        <?php if ($orderStatus == 0) {?>
                           <div class="ui-block-b"><a href="../../../Controller/AuthUserDispatcher.php?c=repayOrder&orderid=<?php echo $orderid; ?>" rel="external" class="ui-shadow ui-btn ui-corner-all ui-mini">去付款</a></div>
                         <?php } ?>
                     </div>
                 </li>
             <?php } ?>
-            <?php if ($ordersCondition == 40) {?>
+            <?php if ($ordersStatus == 40) {?>
                 <li data-theme="c">
                     <div class="ui-grid-a">
                         <div class="ui-block-a"><a href="#confirmDialog" data-rel="popup" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="confirmPopup('<?php echo $orderid; ?>')">确认完成</a></div>

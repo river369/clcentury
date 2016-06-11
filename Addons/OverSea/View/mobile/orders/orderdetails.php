@@ -8,8 +8,8 @@
 session_start();
 $order= $_SESSION['orderDetail'];
 $orderActions = $_SESSION['orderActionDetails'] ;
-$orderStatus = getOrderStatusString($order['conditions']);
-$orderStopReason = getOrderStopReason($order['conditions'], $orderActions);
+$orderStatus = getOrderStatusString($order['status']);
+$orderStopReason = getOrderStopReason($order['status'], $orderActions);
 
 function getOrderStatusString($condition)
 {
@@ -93,16 +93,16 @@ function getOrderStopReason($condition, $orderActions)
     <div data-role="content" id="orderdetail">
         <ul data-role="listview" data-inset="true">
             <li data-role="list-divider">订单号: <span class="ui-li-count"><?php echo $order['id'];?></span></li>
-            <li data-role="list-divider">卖家: <span class="ui-li-count"><?php echo $order['sellername'];?></span></li>
-            <li data-role="list-divider">买家: <span class="ui-li-count"><?php echo $order['customername'];?></span></li>
+            <li data-role="list-divider">卖家: <span class="ui-li-count"><?php echo $order['seller_name'];?></span></li>
+            <li data-role="list-divider">买家: <span class="ui-li-count"><?php echo $order['customer_name'];?></span></li>
             <li data-role="list-divider">订单状态: <span class="ui-li-count"><?php echo $orderStatus;?></span></li>
             <?php if(!is_null($orderStopReason) && !empty($orderStopReason)){ ?>
                 <li data-role="list-divider">订单停止原因: <span class="ui-li-count"><?php echo $orderStopReason;?></span></li>
             <?php } ?>
-            <li data-role="list-divider">买家咨询话题: <span class="ui-li-count"><?php echo $order['requestmessage'];?></span></li>
-            <li data-role="list-divider">价格: <span class="ui-li-count">￥<?php echo $order['serviceprice'];?>/小时</span></li>
-            <li data-role="list-divider">已购买: <span class="ui-li-count"><?php echo $order['servicehours'];?>小时</span></li>
-            <li data-role="list-divider">总计: <span class="ui-li-count"><?php echo $order['servicetotalfee'];?>元</span></li>
+            <li data-role="list-divider">买家咨询话题: <span class="ui-li-count"><?php echo $order['request_message'];?></span></li>
+            <li data-role="list-divider">价格: <span class="ui-li-count">￥<?php echo $order['service_price'];?>/小时</span></li>
+            <li data-role="list-divider">已购买: <span class="ui-li-count"><?php echo $order['service_hours'];?>小时</span></li>
+            <li data-role="list-divider">总计: <span class="ui-li-count"><?php echo $order['service_total_fee'];?>元</span></li>
         </ul>
     </div>
 
