@@ -8,7 +8,7 @@
 session_start();
 $orders= $_SESSION['customerOrders'];
 $customerid = $_SESSION['customerId'] ;
-$ordersStatus= $_SESSION['SellerOrdersStatus'];
+$ordersStatus= $_SESSION['customerOrdersStatus'];
 ?>
 
 <!DOCTYPE html>

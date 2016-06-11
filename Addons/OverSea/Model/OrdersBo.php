@@ -85,7 +85,7 @@ class OrdersBo
         $orders = $ordersDao->getOrdersBySellerAndStatus($sellerid, $status);
         $_SESSION['sellerOrders'] = $orders;
         $_SESSION['sellerid'] = $sellerid;
-        $_SESSION['SellerOrdersStatus'] = $status;
+        $_SESSION['sellerOrdersStatus'] = $status;
     }
 
     // Get order details
