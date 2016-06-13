@@ -18,8 +18,9 @@ function initLoad()
     include_once dirname(__FILE__).'/Model/BaseDao.php';
     include_once dirname(__FILE__).'/Model/UsersBo.php';
     include_once dirname(__FILE__).'/Model/UsersDao.php';
-    include_once dirname(__FILE__) . '/Model/ServicesBo.php';
-    include_once dirname(__FILE__) . '/Model/ServicesDao.php';
+    include_once dirname(__FILE__).'/Model/ServicesBo.php';
+    include_once dirname(__FILE__).'/Model/ServicesDao.php';
+    include_once dirname(__FILE__).'/Model/QueryHistoryDao.php';
     include_once dirname(__FILE__).'/Model/OrdersBo.php';
     include_once dirname(__FILE__).'/Model/OrdersDao.php';
     include_once dirname(__FILE__).'/Model/OrderActionsDao.php';

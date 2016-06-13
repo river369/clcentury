@@ -13,6 +13,7 @@ use Addons\OverSea\Common\Logs;
 use Addons\OverSea\Model\CropAvatar;
 use Addons\OverSea\Common\HttpHelper;
 use Addons\OverSea\Model\UsersDao;
+use Addons\OverSea\Model\QueryHistoryDao;
 use Addons\OverSea\Model\ServicesDao;
 
 require dirname(__FILE__).'/PicCrop.php';
@@ -293,6 +294,16 @@ class ServicesBo
         } else {
             $_SESSION['servicetype'] = $serviceType;
             $_SESSION['servicesData']= $servicesData;
+        }
+    }
+
+    public function getQueryHistory() {
+        if (isset($_SESSION['signedUser'])){
+            unset($_SESSION['queryHistories']);
+            $userID = $_SESSION['signedUser'];
+            $queryHistoryDao = new QueryHistoryDao();
+            $queryHistories = $queryHistoryDao->getQueryHistoryByUserId($userID);
+            $_SESSION['queryHistories'] = $queryHistories;
         }
     }
 

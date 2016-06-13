@@ -76,6 +76,8 @@ $method_routes = array(
     'queryOrderDetails' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'getOrderDetailsById',
         'v'=>'../View/mobile/orders/orderdetails.php', 'd'=>'查看订单详情'),
 
+    'search' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'getQueryHistory','v'=>'../View/mobile/query/search.php','d'=>'搜索主页'),
+
 );
 
 Logs::writeClcLog("AuthUserDipatcher.php, Starting");

@@ -124,6 +124,16 @@ PRIMARY KEY (`id`),
 KEY `order_id` (`order_id`)
 ) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
 
+--query history
+CREATE TABLE IF NOT EXISTS `clctravel`.`yz_query_history` (
+`id` bigint(12) NOT NULL AUTO_INCREMENT COMMENT '主键',
+`user_id` bigint(12)  NOT NULL COMMENT 'The people to query',
+`key` varchar(255)  DEFAULT NULL  COMMENT 'search key',
+`creation_date` datetime  DEFAULT NULL COMMENT 'creation datetime',
+`update_date` datetime  DEFAULT NULL COMMENT 'update datetime',
+PRIMARY KEY (`id`),
+KEY `user_id` (`user_id`)
+) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
 
 
 ------------------------Deprecated V3(1 user 1 service)-------------------------
