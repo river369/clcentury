@@ -69,6 +69,7 @@ if (isset($_SESSION ['servicearea'])){
         </ul>
             <?php } ?>
     </div>
+    <div data-role="content"class="endMsgString"></div>
 
     <div data-role="footer" data-position="fixed" data-theme="c">
         <h4>Copyright (c) 2016 .</h4>
@@ -107,6 +108,7 @@ if (isset($_SESSION ['servicearea'])){
             }
         });
     });
+
     function getServiceInNextPages(serverIds) {
         var link = '../../../Controller/FreelookDispatcher.php?c=getServices&servicetype=' + <?php echo $serviceType;?> +  '&pageIndex=' + pageIdx;
         $.ajax({
@@ -119,22 +121,27 @@ if (isset($_SESSION ['servicearea'])){
 
                 if (result.status == 0){
                     //alert(result.status);
-                    jQuery.each(result.objLists,function(key,value){
-                        itemIdx++;
-                        var newstr = '<div id="d'+itemIdx+'"> <ul data-role="listview" data-inset="true">';
-                        newstr = newstr + '<li data-role="list-divider">' +value.stars+ '星服务 <span class="ui-li-count">6次咨询</span></li>';
-                        newstr = newstr + '<li> <a href="../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id=' + value.id +'" rel="external">';
-                        newstr = newstr + '<img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/' + value.seller_id + '/head.png" alt="">';
-                        newstr = newstr + '<h2>'+ value.seller_name + '</h2>';
-                        newstr = newstr + '<p style="white-space:pre-wrap;">' +value.description+ '</p>' ;
-                        newstr = newstr + '<p class="ui-li-aside">￥' +value.service_price+ '/小时</p>' ;
-                        newstr = newstr + '</a></li> ' ;
-                        newstr = newstr + '<li data-role="list-divider"> <p> <a href="javascript:alert(\'developing...\');">'+ value.tag +'</a>'  ;
-                        newstr = newstr + '</p> </li> </ul>' ;
-                        newstr=newstr+'</div>';
-                        $('#discoverMain').append(newstr);
-                        $('#d'+itemIdx).trigger('create');
-                    })
+                    if (result.objLists.length > 0) {
+                        $(".endMsgString").html('');
+                        jQuery.each(result.objLists,function(key,value){
+                            itemIdx++;
+                            var newstr = '<div id="d'+itemIdx+'"> <ul data-role="listview" data-inset="true">';
+                            newstr = newstr + '<li data-role="list-divider">' +value.stars+ '星服务 <span class="ui-li-count">6次咨询</span></li>';
+                            newstr = newstr + '<li> <a href="../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id=' + value.id +'" rel="external">';
+                            newstr = newstr + '<img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/' + value.seller_id + '/head.png" alt="">';
+                            newstr = newstr + '<h2>'+ value.seller_name + '</h2>';
+                            newstr = newstr + '<p style="white-space:pre-wrap;">' +value.description+ '</p>' ;
+                            newstr = newstr + '<p class="ui-li-aside">￥' +value.service_price+ '/小时</p>' ;
+                            newstr = newstr + '</a></li> ' ;
+                            newstr = newstr + '<li data-role="list-divider"> <p> <a href="javascript:alert(\'developing...\');">'+ value.tag +'</a>'  ;
+                            newstr = newstr + '</p> </li> </ul>' ;
+                            newstr=newstr+'</div>';
+                            $('#discoverMain').append(newstr);
+                            $('#d'+itemIdx).trigger('create');
+                        })
+                    } else {
+                        $(".endMsgString").html('已经到达最底部,没有更多内容了...');
+                    }
                 } else {
                     alert( '内部错误:导入服务失败.' + result.msg);
                     //$(".errmsgstring").html();
@@ -142,7 +149,6 @@ if (isset($_SESSION ['servicearea'])){
             },
             error:function(msg){
                 alert( "Error:导入服务失败." + msg.toSource());
-                //$(".errmsgstring").html('Error:图片删除失败.' + msg.toSource());
             }
         })
         return false;
