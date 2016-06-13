@@ -144,8 +144,8 @@ class ServicesBo
                 $objArray[] = $objectInfo->getKey();
             }
         }
-        $retJson =  json_encode(array('status'=> 0, 'msg'=> 'done', 'objLists' => $objArray));
-        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",retJson=".$retJson);
+        //$retJson =  json_encode(array('status'=> 0, 'msg'=> 'done', 'objLists' => $objArray));
+        //Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",retJson=".$retJson);
         echo json_encode(array('status'=> 0, 'msg'=> 'done', 'objLists' => $objArray));
         exit;
     }
@@ -275,13 +275,25 @@ class ServicesBo
 
         $servicesData = null;
         $serviceDao = new ServicesDao();
+
+        $pageIndex = isset($_GET ['pageIndex']) ? $_GET ['pageIndex'] : 0;
+        $pageIndexRange = $pageIndex * 2 .",". '2';
+
         if (isset($servicearea) && !empty($servicearea) && !is_null($servicearea) && $servicearea != '地球'){
-            $servicesData=$serviceDao->getServicesByServiceTypeInArea($serviceType, $servicearea);
+            $servicesData=$serviceDao->getServicesByServiceTypeInAreaWithPage($serviceType, $servicearea, $pageIndexRange);
         } else {
-            $servicesData=$serviceDao->getServicesByServiceType($serviceType);
+            $servicesData=$serviceDao->getServicesByServiceTypeWithPage($serviceType, $pageIndexRange);
         }
-        $_SESSION['servicetype'] = $serviceType;
-        $_SESSION['servicesData']= $servicesData;
+        
+        if ($pageIndex > 0){
+            //$retJson =  json_encode(array('status'=> 0, 'msg'=> 'done', 'serviceLists' => $servicesData));
+            //Logs::writeClcLog(__CLASS__.",".__FUNCTION__." retJson=".$retJson);
+            echo json_encode(array('status'=> 0, 'msg'=> 'done', 'objLists' => $servicesData));
+            exit;
+        } else {
+            $_SESSION['servicetype'] = $serviceType;
+            $_SESSION['servicesData']= $servicesData;
+        }
     }
 
 }

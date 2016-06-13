@@ -64,6 +64,18 @@ class ServicesDao extends BaseDao
         return $services;
     }
 
+    public function getServicesByServiceTypeInAreaWithPage($service_type, $service_area, $pageIndexRange )
+    {
+        //$sql = 'SELECT * FROM yz_services WHERE service_type=:service_type and service_area = :service_area order by id desc, stars desc limit :pageIndex, 2';
+        //$parameter = array(':service_type' => $service_type, ':service_area' => $service_area, ':pageIndex' => $pageIndex);
+        $sql = 'SELECT * FROM yz_services WHERE service_type=:service_type and service_area = :service_area order by id desc, stars desc limit ' . $pageIndexRange;
+        $parameter = array(':service_type' => $service_type, ':service_area' => $service_area);
+        Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",sql=".$sql);
+        Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",parameters=".json_encode($parameter));
+        $services = MySqlHelper::fetchAll($sql, $parameter );
+        return $services;
+    }
+
     /**
      * 
      * Get users in special type.
@@ -74,6 +86,18 @@ class ServicesDao extends BaseDao
     public function getServicesByServiceType($service_type)
     {
         $sql = 'SELECT * FROM yz_services WHERE service_type=:service_type  order by stars desc';
+        $parameter = array(':service_type' => $service_type);
+        Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",sql=".$sql);
+        Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",parameters=".json_encode($parameter));
+        $services = MySqlHelper::fetchAll($sql, $parameter);
+        return $services;
+    }
+
+    public function getServicesByServiceTypeWithPage($service_type, $pageIndexRange)
+    {
+        //$sql = 'SELECT * FROM yz_services WHERE service_type=:service_type order by id desc, stars desc limit :pageIndex, 2';
+        //$parameter = array(':service_type' => $service_type, ':pageIndex' => $pageIndex);
+        $sql = 'SELECT * FROM yz_services WHERE service_type=:service_type order by id desc, stars desc limit ' . $pageIndexRange;
         $parameter = array(':service_type' => $service_type);
         Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",sql=".$sql);
         Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",parameters=".json_encode($parameter));

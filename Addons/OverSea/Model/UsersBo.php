@@ -160,8 +160,8 @@ class UsersBo
                 $objArray[] = $objectInfo->getKey();
             }
         }
-        $retJson =  json_encode(array('status'=> 0, 'msg'=> 'done', 'objLists' => $objArray));
-        Logs::writeClcLog(__CLASS__.",".__FUNCTION__." retJson=".$retJson);
+        //$retJson =  json_encode(array('status'=> 0, 'msg'=> 'done', 'objLists' => $objArray));
+        //Logs::writeClcLog(__CLASS__.",".__FUNCTION__." retJson=".$retJson);
         echo json_encode(array('status'=> 0, 'msg'=> 'done', 'objLists' => $objArray));
         exit;
     }
