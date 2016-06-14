@@ -306,5 +306,71 @@ class ServicesBo
             $_SESSION['queryHistories'] = $queryHistories;
         }
     }
+    public function deleteKeyWordById() {
+        if (isset($_SESSION['signedUser'])){
+            $query_id = $_GET['query_id'];
+            $queryHistory = array();
+            $queryHistory['status'] = 1;
+            $queryHistory['user_id'] = $_SESSION['signedUser'];
+            $queryHistoryDao = new QueryHistoryDao();
+            $queryHistoryDao -> update($queryHistory, $query_id);
+            self::getQueryHistory();
+        }
+    }
+
+    public function getServicesByKey() {
+        if (isset($_SESSION['signedUser'])) {
+            $servicearea = '';
+            if (isset($_SESSION ['servicearea'])) {
+                $servicearea = $_SESSION ['servicearea'];
+            }
+            if (isset($_GET ['servicearea'])) {
+                $servicearea = $_GET ['servicearea'];
+                $_SESSION ['servicearea'] = $servicearea;
+            }
+
+            $keyWord = '';
+            $isSaveKeyWord = 1;
+            if (isset($_POST ['keyWord'])) {
+                $keyWord = $_POST ['keyWord'];
+            }
+            if (isset($_GET ['keyWord'])) {
+                $keyWord = $_GET ['keyWord'];
+                $isSaveKeyWord = 0;
+            }
+            $_SESSION['keyWord'] = $keyWord;
+
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",servicearea=" . $servicearea . ",keyWord=" . $keyWord);
+
+            $servicesData = null;
+            $serviceDao = new ServicesDao();
+
+            $pageIndex = isset($_GET ['pageIndex']) ? $_GET ['pageIndex'] : 0;
+            $pageIndexRange = $pageIndex * 2 . "," . '2';
+
+            if (isset($servicearea) && !empty($servicearea) && !is_null($servicearea) && $servicearea != '地球') {
+                $servicesData = $serviceDao->getServicesByKeyWordInAreaWithPage($keyWord, $servicearea, $pageIndexRange);
+            } else {
+                $servicesData = $serviceDao->getServicesByKeyWordWithPage($keyWord, $pageIndexRange);
+            }
+
+            if ($pageIndex > 0) {
+                //$retJson =  json_encode(array('status'=> 0, 'msg'=> 'done', 'serviceLists' => $servicesData));
+                //Logs::writeClcLog(__CLASS__.",".__FUNCTION__." retJson=".$retJson);
+                echo json_encode(array('status' => 0, 'msg' => 'done', 'objLists' => $servicesData));
+                exit;
+            } else {
+                $_SESSION['servicesData'] = $servicesData;
+                if ($isSaveKeyWord > 0) {
+                    $queryHistory = array();
+                    $queryHistory['key_word'] = $keyWord;
+                    $queryHistory['user_id'] = $_SESSION['signedUser'];
+                    $queryHistoryDao = new QueryHistoryDao();
+                    $queryHistoryDao->insert($queryHistory);
+                }
+            }
+        }
+    }
+
 
 }

@@ -7,7 +7,7 @@
  */
 session_start();
 $servicesData= $_SESSION['servicesData'];
-$serviceType = isset($_SESSION['servicetype'])? $_SESSION['servicetype'] : 1;
+$keyWord = $_SESSION['keyWord']; ;
 require("../common/locations.php");
 $servicearea = '地球';
 if (isset($_SESSION ['servicearea'])){
@@ -37,18 +37,14 @@ if (isset($_SESSION ['servicearea'])){
     </div>
 
     <div id="discoverMain" role="main" class="ui-content jqm-content jqm-fullwidth">
-        <div data-role="navbar">
-            <ul>
-                <li><a href="../../../Controller/FreelookDispatcher.php?c=getServices&servicetype=1" rel="external" <?php if ($serviceType == 1) { ?> class="ui-btn-active" <?php } ?> >旅游</a></li>
-                <li><a href="../../../Controller/FreelookDispatcher.php?c=getServices&servicetype=2" rel="external" <?php if ($serviceType == 2) { ?> class="ui-btn-active" <?php } ?>>留学</a></li>
-            </ul>
-        </div><!-- /navbar -->
-            <?php
-                foreach($servicesData as $key => $serviceData)
-                {
-            ?>
+        <?php
+            foreach($servicesData as $key => $serviceData)
+            {
+        ?>
         <ul data-role="listview" data-inset="true">
-            <li data-role="list-divider"><?php echo $serviceData['stars']?>星服务 <span class="ui-li-count">6次咨询</span></li>
+            <li data-role="list-divider">
+                <?php $servicetypeDesc = $serviceData['service_type'] ==1 ? '旅游' : '留学';
+                echo $servicetypeDesc.":".$serviceData['stars']?>星服务 <span class="ui-li-count">6次咨询</span></li>
             <li>
                 <a href="../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id=<?php echo $serviceData['id']; ?>" rel="external">
                     <img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $serviceData['seller_id'];?>/head.png" alt="">
@@ -110,7 +106,7 @@ if (isset($_SESSION ['servicearea'])){
     });
 
     function getServiceInNextPages(serverIds) {
-        var link = '../../../Controller/FreelookDispatcher.php?c=getServices&servicetype=' + <?php echo $serviceType;?> +  '&pageIndex=' + pageIdx;
+        var link = '../../../Controller/AuthUserDispatcher.php?c=searchByKeyWord&keyWord=' + <?php echo $keyWord; ?> + '&pageIndex=' + pageIdx;
         $.ajax({
             url:link,
             type:'GET',
@@ -125,8 +121,9 @@ if (isset($_SESSION ['servicearea'])){
                         $(".endMsgString").html('');
                         jQuery.each(result.objLists,function(key,value){
                             itemIdx++;
+                            servicetypeDesc = (value.service_type ==1) ? '旅游' : '留学';
                             var newstr = '<div id="d'+itemIdx+'"> <ul data-role="listview" data-inset="true">';
-                            newstr = newstr + '<li data-role="list-divider">' +value.stars+ '星服务 <span class="ui-li-count">6次咨询</span></li>';
+                            newstr = newstr + '<li data-role="list-divider">'+ servicetypeDesc + ":" +value.stars+ '星服务 <span class="ui-li-count">6次咨询</span></li>';
                             newstr = newstr + '<li> <a href="../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id=' + value.id +'" rel="external">';
                             newstr = newstr + '<img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/' + value.seller_id + '/head.png" alt="">';
                             newstr = newstr + '<h2>'+ value.seller_name + '</h2>';
@@ -156,7 +153,6 @@ if (isset($_SESSION ['servicearea'])){
         })
         return false;
     };
-
     $(document).ready(function(){
         $("img").error(function () {
             $(this).attr("src", "../../resource/images/head_default.jpg");

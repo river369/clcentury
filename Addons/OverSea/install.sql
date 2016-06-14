@@ -128,7 +128,8 @@ KEY `order_id` (`order_id`)
 CREATE TABLE IF NOT EXISTS `clctravel`.`yz_query_history` (
 `id` bigint(12) NOT NULL AUTO_INCREMENT COMMENT '主键',
 `user_id` bigint(12)  NOT NULL COMMENT 'The people to query',
-`key` varchar(255)  DEFAULT NULL  COMMENT 'search key',
+`key_word` varchar(255)  DEFAULT NULL  COMMENT 'search key',
+`status` int(2) DEFAULT 0  COMMENT 'active 0, deleted 1' ,
 `creation_date` datetime  DEFAULT NULL COMMENT 'creation datetime',
 `update_date` datetime  DEFAULT NULL COMMENT 'update datetime',
 PRIMARY KEY (`id`),

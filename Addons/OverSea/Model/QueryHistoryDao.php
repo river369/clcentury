@@ -21,7 +21,7 @@ class QueryHistoryDao extends BaseDao
     public function getQueryHistoryByUserId($user_id)
     {
         try {
-            $sql = 'SELECT * FROM ' . parent::getTableName(). '  WHERE user_id = :user_id order by id desc LIMIT 5';
+            $sql = 'SELECT * FROM ' . parent::getTableName(). '  WHERE user_id = :user_id AND status = 0 order by id desc LIMIT 5';
             $parameter = array(':user_id' => $user_id);
             Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",sql=".$sql);
             Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",parameters=".json_encode($parameter));

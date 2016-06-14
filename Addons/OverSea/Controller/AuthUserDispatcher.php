@@ -76,8 +76,10 @@ $method_routes = array(
     'queryOrderDetails' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'getOrderDetailsById',
         'v'=>'../View/mobile/orders/orderdetails.php', 'd'=>'查看订单详情'),
 
-    'search' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'getQueryHistory','v'=>'../View/mobile/query/search.php','d'=>'搜索主页'),
-
+    'searchMainPage' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'getQueryHistory','v'=>'../View/mobile/query/search.php','d'=>'搜索主页'),
+    'searchByKeyWord' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'getServicesByKey','v'=>'../View/mobile/query/searchresults.php','d'=>'搜索结果列表'),
+    'deleteKeyWordById' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'deleteKeyWordById','v'=>'../View/mobile/query/search.php','d'=>'搜索主页'),
+    
 );
 
 Logs::writeClcLog("AuthUserDipatcher.php, Starting");
