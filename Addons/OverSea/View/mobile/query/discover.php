@@ -62,7 +62,7 @@ if (isset($_SESSION ['servicearea'])){
             <?php $tags = $serviceData['tag'];
                 $tagsArray = explode(',',$tags);
                 foreach ($tagsArray as $tag){ ?>
-                    <a href="javascript:alert('developing...');"> <?php echo $tag; ?></a>
+                    <a href="../../../Controller/AuthUserDispatcher.php?c=searchByKeyWord&keyWord=<?php echo $tag;?> " rel="external"><?php echo $tag; ?></a>
             <?php } ?>
                 </p>
             </li>
@@ -133,7 +133,13 @@ if (isset($_SESSION ['servicearea'])){
                             newstr = newstr + '<p style="white-space:pre-wrap;">' +value.description+ '</p>' ;
                             newstr = newstr + '<p class="ui-li-aside">￥' +value.service_price+ '/小时</p>' ;
                             newstr = newstr + '</a></li> ' ;
-                            newstr = newstr + '<li data-role="list-divider"> <p> <a href="javascript:alert(\'developing...\');">'+ value.tag +'</a>'  ;
+                            newstr = newstr + '<li data-role="list-divider"> <p> ';
+                            var strs= new Array();
+                            strs=value.tag.split(",");
+                            for (i=0;i<strs.length ;i++ )
+                            {
+                                newstr = newstr + ' <a href="../../../Controller/AuthUserDispatcher.php?c=searchByKeyWord&keyWord=' + strs[i] + '" rel="external">'+ strs[i] +'</a>'  ;
+                            }
                             newstr = newstr + '</p> </li> </ul>' ;
                             newstr=newstr+'</div>';
                             $('#discoverMain').append(newstr);
