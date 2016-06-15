@@ -43,7 +43,7 @@ if (isset($_SESSION ['servicearea'])){
         历史搜索
         <ul data-role="listview" data-split-icon="delete" data-split-theme="a" data-inset="true">
         <?php foreach($queryHistories as $key => $queryHistory) {?>
-            <li><a href="../../../Controller/AuthUserDispatcher.php?c=searchByKeyWord&keyWord=<?php echo $queryHistory['key_word']  ?>"><h2><?php echo $queryHistory['key_word'] ?></h2></a>
+            <li><a href="../../../Controller/AuthUserDispatcher.php?c=searchByKeyWord&keyWord=<?php echo $queryHistory['key_word'];?> " rel="external"><h2><?php echo $queryHistory['key_word'] ?></h2></a>
                 <a href="../../../Controller/AuthUserDispatcher.php?c=deleteKeyWordById&query_id=<?php echo $queryHistory['id'] ?>');">干掉</a>
             </li>
         <?php } ?>

@@ -339,7 +339,6 @@ class ServicesBo
                 $isSaveKeyWord = 0;
             }
             $_SESSION['keyWord'] = $keyWord;
-
             Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",servicearea=" . $servicearea . ",keyWord=" . $keyWord);
 
             $servicesData = null;

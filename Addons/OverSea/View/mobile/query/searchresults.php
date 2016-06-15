@@ -7,7 +7,7 @@
  */
 session_start();
 $servicesData= $_SESSION['servicesData'];
-$keyWord = $_SESSION['keyWord']; ;
+$keyWord = $_SESSION['keyWord'];
 require("../common/locations.php");
 $servicearea = '地球';
 if (isset($_SESSION ['servicearea'])){
@@ -106,7 +106,7 @@ if (isset($_SESSION ['servicearea'])){
     });
 
     function getServiceInNextPages(serverIds) {
-        var link = '../../../Controller/AuthUserDispatcher.php?c=searchByKeyWord&keyWord=' + <?php echo $keyWord; ?> + '&pageIndex=' + pageIdx;
+        var link = '../../../Controller/AuthUserDispatcher.php?c=searchByKeyWord&keyWord=<?php echo $keyWord;?>&pageIndex=' + pageIdx;
         $.ajax({
             url:link,
             type:'GET',
