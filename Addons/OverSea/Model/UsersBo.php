@@ -45,11 +45,14 @@ class UsersBo
         $userDao = new UsersDao();
         $userid = $userDao ->update($userData,$_SESSION['signedUser']);
         if ($userid == 0) {
-            $_SESSION['submityzstatus'] = '成功';
+            $_SESSION['status'] = 's';
+            $_SESSION['message'] = $userData['name'].'提交个人信息成功,谢谢!';
+            $_SESSION['goto'] = "../../../Controller/AuthUserDispatcher.php?c=mine";
         } else {
-            $_SESSION['submityzstatus'] = '失败';
+            $_SESSION['status'] = 'f';
+            $_SESSION['message'] = $userData['name'].'提交个人信息失败!';
+            $_SESSION['goto'] = "../../../Controller/AuthUserDispatcher.php?c=mine";
         }
-        $_SESSION['userData']= $userData;
     }
 
     /**
@@ -193,9 +196,13 @@ class UsersBo
         $userid = $usersDao ->update($realNameData, $userID);
 
         if ($userid==0) {
-            $_SESSION['submityzstatus'] = '成功';
+            $_SESSION['status'] = 's';
+            $_SESSION['message'] = '实名认证信息发布成功,谢谢!';
+            $_SESSION['goto'] = "../../../Controller/AuthUserDispatcher.php?c=mine";
         } else {
-            $_SESSION['submityzstatus'] = '失败';
+            $_SESSION['status'] = 'f';
+            $_SESSION['message'] = '实名认证信息发布失败!';
+            $_SESSION['goto'] = "../../../Controller/AuthUserDispatcher.php?c=mine";
         }
 
         //header('Location:../View/mobile/users/submityzsuccess.php');

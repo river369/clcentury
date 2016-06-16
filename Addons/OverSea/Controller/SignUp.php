@@ -46,22 +46,30 @@ if ($userData['user_type'] == 1) { // register by phone user
             $userDao = new UsersDao();
             $id = $userDao->insert($userData);
             if ($id>0) {
-                $_SESSION['signupstatus'] = '成功';
+                $_SESSION['status'] = 's';
+                $_SESSION['message'] = $userData['phone_reigon'] . $userData['phone_number'].'注册成功,谢谢!';
+                $_SESSION['goto'] = "../../../Controller/AuthUserDispatcher.php";
                 $_SESSION['signedUser'] = $id;
                 // try to set uid in cookie
                 $cookieValue = EncryptHelper::encrypt($existedUser['id']);
                 setcookie("signedUser", $cookieValue, time()+7*24*3600);
-
+                header('Location:../View/mobile/common/message.php');
             } else {
-                $_SESSION['signupstatus'] = '失败:创建用户失败!';
+               // $_SESSION['signupstatus'] = '1失败:创建用户失败!';
+                $_SESSION['existedUserPhoneReigon']= $userData['phone_reigon'];
+                $_SESSION['existedUserPhoneNumber']= $userData['phone_number'];
+                $_SESSION['$signInErrorMsg'] = '创建用户失败! 请重试!';
+                header('Location:../View/mobile/users/signup.php');
             }
-            $_SESSION['userData']= $userData;
-            header('Location:../View/mobile/users/signupsuccess.php');
         }
     } else {
-        $_SESSION['signupstatus'] = '失败:验证码错误! '.$_POST['verifycode'];
-        $_SESSION['userData']= $userData;
-        header('Location:../View/mobile/users/signupsuccess.php');
+        //$_SESSION['signupstatus'] = '失败:验证码错误! '.$_POST['verifycode'];
+        //$_SESSION['userData']= $userData;
+        //header('Location:../View/mobile/users/signupsuccess.php');
+        $_SESSION['existedUserPhoneReigon']= $userData['phone_reigon'];
+        $_SESSION['existedUserPhoneNumber']= $userData['phone_number'];
+        $_SESSION['$signInErrorMsg'] = '验证码错误! '.$_POST['verifycode'];;
+        header('Location:../View/mobile/users/signup.php');
     }
 }
 

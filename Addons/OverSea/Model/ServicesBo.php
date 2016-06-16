@@ -181,12 +181,15 @@ class ServicesBo
         $serviceid = $serviceDao ->update($serviceData, $serviceData['id']);
 
         if ($serviceid==0) {
-            $_SESSION['submityzstatus'] = '成功';
+            $_SESSION['status'] = 's';
+            $_SESSION['message'] = '提交易知服务信息成功,谢谢!';
+            $_SESSION['goto'] = "../../../Controller/AuthUserDispatcher.php?c=mine";
         } else {
-            $_SESSION['submityzstatus'] = '失败';
+            $_SESSION['status'] = 's';
+            $_SESSION['message'] = '提交易知服务信息失败!';
+            $_SESSION['goto'] = "../../../Controller/AuthUserDispatcher.php?c=mine";
         }
-        $_SESSION['$serviceData']= $serviceData;
-
+        //$_SESSION['$serviceData']= $serviceData;
         //header('Location:../View/mobile/users/submityzsuccess.php');
     }
 

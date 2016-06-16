@@ -28,7 +28,7 @@ $customerid = $_SESSION['signedUser'];
         <h3>我的头像:</h3>
         <!-- Current avatar -->
         <div class="avatar-view" title="Change the avatar">
-            <img src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $customerid;?>/head.png" id='myhead' alt="Avatar" onclick="chooseImages()">
+            <img src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $customerid;?>/head.png" id='myhead' alt="点击上传头像" onclick="chooseImages()">
         </div>
         <input type="hidden" id="uid" value="<?php echo $customerid;?>">
 
