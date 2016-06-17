@@ -64,7 +64,7 @@ $ordersStatus= $_SESSION['customerOrdersStatus'];
                     <div class="ui-grid-a">
                         <div class="ui-block-a"><a href="#cancelDialog" data-rel="popup" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="cancelPopup('<?php echo $orderid; ?>')">取消</a></div>
                         <?php if ($orderStatus == 0) {?>
-                          <div class="ui-block-b"><a href="../../../Controller/AuthUserDispatcher.php?c=repayOrder&orderid=<?php echo $orderid; ?>" rel="external" class="ui-shadow ui-btn ui-corner-all ui-mini">去付款</a></div>
+                          <div class="ui-block-b"><a href="../../../Controller/AuthUserDispatcher.php?c=repayOrder&order_id=<?php echo $orderid; ?>" rel="external" class="ui-shadow ui-btn ui-corner-all ui-mini">去付款</a></div>
                         <?php } ?>
                     </div>
                 </li>

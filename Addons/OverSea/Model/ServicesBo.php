@@ -183,7 +183,7 @@ class ServicesBo
         if ($serviceid==0) {
             $_SESSION['status'] = 's';
             $_SESSION['message'] = '提交易知服务信息成功,谢谢!';
-            $_SESSION['goto'] = "../../../Controller/AuthUserDispatcher.php?c=mine";
+            $_SESSION['goto'] = "../../../Controller/FreelookDispatcher.php?c=getServices";
         } else {
             $_SESSION['status'] = 's';
             $_SESSION['message'] = '提交易知服务信息失败!';

@@ -50,7 +50,9 @@ class OrdersBo
             header('Location:'."../Controller/wxpayv3/PrePayJs.php");
             exit;
         } else {
-            $_SESSION['createOrderStatus'] = '失败';
+            $_SESSION['status'] = 'f';
+            $_SESSION['message'] = '创建订单失败!';
+            $_SESSION['goto'] = "../../../Controller/AuthUserDispatcher.php?c=mine";
         }
 
     }

@@ -1,8 +1,23 @@
 <?php
 session_start();
-$status= $_SESSION['status'];
-$message= $_SESSION['message'];
-$goto= $_SESSION['goto'];
+$status = $_SESSION['status'];
+if (isset($_GET['status'])) {
+    $status = $_GET['status'];
+}
+$message = $_SESSION['message'];
+if (isset($_GET['message'])) {
+    $message = $_GET['message'];
+}
+$goto = $_SESSION['goto'];
+if (isset($_GET['goto'])) {
+    $goto = $_GET['goto'];
+}
+
+if (isset($_GET['goto_type'])){
+    if ($_GET['goto_type'] == 'service_list'){
+        $goto = '../../../Controller/FreelookDispatcher.php?c=getServices';
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="zh-cmn-Hans">
@@ -35,7 +50,7 @@ $goto= $_SESSION['goto'];
 
     <br>
     <div data-role="content" style="text-align:center">
-        <h2><?php echo $message; ?></h2>
+        <h3><?php echo $message; ?></h3>
         <a href="<?php echo $goto; ?>" rel="external" data-icon="home"><h3>返回</h3></a>
     </div>
     
