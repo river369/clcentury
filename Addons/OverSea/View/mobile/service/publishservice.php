@@ -6,24 +6,15 @@
  * Time: 07:52
  */
 require("../common/locations.php");
+require dirname(__FILE__).'/../../../init.php';
+use Addons\OverSea\Common\BusinessHelper;
+
 session_start();
 $sellerData = $_SESSION['sellerData'];
 $serviceData = $_SESSION['serviceData'];
 
 $status = $serviceData['status'];
-$statusString = '准备提交';
-switch ($status)
-{
-    case 20:
-        $statusString = "服务审核中";
-        break;
-    case 40:
-        $statusString = "服务被拒绝";
-        break;
-    case 60:
-        $statusString = "服务审核已通过";
-        break;
-}
+$statusString = BusinessHelper::translateServiceCheckStatus($tatus);
 
 $appId=$_SESSION['$appid'];
 $timestamp=$_SESSION['$timestamp'];

@@ -11,7 +11,8 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`yz_users` (
 `weixin` varchar(50)  DEFAULT NULL  COMMENT '微信号',
 `email` varchar(50) DEFAULT NULL  COMMENT '邮件',
 `description` text DEFAULT NULL  COMMENT '个人详细介绍',
-`stars` int(3) DEFAULT 3  COMMENT '星',
+`stars` int(3) DEFAULT 3  COMMENT '用户等级',
+`serve_count` int(5) DEFAULT 0  COMMENT '用户提供服务次数',
 `tag` varchar(255) DEFAULT "" COMMENT 'user tags',
 `status` int(5) DEFAULT 0  COMMENT 'user状态 0 created...' ,
 `real_name` varchar(255)  DEFAULT NULL  COMMENT '真实姓名',
@@ -25,6 +26,7 @@ PRIMARY KEY (`id`)
 
 user状态 0 created, 20 个人信息不完整, 40 已经实名, 60 已发布过服务, 80 完成一次服务, 100 多次服务, 120 封号 ,
 user状态 0 created已经注册, 20 已经提交实名, 40, rejected 60 approved, 120 封号 ,
+alter table yz_users add column serve_count int(5) DEFAULT 0  COMMENT '用户提供服务次数';
 
 --Services
 CREATE TABLE IF NOT EXISTS `clctravel`.`yz_services` (
@@ -37,7 +39,8 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`yz_services` (
 `service_type` int(10) DEFAULT 1  COMMENT '服务类型 1 旅游, 2 留学, 99999 all, -1 nothing',
 `service_price` int(10) DEFAULT 50  COMMENT '服务价格',
 `service_price_unit` varchar(10)  DEFAULT "人民币"  COMMENT '服务价格单位',
-`stars` int(3) DEFAULT 3  COMMENT '星',
+`stars` int(3) DEFAULT 3  COMMENT '服务评级',
+`serve_count` int(5) DEFAULT 0  COMMENT '服务旅行次数',
 `check_reason` varchar(255) DEFAULT NULL  COMMENT '管理员拒绝理由',
 `delete_reason` varchar(255) DEFAULT NULL  COMMENT 'seller删除原因,当有用户购买时必须输入',
 `tag` varchar(255) DEFAULT "" COMMENT 'user tags',
@@ -53,6 +56,7 @@ service status:
 40 rejected
 60 approved,
 80 deleted
+alter table yz_services add column serve_count int(5) DEFAULT 0  COMMENT '用户提供服务次数';
 
 --Orders
 CREATE TABLE IF NOT EXISTS `clctravel`.`yz_orders` (

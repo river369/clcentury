@@ -6,50 +6,13 @@
  * Time: 21:54
  */
 session_start();
+require dirname(__FILE__).'/../../../init.php';
+use Addons\OverSea\Common\BusinessHelper;
+
 $order= $_SESSION['orderDetail'];
 $orderActions = $_SESSION['orderActionDetails'] ;
-$orderStatus = getOrderStatusString($order['status']);
+$orderStatus = BusinessHelper::translateOrderStatus($order['status']);
 $orderStopReason = getOrderStopReason($order['status'], $orderActions);
-
-function getOrderStatusString($condition)
-{
-    $orderStatus = '';
-    switch ($condition)
-    {
-        case 0:
-            $orderStatus = "订单已创建";
-            break;
-        case 10:
-            $orderStatus = "买家已付款,等待卖家接收";
-            break;
-        case 1020:
-            $orderStatus = "卖家拒绝了该订单";
-            break;
-        case 20:
-            $orderStatus = "卖家已接收";
-            break;
-        case 1040:
-            $orderStatus = "卖家取消了该订单";
-            break;
-        case 40:
-            $orderStatus = "卖家已将订单置为完成,等待买家确认";
-            break;
-        case 1060:
-            $orderStatus = "买家取消了该订单";
-            break;
-        case 60:
-            $orderStatus = "买家已将订单置为完成,等待易知付款";
-            break;
-        case 80:
-            $orderStatus = "买家完成评论";
-            break;
-        case 100:
-            $orderStatus = "易知已经完成付款,订单结束";
-            break;
-
-    }
-    return $orderStatus;
-}
 
 function getOrderStopReason($condition, $orderActions)
 {
@@ -124,7 +87,7 @@ function getOrderStopReason($condition, $orderActions)
             foreach($orderActions as $key => $orderAction)
             {
                 $lastAction = $orderAction['action'];
-                $actionString = getOrderStatusString($lastAction);
+                $actionString = BusinessHelper::translateOrderStatus($lastAction);
                 echo "{ type: 'smallItem', label: '".$actionString.
                     "', shortContent: '".$orderAction['creation_date'] ."',},";
             ?>

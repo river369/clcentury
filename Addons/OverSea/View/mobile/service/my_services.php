@@ -65,7 +65,8 @@ $querystatus = $_SESSION['querystatus'];
             <li data-role="list-divider">创建日期: <span class="ui-li-count"><?php echo $service['creation_date'];?></span></li>
             <li data-theme="c">
                 <div class="ui-grid-a">
-                    <div class="ui-block-b"><a href="#deleteDialog" data-rel="popup" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="deletePopup('<?php echo $serviceid; ?>')">删除服务</a></div>
+                    <div class="ui-block-a"> </div>
+                    <div class="ui-block-b" align="right"><a href="#deleteDialog" data-rel="popup" class="ui-mini" onclick="deletePopup('<?php echo $serviceid; ?>')">删除服务</a></div>
                 </div>
             </li>
         </ul>

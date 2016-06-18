@@ -1,5 +1,9 @@
 <?php
 session_start();
+require dirname(__FILE__).'/../../../init.php';
+use Addons\OverSea\Common\BusinessHelper;
+
+//service info
 $serviceData= $_SESSION['serviceData'];
 $seller_id = $serviceData['seller_id'];
 $servicetype = $serviceData['service_type'];
@@ -10,12 +14,19 @@ if ($servicetype==1){
     $servicetypeDesc = '留学';
 }
 
+//service picture info
 $objArray;
 $objkey='objArray';
 if (isset($_SESSION[$objkey])){
     $objArray = $_SESSION[$objkey] ;
 }
 $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
+
+//seller info
+$sellerData = $_SESSION['sellerData'];
+$realnameStatusString = BusinessHelper::translateRealNameStatus($sellerData['status']);
+
+$commentsData = $_SESSION['commentsData'];
 
 ?>
 <!DOCTYPE html>
@@ -101,6 +112,9 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
     </div>
 
     <div data-role="content">
+        <div style="text-align:center">
+            <h1 style="color:steelblue">服务信息</h1>
+        </div>
         <h5>服务介绍:</h5>
         <p><?php echo $serviceData['description']; ?></p>
   
@@ -117,16 +131,21 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
  
         <h5>服务信息:</h5>
         <ul data-role="listview" data-inset="true">
-            <li><?php echo $serviceData['stars']; ?>星服务 <span class="ui-li-count">6次咨询</span></li>
+            <li><?php echo $serviceData['stars']; ?>星服务 <span class="ui-li-count"><?php echo $serviceData['serve_count']; ?>次咨询</span></li>
             <li>服务地点: <span class="ui-li-count"><?php echo $serviceData['service_area']; ?></span></li>
             <li>服务类型: <span class="ui-li-count"><?php echo $servicetypeDesc; ?></span></li>
             <li>服务价格: <span class="ui-li-count">￥<?php echo $serviceData['service_price']; ?>/小时</span></li>
         </ul>
 
-        <h5>服务标签</h5>
+
+        <?php
+        $tags = $serviceData['tag'];
+        $tagsArray = explode(',',$tags);
+        if (strlen($tags) >0 && count($tagsArray) >0) {
+        ?>
+            <h5>服务标签</h5>
         <div class="ui-grid-a">
-            <?php $tags = $serviceData['tag'];
-            $tagsArray = explode(',',$tags);
+            <?php
             $loc = 'a';
             foreach ($tagsArray as $tag){ ?>
                 <div class="ui-block-<?php echo $loc;?>"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini"><?php echo $tag;?></a></div>
@@ -134,8 +153,55 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
                 $loc = $loc=='a'? 'b' : 'a';
             } ?>
         </div>
-    </div>
+        <?php }?>
 
+        <div style="text-align:center">
+            <h1 style="color:steelblue">卖家信息</h1>
+        </div>
+
+        <h5>卖家介绍:</h5>
+        <p><?php echo $sellerData['description']; ?></p>
+
+        <h5>卖家信息:</h5>
+        <ul data-role="listview" data-inset="true">
+            <li><?php echo $sellerData['stars']; ?>星卖家 <span class="ui-li-count"><?php echo $sellerData['serve_count']; ?>次履行服务</span></li>
+            <li>实名认证: <span class="ui-li-count"><?php echo $realnameStatusString; ?></span></li>
+        </ul>
+
+
+        <?php
+        $tagsSeller = $sellerData['tag'];
+        $tagsSellerArray = explode(',',$tagsSeller);
+        if (count($tagsSellerArray) >0) {
+            ?>
+            <h5>卖家标签</h5>
+            <div class="ui-grid-a">
+                <?php
+                $loc = 'a';
+                foreach ($tagsSellerArray as $tagSeller){ ?>
+                    <div class="ui-block-<?php echo $loc;?>"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini"><?php echo $tagSeller;?></a></div>
+                    <?php
+                    $loc = $loc=='a'? 'b' : 'a';
+                } ?>
+            </div>
+        <?php }?>
+
+        <?php if (isset($commentsData) && count($commentsData) >0) {?>
+            <div style="text-align:center">
+                <h1 style="color:steelblue">服务评论</h1>
+            </div>
+            <?php
+            foreach ($commentsData as $comment){ ?>
+                <div>
+                    <p>评论者:<?php echo $comment['customer_name'];?> 于 <?php echo $comment['creation_date']?><p>
+                    <p>评分等级:<?php echo $comment['stars'];?>星<p>
+                    <p>详细意见:<?php echo $comment['comments'];?><p>
+                </div>
+                <hr>
+            <?php } ?>
+        <?php }?>
+
+    </div>
 
     <div data-role="footer" data-position="fixed">
         <div data-role="navbar">

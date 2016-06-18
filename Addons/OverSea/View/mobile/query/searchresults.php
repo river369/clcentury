@@ -44,7 +44,7 @@ if (isset($_SESSION ['servicearea'])){
         <ul data-role="listview" data-inset="true">
             <li data-role="list-divider">
                 <?php $servicetypeDesc = $serviceData['service_type'] ==1 ? '旅游' : '留学';
-                echo $servicetypeDesc.":".$serviceData['stars']?>星服务 <span class="ui-li-count">6次咨询</span></li>
+                echo $servicetypeDesc.":".$serviceData['stars']?>星服务 <span class="ui-li-count"><?php echo $serviceData['serve_count']; ?>次履行服务</span></li>
             <li>
                 <a href="../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id=<?php echo $serviceData['id']; ?>" rel="external">
                     <img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $serviceData['seller_id'];?>/head.png" alt="">
@@ -123,7 +123,7 @@ if (isset($_SESSION ['servicearea'])){
                             itemIdx++;
                             servicetypeDesc = (value.service_type ==1) ? '旅游' : '留学';
                             var newstr = '<div id="d'+itemIdx+'"> <ul data-role="listview" data-inset="true">';
-                            newstr = newstr + '<li data-role="list-divider">'+ servicetypeDesc + ":" +value.stars+ '星服务 <span class="ui-li-count">6次咨询</span></li>';
+                            newstr = newstr + '<li data-role="list-divider">'+ servicetypeDesc + ":" +value.stars+ '星服务 <span class="ui-li-count">' +value.serve_count+ '次履行服务</span></li>';
                             newstr = newstr + '<li> <a href="../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id=' + value.id +'" rel="external">';
                             newstr = newstr + '<img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/' + value.seller_id + '/head.png" alt="">';
                             newstr = newstr + '<h2>'+ value.seller_name + '</h2>';

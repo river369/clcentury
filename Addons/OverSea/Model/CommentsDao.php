@@ -20,6 +20,21 @@ class CommentsDao extends BaseDao
         parent::__construct("yz_comments");
     }
 
+    public function getCommentsByServiceId($service_id)
+    {
+        try {
+            $sql = 'SELECT * FROM ' . parent::getTableName(). ' WHERE service_id= :service_id order by creation_date desc';
+            $parameter = array(':service_id' => $service_id);
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",sql=".$sql);
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",parameters=".json_encode($parameter));
+            $comments = MySqlHelper::fetchAll($sql, $parameter);
+            return $comments;
+        } catch (\Exception $e){
+            echo $e;
+            exit;
+        }
+    }
+
     public function getCommentsBySellerId($sellerId)
     {
         try {

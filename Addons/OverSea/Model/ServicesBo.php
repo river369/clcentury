@@ -15,6 +15,7 @@ use Addons\OverSea\Common\HttpHelper;
 use Addons\OverSea\Model\UsersDao;
 use Addons\OverSea\Model\QueryHistoryDao;
 use Addons\OverSea\Model\ServicesDao;
+use Addons\OverSea\Model\CommentsDao;
 
 require dirname(__FILE__).'/PicCrop.php';
 
@@ -46,7 +47,11 @@ class ServicesBo
         $service_id = HttpHelper::getVale('service_id');
         Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",service_id=".$service_id);
         $service = self::getServiceInfo($service_id);
-        self::getServicePictures($service['seller_id'], $service_id);
+        $seller_id = $service['seller_id'];
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",$seller_id=".$seller_id);
+        self::getCurrentSellerInfo($seller_id);
+        self::getServicePictures($seller_id, $service_id);
+        self::getCommentForService($service_id);
     }
 
     /**
@@ -63,12 +68,9 @@ class ServicesBo
      */
     public function getCurrentSellerInfo($sellerid) {
         unset($_SESSION['sellerData']);
-        $userID = $_SESSION['signedUser'];
-        if ($userID == $sellerid)  {
-            $userDao = new UsersDao();
-            $sellerData = $userDao ->getById($sellerid);
-            $_SESSION['sellerData']= $sellerData;
-        }
+        $userDao = new UsersDao();
+        $sellerData = $userDao ->getById($sellerid);
+        $_SESSION['sellerData']= $sellerData;
     }
 
     /**
@@ -82,6 +84,16 @@ class ServicesBo
             $_SESSION['serviceData']= $serviceData;
             return $serviceData;
         }
+    }
+
+    /**
+     * Get comments for a service
+     */
+    public function getCommentForService($serviceId) {
+        unset($_SESSION['commentsData']);
+        $commentsDao = new CommentsDao();
+        $commentsData = $commentsDao ->getCommentsByServiceId($serviceId);
+        $_SESSION['commentsData']= $commentsData;
     }
 
     /*
@@ -288,7 +300,6 @@ class ServicesBo
         } else {
             $servicesData=$serviceDao->getServicesByServiceTypeWithPage($serviceType, $pageIndexRange);
         }
-        
         if ($pageIndex > 0){
             //$retJson =  json_encode(array('status'=> 0, 'msg'=> 'done', 'serviceLists' => $servicesData));
             //Logs::writeClcLog(__CLASS__.",".__FUNCTION__." retJson=".$retJson);

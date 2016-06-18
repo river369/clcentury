@@ -35,4 +35,8 @@ http://www.clcentury.com/weiphp/Addons/OverSea/Controller/FreelookDispatcher.php
 //http://www.clcentury.com/weiphp/Addons/OverSea/Controller/AuthUserDispatcher.php?c=submityzpic
 http://www.clcentury.com/weiphp/Addons/OverSea/Controller/AuthUserDispatcher.php?c=mine
 
+[Admins]
+http://www.clcentury.com/weiphp/Addons/OverSea/View/admin/index.php
+
+
 

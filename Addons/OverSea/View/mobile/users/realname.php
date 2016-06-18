@@ -6,23 +6,12 @@
  * Time: 07:52
  */
 session_start();
+require dirname(__FILE__).'/../../../init.php';
+use Addons\OverSea\Common\BusinessHelper;
 $userid = $_SESSION['signedUser'];
 $existedUser = $_SESSION['signedUserInfo'] ;
 $status = $existedUser['status'];
-$statusString = '用户已经注册,请提交实名认证申请';
-switch ($status)
-{
-    case 20:
-        $statusString = "实名认证审核中";
-        break;
-    case 40:
-        $statusString = "实名认证被拒绝";
-        break;
-    case 60:
-        $statusString = "实名认证已通过";
-        break;
-
-}
+$statusString = BusinessHelper::translateRealNameStatus($status);
 
 $appId=$_SESSION['$appid'];
 $timestamp=$_SESSION['$timestamp'];
