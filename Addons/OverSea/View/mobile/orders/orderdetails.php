@@ -159,7 +159,7 @@ function getOrderStopReason($condition, $orderActions)
                 label: '买家评论',
             },
             <?php } ?>
-            <?php if ($lastAction < 80) {?>
+            <?php if ($lastAction < 100) {?>
             {
                 type: 'milestone',
                 label: '易知付款',

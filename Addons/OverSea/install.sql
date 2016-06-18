@@ -87,7 +87,8 @@ KEY `customer_id` (`customer_id`)
  1040 seller 已取消
  1060 customer 已取消
  60 customer 已确认完成
- 80 eknowhow已经支付
+ 80 评论完成
+ 100 eknowhow已经支付
 
 --order actions
 CREATE TABLE IF NOT EXISTS `clctravel`.`yz_order_actions` (
@@ -135,6 +136,25 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`yz_query_history` (
 PRIMARY KEY (`id`),
 KEY `user_id` (`user_id`)
 ) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
+
+--Comments
+CREATE TABLE IF NOT EXISTS `clctravel`.`yz_comments` (
+`id` bigint(12) NOT NULL AUTO_INCREMENT COMMENT '主键',
+`service_id` bigint(12)  NOT NULL COMMENT 'service to buy,foreign key',
+`order_id` bigint(12) NOT NULL COMMENT 'order Id, foreign key',
+`customer_id` bigint(12)  NOT NULL COMMENT 'The people to buy',
+`seller_id` bigint(12)  NOT NULL COMMENT 'The people to sell',
+`comments` text DEFAULT NULL  COMMENT '评论',
+`stars` int(3) DEFAULT 3  COMMENT '星',
+`creation_date` datetime  DEFAULT NULL COMMENT 'creation datetime',
+`update_date` datetime  DEFAULT NULL COMMENT 'update datetime',
+PRIMARY KEY (`id`),
+KEY `service_id` (`service_id`),
+KEY `order_id` (`order_id`),
+KEY `customer_id` (`customer_id`),
+KEY `seller_id` (`seller_id`)
+) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
+
 
 
 ------------------------Deprecated V3(1 user 1 service)-------------------------

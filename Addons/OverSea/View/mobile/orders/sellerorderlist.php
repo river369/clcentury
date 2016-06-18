@@ -63,8 +63,8 @@ $ordersStatus= $_SESSION['sellerOrdersStatus'];
             <?php if ($ordersStatus == 10) {?>
                 <li data-theme="c">
                     <div class="ui-grid-a">
-                        <div class="ui-block-a"><a href="#rejectDialog" data-rel="popup" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="rejectPopup('<?php echo $orderid; ?>')">拒绝</a></div>
-                        <div class="ui-block-b"><a href="#acceptDialog" data-rel="popup" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="acceptPopup('<?php echo $orderid; ?>')">确认接单</a></div>
+                        <div class="ui-block-a" align="left"><a href="#rejectDialog" data-rel="popup" class="ui-mini" onclick="rejectPopup('<?php echo $orderid; ?>')">拒绝订单</a></div>
+                        <div class="ui-block-b" align="right"><a href="#acceptDialog" data-rel="popup" class="ui-mini" onclick="acceptPopup('<?php echo $orderid; ?>')">确认接单</a></div>
                     </div>
                 </li>
             <?php } ?>
@@ -72,8 +72,8 @@ $ordersStatus= $_SESSION['sellerOrdersStatus'];
             <?php if ($ordersStatus == 20) {?>
                 <li data-theme="c">
                     <div class="ui-grid-a">
-                        <div class="ui-block-a"><a href="#cancelDialog" data-rel="popup" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="cancelPopup('<?php echo $orderid; ?>')">取消订单</a></div>
-                        <div class="ui-block-b"><a href="#finishDialog" data-rel="popup" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="finishPopup('<?php echo $orderid; ?>')">完成定单</a></div>
+                        <div class="ui-block-a" align="left"><a href="#cancelDialog" data-rel="popup" class="ui-mini" onclick="cancelPopup('<?php echo $orderid; ?>')">取消订单</a></div>
+                        <div class="ui-block-b" align="right"><a href="#finishDialog" data-rel="popup" class="ui-mini" onclick="finishPopup('<?php echo $orderid; ?>')">完成定单</a></div>
                     </div>
                 </li>
             <?php } ?>

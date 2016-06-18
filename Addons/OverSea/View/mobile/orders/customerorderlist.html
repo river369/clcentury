@@ -47,9 +47,10 @@
             </li>
             <li data-role="list-divider">订单号: 1 <p class="ui-li-aside">已购买: 2小时</p></li>
             <li data-role="list-divider">总计:  <p class="ui-li-aside">200元</p></li>
-            <li data-theme="c">
+            <li >
                 <div class="ui-grid-a" >
-                    <div class="ui-block-a"><a href="#confirmDialog"  data-rel="popup" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="confirmPopup('<?php echo $orderid; ?>')">确认完成</a></div>
+                    <div class="ui-block-a" align="left"><a href="#confirmDialog"  data-rel="popup" class="ui-shadow ui-corner-all ui-mini" onclick="confirmPopup('<?php echo $orderid; ?>')">确认完成</a></div>
+                    <div class="ui-block-b" align="right"><a href="#confirmDialog"  data-rel="popup" class="ui-shadow ui-corner-all ui-mini" onclick="confirmPopup('<?php echo $orderid; ?>')">确认完成</a></div>
                 </div>
             </li>
         </ul>

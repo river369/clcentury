@@ -124,7 +124,7 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
     <div data-role="content">
         <form id="submityz" data-ajax="false" method="post" action="../../../Controller/AuthUserDispatcher.php?c=publishServiceInfo">
                 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
-                    <legend>你的服务类型:</legend>
+                    <legend>您的服务类型:</legend>
                     <input name="service_type" id="radio-choice-c" value="1" <?php if (!isset($serviceData) ||$serviceData['service_type'] == 1) {echo 'checked="true"'; } ?> type="radio">
                     <label for="radio-choice-c">旅游</label>
                     <input name="service_type" id="radio-choice-d" value="2" <?php if ($serviceData['service_type'] == 2) {echo 'checked="true"'; } ?> type="radio">

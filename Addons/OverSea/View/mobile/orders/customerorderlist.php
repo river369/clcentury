@@ -62,17 +62,20 @@ $ordersStatus= $_SESSION['customerOrdersStatus'];
             <?php if ($ordersStatus <= 20) {?>
                 <li data-theme="c">
                     <div class="ui-grid-a">
-                        <div class="ui-block-a"><a href="#cancelDialog" data-rel="popup" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="cancelPopup('<?php echo $orderid; ?>')">取消</a></div>
                         <?php if ($orderStatus == 0) {?>
-                          <div class="ui-block-b"><a href="../../../Controller/AuthUserDispatcher.php?c=repayOrder&order_id=<?php echo $orderid; ?>" rel="external" class="ui-shadow ui-btn ui-corner-all ui-mini">去付款</a></div>
+                          <div class="ui-block-a" align="left"><a href="../../../Controller/AuthUserDispatcher.php?c=repayOrder&order_id=<?php echo $orderid; ?>" rel="external" class="ui-mini">去付款</a></div>
+                        <?php } else {?>
+                            <div class="ui-block-a" align="left"></div>
                         <?php } ?>
+                        <div class="ui-block-b" align="right"><a href="#cancelDialog" data-rel="popup" class="ui-mini" onclick="cancelPopup('<?php echo $orderid; ?>')">取消订单</a></div>
                     </div>
                 </li>
             <?php } ?>
             <?php if ($ordersStatus == 40) {?>
                 <li data-theme="c">
                     <div class="ui-grid-a">
-                        <div class="ui-block-a"><a href="#confirmDialog" data-rel="popup" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="confirmPopup('<?php echo $orderid; ?>')">确认完成</a></div>
+                        <div class="ui-block-a" align="left"></div>
+                        <div class="ui-block-b" align="right"><a href="#confirmDialog" data-rel="popup" class="ui-mini" onclick="confirmPopup('<?php echo $orderid; ?>')">确认完成</a></div>
                     </div>
                 </li>
             <?php } ?>

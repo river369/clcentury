@@ -69,7 +69,9 @@ $method_routes = array(
     'sellerFinishOrder' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'sellerFinishOrder', 
         'v'=>'./AuthUserDispatcher.php?c=querySellerOrders&status=40', 'd'=>'卖家完成订单'),
     'customerConfirmOrder' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'customerConfirmOrder', 
-        'v'=>'./AuthUserDispatcher.php?c=queryCustomerOrders&status=60', 'd'=>'买家完成订单'),
+        'v'=>'../View/mobile/orders/comment_order.php', 'd'=>'买家完成订单'), 
+    'customerCommnetOrder' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'customerCommentOrder',
+            'v'=>'./AuthUserDispatcher.php?c=queryCustomerOrders&status=60', 'd'=>'买家评论订单'),
     'customerCancelOrder' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'customerCancelOrder',
         'v'=>'./AuthUserDispatcher.php?c=queryCustomerOrders&status=1020,1040,1060', 'd'=>'买家取消订单'),
 

@@ -281,7 +281,7 @@ class ServicesBo
         $serviceDao = new ServicesDao();
 
         $pageIndex = isset($_GET ['pageIndex']) ? $_GET ['pageIndex'] : 0;
-        $pageIndexRange = $pageIndex * 2 .",". '2';
+        $pageIndexRange = $pageIndex * 10 .",". '10';
 
         if (isset($servicearea) && !empty($servicearea) && !is_null($servicearea) && $servicearea != '地球'){
             $servicesData=$serviceDao->getServicesByServiceTypeInAreaWithPage($serviceType, $servicearea, $pageIndexRange);
@@ -348,7 +348,7 @@ class ServicesBo
             $serviceDao = new ServicesDao();
 
             $pageIndex = isset($_GET ['pageIndex']) ? $_GET ['pageIndex'] : 0;
-            $pageIndexRange = $pageIndex * 2 . "," . '2';
+            $pageIndexRange = $pageIndex * 10 . "," . '10';
 
             if (isset($servicearea) && !empty($servicearea) && !is_null($servicearea) && $servicearea != '地球') {
                 $servicesData = $serviceDao->getServicesByKeyWordInAreaWithPage($keyWord, $servicearea, $pageIndexRange);

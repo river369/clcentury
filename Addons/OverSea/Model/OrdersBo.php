@@ -11,6 +11,8 @@ namespace Addons\OverSea\Model;
 use Addons\OverSea\Model\OrdersDao;
 use Addons\OverSea\Model\OrderActionsDao;
 use Addons\OverSea\Model\PaymentsDao;
+use Addons\OverSea\Model\CommentsDao;
+
 use Addons\OverSea\Common\Logs;
 
 class OrdersBo
@@ -93,11 +95,19 @@ class OrdersBo
     // Get order details
     public function getOrderDetailsById(){
         $orderId = $_GET['order_id'];
+        self::getOrderById($orderId);
+        self::getOrderActionsById($orderId);
+    }
+
+    public function getOrderById($orderId){
         $ordersDao = new OrdersDao();
         $orderDetail = $ordersDao->getById($orderId);
+        $_SESSION['orderDetail'] = $orderDetail;
+    }
+
+    public function getOrderActionsById($orderId){
         $orderActionsDao = new OrderActionsDao ();
         $orderActionDetails = $orderActionsDao->getOrderActionsByOrderId($orderId);
-        $_SESSION['orderDetail'] = $orderDetail;
         $_SESSION['orderActionDetails'] = $orderActionDetails;
     }
 
@@ -147,8 +157,30 @@ class OrdersBo
         $ordersDao = new OrdersDao();
         $ordersDao->updateCustomerOrderStatus($orderid, $status, $customerid);
         self::storeOrderActions($orderid, $status, 1);
+        self::getOrderById($orderid);
     }
 
+    public function customerCommentOrder() {
+        $comments = array();
+        $comments['service_id'] = $_POST ['service_id'];
+        $comments['order_id'] = $_POST ['order_id'];
+        $comments['seller_id'] = $_POST ['seller_id'];
+        $comments['customer_id'] = $_POST ['customer_id'];
+        $comments['stars'] = $_POST ['star'];
+        $comments['comments'] = isset($_POST ['comments']) ? trim($_POST ['comments']) : "";
+
+        $customer_id = $_SESSION['signedUser'];
+        if($customer_id == $comments['customer_id']){
+            $commentsDao = new CommentsDao();
+            $commentsDao->insert($comments);
+            $status = 80;
+            $order_id = $comments['order_id'];
+            $ordersDao = new OrdersDao();
+            $ordersDao->updateCustomerOrderStatus($order_id, $status, $customer_id);
+            self::storeOrderActions($order_id, $status, 1);
+        }
+    }
+    
     public function customerCancelOrder() {
         $orderid  = $_POST ['cancelorderid'];
         $reason = $_POST ['cancelreason'];

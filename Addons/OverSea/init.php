@@ -25,6 +25,7 @@ function initLoad()
     include_once dirname(__FILE__).'/Model/OrdersDao.php';
     include_once dirname(__FILE__).'/Model/OrderActionsDao.php';
     include_once dirname(__FILE__).'/Model/PaymentsDao.php';
+    include_once dirname(__FILE__).'/Model/CommentsDao.php';
     return true;
 }
 
