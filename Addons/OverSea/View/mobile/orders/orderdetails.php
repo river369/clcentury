@@ -41,6 +41,9 @@ function getOrderStatusString($condition)
             $orderStatus = "买家已将订单置为完成,等待易知付款";
             break;
         case 80:
+            $orderStatus = "买家完成评论";
+            break;
+        case 100:
             $orderStatus = "易知已经完成付款,订单结束";
             break;
 
@@ -145,6 +148,12 @@ function getOrderStopReason($condition, $orderActions)
             },
             <?php } ?>
             <?php if ($lastAction < 60) {?>
+            {
+                type: 'milestone',
+                label: '买家确认完成',
+            },
+            <?php } ?>
+            <?php if ($lastAction < 80) {?>
             {
                 type: 'milestone',
                 label: '买家评论',

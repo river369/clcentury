@@ -1,21 +1,23 @@
 
 <!DOCTYPE html>
-<html lang="zh-cmn-Hans">
+<!-- Camera is a Pixedelic free jQuery slideshow | Manuel Masia (designer and developer) -->
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-    <title>易知海外</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
+    <title>Camera | a free jQuery slideshow by Pixedelic</title>
+    <meta name="description" content="Camera a free jQuery slideshow with many effects, transitions, adaptive layout, easy to customize, using canvas and mobile ready">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <script src="../../resource/js/jquery/jquery-1.11.1.min.js"></script>
-    <script src="../../resource/js/camera/jquery.mobile.customized.min.js"></script>
     <script src="../../resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
-    <script src="../../resource/js/camera/camera.min.js" type="text/javascript"></script>
-    <script src="../../resource/js/camera/jquery.easing.1.3.js" type="text/javascript"></script>
-
+    <script src="../../resource/js/camera/jquery.min.js"></script>
+    <script type="text/javascript" src="../../resource/js/camera/jquery.easing.1.3.js"></script>
+    <script type="text/javascript" src="../../resource/js/camera/camera.min.js"></script>
+    <script type="text/javascript" src="../../resource/js/camera/jquery.mobile.customized.min.js"></script>
+    <link rel="stylesheet" href="../../resource/style/camera/camera.css" type="text/css" media="all">
 
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
-    <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
-    <link  href="../../resource/style/camera/camera.css" rel="Stylesheet" type="text/css" />
+    <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css"/>
 
     <style>
         body {
@@ -38,57 +40,52 @@
         .fluid_container {
             margin: 0 auto;
             max-width: 1000px;
-            width: 90%;
+            width: 100%;
         }
     </style>
 
-    <script type="text/javascript">
+    <script>
+        jQuery(function(){
 
-        $(function() {
+            jQuery('#camera_wrap_1').camera({
+                thumbnails: false,
+                loader: 'none',
+                portrait :true,
+                pagination : true,
+                height: '400px',
+                navigation : false,
+                playPause : false,
+                transPeriod: 500
 
-            $('#camera_wrap_1').camera({
-                time: 1000,
-                thumbnails:false
-            })
+            });
         });
     </script>
 
 </head>
 <body>
+
 <div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
-    <div data-role="header" data-position="fixed">
-        <h1>我提供的服务</h1>
+    <div data-role="header" data-position="fixed" data-theme="c">
+        <h1>我的</h1>
+    </div>
+    <div data-role="content" id="orderstatus">
+        <div class="fluid_container">
+            <p>Pagination circles with the height relative to the width</p>
+            <div class="camera_wrap camera_azure_skin" id="camera_wrap_1">
+                <div data-src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/1/head.png" data-fx = 'mosaicReverse'>
+                </div>
+                <div data-src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/pics/1/2/20160610142232_1.jpg" data-fx = 'mosaicReverse'>
+                </div>
+                <div data-src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/5/head.png" data-fx = 'mosaicReverse'>
+                </div>
+            </div><!-- #camera_wrap_1 -->
+        </div><!-- .fluid_container -->
     </div>
 
-    <div class="fluid_container">
-        <div class="camera_wrap camera_azure_skin" id="camera_wrap_1">
-            <div data-thumb="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/1/head.png"
-                 data-src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/pics/1/2/20160610142232_1.jpg">
-                <div class="camera_caption fadeFromBottom">
-                    第<em>1</em> 幅图片的说明文字
-                </div>
-            </div>
-            <div data-thumb="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/1/head.png"
-                 data-src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/pics/1/1/20160610130546_3.jpg">
-                <div class="camera_caption fadeFromBottom">
-                    第<em>2</em> 幅图片的说明文字
-                </div>
-            </div>
-            <div data-thumb="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/1/head.png"
-                 data-src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/pics/1/2/20160610142232_1.jpg">
-                <div class="camera_caption fadeFromBottom">
-                    第<em>3</em> 幅图片的说明文字
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <div data-role="footer" data-position="fixed">
+    <div data-role="footer" data-position="fixed" data-theme="c">
         <h4>Copyright (c) 2016 .</h4>
     </div>
 </div>
-
 </body>
 </html>
 
