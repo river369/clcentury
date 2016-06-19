@@ -28,7 +28,31 @@ class UsersBo
         $existedUser = $userDao ->getById($userid);
         $_SESSION['signedUserInfo'] = $existedUser;
     }
-    
+
+    public function changePassword(){
+        $origPassword= $_POST ['orig'];
+        $userData['password'] = isset($_POST ['new1']) ? trim($_POST ['new1']) : '';
+
+        $userid = $_SESSION['signedUser'];
+        $userDao = new UsersDao();
+        $existedUser = $userDao ->getById($userid);
+        if ($origPassword == $existedUser['password']){
+            $userid = $userDao ->update($userData,$_SESSION['signedUser']);
+            if ($userid == 0) {
+                $_SESSION['status'] = 's';
+                $_SESSION['message'] = "密码修改成功!";
+                $_SESSION['goto'] = "../../../Controller/AuthUserDispatcher.php?c=mine";
+            } else {
+                $_SESSION['status'] = 'f';
+                $_SESSION['message'] = '密码修改失败!';
+                $_SESSION['goto'] = "../../../Controller/AuthUserDispatcher.php?c=mine";
+            }
+        } else {
+            $_SESSION['$signInErrorMsg'] = '原密码不正确,无法修改密码,请重试!';
+            header('Location:'."../View/mobile/users/change_password.php");
+            exit;
+        }
+    }
     /**
      * Update User info
      */

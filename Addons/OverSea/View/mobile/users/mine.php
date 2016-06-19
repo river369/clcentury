@@ -65,6 +65,11 @@ $customerid = $_SESSION['signedUser'];
                 </a>
             </li>
             <li>
+                <a href="./change_password.php" rel="external">
+                    修改密码
+                </a>
+            </li>
+            <li>
                 <a href="../../../Controller/ClearSessions.php" rel="external">
                     退出登录
                 </a>
