@@ -38,57 +38,71 @@ $commentsData = $_SESSION['commentsData'];
 
     <script src="../../resource/js/jquery/jquery-1.11.1.min.js"></script>
     <script src="../../resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
-    <script src="../../resource/js/camera/jquery.min.js"></script>
-    <script src="../../resource/js/camera/jquery.easing.1.3.js"></script>
-    <script src="../../resource/js/camera/camera.min.js"></script>
-    <script type="text/javascript" src="../../resource/js/camera/jquery.mobile.customized.min.js"></script>
 
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile.theme-1.4.5.min.css" />
-    <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
-    <link rel="stylesheet" href="../../resource/style/camera/camera.css" type="text/css" media="all">
+    <script type="text/javascript" src="../../resource/js/jquery/jquery.simplyscroll.min.js"></script>
 
-    <style>
-        body {
+    <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
+    <link rel="stylesheet" href="../../resource/style/jquery/jquery.simplyscroll.css" media="all" type="text/css">
+    <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
+    
+    <style type="text/css">
+        /* Container DIV - automatically generated */
+        .simply-scroll-container {
+            position: relative;
+        }
+
+        /* Clip DIV - automatically generated */
+        .simply-scroll-clip {
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* UL/OL/DIV - the element that simplyScroll is inited on
+        Class name automatically added to element */
+        .simply-scroll-list {
+            overflow: hidden;
             margin: 0;
             padding: 0;
+            list-style: none;
         }
-        a {
-            color: #09f;
+
+        .simply-scroll-list li {
+            padding: 0;
+            margin: 0;
+            list-style: none;
         }
-        a:hover {
-            text-decoration: none;
-        }
-        #back_to_camera {
-            clear: both;
+
+        .simply-scroll-list li img {
+            border: none;
             display: block;
-            height: 80px;
-            line-height: 40px;
-            padding: 20px;
         }
-        .fluid_container {
-            margin: 0 auto;
-            max-width: 1000px;
-            width: 100%;
+
+        /* Custom class modifications - adds to / overrides above
+
+        .simply-scroll is default base class */
+
+        /* Container DIV */
+        .simply-scroll {
+            width: 576px;
+            height: 200px;
+            margin-bottom: 1em;
+        }
+
+        /* Clip DIV */
+        .simply-scroll .simply-scroll-clip {
+            width: 576px;
+            height: 200px;
+        }
+
+        /* Explicitly set height/width of each list item */
+        .simply-scroll .simply-scroll-list li {
+            float: left; /* Horizontal scroll only */
+            width: 290px;
+            height: 200px;
         }
     </style>
-
-    <script>
-        jQuery(function(){
-
-            jQuery('#camera_wrap_1').camera({
-                thumbnails: false,
-                loader: 'none',
-                portrait :false,
-                pagination : true,
-                height: '450px',
-                navigation : false,
-                playPause : false,
-                transPeriod: 500
-
-            });
-        });
-    </script>
 
 </head>
 <body>
@@ -106,13 +120,11 @@ $commentsData = $_SESSION['commentsData'];
   
         <h5>图片:</h5>
         <?php if (sizeof($objArray) > 0) { ?>
-            <div class="fluid_container">
-                <div class="camera_wrap camera_azure_skin" id="camera_wrap_1">
-                    <?php foreach ($objArray as $obj) { ?>
-                    <div data-src="<?php echo $imageurl.$obj; ?>" data-fx='mosaicReverse'></div>
-                    <?php } ?>
-                </div><!-- #camera_wrap_1 -->
-            </div><!-- .fluid_container -->
+            <ul id="scroller">
+                <?php foreach ($objArray as $obj) { ?>
+                    <li><img src="<?php echo $imageurl.$obj; ?>" width="290" height="200"></li>
+                <?php } ?>
+            </ul>
         <?php } else { ?>
             <p>未上传图片</p>
         <?php } ?>
@@ -200,6 +212,14 @@ $commentsData = $_SESSION['commentsData'];
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    (function($) {
+        $(function() { //on DOM ready
+            $("#scroller").simplyScroll();
+        });
+    })(jQuery);
+</script>
 
 </body>
 </html>

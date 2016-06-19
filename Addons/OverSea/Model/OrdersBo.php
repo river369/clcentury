@@ -101,7 +101,7 @@ class OrdersBo
 
         $orderStatus = $orderDetail['status'];
         unset($_SESSION['sellerData']);
-        if ($orderStatus > 0 and $orderStatus < 1000){
+        if ($orderStatus >= 20 and $orderStatus < 1000){
             self::getSellerById($orderDetail['seller_id']);
         }
     }

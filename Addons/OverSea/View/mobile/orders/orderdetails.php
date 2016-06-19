@@ -82,7 +82,7 @@ function getOrderStopReason($condition, $orderActions)
                     <li data-role="list-divider">微信号: <span class="ui-li-count"><?php echo $sellerData['weixin'];?></span></li>
                 </ul>
             <?php } else {?>
-                <h5>付款后可以获取卖家联系方式</h5>
+                <h5>买家付款,卖家接收后即可显示卖家联系方式</h5>
             <?php } ?>
 
 
