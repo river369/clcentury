@@ -156,7 +156,6 @@ $commentsData = $_SESSION['commentsData'];
             <li>实名认证: <span class="ui-li-count"><?php echo $realnameStatusString; ?></span></li>
         </ul>
 
-
         <?php
         $tagsSeller = $sellerData['tag'];
         $tagsSellerArray = explode(',',$tagsSeller);
@@ -173,6 +172,10 @@ $commentsData = $_SESSION['commentsData'];
                 } ?>
             </div>
         <?php }?>
+
+        <h5>卖家<?php echo $serviceData['seller_name'];?>的其他服务:</h5>
+        <a href="../../../Controller/AuthUserDispatcher.php?c=sellerPublishedServices&sellerid=<?php echo $seller_id;?>" rel="external">点击查看</a>
+
 
         <div style="text-align:center">
             <h2 style="color:steelblue">服务评论</h2>

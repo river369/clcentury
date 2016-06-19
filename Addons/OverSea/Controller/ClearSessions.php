@@ -43,7 +43,8 @@ setcookie("signedUser", "", time()-1000);
 unset($_SESSION['signedUser']);
 unset($_SESSION['weixinOpenid']);
 unset($_SESSION['weixinOpenidTried']);
-unset($_SESSION['serviceData'], $_SESSION['sellerData'], $_SESSION['commentsData'], $_SESSION['$timestamp'], $_SESSION['$nonceStr'], $_SESSION['$signature']);
+unset($_SESSION['$timestamp'], $_SESSION['$nonceStr'], $_SESSION['$signature']);
+unset($_SESSION['serviceData'], $_SESSION['sellerData'], $_SESSION['commentsData'], $_SESSION['myServices']);
 unset($_SESSION['objArray']);
 
 ?>

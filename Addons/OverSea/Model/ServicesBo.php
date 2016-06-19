@@ -246,6 +246,16 @@ class ServicesBo
             $_SESSION['querystatus'] = $status;
         }
     }
+
+    /**
+     * Get my service list
+     */
+    public function getSellerPublishedServices(){
+        $sellerid = HttpHelper::getVale('sellerid');
+        $serviceDao = new ServicesDao();
+        $servicesData = $serviceDao->getSellerPublishedServices($sellerid);
+        $_SESSION['servicesData'] = $servicesData;
+    }
     
     /**
      * delete a service with service id, reason for seller themselves

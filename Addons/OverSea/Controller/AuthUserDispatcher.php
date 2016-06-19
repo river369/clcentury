@@ -81,6 +81,8 @@ $method_routes = array(
     'searchMainPage' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'getQueryHistory','v'=>'../View/mobile/query/search.php','d'=>'搜索主页'),
     'searchByKeyWord' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'getServicesByKey','v'=>'../View/mobile/query/searchresults.php','d'=>'搜索结果列表'),
     'deleteKeyWordById' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'deleteKeyWordById','v'=>'../View/mobile/query/search.php','d'=>'搜索主页'),
+    'sellerPublishedServices' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'getSellerPublishedServices',
+        'v'=>'../View/mobile/query/seller_published_services.php','d'=>'查看卖家的主页'),
     
 );
 
