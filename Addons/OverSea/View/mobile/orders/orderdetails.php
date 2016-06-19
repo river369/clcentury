@@ -12,6 +12,7 @@ use Addons\OverSea\Common\BusinessHelper;
 $order= $_SESSION['orderDetail'];
 $orderActions = $_SESSION['orderActionDetails'] ;
 $commentsData = $_SESSION['commentsData'];
+$sellerData = $_SESSION['sellerData'];
 
 $orderStatus = BusinessHelper::translateOrderStatus($order['status']);
 $orderStopReason = getOrderStopReason($order['status'], $orderActions);
@@ -51,8 +52,8 @@ function getOrderStopReason($condition, $orderActions)
     <div role="main" class="ui-content">
         <div data-role="navbar">
             <ul>
-                <li><a href="javascript:showStatus()">订单状态(北京时间)</a></li>
                 <li><a href="javascript:showOrderDetail()" class="ui-btn-active">订单详情</a></li>
+                <li><a href="javascript:showStatus()">订单状态(北京时间)</a></li>
             </ul>
         </div><!-- /navbar -->
         <div data-role="content" id="orderstatus">
@@ -74,6 +75,17 @@ function getOrderStopReason($condition, $orderActions)
                 <li data-role="list-divider">已购买: <span class="ui-li-count"><?php echo $order['service_hours'];?>小时</span></li>
                 <li data-role="list-divider">总计: <span class="ui-li-count"><?php echo $order['service_total_fee'];?>元</span></li>
             </ul>
+            <br>
+            <h4 style="color:steelblue">卖家联系方式</h4>
+            <?php if (isset($sellerData)) {?>
+                <ul data-role="listview" data-inset="true">
+                    <li data-role="list-divider">微信号: <span class="ui-li-count"><?php echo $sellerData['weixin'];?></span></li>
+                </ul>
+            <?php } else {?>
+                <h5>付款后可以获取卖家联系方式</h5>
+            <?php } ?>
+
+
             <br>
             <h4 style="color:steelblue">客户评论</h4>
             <?php if (isset($commentsData) && count($commentsData) >0) {?>

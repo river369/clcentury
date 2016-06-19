@@ -32,8 +32,18 @@ class ServicesBo
         $service_id = HttpHelper::getVale('service_id');
         $userID = $_SESSION['signedUser'];
         Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",userId=".$userID.",sellerId=".$sellerid.",service_id=".$service_id);
-        
-        self::getCurrentSellerInfo($sellerid);
+
+        $sellerData = self::getCurrentSellerInfo($sellerid);
+        $sellerName = $sellerData['name'];
+        $weixin = $sellerData['weixin'];
+
+        if (!isset($sellerName) || strlen($sellerName) == 0 || !isset($weixin) || strlen($weixin) == 0){
+            $_SESSION['status'] = 'f';
+            $_SESSION['message'] = '用户信息不完善,请完善个人信息,确保微信号,昵称已填写完毕!';
+            $_SESSION['goto'] = "../../../Controller/AuthUserDispatcher.php?c=mine";
+            header('Location:../View/mobile/common/message.php');
+            exit;
+        }
         self::getServiceInfo($service_id);
         WeixinHelper::prepareWeixinPicsParameters("/weiphp/Addons/OverSea/View/mobile/service/publishservice.php");
         self::getServicePictures($sellerid, $service_id);
@@ -71,6 +81,7 @@ class ServicesBo
         $userDao = new UsersDao();
         $sellerData = $userDao ->getById($sellerid);
         $_SESSION['sellerData']= $sellerData;
+        return $sellerData;
     }
 
     /**

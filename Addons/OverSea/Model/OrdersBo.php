@@ -95,15 +95,22 @@ class OrdersBo
     // Get order details
     public function getOrderDetailsById(){
         $orderId = $_GET['order_id'];
-        self::getOrderById($orderId);
+        $orderDetail = self::getOrderById($orderId);
         self::getOrderActionsById($orderId);
         self::getCommentForOrder($orderId);
+
+        $orderStatus = $orderDetail['status'];
+        unset($_SESSION['sellerData']);
+        if ($orderStatus > 0 and $orderStatus < 1000){
+            self::getSellerById($orderDetail['seller_id']);
+        }
     }
 
     public function getOrderById($orderId){
         $ordersDao = new OrdersDao();
         $orderDetail = $ordersDao->getById($orderId);
         $_SESSION['orderDetail'] = $orderDetail;
+        return $orderDetail;
     }
 
     public function getOrderActionsById($orderId){
@@ -117,6 +124,13 @@ class OrdersBo
         $commentsData = $commentsDao ->getCommentsByOrderId($orderId);
         $_SESSION['commentsData']= $commentsData;
     }
+
+    public function getSellerById($sellId) {
+        $userDao = new UsersDao();
+        $userData=$userDao->getById($sellId);
+        $_SESSION['sellerData']= $userData;
+    }
+
 
     // Order Operations
     public function sellerRejectOrder() {
