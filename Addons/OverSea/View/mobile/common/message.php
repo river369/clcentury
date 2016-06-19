@@ -16,6 +16,10 @@ if (isset($_GET['goto'])) {
 if (isset($_GET['goto_type'])){
     if ($_GET['goto_type'] == 'service_list'){
         $goto = '../../../Controller/FreelookDispatcher.php?c=getServices';
+    } else if ($_GET['goto_type'] == 'order_list') {
+        $goto = '../../../Controller/AuthUserDispatcher.php?c=queryCustomerOrders&status=0,10' ;
+    } else if ($_GET['goto_type'] == 'order_detail') {
+        $goto = '../../../Controller/AuthUserDispatcher.php?c=queryOrderDetails&order_id='.$_GET['order_id'];
     }
 }
 ?>

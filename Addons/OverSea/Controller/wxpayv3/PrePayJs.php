@@ -71,7 +71,7 @@ $jsApiParameters = $tools->GetJsApiParameters($order);
 					if(res.err_msg=='get_brand_wcpay_request:ok'){
 						//document.getElementById('payDom').style.display='none';
 						document.getElementById('successDom').style.display='block';
-     					window.location.href = '../../View/mobile/common/message.php?status=s&message=创建订单成功,谢谢!&goto_type=service_list';
+     					window.location.href = '../../View/mobile/common/message.php?status=s&message=创建订单成功,谢谢!&goto_type=order_list';
 					}else{
 						//document.getElementById('payDom').style.display='none';
 						document.getElementById('failDom').style.display='block';

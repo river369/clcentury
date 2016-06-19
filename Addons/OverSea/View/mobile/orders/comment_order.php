@@ -39,6 +39,8 @@ $orderDetail = $_SESSION['orderDetail'];
             <input type="hidden" name="order_id" id="order_id"  value="<?php echo $orderDetail['id'];?>"/>
             <input type="hidden" name="customer_id" id="customer_id"  value="<?php echo $orderDetail['customer_id'];?>"/>
             <input type="hidden" name="seller_id" id="seller_id"  value="<?php echo $orderDetail['seller_id']; ?>"/>
+            <input type="hidden" name="customer_name" id="customer_name"  value="<?php echo $orderDetail['customer_name'];?>"/>
+            <input type="hidden" name="seller_name" id="seller_name"  value="<?php echo $orderDetail['seller_name']; ?>"/>
             <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
                 <legend>本次服务体验:</legend>
                 <input name="star" id="star1" value="1" type="radio">

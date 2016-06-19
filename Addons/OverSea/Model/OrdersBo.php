@@ -97,6 +97,7 @@ class OrdersBo
         $orderId = $_GET['order_id'];
         self::getOrderById($orderId);
         self::getOrderActionsById($orderId);
+        self::getCommentForOrder($orderId);
     }
 
     public function getOrderById($orderId){
@@ -109,6 +110,12 @@ class OrdersBo
         $orderActionsDao = new OrderActionsDao ();
         $orderActionDetails = $orderActionsDao->getOrderActionsByOrderId($orderId);
         $_SESSION['orderActionDetails'] = $orderActionDetails;
+    }
+    
+    public function getCommentForOrder($orderId) {
+        $commentsDao = new CommentsDao();
+        $commentsData = $commentsDao ->getCommentsByOrderId($orderId);
+        $_SESSION['commentsData']= $commentsData;
     }
 
     // Order Operations
@@ -166,6 +173,8 @@ class OrdersBo
         $comments['order_id'] = $_POST ['order_id'];
         $comments['seller_id'] = $_POST ['seller_id'];
         $comments['customer_id'] = $_POST ['customer_id'];
+        $comments['seller_name'] = $_POST ['seller_name'];
+        $comments['customer_name'] = $_POST ['customer_name'];
         $comments['stars'] = $_POST ['star'];
         $comments['comments'] = isset($_POST ['comments']) ? trim($_POST ['comments']) : "";
 

@@ -11,6 +11,8 @@ use Addons\OverSea\Common\BusinessHelper;
 
 $order= $_SESSION['orderDetail'];
 $orderActions = $_SESSION['orderActionDetails'] ;
+$commentsData = $_SESSION['commentsData'];
+
 $orderStatus = BusinessHelper::translateOrderStatus($order['status']);
 $orderStopReason = getOrderStopReason($order['status'], $orderActions);
 
@@ -46,32 +48,50 @@ function getOrderStopReason($condition, $orderActions)
     <div data-role="header" data-position="fixed" data-theme="c">
         <h1>订单详情</h1>
     </div>
-    <div data-role="navbar">
-        <ul>
-            <li><a href="javascript:showStatus()">订单状态(北京时间)</a></li>
-            <li><a href="javascript:showOrderDetail()" class="ui-btn-active">订单详情</a></li>
-        </ul>
-    </div><!-- /navbar -->
-    <div data-role="content" id="orderstatus">
-        <div id="timeline-container-basic" type="text"></div>
-    </div>
+    <div role="main" class="ui-content">
+        <div data-role="navbar">
+            <ul>
+                <li><a href="javascript:showStatus()">订单状态(北京时间)</a></li>
+                <li><a href="javascript:showOrderDetail()" class="ui-btn-active">订单详情</a></li>
+            </ul>
+        </div><!-- /navbar -->
+        <div data-role="content" id="orderstatus">
+            <div id="timeline-container-basic" type="text"></div>
+        </div>
 
-    <div data-role="content" id="orderdetail">
-        <ul data-role="listview" data-inset="true">
-            <li data-role="list-divider">订单号: <span class="ui-li-count"><?php echo $order['id'];?></span></li>
-            <li data-role="list-divider">订单状态: <span class="ui-li-count"><?php echo $orderStatus;?></span></li>
-            <li data-role="list-divider">卖家: <span class="ui-li-count"><?php echo $order['seller_name'];?></span></li>
-            <li data-role="list-divider">买家: <span class="ui-li-count"><?php echo $order['customer_name'];?></span></li>
-            <?php if(!is_null($orderStopReason) && !empty($orderStopReason)){ ?>
-                <li data-role="list-divider">订单停止原因: <span class="ui-li-count"><?php echo $orderStopReason;?></span></li>
+        <div data-role="content" id="orderdetail">
+            <h4 style="color:steelblue">订单信息</h4>
+            <ul data-role="listview" data-inset="true">
+                <li data-role="list-divider">订单号: <span class="ui-li-count"><?php echo $order['id'];?></span></li>
+                <li data-role="list-divider">订单状态: <span class="ui-li-count"><?php echo $orderStatus;?></span></li>
+                <li data-role="list-divider">卖家: <span class="ui-li-count"><?php echo $order['seller_name'];?></span></li>
+                <li data-role="list-divider">买家: <span class="ui-li-count"><?php echo $order['customer_name'];?></span></li>
+                <?php if(!is_null($orderStopReason) && !empty($orderStopReason)){ ?>
+                    <li data-role="list-divider">订单停止原因: <span class="ui-li-count"><?php echo $orderStopReason;?></span></li>
+                <?php } ?>
+                <li data-role="list-divider">买家咨询话题: <span class="ui-li-count"><?php echo $order['request_message'];?></span></li>
+                <li data-role="list-divider">价格: <span class="ui-li-count">￥<?php echo $order['service_price'];?>/小时</span></li>
+                <li data-role="list-divider">已购买: <span class="ui-li-count"><?php echo $order['service_hours'];?>小时</span></li>
+                <li data-role="list-divider">总计: <span class="ui-li-count"><?php echo $order['service_total_fee'];?>元</span></li>
+            </ul>
+            <br>
+            <h4 style="color:steelblue">客户评论</h4>
+            <?php if (isset($commentsData) && count($commentsData) >0) {?>
+                <?php
+                foreach ($commentsData as $comment){ ?>
+                    <div>
+                        <p>评论者:<?php echo $comment['customer_name'];?> 于 <?php echo $comment['creation_date']?><p>
+                        <p>评分等级:<?php echo $comment['stars'];?>星<p>
+                        <p>详细意见:<?php echo $comment['comments'];?><p>
+                    </div>
+                    <hr>
+                <?php } ?>
+            <?php } else {?>
+                <h5>暂无评论</h5>
             <?php } ?>
-            <li data-role="list-divider">买家咨询话题: <span class="ui-li-count"><?php echo $order['request_message'];?></span></li>
-            <li data-role="list-divider">价格: <span class="ui-li-count">￥<?php echo $order['service_price'];?>/小时</span></li>
-            <li data-role="list-divider">已购买: <span class="ui-li-count"><?php echo $order['service_hours'];?>小时</span></li>
-            <li data-role="list-divider">总计: <span class="ui-li-count"><?php echo $order['service_total_fee'];?>元</span></li>
-        </ul>
-    </div>
+        </div>
 
+    </div>
     <div data-role="footer" data-position="fixed" data-theme="c">
         <h4>Copyright (c) 2016 .</h4>
     </div>

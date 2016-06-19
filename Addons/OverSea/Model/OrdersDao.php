@@ -69,7 +69,7 @@ class OrdersDao extends BaseDao
     {
         try {
             //$sql = 'SELECT * FROM ' . parent::getTableName(). ' WHERE seller_id= :seller_id and status in ( :status )';
-            $sql = 'SELECT * FROM ' . parent::getTableName(). ' WHERE seller_id= :seller_id and status in (' . $status . ')';
+            $sql = 'SELECT * FROM ' . parent::getTableName(). ' WHERE seller_id= :seller_id and status in (' . $status . ') order by creation_date desc';
             //$parameter = array(':seller_id' => $seller_id, ':status' => $status);
             $parameter = array(':seller_id' => $seller_id);
             Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",sql=".$sql);
@@ -85,7 +85,7 @@ class OrdersDao extends BaseDao
     public function getOrdersByCustomerAndStatus($customer_id, $status)
     {
         try {
-            $sql = 'SELECT * FROM ' . parent::getTableName(). ' WHERE customer_id= :customer_id and status in (' . $status . ')';
+            $sql = 'SELECT * FROM ' . parent::getTableName(). ' WHERE customer_id= :customer_id and status in (' . $status . ') order by creation_date desc';
             //$sql = "SELECT * FROM " . parent::getTableName(). " WHERE customer_id= :customer_id and status in ( :status )";
             $parameter = array(':customer_id' => $customer_id);
             //$parameter = array(':customer_id' => $customer_id, ':status' => $status);

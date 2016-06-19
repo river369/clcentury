@@ -113,7 +113,7 @@ $commentsData = $_SESSION['commentsData'];
 
     <div data-role="content">
         <div style="text-align:center">
-            <h1 style="color:steelblue">服务信息</h1>
+            <h2 style="color:steelblue">服务信息</h2>
         </div>
         <h5>服务介绍:</h5>
         <p><?php echo $serviceData['description']; ?></p>
@@ -156,7 +156,7 @@ $commentsData = $_SESSION['commentsData'];
         <?php }?>
 
         <div style="text-align:center">
-            <h1 style="color:steelblue">卖家信息</h1>
+            <h2 style="color:steelblue">卖家信息</h2>
         </div>
 
         <h5>卖家介绍:</h5>
@@ -186,11 +186,10 @@ $commentsData = $_SESSION['commentsData'];
             </div>
         <?php }?>
 
-        <?php if (isset($commentsData) && count($commentsData) >0) {?>
-            <div style="text-align:center">
-                <h1 style="color:steelblue">服务评论</h1>
-            </div>
-            <?php
+        <div style="text-align:center">
+            <h2 style="color:steelblue">服务评论</h2>
+        </div>
+        <?php if (isset($commentsData) && count($commentsData) >0) {
             foreach ($commentsData as $comment){ ?>
                 <div>
                     <p>评论者:<?php echo $comment['customer_name'];?> 于 <?php echo $comment['creation_date']?><p>
@@ -199,7 +198,9 @@ $commentsData = $_SESSION['commentsData'];
                 </div>
                 <hr>
             <?php } ?>
-        <?php }?>
+        <?php } else {?>
+            <h5>暂无评论</h5>
+        <?php } ?>
 
     </div>
 
