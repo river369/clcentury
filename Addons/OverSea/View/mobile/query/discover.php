@@ -24,9 +24,35 @@ if (isset($_SESSION ['servicearea'])){
 
     <script src="../../resource/js/jquery/jquery-1.11.1.min.js"></script>
     <script src="../../resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
+    <script src="../../resource/js/rater/rater.min.js"></script>
 
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
     <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
+   
+    <script>
+        $(document).ready(function(){
+            var options = {
+                max_value: 5,
+                step_size: 0.5,
+                initial_value: 3.5,
+            }
+            $(".rate").rate(options);
+        });
+    </script>
+    <style>
+        .rate-base-layer
+        {
+            color: #aaa;
+        }
+        .rate-hover-layer
+        {
+            color: orange;
+        }
+        .rate-select-layer
+        {
+            color:orange;
+        }
+    </style>
 </head>
 <body>
 <div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
@@ -48,7 +74,7 @@ if (isset($_SESSION ['servicearea'])){
                 {
             ?>
         <ul data-role="listview" data-inset="true">
-            <li data-role="list-divider"><?php echo $serviceData['stars']?>星服务 <span class="ui-li-count"><?php echo $serviceData['serve_count']; ?>次履行服务</span></li>
+            <li data-role="list-divider"><?php echo $serviceData['stars']?>星服务 <span class="ui-li-count"><div class="rate"></div></li>
             <li>
                 <a href="../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id=<?php echo $serviceData['id']; ?>" rel="external">
                     <img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $serviceData['seller_id'];?>/head.png" alt="">
@@ -126,7 +152,7 @@ if (isset($_SESSION ['servicearea'])){
                         jQuery.each(result.objLists,function(key,value){
                             itemIdx++;
                             var newstr = '<div id="d'+itemIdx+'"> <ul data-role="listview" data-inset="true">';
-                            newstr = newstr + '<li data-role="list-divider">' +value.stars+ '星服务 <span class="ui-li-count">' +value.serve_count+ '次履行服务</span></li>';
+                            newstr = newstr + '<li data-role="list-divider">' +value.stars+ '星服务 <span class="ui-li-count"><div class="rate"></div></span></li>';
                             newstr = newstr + '<li> <a href="../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id=' + value.id +'" rel="external">';
                             newstr = newstr + '<img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/' + value.seller_id + '/head.png" alt="">';
                             newstr = newstr + '<h2>'+ value.seller_name + '</h2>';
