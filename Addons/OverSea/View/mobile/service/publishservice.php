@@ -162,9 +162,7 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
         </div>
     </div>
 
-    <div data-role="footer" data-position="fixed" data-theme="d">
-        <h4>Copyright (c) 2016 .</h4>
-    </div>
+    <?php include '../common/footer.php';?>
 </div>
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script>

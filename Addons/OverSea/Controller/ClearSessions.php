@@ -49,7 +49,7 @@ unset($_SESSION['objArray']);
 
 $_SESSION['status'] = 's';
 $_SESSION['message'] = "成功退出!";
-$_SESSION['goto'] = "../../../Controller/AuthUserDispatcher.php?c=mine";
+$_SESSION['goto'] = "../../../Controller/FreelookDispatcher.php?c=getServices";
 header('Location:'."../View/mobile/common/message.php");
 exit;
 ?>

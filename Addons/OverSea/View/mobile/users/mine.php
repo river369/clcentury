@@ -40,16 +40,6 @@ $customerid = $_SESSION['signedUser'];
                 </a>
             </li>
             <li>
-                <a href="../../../Controller/AuthUserDispatcher.php?c=publishRealName&userid=<?php echo $customerid;?>" rel="external">
-                    申请实名认证
-                </a>
-            </li>
-            <li>
-                <a href="../../../Controller/AuthUserDispatcher.php?c=publishService&sellerid=<?php echo $customerid;?>" rel="external">
-                    发布易知服务
-                </a>
-            </li>
-            <li>
                 <a href="../../../Controller/AuthUserDispatcher.php?c=myServices&sellerid=<?php echo $customerid;?>&status=20" rel="external">
                     我发布的易服务知列表
                 </a>
@@ -62,6 +52,11 @@ $customerid = $_SESSION['signedUser'];
             <li>
                 <a href="../../../Controller/AuthUserDispatcher.php?c=querySellerOrders&sellerid=<?php echo $customerid;?>&status=10" rel="external">
                     购买我服务的订单
+                </a>
+            </li>
+            <li>
+                <a href="../../../Controller/AuthUserDispatcher.php?c=publishRealName&userid=<?php echo $customerid;?>" rel="external">
+                    申请实名认证
                 </a>
             </li>
             <li>
@@ -125,9 +120,7 @@ $customerid = $_SESSION['signedUser'];
         <div class="loading" id="loading" aria-label="Loading" role="img" tabindex="-1"></div>
     </div>
 
-    <div data-role="footer" data-position="fixed" data-theme="c">
-        <h4>Copyright (c) 2016 .</h4>
-    </div>
+    <?php include '../common/footer.php';?>
 </div>
 <script src="../../resource/js/cropper/cropper.min.js"></script>
 <script src="../../resource/js/cropper/main.js"></script>

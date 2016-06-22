@@ -97,113 +97,136 @@ $commentsData = $_SESSION['commentsData'];
         <h1><?php echo $serviceData['seller_name']; ?>的服务</h1>
     </div>
 
-    <div data-role="content">
-        <div style="text-align:center">
-            <h2 style="color:steelblue">服务信息</h2>
-        </div>
-        <h5>服务介绍:</h5>
-        <p><?php echo $serviceData['description']; ?></p>
-  
-        <h5>图片:</h5>
-        <?php if (sizeof($objArray) > 0) { ?>
-            <div class="fluid_container">
-                <div class="camera_wrap camera_azure_skin" id="camera_wrap_1">
-                    <?php foreach ($objArray as $obj) { ?>
-                    <div data-src="<?php echo $imageurl.$obj; ?>" data-fx='mosaicReverse'></div>
-                    <?php } ?>
-                </div><!-- #camera_wrap_1 -->
-            </div><!-- .fluid_container -->
-        <?php } else { ?>
-            <p>未上传图片</p>
-        <?php } ?>
- 
-        <h5>服务信息:</h5>
-        <ul data-role="listview" data-inset="true">
-            <li><?php echo $serviceData['stars']; ?>星服务 <span class="ui-li-count"><?php echo $serviceData['serve_count']; ?>次咨询</span></li>
-            <li>服务地点: <span class="ui-li-count"><?php echo $serviceData['service_area']; ?></span></li>
-            <li>服务类型: <span class="ui-li-count"><?php echo $servicetypeDesc; ?></span></li>
-            <li>服务价格: <span class="ui-li-count">￥<?php echo $serviceData['service_price']; ?>/小时</span></li>
-        </ul>
+    <div role="main" class="ui-content">
+        <div data-role="navbar">
+            <ul>
+                <li><a href="javascript:showServices()" class="ui-btn-active">服务信息</a></li>
+                <li><a href="javascript:showSellers()">卖家信息</a></li>
+                <li><a href="javascript:showComments()">服务评论</a></li>
+            </ul>
+        </div><!-- /navbar -->
 
+        <div data-role="content" id="serviceInfo">
 
-        <?php
-        $tags = $serviceData['tag'];
-        $tagsArray = explode(',',$tags);
-        if (strlen($tags) >0 && count($tagsArray) >0) {
-        ?>
-            <h5>服务标签</h5>
-        <div class="ui-grid-a">
+            <h4 style="color:steelblue"> 图片:</h4>
+            <?php if (sizeof($objArray) > 0) { ?>
+                <div class="fluid_container">
+                    <div class="camera_wrap camera_azure_skin" id="camera_wrap_1">
+                        <?php foreach ($objArray as $obj) { ?>
+                        <div data-src="<?php echo $imageurl.$obj; ?>" data-fx='mosaicReverse'></div>
+                        <?php } ?>
+                    </div><!-- #camera_wrap_1 -->
+                </div><!-- .fluid_container -->
+            <?php } else { ?>
+                <p>未上传图片</p>
+            <?php } ?>
+
+            <h4 style="color:steelblue">服务介绍:</h4>
+            <p><?php echo $serviceData['description']; ?></p>
+
+            <h4 style="color:steelblue">服务信息:</h4>
+            <ul data-role="listview" data-inset="true">
+                <li><?php echo $serviceData['stars']; ?>星服务 <span class="ui-li-count"><?php echo $serviceData['serve_count']; ?>次咨询</span></li>
+                <li>服务地点: <span class="ui-li-count"><?php echo $serviceData['service_area']; ?></span></li>
+                <li>服务类型: <span class="ui-li-count"><?php echo $servicetypeDesc; ?></span></li>
+                <li>服务价格: <span class="ui-li-count">￥<?php echo $serviceData['service_price']; ?>/小时</span></li>
+            </ul>
+
             <?php
-            $loc = 'a';
-            foreach ($tagsArray as $tag){ ?>
-                <div class="ui-block-<?php echo $loc;?>"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini"><?php echo $tag;?></a></div>
-            <?php
-                $loc = $loc=='a'? 'b' : 'a';
-            } ?>
-        </div>
-        <?php }?>
-
-        <div style="text-align:center">
-            <h2 style="color:steelblue">卖家信息</h2>
-        </div>
-
-        <h5>卖家介绍:</h5>
-        <p><?php echo $sellerData['description']; ?></p>
-
-        <h5>卖家信息:</h5>
-        <ul data-role="listview" data-inset="true">
-            <li><?php echo $sellerData['stars']; ?>星卖家 <span class="ui-li-count"><?php echo $sellerData['serve_count']; ?>次履行服务</span></li>
-            <li>实名认证: <span class="ui-li-count"><?php echo $realnameStatusString; ?></span></li>
-        </ul>
-
-        <?php
-        $tagsSeller = $sellerData['tag'];
-        $tagsSellerArray = explode(',',$tagsSeller);
-        if (count($tagsSellerArray) >0) {
+            $tags = $serviceData['tag'];
+            $tagsArray = explode(',',$tags);
+            if (strlen($tags) >0 && count($tagsArray) >0) {
             ?>
-            <h5>卖家标签</h5>
+            <h4 style="color:steelblue">服务标签</h4>
             <div class="ui-grid-a">
                 <?php
                 $loc = 'a';
-                foreach ($tagsSellerArray as $tagSeller){ ?>
-                    <div class="ui-block-<?php echo $loc;?>"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini"><?php echo $tagSeller;?></a></div>
-                    <?php
+                foreach ($tagsArray as $tag){ ?>
+                    <div class="ui-block-<?php echo $loc;?>"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini"><?php echo $tag;?></a></div>
+                <?php
                     $loc = $loc=='a'? 'b' : 'a';
                 } ?>
             </div>
-        <?php }?>
-
-        <h5>卖家<?php echo $serviceData['seller_name'];?>的其他服务:</h5>
-        <a href="../../../Controller/AuthUserDispatcher.php?c=sellerPublishedServices&sellerid=<?php echo $seller_id;?>" rel="external">点击查看</a>
-
-
-        <div style="text-align:center">
-            <h2 style="color:steelblue">服务评论</h2>
+            <?php }?>
         </div>
-        <?php if (isset($commentsData) && count($commentsData) >0) {
-            foreach ($commentsData as $comment){ ?>
-                <div>
-                    <p>评论者:<?php echo $comment['customer_name'];?> 于 <?php echo $comment['creation_date']?><p>
-                    <p>评分等级:<?php echo $comment['stars'];?>星<p>
-                    <p>详细意见:<?php echo $comment['comments'];?><p>
-                </div>
-                <hr>
-            <?php } ?>
-        <?php } else {?>
-            <h5>暂无评论</h5>
-        <?php } ?>
 
-    </div>
 
-    <div data-role="footer" data-position="fixed">
-        <div data-role="navbar">
-            <ul>
-                <li><a href="../../../Controller/AuthUserDispatcher.php?c=submitOrder&$service_id=<?php echo $seller_id; ?>" rel="external" class="ui-btn-active">购买</a></li>
+        <div data-role="content" id="sellerInfo">
+            <h4 style="color:steelblue">卖家介绍:</h4>
+            <p><?php echo $sellerData['description']; ?></p>
+
+            <h4 style="color:steelblue">卖家信息:</h4>
+            <ul data-role="listview" data-inset="true">
+                <li><?php echo $sellerData['stars']; ?>星卖家 <span class="ui-li-count"><?php echo $sellerData['serve_count']; ?>次履行服务</span></li>
+                <li>实名认证: <span class="ui-li-count"><?php echo $realnameStatusString; ?></span></li>
             </ul>
+
+            <?php
+            $tagsSeller = $sellerData['tag'];
+            $tagsSellerArray = explode(',',$tagsSeller);
+            if (count($tagsSellerArray) >0) {
+                ?>
+                <h4 style="color:steelblue">卖家标签</h4>
+                <div class="ui-grid-a">
+                    <?php
+                    $loc = 'a';
+                    foreach ($tagsSellerArray as $tagSeller){ ?>
+                        <div class="ui-block-<?php echo $loc;?>"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini"><?php echo $tagSeller;?></a></div>
+                        <?php
+                        $loc = $loc=='a'? 'b' : 'a';
+                    } ?>
+                </div>
+            <?php }?>
+
+            <h4 style="color:steelblue">卖家<?php echo $serviceData['seller_name'];?>的其他服务:</h4>
+            <a href="../../../Controller/AuthUserDispatcher.php?c=sellerPublishedServices&sellerid=<?php echo $seller_id;?>" rel="external">点击查看</a>
+        </div>
+
+        <div data-role="content" id="commentsInfo">
+            <?php if (isset($commentsData) && count($commentsData) >0) {
+                foreach ($commentsData as $comment){ ?>
+                    <div>
+                        <p>评论者:<?php echo $comment['customer_name'];?> 于 <?php echo $comment['creation_date']?><p>
+                        <p>评分等级:<?php echo $comment['stars'];?>星<p>
+                        <p>详细意见:<?php echo $comment['comments'];?><p>
+                    </div>
+                    <hr>
+                <?php } ?>
+            <?php } else {?>
+                <h5>暂无评论</h5>
+            <?php } ?>
+        </div>
+        <div data-theme="c">
+            <a href="../../../Controller/AuthUserDispatcher.php?c=submitOrder&$service_id=<?php echo $seller_id; ?>" rel="external" class="ui-shadow ui-btn ui-corner-all ui-mini">购买</a>
         </div>
     </div>
-</div>
 
+    <?php include '../common/footer.php';?>
+
+</div>
+<script>
+$('#serviceInfo').show()
+$('#sellerInfo').hide()
+$('#commentsInfo').hide();
+
+function showServices() {
+    $('#serviceInfo').show()
+    $('#sellerInfo').hide()
+    $('#commentsInfo').hide();
+}
+
+function showSellers() {
+    $('#serviceInfo').hide()
+    $('#sellerInfo').show()
+    $('#commentsInfo').hide();
+}
+
+function showComments() {
+    $('#serviceInfo').hide()
+    $('#sellerInfo').hide()
+    $('#commentsInfo').show();
+}
+</script>
 </body>
 </html>
 

@@ -36,7 +36,9 @@
         {
             color:orange;
         }
-
+        #my-listview .ui-li {
+            height : 20%;
+        }
     </style>
 </head>
 <body>
@@ -130,9 +132,17 @@
         </ul>
     </div>
 
-    <div data-role="footer" data-position="fixed" data-theme="c">
-        <h4>Copyright (c) 2016 .</h4>
+
+    <div data-role="footer" data-position="fixed" data-id="footernav" data-position="fixed" data-tap-toggle="false">
+    <div data-role="navbar" data-iconpos="left">
+            <ul>
+                <li><a href="alert()" data-icon="search">求易知</a></li>
+                <li><a href="#" data-icon="action">发易知</a></li>
+                <li><a href="#" data-icon="user">我的</a></li>
+            </ul>
+        </div><!-- /navbar -->
     </div>
+
 
     <div data-role="panel" data-position-fixed="true" data-display="push" data-theme="o" id="nav-panel">
         <ul data-role="listview">

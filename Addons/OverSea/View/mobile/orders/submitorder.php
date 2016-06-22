@@ -70,14 +70,10 @@ $signedUser = $_SESSION['signedUser'];
             <input type="hidden" name="service_type" id="service_type"  value="<?php echo $serviceType; ?>"/>
             <input type="hidden" name="service_price" id="service_price"  value="<?php echo $price; ?>"/>
         </div>
-
-        <div data-role="footer" data-position="fixed" data-theme="c">
-            <div data-role="navbar">
-                <ul>
-                    <li><a href="#" onclick="JavaScript:$('#submitorder').submit();" rel="external" >去付款</a></li>
-                </ul>
-            </div>
+        <div data-theme="c">
+            <a href="#" onclick="JavaScript:$('#submitorder').submit();" rel="external" class="ui-shadow ui-btn ui-corner-all ui-mini">去付款</a>
         </div>
+        <?php include '../common/footer.php';?>
 </div>
 <script type="text/javascript">
     $("#div-slider").change(function() {

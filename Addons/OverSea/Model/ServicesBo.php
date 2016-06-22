@@ -29,8 +29,11 @@ class ServicesBo
      */
     public function getCurrentService() {
         $sellerid = HttpHelper::getVale('sellerid');
-        $service_id = HttpHelper::getVale('service_id');
         $userID = $_SESSION['signedUser'];
+        if (is_null($sellerid) || strlen($sellerid) == 0 ){
+            $sellerid = $userID;
+        }
+        $service_id = HttpHelper::getVale('service_id');
         Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",userId=".$userID.",sellerId=".$sellerid.",service_id=".$service_id);
 
         $sellerData = self::getCurrentSellerInfo($sellerid);
@@ -40,7 +43,7 @@ class ServicesBo
         if (!isset($sellerName) || strlen($sellerName) == 0 || !isset($weixin) || strlen($weixin) == 0){
             $_SESSION['status'] = 'f';
             $_SESSION['message'] = '用户信息不完善,请完善个人信息,确保微信号,昵称已填写完毕!';
-            $_SESSION['goto'] = "../../../Controller/AuthUserDispatcher.php?c=mine";
+            $_SESSION['goto'] = "../../../Controller/AuthUserDispatcher.php?c=myinfo&customerid=".$sellerid;
             header('Location:../View/mobile/common/message.php');
             exit;
         }

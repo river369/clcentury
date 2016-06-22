@@ -67,9 +67,7 @@ if (isset($_SESSION ['servicearea'])){
     </div>
     <div data-role="content"class="endMsgString"></div>
 
-    <div data-role="footer" data-position="fixed" data-theme="c">
-        <h4>Copyright (c) 2016 .</h4>
-    </div>
+    <?php include '../common/footer.php';?>
 
     <div data-role="panel" data-position-fixed="true" data-display="push" data-theme="o" id="nav-panel">
         <ul data-role="listview">
