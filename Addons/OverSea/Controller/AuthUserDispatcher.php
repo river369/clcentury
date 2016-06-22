@@ -18,7 +18,8 @@ session_start();
 //c - command, like signin, m - model, f - function in model, v - view,  d - description
 $method_routes = array(
     'signin' => array('v'=>'../View/mobile/users/signin.php','d'=>''),//submit service
-    'mine' => array('v'=>'../View/mobile/users/mine.php','d'=>'进入我的主页'),
+    'mine' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'getCurrentUserInfo', 
+        'v'=>'../View/mobile/users/mine.php','d'=>'进入我的主页'),
 
     'changePassword' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'changePassword',
         'v'=>'../View/mobile/common/message.php','d'=>'修改密码'),
