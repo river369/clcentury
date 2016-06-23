@@ -10,6 +10,12 @@ $myServices= $_SESSION['myServices'];
 $sellerid = $_SESSION['sellerId'] ;
 $querystatus = $_SESSION['querystatus'];
 
+$querystatusString = "感谢您发布易知服务,易知海外将在24小时内完成审核";
+if ($querystatus == 60) {
+    $querystatusString = "编辑易知服务后服务重新进入审核状态";
+} else if ($querystatus == 40) {
+    $querystatusString = "点击服务查看拒绝原因";
+}
 ?>
 
 <!DOCTYPE html>
@@ -41,35 +47,40 @@ $querystatus = $_SESSION['querystatus'];
                 <li><a href="../../../Controller/AuthUserDispatcher.php?c=myServices&sellerid=<?php echo $sellerid;?>&status=40" <?php echo $querystatus == 40 ? "class='ui-btn-active'" : ''; ?> rel="external">已拒绝</a></li>
             </ul>
         </div>
-        <?php
-        foreach($myServices as $key => $service)
-        {
-            $serviceid= $service['id'];
-            $status = $service['status'];
-            $serviceType = $service['service_type'];
-            $serviceTypeDesc = '旅游';
-            if ($serviceType == 2) {
-                $serviceTypeDesc = '留学';
-            }
-        ?>
-        <ul data-role="listview" data-inset="true">
-            <li data-role="list-divider">服务编号: <span class="ui-li-count"><?php echo $service['id'];?></span></li>
-            <li>
-                <a href="../../../Controller/AuthUserDispatcher.php?c=publishService&sellerid=<?php echo $sellerid; ?>&service_id=<?php echo $serviceid; ?>" rel="external">
-                    <img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $sellerid;?>/head.png" alt="">
-                    <h2> <?php echo $service['service_area'];?>:<?php echo $serviceTypeDesc;?> </h2>
-                    <p style="white-space:pre-wrap;"><?php echo $service['description'];?> </p>
-                    <p class="ui-li-aside">￥<?php echo $service['service_price'];?>/小时</p>
-                </a>
-            </li>
-            <li data-role="list-divider">创建日期: <span class="ui-li-count"><?php echo $service['creation_date'];?></span></li>
-            <li data-theme="c">
-                <div class="ui-grid-a">
-                    <div class="ui-block-a"> </div>
-                    <div class="ui-block-b" align="right"><a href="#deleteDialog" data-rel="popup" class="ui-mini" onclick="deletePopup('<?php echo $serviceid; ?>')">删除服务</a></div>
-                </div>
-            </li>
-        </ul>
+        <?php if (isset($myServices) && count($myServices) >0) { ?>
+            <h6 style="color:grey"><?php echo $querystatusString ?></h6>
+            <?php
+            foreach($myServices as $key => $service)
+            {
+                $serviceid= $service['id'];
+                $status = $service['status'];
+                $serviceType = $service['service_type'];
+                $serviceTypeDesc = '旅游';
+                if ($serviceType == 2) {
+                    $serviceTypeDesc = '留学';
+                }
+            ?>
+            <ul data-role="listview" data-inset="true">
+                <li data-role="list-divider">服务编号: <span class="ui-li-count"><?php echo $service['id'];?></span></li>
+                <li>
+                    <a href="../../../Controller/AuthUserDispatcher.php?c=publishService&sellerid=<?php echo $sellerid; ?>&service_id=<?php echo $serviceid; ?>" rel="external">
+                        <img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $sellerid;?>/head.png?t=<?php echo rand(10,100); ?>" alt="">
+                        <h2> <?php echo $service['service_area'];?>:<?php echo $serviceTypeDesc;?> </h2>
+                        <p style="white-space:pre-wrap;"><?php echo $service['description'];?> </p>
+                        <p class="ui-li-aside">￥<?php echo $service['service_price'];?>/小时</p>
+                    </a>
+                </li>
+                <li data-role="list-divider">创建日期: <span class="ui-li-count"><?php echo $service['creation_date'];?></span></li>
+                <li data-theme="c">
+                    <div class="ui-grid-a">
+                        <div class="ui-block-a"> </div>
+                        <div class="ui-block-b" align="right"><a href="#deleteDialog" data-rel="popup" class="ui-mini" onclick="deletePopup('<?php echo $serviceid; ?>')">删除服务</a></div>
+                    </div>
+                </li>
+            </ul>
+        <?php }
+        } else {?>
+            <h4 style="color:steelblue">没有处于该状态的服务</h4>
         <?php } ?>
 
         <div data-role="popup" id="deleteDialog" data-overlay-theme="a" data-theme="a" style="max-width:400px;">

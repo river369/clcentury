@@ -30,7 +30,8 @@ killall php-fpm
 /usr/sbin/php-fpm &
 
 [Menus]
-http://www.clcentury.com/weiphp/Addons/OverSea/Controller/FreelookDispatcher.php?c=getServices
+http://www.clcentury.com/weiphp/Addons/OverSea/View/mobile/query/discover.php
+//http://www.clcentury.com/weiphp/Addons/OverSea/Controller/FreelookDispatcher.php?c=getServices
 //http://www.clcentury.com/weiphp/Addons/OverSea/Controller/AuthUserDispatcher.php?c=submityz
 //http://www.clcentury.com/weiphp/Addons/OverSea/Controller/AuthUserDispatcher.php?c=submityzpic
 http://www.clcentury.com/weiphp/Addons/OverSea/Controller/AuthUserDispatcher.php?c=mine

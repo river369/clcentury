@@ -6,7 +6,6 @@
  * Time: 21:54
  */
 session_start();
-$servicesData= $_SESSION['servicesData'];
 $serviceType = isset($_SESSION['servicetype'])? $_SESSION['servicetype'] : 1;
 require("../common/locations.php");
 $servicearea = '地球';
@@ -28,17 +27,7 @@ if (isset($_SESSION ['servicearea'])){
 
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
     <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
-   
-    <script>
-        $(document).ready(function(){
-            var options = {
-                max_value: 5,
-                step_size: 0.5,
-                initial_value: 3.5,
-            }
-            $(".rate").rate(options);
-        });
-    </script>
+
     <style>
         .rate-base-layer
         {
@@ -69,31 +58,6 @@ if (isset($_SESSION ['servicearea'])){
                 <li><a href="../../../Controller/FreelookDispatcher.php?c=getServices&servicetype=2" rel="external" <?php if ($serviceType == 2) { ?> class="ui-btn-active" <?php } ?>>留学</a></li>
             </ul>
         </div><!-- /navbar -->
-            <?php
-                foreach($servicesData as $key => $serviceData)
-                {
-            ?>
-        <ul data-role="listview" data-inset="true">
-            <li data-role="list-divider"><?php echo $serviceData['stars']?>星服务 <span class="ui-li-count"><div class="rate"></div></li>
-            <li>
-                <a href="../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id=<?php echo $serviceData['id']; ?>" rel="external">
-                    <img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $serviceData['seller_id'];?>/head.png" alt="">
-                    <h2><?php echo $serviceData['seller_name']?></h2>
-                    <p style="white-space:pre-wrap;"><?php echo $serviceData['description']?></p>
-                    <p class="ui-li-aside">￥<?php echo $serviceData['service_price']?>/小时</p>
-                </a>
-            </li>
-            <li data-role="list-divider">
-                <p>
-            <?php $tags = $serviceData['tag'];
-                $tagsArray = explode(',',$tags);
-                foreach ($tagsArray as $tag){ ?>
-                    <a href="../../../Controller/AuthUserDispatcher.php?c=searchByKeyWord&keyWord=<?php echo $tag;?> " rel="external"><?php echo $tag; ?></a>
-            <?php } ?>
-                </p>
-            </li>
-        </ul>
-            <?php } ?>
     </div>
     <div data-role="content"class="endMsgString"></div>
 
@@ -120,18 +84,19 @@ if (isset($_SESSION ['servicearea'])){
 <script>
     var itemIdx = 0;
     var pageIdx = 0;
-    $(function(){
-        $(document).scrollstop(function (event) {
-            if($(document).height() > $(window).height())
-            {
-                if($(window).scrollTop() == $(document).height() - $(window).height()){
-                    itemIdx++;
-                    pageIdx++;
-                    getServiceInNextPages("");
-                }
-            }
-        });
+
+    $(document).ready(function(){
+        getServiceInNextPages("");
     });
+
+    function setRate(index, star) {
+        var options = {
+            max_value: 5,
+            step_size: 0.5,
+            initial_value: star,
+        }
+        $(".rate" + index).rate(options);
+    };
 
     function getServiceInNextPages(serverIds) {
         var link = '../../../Controller/FreelookDispatcher.php?c=getServices&servicetype=' + <?php echo $serviceType;?> +  '&pageIndex=' + pageIdx;
@@ -150,7 +115,7 @@ if (isset($_SESSION ['servicearea'])){
                         jQuery.each(result.objLists,function(key,value){
                             itemIdx++;
                             var newstr = '<div id="d'+itemIdx+'"> <ul data-role="listview" data-inset="true">';
-                            newstr = newstr + '<li data-role="list-divider">' +value.stars+ '星服务 <span class="ui-li-count"><div class="rate"></div></span></li>';
+                            newstr = newstr + '<li data-role="list-divider">' +value.stars+ '星服务 <span class="ui-li-count"><div class="rate' + itemIdx +'"></div></span></li>';
                             newstr = newstr + '<li> <a href="../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id=' + value.id +'" rel="external">';
                             newstr = newstr + '<img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/' + value.seller_id + '/head.png" alt="">';
                             newstr = newstr + '<h2>'+ value.seller_name + '</h2>';
@@ -167,6 +132,7 @@ if (isset($_SESSION ['servicearea'])){
                             newstr = newstr + '</p> </li> </ul>' ;
                             newstr=newstr+'</div>';
                             $('#discoverMain').append(newstr);
+                            setRate(itemIdx, value.stars);
                             $('#d'+itemIdx).trigger('create');
                             $("img").error(function () {
                                 $(this).attr("src", "../../resource/images/head_default.jpg");

@@ -324,7 +324,7 @@ class ServicesBo
         } else {
             $servicesData=$serviceDao->getServicesByServiceTypeWithPage($serviceType, $pageIndexRange);
         }
-        if ($pageIndex > 0){
+        if ($pageIndex >= 0){
             //$retJson =  json_encode(array('status'=> 0, 'msg'=> 'done', 'serviceLists' => $servicesData));
             //Logs::writeClcLog(__CLASS__.",".__FUNCTION__." retJson=".$retJson);
             echo json_encode(array('status'=> 0, 'msg'=> 'done', 'objLists' => $servicesData));

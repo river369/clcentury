@@ -14,7 +14,7 @@ $sellerData = $_SESSION['sellerData'];
 $serviceData = $_SESSION['serviceData'];
 
 $status = $serviceData['status'];
-$statusString = BusinessHelper::translateServiceCheckStatus($tatus);
+$statusString = BusinessHelper::translateServiceCheckStatus($status);
 
 $appId=$_SESSION['$appid'];
 $timestamp=$_SESSION['$timestamp'];
