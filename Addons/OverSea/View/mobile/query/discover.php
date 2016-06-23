@@ -6,7 +6,6 @@
  * Time: 21:54
  */
 session_start();
-$serviceType = isset($_SESSION['servicetype'])? $_SESSION['servicetype'] : 1;
 require("../common/locations.php");
 $servicearea = '地球';
 if (isset($_SESSION ['servicearea'])){
@@ -54,11 +53,16 @@ if (isset($_SESSION ['servicearea'])){
     <div id="discoverMain" role="main" class="ui-content jqm-content jqm-fullwidth">
         <div data-role="navbar">
             <ul>
-                <li><a href="../../../Controller/FreelookDispatcher.php?c=getServices&servicetype=1" rel="external" <?php if ($serviceType == 1) { ?> class="ui-btn-active" <?php } ?> >旅游</a></li>
-                <li><a href="../../../Controller/FreelookDispatcher.php?c=getServices&servicetype=2" rel="external" <?php if ($serviceType == 2) { ?> class="ui-btn-active" <?php } ?>>留学</a></li>
+                <li><a href="#" rel="external" class="ui-btn-active" onclick="setServiceType(1)">旅游</a></li>
+                <li><a href="#" rel="external" onclick="setServiceType(2)">留学</a></li>
             </ul>
         </div><!-- /navbar -->
+        <div id="serviceType1">
+        </div>
+        <div id="serviceType2">
+        </div>
     </div>
+
     <div data-role="content"class="endMsgString"></div>
 
     <?php include '../common/footer.php';?>
@@ -66,7 +70,7 @@ if (isset($_SESSION ['servicearea'])){
     <div data-role="panel" data-position-fixed="true" data-display="push" data-theme="o" id="nav-panel">
         <ul data-role="listview">
             <li data-role="list-divider" data-icon="delete"><a href="#" data-rel="close">返回</a></li>
-            <li><a href="../../../Controller/FreelookDispatcher.php?c=getServices&servicearea=地球" rel="external" data-rel="close"> 地球</a></li>
+            <li><a href="../../../Controller/FreelookDispatcher.php?c=setLocation&servicearea=地球" rel="external" data-rel="close"> 地球</a></li>
             <?php
                 foreach ($country_city as $key => $value) {
             ?>
@@ -74,7 +78,7 @@ if (isset($_SESSION ['servicearea'])){
                     <?php
                         foreach ($value as $city) {
                     ?>
-                        <li><a href="../../../Controller/FreelookDispatcher.php?c=getServices&servicearea=<?php echo $city; ?>" rel="external" data-rel="close" ><?php echo $city; ?></a></li>
+                        <li><a href="../../../Controller/FreelookDispatcher.php?c=setLocation&servicearea=<?php echo $city; ?>" rel="external" data-rel="close" ><?php echo $city; ?></a></li>
                     <?php } ?>
             <?php } ?>
         </ul>
@@ -83,10 +87,39 @@ if (isset($_SESSION ['servicearea'])){
 
 <script>
     var itemIdx = 0;
-    var pageIdx = 0;
+    var pageIdx = new Array();
+    pageIdx[0]=-1;
+    pageIdx[1]=-1;
+    var serviceType = 1;
 
     $(document).ready(function(){
-        getServiceInNextPages("");
+        $('#serviceType1').show();
+        getServiceInNextPages(serviceType);
+    });
+
+    function setServiceType(type) {
+        serviceType = type;
+        if (type == 1){
+            $('#serviceType1').show()
+            $('#serviceType2').hide();
+        } else {
+            $('#serviceType2').show()
+            $('#serviceType1').hide();
+        }
+        if (pageIdx[serviceType - 1] == -1){
+            getServiceInNextPages(serviceType);
+        }
+    };
+
+    $(function(){
+        $(document).scrollstop(function (event) {
+            if($(document).height() > $(window).height())
+            {
+                if($(window).scrollTop() == $(document).height() - $(window).height()){
+                    getServiceInNextPages(serviceType);
+                }
+            }
+        });
     });
 
     function setRate(index, star) {
@@ -98,8 +131,10 @@ if (isset($_SESSION ['servicearea'])){
         $(".rate" + index).rate(options);
     };
 
-    function getServiceInNextPages(serverIds) {
-        var link = '../../../Controller/FreelookDispatcher.php?c=getServices&servicetype=' + <?php echo $serviceType;?> +  '&pageIndex=' + pageIdx;
+    function getServiceInNextPages(type) {
+        itemIdx++;
+        pageIdx[serviceType-1]++;
+        var link = '../../../Controller/FreelookDispatcher.php?c=getServices&servicetype=' + serviceType +  '&pageIndex=' + pageIdx[serviceType-1];
         $.ajax({
             url:link,
             type:'GET',
@@ -115,7 +150,8 @@ if (isset($_SESSION ['servicearea'])){
                         jQuery.each(result.objLists,function(key,value){
                             itemIdx++;
                             var newstr = '<div id="d'+itemIdx+'"> <ul data-role="listview" data-inset="true">';
-                            newstr = newstr + '<li data-role="list-divider">' +value.stars+ '星服务 <span class="ui-li-count"><div class="rate' + itemIdx +'"></div></span></li>';
+                            var servicetypeDesc = value.service_type ==1 ? '旅游' : '留学';
+                            newstr = newstr + '<li data-role="list-divider">' +value.service_area + ':' + servicetypeDesc + '<span class="ui-li-count"><div class="rate' + itemIdx +'"></div></span></li>';
                             newstr = newstr + '<li> <a href="../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id=' + value.id +'" rel="external">';
                             newstr = newstr + '<img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/' + value.seller_id + '/head.png" alt="">';
                             newstr = newstr + '<h2>'+ value.seller_name + '</h2>';
@@ -131,7 +167,7 @@ if (isset($_SESSION ['servicearea'])){
                             }
                             newstr = newstr + '</p> </li> </ul>' ;
                             newstr=newstr+'</div>';
-                            $('#discoverMain').append(newstr);
+                            $('#serviceType'+type).append(newstr);
                             setRate(itemIdx, value.stars);
                             $('#d'+itemIdx).trigger('create');
                             $("img").error(function () {

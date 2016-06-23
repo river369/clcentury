@@ -99,7 +99,7 @@ class ServicesDao extends BaseDao
 
     public function getServicesByKeyWordInAreaWithPage($keyWord, $service_area, $pageIndexRange )
     {
-        $sql = 'SELECT * FROM yz_services WHERE service_area = :service_area AND (tag like "%' . $keyWord . '%" or seller_name like "%' . $keyWord . '%" or description like "%' . $keyWord . '%") and status=60 order by id desc, stars desc limit ' . $pageIndexRange;
+        $sql = 'SELECT * FROM yz_services WHERE service_area = :service_area AND (tag like "%' . $keyWord . '%" or seller_name like "%' . $keyWord . '%" or description like "%' . $keyWord . '%" or service_area like "%'. $keyWord . '%") and status=60 order by id desc, stars desc limit ' . $pageIndexRange;
         $parameter = array(':service_area' => $service_area);
         Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",sql=".$sql);
         Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",parameters=".json_encode($parameter));
@@ -138,13 +138,11 @@ class ServicesDao extends BaseDao
 
     public function getServicesByKeyWordWithPage($keyWord, $pageIndexRange)
     {
-        $sql = 'SELECT * FROM yz_services WHERE tag like "%' . $keyWord . '%" or seller_name like "%' . $keyWord . '%" or description like "%' . $keyWord . '%" and status=60 order by id desc, stars desc limit ' . $pageIndexRange;
+        $sql = 'SELECT * FROM yz_services WHERE tag like "%' . $keyWord . '%" or seller_name like "%' . $keyWord . '%" or description like "%' . $keyWord . '%" or service_area like "%' . $keyWord . '%" and status=60 order by id desc, stars desc limit ' . $pageIndexRange;
         Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",sql=".$sql);
         $services = MySqlHelper::fetchAll($sql);
         return $services;
     }
-
-
 
 }
 ?>

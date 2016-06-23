@@ -281,6 +281,7 @@ class ServicesBo
         $allServices = $serviceDao->getByStatus($status);
         $_SESSION['allServices'] = $allServices;
     }
+    
 
     /**
      * Admin reject or approve service  (admin now)
@@ -299,9 +300,9 @@ class ServicesBo
     }
 
     /**
-     * Get the pending review service (admin now)
+     * Set user runnning location
      */
-    public function getServices() {
+    public function setLocation(){
         $servicearea = '';
         if (isset($_SESSION ['servicearea'])){
             $servicearea = $_SESSION ['servicearea'];
@@ -310,6 +311,14 @@ class ServicesBo
             $servicearea = $_GET ['servicearea'];
             $_SESSION ['servicearea'] = $servicearea;
         }
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",servicearea=".$servicearea);
+    }
+
+    /**
+     * Get the pending review service (admin now)
+     */
+    public function getServices() {
+        $servicearea = $_SESSION ['servicearea'];
         $serviceType = isset($_GET ['servicetype'])? $_GET ['servicetype'] : 1;
         Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",servicearea=".$servicearea.",servicetype=".$serviceType);
 

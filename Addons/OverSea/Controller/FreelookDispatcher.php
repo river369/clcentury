@@ -11,6 +11,7 @@ session_start();
 
 //c - command, like signin, m - model, f - function in model, v - view,  d - description
 $method_routes = array(
+    'setLocation' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'setLocation','v'=>'../View/mobile/query/discover.php','d'=>'服务信息列表'),
     'getServices' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'getServices','v'=>'../View/mobile/query/discover.php','d'=>'服务信息列表'),
     'serviceDetails' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'getServiceById','v'=>'../View/mobile/service/servicedetails.php','d'=>'卖家详细信息'),
 );
@@ -30,7 +31,7 @@ function goToCommand($method_routes, $command) {
             echo $e->getTrace();
         }
     }
-    header('Location:'.$method_routes[$command]['v']);
+    header('Location:'.$method_routes[$command]['v'].'?t='.rand(0,10000));
 }
 
 ?>
