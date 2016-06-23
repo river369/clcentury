@@ -367,15 +367,8 @@ class ServicesBo
 
     public function getServicesByKey() {
         if (isset($_SESSION['signedUser'])) {
-            $servicearea = '';
-            if (isset($_SESSION ['servicearea'])) {
-                $servicearea = $_SESSION ['servicearea'];
-            }
-            if (isset($_GET ['servicearea'])) {
-                $servicearea = $_GET ['servicearea'];
-                $_SESSION ['servicearea'] = $servicearea;
-            }
-
+            $servicearea = $_SESSION ['servicearea'];
+            
             $keyWord = '';
             $isSaveKeyWord = 1;
             if (isset($_POST ['keyWord'])) {
@@ -391,28 +384,30 @@ class ServicesBo
             $servicesData = null;
             $serviceDao = new ServicesDao();
 
-            $pageIndex = isset($_GET ['pageIndex']) ? $_GET ['pageIndex'] : 0;
-            $pageIndexRange = $pageIndex * 5 . "," . '5';
+            if (isset($_GET ['pageIndex'])){
+                $pageIndex =  $_GET ['pageIndex'] ;
+                $pageIndexRange = $pageIndex * 5 . "," . '5';
 
-            if (isset($servicearea) && !empty($servicearea) && !is_null($servicearea) && $servicearea != '地球') {
-                $servicesData = $serviceDao->getServicesByKeyWordInAreaWithPage($keyWord, $servicearea, $pageIndexRange);
-            } else {
-                $servicesData = $serviceDao->getServicesByKeyWordWithPage($keyWord, $pageIndexRange);
-            }
+                if (isset($servicearea) && !empty($servicearea) && !is_null($servicearea) && $servicearea != '地球') {
+                    $servicesData = $serviceDao->getServicesByKeyWordInAreaWithPage($keyWord, $servicearea, $pageIndexRange);
+                } else {
+                    $servicesData = $serviceDao->getServicesByKeyWordWithPage($keyWord, $pageIndexRange);
+                }
 
-            if ($pageIndex > 0) {
-                //$retJson =  json_encode(array('status'=> 0, 'msg'=> 'done', 'serviceLists' => $servicesData));
-                //Logs::writeClcLog(__CLASS__.",".__FUNCTION__." retJson=".$retJson);
-                echo json_encode(array('status' => 0, 'msg' => 'done', 'objLists' => $servicesData));
-                exit;
-            } else {
-                $_SESSION['servicesData'] = $servicesData;
-                if ($isSaveKeyWord > 0) {
-                    $queryHistory = array();
-                    $queryHistory['key_word'] = $keyWord;
-                    $queryHistory['user_id'] = $_SESSION['signedUser'];
-                    $queryHistoryDao = new QueryHistoryDao();
-                    $queryHistoryDao->insert($queryHistory);
+                if ($pageIndex >= 0) {
+                    //$retJson =  json_encode(array('status'=> 0, 'msg'=> 'done', 'serviceLists' => $servicesData));
+                    //Logs::writeClcLog(__CLASS__.",".__FUNCTION__." retJson=".$retJson);
+                    echo json_encode(array('status' => 0, 'msg' => 'done', 'objLists' => $servicesData));
+                    exit;
+                } else {
+                    $_SESSION['servicesData'] = $servicesData;
+                    if ($isSaveKeyWord > 0) {
+                        $queryHistory = array();
+                        $queryHistory['key_word'] = $keyWord;
+                        $queryHistory['user_id'] = $_SESSION['signedUser'];
+                        $queryHistoryDao = new QueryHistoryDao();
+                        $queryHistoryDao->insert($queryHistory);
+                    }
                 }
             }
         }

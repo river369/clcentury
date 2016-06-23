@@ -19,10 +19,23 @@ $servicesData= $_SESSION['servicesData'];
 
     <script src="../../resource/js/jquery/jquery-1.11.1.min.js"></script>
     <script src="../../resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
+    <script src="../../resource/js/rater/rater.min.js"></script>
 
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
     <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
-    <style type="text/css">
+    <style>
+        .rate-base-layer
+        {
+            color: #aaa;
+        }
+        .rate-hover-layer
+        {
+            color: orange;
+        }
+        .rate-select-layer
+        {
+            color:orange;
+        }
     </style>
 </head>
 <body>
@@ -33,13 +46,15 @@ $servicesData= $_SESSION['servicesData'];
 
     <div role="main" class="ui-content jqm-content jqm-fullwidth">
         <?php
+        $itemIndx = -1;
         foreach($servicesData as $key => $serviceData)
         {
-            ?>
+            $itemIndex++; ?>
             <ul data-role="listview" data-inset="true">
                 <li data-role="list-divider">
                     <?php $servicetypeDesc = $serviceData['service_type'] ==1 ? '旅游' : '留学';
-                    echo $servicetypeDesc.":".$serviceData['stars']?>星服务 <span class="ui-li-count"><?php echo $serviceData['serve_count']; ?>次履行服务</span></li>
+                    echo $serviceData['service_area'].":".$servicetypeDesc?> <span class="ui-li-count"><div class="rate<?php echo $itemIndex; ?>"></span>
+                    <input type="hidden" id="ratevalue<?php echo $itemIndex; ?>" value="<?php echo $serviceData['stars'];?>">
                 <li>
                     <a href="../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id=<?php echo $serviceData['id']; ?>" rel="external">
                         <img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $serviceData['seller_id'];?>/head.png" alt="">
@@ -63,6 +78,23 @@ $servicesData= $_SESSION['servicesData'];
 
     <?php include '../common/footer.php';?>
 </div>
+<script>
+    $(document).ready(function(){
+        var i=1
+        for (i = 1; i <= <?php echo count($servicesData);?>; i++) {
+            setRate(i, $('#ratevalue' + i).val());
+        }
+    });
+
+    function setRate(index, star) {
+        var options = {
+            max_value: 5,
+            step_size: 0.5,
+            initial_value: star,
+        }
+        $(".rate" + index).rate(options);
+    };
+</script>
 </body>
 </html>
 
