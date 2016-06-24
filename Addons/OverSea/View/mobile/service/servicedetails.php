@@ -38,11 +38,12 @@ $commentsData = $_SESSION['commentsData'];
 
     <script src="../../resource/js/jquery/jquery-1.11.1.min.js"></script>
     <script src="../../resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
+    <script src="../../resource/js/rater/rater.min.js"></script>
     <script src="../../resource/js/camera/jquery.min.js"></script>
     <script src="../../resource/js/camera/jquery.easing.1.3.js"></script>
     <script src="../../resource/js/camera/camera.min.js"></script>
     <script type="text/javascript" src="../../resource/js/camera/jquery.mobile.customized.min.js"></script>
-    <script src="../../resource/js/rater/rater.min.js"></script>
+
 
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile.theme-1.4.5.min.css" />
