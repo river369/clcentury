@@ -42,11 +42,27 @@ $commentsData = $_SESSION['commentsData'];
     <script src="../../resource/js/camera/jquery.easing.1.3.js"></script>
     <script src="../../resource/js/camera/camera.min.js"></script>
     <script type="text/javascript" src="../../resource/js/camera/jquery.mobile.customized.min.js"></script>
+    <script src="../../resource/js/rater/rater.min.js"></script>
 
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile.theme-1.4.5.min.css" />
     <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
     <link rel="stylesheet" href="../../resource/style/camera/camera.css" type="text/css" media="all">
+
+    <style>
+        .rate-base-layer
+        {
+            color: #aaa;
+        }
+        .rate-hover-layer
+        {
+            color: orange;
+        }
+        .rate-select-layer
+        {
+            color:orange;
+        }
+    </style>
 
     <style>
         body {
@@ -75,7 +91,6 @@ $commentsData = $_SESSION['commentsData'];
 
     <script>
         jQuery(function(){
-
             jQuery('#camera_wrap_1').camera({
                 thumbnails: false,
                 loader: 'none',
@@ -126,7 +141,8 @@ $commentsData = $_SESSION['commentsData'];
 
             <h4 style="color:steelblue">服务信息:</h4>
             <ul data-role="listview" data-inset="true">
-                <li><?php echo $serviceData['stars']; ?>星服务 <span class="ui-li-count"><?php echo $serviceData['serve_count']; ?>次咨询</span></li>
+                <li>服务等级: <span class="ui-li-count"><div class="servicerate"/></span></li>
+                <input type="hidden" id="serviceratevalue" value="<?php echo $serviceData['stars'];?>">
                 <li>服务地点: <span class="ui-li-count"><?php echo $serviceData['service_area']; ?></span></li>
                 <li>服务类型: <span class="ui-li-count"><?php echo $servicetypeDesc; ?></span></li>
                 <li>服务价格: <span class="ui-li-count">￥<?php echo $serviceData['service_price']; ?>/小时</span></li>
@@ -157,8 +173,9 @@ $commentsData = $_SESSION['commentsData'];
 
             <h4 style="color:steelblue">卖家信息:</h4>
             <ul data-role="listview" data-inset="true">
-                <li><?php echo $sellerData['stars']; ?>星卖家 <span class="ui-li-count"><?php echo $sellerData['serve_count']; ?>次履行服务</span></li>
+                <li>卖家等级: <span class="ui-li-count"><div class="sellerrate"/></span></li>
                 <li>实名认证: <span class="ui-li-count"><?php echo $realnameStatusString; ?></span></li>
+                <input type="hidden" id="sellerratevalue" value="<?php echo $sellerData['stars'];?>">
             </ul>
 
             <?php
@@ -205,25 +222,46 @@ $commentsData = $_SESSION['commentsData'];
 
 </div>
 <script>
-$('#serviceInfo').show()
-$('#sellerInfo').hide()
+$(document).ready(function(){
+    setRateSeller($('#sellerratevalue').val());
+    setRateService($('#serviceratevalue').val());
+});
+function setRateSeller(star) {
+    var options = {
+        max_value: 5,
+        step_size: 0.5,
+        initial_value: star,
+    };
+    $(".sellerrate").rate(options);
+};
+function setRateService(star) {
+    var options = {
+        max_value: 5,
+        step_size: 0.5,
+        initial_value: star,
+    }
+    $(".servicerate").rate(options);
+};
+
+$('#serviceInfo').show();
+$('#sellerInfo').hide();
 $('#commentsInfo').hide();
 
 function showServices() {
-    $('#serviceInfo').show()
-    $('#sellerInfo').hide()
+    $('#serviceInfo').show();
+    $('#sellerInfo').hide();
     $('#commentsInfo').hide();
 }
 
 function showSellers() {
-    $('#serviceInfo').hide()
-    $('#sellerInfo').show()
+    $('#serviceInfo').hide();
+    $('#sellerInfo').show();
     $('#commentsInfo').hide();
 }
 
 function showComments() {
-    $('#serviceInfo').hide()
-    $('#sellerInfo').hide()
+    $('#serviceInfo').hide();
+    $('#sellerInfo').hide();
     $('#commentsInfo').show();
 }
 </script>

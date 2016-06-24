@@ -114,39 +114,42 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
 
     <div data-role="content">
         <form id="submityz" data-ajax="false" method="post" action="../../../Controller/AuthUserDispatcher.php?c=publishServiceInfo">
-                <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
-                    <legend>您的服务类型:</legend>
-                    <input name="service_type" id="radio-choice-c" value="1" <?php if (!isset($serviceData) ||$serviceData['service_type'] == 1) {echo 'checked="true"'; } ?> type="radio">
-                    <label for="radio-choice-c">旅游</label>
-                    <input name="service_type" id="radio-choice-d" value="2" <?php if ($serviceData['service_type'] == 2) {echo 'checked="true"'; } ?> type="radio">
-                    <label for="radio-choice-d">留学</label>
-                </fieldset>
+            <label for="service_name">您的服务名称(显示标题):</label>
+            <input type="text" name="service_name" id="service_name" value="<?php echo isset($serviceData['service_name']) ? $serviceData['service_name']: ''; ?>" >
+            </br>
+            <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+                <legend>您的服务类型:</legend>
+                <input name="service_type" id="radio-choice-c" value="1" <?php if (!isset($serviceData) ||$serviceData['service_type'] == 1) {echo 'checked="true"'; } ?> type="radio">
+                <label for="radio-choice-c">旅游</label>
+                <input name="service_type" id="radio-choice-d" value="2" <?php if ($serviceData['service_type'] == 2) {echo 'checked="true"'; } ?> type="radio">
+                <label for="radio-choice-d">留学</label>
+            </fieldset>
 
-                </br>
-                <label for="service_area">您的服务地点:</label>
-                <select name="service_area" id="service_area">
-                    <?php foreach ($country_city as $key => $value) {?>
-                        <optgroup label="<?php echo $key; ?>">
-                        <?php foreach ($value as $city) {?>
-                            <option value="<?php echo $city; ?>" <?php echo $serviceData['service_area']==$city ? 'selected = "selected"' : ''; ?> ><?php echo $city; ?></option>
-                        <?php } ?>
-                        </optgroup>
+            </br>
+            <label for="service_area">您的服务地点:</label>
+            <select name="service_area" id="service_area">
+                <?php foreach ($country_city as $key => $value) {?>
+                    <optgroup label="<?php echo $key; ?>">
+                    <?php foreach ($value as $city) {?>
+                        <option value="<?php echo $city; ?>" <?php echo $serviceData['service_area']==$city ? 'selected = "selected"' : ''; ?> ><?php echo $city; ?></option>
                     <?php } ?>
-                </select>
-                </br>
-                <label for="service_price">您的服务价格(￥/小时):</label>
-                <input type="number" name="service_price" id="service_price" value="<?php echo isset($serviceData['service_price']) ? $serviceData['service_price']: ''; ?>" >
-                </br>
-                <label for="description">您的服务介绍:</label>
-                <textarea cols="30" rows="8" name="description" id="description" data-mini="true">
-                    <?php echo isset($serviceData['description']) ? $serviceData['description']: ''; ?>
-                </textarea>
-                </br>
-                <label for="methodTags">
-                    <a href="#tagpopup" data-rel="popup" class="ui-controlgroup-label">选取或填写标签:</a>
-                </label>
-                <ul id="methodTags"></ul>
-                <input name="mytags" id="mytags" value="<?php echo isset($serviceData['tag']) ? $serviceData['tag']: ''; ?>" type="hidden">
+                    </optgroup>
+                <?php } ?>
+            </select>
+            </br>
+            <label for="service_price">您的服务价格(￥/小时):</label>
+            <input type="number" name="service_price" id="service_price" value="<?php echo isset($serviceData['service_price']) ? $serviceData['service_price']: ''; ?>" >
+            </br>
+            <label for="description">您的服务介绍:</label>
+            <textarea cols="30" rows="8" name="description" id="description" data-mini="true">
+                <?php echo isset($serviceData['description']) ? $serviceData['description']: ''; ?>
+            </textarea>
+            </br>
+            <label for="methodTags">
+                <a href="#tagpopup" data-rel="popup" class="ui-controlgroup-label">选取或填写标签:</a>
+            </label>
+            <ul id="methodTags"></ul>
+            <input name="mytags" id="mytags" value="<?php echo isset($serviceData['tag']) ? $serviceData['tag']: ''; ?>" type="hidden">
 
             </br>
             <input type="submit" name="yzsubmit" id="yzsubmit" value="发布信息">

@@ -125,7 +125,7 @@ if (isset($_SESSION ['servicearea'])){
                             newstr = newstr + '<li> <a href="../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id=' + value.id +'" rel="external">';
                             newstr = newstr + '<img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/' + value.seller_id + '/head.png" alt="">';
                             newstr = newstr + '<h2>'+ value.seller_name + '</h2>';
-                            newstr = newstr + '<p style="white-space:pre-wrap;">' +value.description+ '</p>' ;
+                            newstr = newstr + '<p style="white-space:pre-wrap;">' +value.service_name+ '</p>' ;
                             newstr = newstr + '<p class="ui-li-aside">￥' +value.service_price+ '/小时</p>' ;
                             newstr = newstr + '</a></li> ' ;
                             newstr = newstr + '<li data-role="list-divider"> <p> ';

@@ -31,6 +31,7 @@ alter table yz_users add column serve_count int(5) DEFAULT 0  COMMENT '用户提
 --Services
 CREATE TABLE IF NOT EXISTS `clctravel`.`yz_services` (
 `id` bigint(12) NOT NULL AUTO_INCREMENT COMMENT '主键',
+`service_name` varchar(255)  DEFAULT NULL  COMMENT 'service title',
 `seller_id` bigint(12)  NOT NULL COMMENT 'The people to sell',
 `seller_name` varchar(255)  DEFAULT NULL  COMMENT 'seller姓名',
 `status` int(5) DEFAULT 0  COMMENT 'service状态 0 created, ...' ,
@@ -61,7 +62,9 @@ alter table yz_services add column serve_count int(5) DEFAULT 0  COMMENT '用户
 --Orders
 CREATE TABLE IF NOT EXISTS `clctravel`.`yz_orders` (
 `id` bigint(12) NOT NULL AUTO_INCREMENT COMMENT '主键',
+`order_no` varchar(64)  DEFAULT NULL  COMMENT 'order id for user to check',
 `service_id` bigint(12)  NOT NULL COMMENT 'service to buy',
+`service_name` varchar(255)  DEFAULT NULL  COMMENT 'service title',
 `customer_id` bigint(12)  NOT NULL COMMENT 'The people to buy',
 `customer_name` varchar(255)  DEFAULT NULL  COMMENT 'customer姓名',
 `seller_id` bigint(12)  NOT NULL COMMENT 'The people to sell',
@@ -77,6 +80,7 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`yz_orders` (
 `creation_date` datetime  DEFAULT NULL COMMENT 'creation datetime',
 `update_date` datetime  DEFAULT NULL COMMENT 'update datetime',
 PRIMARY KEY (`id`),
+KEY `order_no` (`order_no`),
 KEY `service_id` (`service_id`),
 KEY `seller_id` (`seller_id`),
 KEY `customer_id` (`customer_id`)

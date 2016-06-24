@@ -59,7 +59,7 @@ $servicesData= $_SESSION['servicesData'];
                     <a href="../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id=<?php echo $serviceData['id']; ?>" rel="external">
                         <img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $serviceData['seller_id'];?>/head.png" alt="">
                         <h2><?php echo $serviceData['seller_name']?></h2>
-                        <p style="white-space:pre-wrap;"><?php echo $serviceData['description']?></p>
+                        <p style="white-space:pre-wrap;"><?php echo $serviceData['service_name']?></p>
                         <p class="ui-li-aside">￥<?php echo $serviceData['service_price']?>/小时</p>
                     </a>
                 </li>
