@@ -1,0 +1,10 @@
+.container{width:100%;position:absolute;top:56px;left:0;background-color:#ffffff;z-index:9999;display:none;}
+.letter{width:15%;overflow:hidden;line-height:32px;font-size:16px;position:fixed;top:100px;right:20px;text-align:center;}
+.letter ul{list-style-type:none;}
+.letter ul li{font-family:Verdana,Helvetica,Arial,sans-serif; font-size:14px;list-style:none;clear:both;text-align:left;line-height:18px;}
+.letter ul li a{text-decoration:none;}
+.city{width:90%;overflow:hidden;padding:20px;}
+.city-list{width:100%;overflow:hidden;}
+.city-list .city-letter{color:#6e6e6e;font-size:16px;display:inline-block;padding-top:15px;padding-bottom:5px;border-bottom:1px solid #e8ecf1;width:100%;}
+.city-list p{color:#afafaf;width:95%;height:50px;line-height:50px;border-bottom:1px solid #e8ecf1;cursor:pointer;}
+.UISelect{margin-top:5px}

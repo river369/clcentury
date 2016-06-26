@@ -6,10 +6,14 @@
  * Time: 21:54
  */
 session_start();
-require("../common/locations.php");
 $servicearea = '地球';
 if (isset($_SESSION ['servicearea'])){
     $servicearea = $_SESSION ['servicearea'];
+} else if (isset($_SESSION ['userSetting'])){
+    $userSetting = $_SESSION ['userSetting'];
+    if (isset($userSetting['selected_service_area'])){
+        $servicearea = $userSetting['selected_service_area'];
+    }
 }
 ?>
 
@@ -45,7 +49,7 @@ if (isset($_SESSION ['servicearea'])){
 <body>
 <div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
     <div data-role="header" data-position="fixed" data-theme="c">
-        <a href="#nav-panel"data-icon="home"><?php echo $servicearea; ?></a>
+        <a href="../../../Controller/FreelookDispatcher.php?c=getCities" rel="external" data-icon="home"><?php echo $servicearea; ?></a>
         <h1>发现</h1>
         <a href="../../../Controller/AuthUserDispatcher.php?c=searchMainPage" rel="external" data-icon="search">搜索</a>
     </div>
@@ -66,23 +70,6 @@ if (isset($_SESSION ['servicearea'])){
     <div data-role="content"class="endMsgString"></div>
 
     <?php include '../common/footer.php';?>
-
-    <div data-role="panel" data-position-fixed="true" data-display="push" data-theme="o" id="nav-panel">
-        <ul data-role="listview">
-            <li data-role="list-divider" data-icon="delete"><a href="#" data-rel="close">返回</a></li>
-            <li><a href="../../../Controller/FreelookDispatcher.php?c=setLocation&servicearea=地球" rel="external" data-rel="close"> 地球</a></li>
-            <?php
-                foreach ($country_city as $key => $value) {
-            ?>
-                    <li data-role="list-divider"><?php echo $key; ?></li>
-                    <?php
-                        foreach ($value as $city) {
-                    ?>
-                        <li><a href="../../../Controller/FreelookDispatcher.php?c=setLocation&servicearea=<?php echo $city; ?>" rel="external" data-rel="close" ><?php echo $city; ?></a></li>
-                    <?php } ?>
-            <?php } ?>
-        </ul>
-    </div><!-- /panel -->
 </div>
 
 <script>

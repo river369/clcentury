@@ -40,7 +40,7 @@ echo "[".$_SESSION['signedUser']."]";
 $userDao->updateExternalId(-1, $_SESSION['signedUser']);
 setcookie("signedUser", "", time()-1000);
 
-unset($_SESSION['signedUser']);
+unset($_SESSION['signedUser'],$_SESSION['userSetting']);
 unset($_SESSION['weixinOpenid']);
 unset($_SESSION['weixinOpenidTried']);
 unset($_SESSION['$timestamp'], $_SESSION['$nonceStr'], $_SESSION['$signature']);

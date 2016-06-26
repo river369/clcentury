@@ -9,14 +9,81 @@
 namespace Addons\OverSea\Model;
 
 use Addons\OverSea\Model\UsersDao;
+use Addons\OverSea\Model\UserSettingsDao;
 use Addons\OverSea\Common\OSSHelper;
 use Addons\OverSea\Common\HttpHelper;
 use Addons\OverSea\Common\WeixinHelper;
 use Addons\OverSea\Common\Logs;
+use Addons\OverSea\Common\EncryptHelper;
 
 class UsersBo
 {
     public function __construct() {
+    }
+
+    /**
+     * set user setting if user used to sign in
+     */
+    public function index(){
+        if (!isset($_SESSION['userSetting'])){
+            $user_id = self::getUserIdFromSession();
+            if (!empty($user_id) && !is_null($user_id)) {
+                self::setUserSettingInSessionById($user_id);
+            }
+        }
+    }
+
+    /**
+     * Set user runnning location
+     */
+    public function setLocation(){
+        $servicearea = '';
+        if (isset($_SESSION ['servicearea'])){
+            $servicearea = $_SESSION ['servicearea'];
+        }
+        if (isset($_GET ['servicearea'])){
+            $servicearea = $_GET ['servicearea'];
+            $_SESSION ['servicearea'] = $servicearea;
+        }
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",servicearea=".$servicearea);
+
+        $user_id = self::getUserIdFromSession();
+        if (!empty($user_id) && !is_null($user_id)){
+            self::setUserSettingInSessionById($user_id);
+            $userSettingsDao = new UserSettingsDao();
+            $userSetting = array();
+            $userSetting['user_id'] = $user_id;
+            $userSetting['selected_service_area'] = $servicearea;
+            $userSettingsDao->insertOrUpdateUserSetting($userSetting);
+        }
+    }
+
+   
+    // set user setting if user existed and user settting existed
+    private function getUserIdFromSession() {
+        if (isset($_SESSION['signedUser'])) {
+            return $_SESSION['signedUser'];
+            //self::setUserSettingInSessionById($_SESSION['signedUser']);
+        } else {
+            $cookieValue = isset($_COOKIE["signedUser"])? EncryptHelper::decrypt($_COOKIE["signedUser"]) : "";
+            if (isset($cookieValue) && !empty($cookieValue) && !is_null($cookieValue)){
+                return $cookieValue;
+                //self::setUserSettingInSessionById($cookieValue);
+            }
+            return null;
+        }
+    }
+    private function setUserSettingInSessionById($id) {
+        $userSettingsDao = new UserSettingsDao();
+        $userSetting=$userSettingsDao->getUserSettingByUserId($id);
+        if (isset($userSetting) && !empty($userSetting)){
+            $_SESSION['userSetting'] = $userSetting;
+            Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",Saved User Setting for ".$id);
+        }
+        
+        $cookieValue = EncryptHelper::encrypt($id);
+        $_SESSION['signedUser'] = $id;
+        setcookie("signedUser", $cookieValue, time()+7*24*3600);
     }
 
     /**

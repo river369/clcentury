@@ -8,8 +8,14 @@
 session_start();
 $queryHistories = $_SESSION['queryHistories'];
 
+$servicearea = '地球';
 if (isset($_SESSION ['servicearea'])){
     $servicearea = $_SESSION ['servicearea'];
+} else if (isset($_SESSION ['userSetting'])){
+    $userSetting = $_SESSION ['userSetting'];
+    if (isset($userSetting['selected_service_area'])){
+        $servicearea = $userSetting['selected_service_area'];
+    }
 }
 ?>
 
@@ -29,6 +35,7 @@ if (isset($_SESSION ['servicearea'])){
 <body>
 <div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
     <div data-role="header" data-position="fixed" data-theme="c">
+        <a href="../../../Controller/FreelookDispatcher.php?c=getCities" rel="external" data-icon="home"><?php echo $servicearea; ?></a>
         <h1>搜索</h1>
     </div>
 

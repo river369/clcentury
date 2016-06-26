@@ -101,7 +101,7 @@ if (isset($_SESSION['signedUser'])) {
     $cookieValue = isset($_COOKIE["signedUser"])? EncryptHelper::decrypt($_COOKIE["signedUser"]) : "";
     //$cookieValue = null; //to temp disable cookie for test weixin
     if (isset($cookieValue) && !empty($cookieValue) && !is_null($cookieValue)){
-        Logs::writeClcLog("AuthUserDipatcher.php, Get user from cookie as ".$_SESSION['signedUser']);
+        Logs::writeClcLog("AuthUserDipatcher.php, Get user from cookie as ".$cookieValue);
         saveId($cookieValue);
         goToCommand($method_routes, $command);
     } else if (isset($_SESSION['weixinOpenid'])) {

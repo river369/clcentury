@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>易知海外</title>
+
+    <script src="../../resource/js/jquery/jquery-1.11.1.min.js"></script>
+    <script src="../../resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
+    <script src="../../resource/js/bootstrap/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
+    <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
+    <link rel="stylesheet" href="../../resource/style/bootstrap/bootstrap.min.css">
+    <link href="../../resource/style/sidebar/simple-sidebar.css" rel="stylesheet">
+    <link href="../../resource/style/city/style.css" rel="stylesheet">
+</head>
+
+<body>
+<div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
+    <div data-role="header" data-position="fixed" data-theme="c">
+        <h1>选择城市</h1>
+    </div>
+
+    <!-- wrapper -->
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav nav nav-tabs" id="sidebar-nav">
+                <li class="sidebar-brand">
+                    <h4 style="color:steelblue" onclick="setArea()">地球</h4>
+                </li>
+                <li class="active">
+                    <a href="#tab1">中国</a>
+                </li>
+                <li>
+                    <a href="#tab2">美国</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div class="tab-content">
+            <div class="tab-pane" id="tab1">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h4 style="color:steelblue">城市</h4>
+                            <div class="container_cn" style="z-index: 9999; ">
+                                <div class="city">
+                                    <div class="city-list"><span class="city-letter" id="A1">A</span>
+                                        <p><a href="../../../Controller/FreelookDispatcher.php?c=setLocation&servicearea=北京" rel="external">北京</a></p>
+                                        <p data-id="210300">鞍山市</p>
+                                        <p data-id="210300">鞍山市</p>
+                                        <p data-id="210300">鞍山市</p>
+                                        <p data-id="210300">鞍山市</p>
+                                        <p data-id="210300">鞍山市</p>
+                                        <p data-id="210300">鞍山市</p>
+                                        <p data-id="210300">鞍山市</p>
+                                        <p data-id="210300">鞍山市</p>
+                                    </div>
+                                    <div class="city-list"><span class="city-letter" id="B1">B</span>
+                                        <p data-id="220800" onclick="alert()">北京</p>
+                                        <p data-id="220800" onclick="alert()">白城市</p>
+                                        <p data-id="220800" onclick="alert()">白城市</p>
+                                        <p data-id="220800" onclick="alert()">白城市</p>
+                                        <p data-id="220800" onclick="alert()">白城市</p>
+                                        <p data-id="220800" onclick="alert()">白城市</p>
+                                        <p data-id="220800" onclick="alert()">白城市</p>
+                                        <p data-id="220800" onclick="alert()">白城市</p>
+                                        <p data-id="220800" onclick="alert()">白城市</p>
+                                        <p data-id="220800" onclick="alert()">白城市</p>
+
+                                    </div>
+                                    <div class="city-list"><span class="city-letter" id="C1">C</span>
+                                        <p data-id="140400">长治市</p>
+                                        <p data-id="210300">鞍山市</p>
+                                        <p data-id="210300">鞍山市</p>
+                                        <p data-id="210300">鞍山市</p>
+                                        <p data-id="210300">鞍山市</p>
+                                        <p data-id="210300">鞍山市</p>
+                                        <p data-id="210300">鞍山市</p>
+                                        <p data-id="210300">鞍山市</p>
+                                        <p data-id="210300">鞍山市</p>
+                                        <p data-id="210300">鞍山市</p>
+                                    </div>
+                                    <div class="city-list"><span class="city-letter" id="Z1">Z</span>
+                                        <p data-id="640500">中卫市</p>
+                                        <p data-id="210300">鞍山市</p>
+                                        <p data-id="210300">鞍山市</p>
+                                        <p data-id="210300">鞍山市</p>
+                                        <p data-id="210300">鞍山市</p>
+                                        <p data-id="210300">鞍山市</p>
+                                        <p data-id="210300">鞍山市</p>
+                                        <p data-id="210300">鞍山市</p>
+                                        <p data-id="210300">鞍山市</p>
+                                        <p data-id="210300">鞍山市</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane" id="tab2">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h4 style="color:steelblue">城市</h4>
+                            <div class="container_cn" style="z-index: 9999; ">
+                                <div class="city">
+                                    <div class="city-list"><span class="city-letter" id="A1">A</span>
+                                        <p data-id="210300">鞍山市</p>
+                                        <p data-id="210300">鞍山市</p>
+
+                                    </div>
+                                    <div class="city-list"><span class="city-letter" id="B1">B</span>
+                                        <p data-id="220800">白城市</p>
+                                        <p data-id="210300">鞍山市</p>
+
+                                        <p data-id="210300">鞍山市</p>
+                                    </div>
+                                    <div class="city-list"><span class="city-letter" id="C1">C</span>
+                                        <p data-id="140400">长治市</p>
+                                        <p data-id="210300">鞍山市</p>
+                                        <p data-id="210300">鞍山市</p>
+                                        <p data-id="210300">鞍山市</p>
+                                    </div>
+                                    <div class="city-list"><span class="city-letter" id="Z1">Z</span>
+                                        <p data-id="640500">中卫市</p>
+                                        <p data-id="210300">鞍山市</p>
+                                        <p data-id="210300">鞍山市</p>
+                                        <p data-id="210300">鞍山市</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Page Content -->
+    </div>
+    <!-- wrapper -->
+
+    <div class="letter">
+        <ul>
+            <li><a href="javascript:;">A</a></li>
+            <li><a href="javascript:;">B</a></li>
+            <li><a href="javascript:;">C</a></li>
+            <li><a href="javascript:;">D</a></li>
+            <li><a href="javascript:;">E</a></li>
+            <li><a href="javascript:;">F</a></li>
+            <li><a href="javascript:;">G</a></li>
+            <li><a href="javascript:;">H</a></li>
+            <li><a href="javascript:;">J</a></li>
+            <li><a href="javascript:;">K</a></li>
+            <li><a href="javascript:;">L</a></li>
+            <li><a href="javascript:;">M</a></li>
+            <li><a href="javascript:;">N</a></li>
+            <li><a href="javascript:;">P</a></li>
+            <li><a href="javascript:;">Q</a></li>
+            <li><a href="javascript:;">R</a></li>
+            <li><a href="javascript:;">S</a></li>
+            <li><a href="javascript:;">T</a></li>
+            <li><a href="javascript:;">W</a></li>
+            <li><a href="javascript:;">X</a></li>
+            <li><a href="javascript:;">Y</a></li>
+            <li><a href="javascript:;">Z</a></li>
+        </ul>
+    </div>
+<!-- /#wrapper -->
+</div>
+
+<script src="../../resource/js/city/zepto.js"></script>
+<script>
+    $(document).ready(function(){
+        $('#sidebar-nav a:last').tab('show');
+        $('#sidebar-nav li:eq(1) a').tab('show');
+    });
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+
+    $('#sidebar-nav a').click(function (e) {
+        e.preventDefault();
+        $(this).tab('show');
+    });
+    function setArea() {
+        window.location.href="../../../Controller/FreelookDispatcher.php?c=setLocation&servicearea=地球";
+    };
+    $('body').on('click', '.letter a', function () {
+        var s = $(this).html();;
+        $(window).scrollTop($('#' + s + '1').offset().top - 100);
+    });
+</script>
+
+</body>
+</html>

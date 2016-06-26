@@ -11,7 +11,9 @@ session_start();
 
 //c - command, like signin, m - model, f - function in model, v - view,  d - description
 $method_routes = array(
-    'setLocation' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'setLocation','v'=>'../View/mobile/query/discover.php','d'=>'服务信息列表'),
+    'index' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'index', 'v'=>'../View/mobile/query/discover.php','d'=>'服务信息列表'),
+    'getCities' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'getAllCities','v'=>'../View/mobile/query/setlocation.php','d'=>'服务信息列表'),
+    'setLocation' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'setLocation','v'=>'../View/mobile/query/discover.php','d'=>'服务信息列表'),
     'getServices' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'getServices','v'=>'../View/mobile/query/discover.php','d'=>'服务信息列表'),
     'serviceDetails' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'getServiceById','v'=>'../View/mobile/service/servicedetails.php','d'=>'卖家详细信息'),
 );

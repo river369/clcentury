@@ -16,6 +16,7 @@ use Addons\OverSea\Model\UsersDao;
 use Addons\OverSea\Model\QueryHistoryDao;
 use Addons\OverSea\Model\ServicesDao;
 use Addons\OverSea\Model\CommentsDao;
+use Addons\OverSea\Model\CitiesDao;
 
 require dirname(__FILE__).'/PicCrop.php';
 
@@ -299,27 +300,20 @@ class ServicesBo
         $serviceDao -> check($serviceId,  $reason, $status);
         self::getServicesByStatus();
     }
-
-    /**
-     * Set user runnning location
-     */
-    public function setLocation(){
-        $servicearea = '';
-        if (isset($_SESSION ['servicearea'])){
-            $servicearea = $_SESSION ['servicearea'];
-        }
-        if (isset($_GET ['servicearea'])){
-            $servicearea = $_GET ['servicearea'];
-            $_SESSION ['servicearea'] = $servicearea;
-        }
-        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",servicearea=".$servicearea);
-    }
-
+    
     /**
      * Get the pending review service (admin now)
      */
     public function getServices() {
-        $servicearea = $_SESSION ['servicearea'];
+        $servicearea = 地球;
+        if (isset($_SESSION ['servicearea'])){
+            $servicearea = $_SESSION ['servicearea'];
+        } else if (isset($_SESSION ['userSetting'])){
+            $userSetting = $_SESSION ['userSetting'];
+            if (isset($userSetting['selected_service_area'])){
+                $servicearea = $userSetting['selected_service_area'];
+            }
+        }
         $serviceType = isset($_GET ['servicetype'])? $_GET ['servicetype'] : 1;
         Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",servicearea=".$servicearea.",servicetype=".$serviceType);
 
@@ -368,8 +362,15 @@ class ServicesBo
 
     public function getServicesByKey() {
         if (isset($_SESSION['signedUser'])) {
-            $servicearea = $_SESSION ['servicearea'];
-            
+            $servicearea = 地球;
+            if (isset($_SESSION ['servicearea'])){
+                $servicearea = $_SESSION ['servicearea'];
+            } else if (isset($_SESSION ['userSetting'])){
+                $userSetting = $_SESSION ['userSetting'];
+                if (isset($userSetting['selected_service_area'])){
+                    $servicearea = $userSetting['selected_service_area'];
+                }
+            }
             $keyWord = '';
             $isSaveKeyWord = 1;
             if (isset($_POST ['keyWord'])) {
@@ -414,5 +415,31 @@ class ServicesBo
         }
     }
 
+    public function getAllCities(){
+        $citiesDao = new CitiesDao();
+        $allCities = $citiesDao->getAllCities();
+        $countries = array();
+        $citites = array();
+        foreach($allCities as $key => $city)
+        {
+            $cid = $city['display_sequence'];
+            $countries[$cid] = $city['country_name'];
+            
+            $pinyin = $city['first_char_pinyin'];
+            if (!isset($citites[$cid])){
+                $cityList = array();
+                $citites[$cid] = $cityList;
+            }
+            if (!isset($citites[$cid][$pinyin])){
+                $firstCharPinyin = array();
+                $citites[$cid][$pinyin] = $firstCharPinyin;
+            }
+            $citites[$cid][$pinyin][] = $city['city_name'];
+        }
+        $_SESSION['citites'] = $citites;
+        $_SESSION['countries'] = $countries;
+        //Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",citites=".json_encode($citites));
+        Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",countries=".json_encode($countries));
+    }
 
 }

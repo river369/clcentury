@@ -19,6 +19,7 @@ function initLoad()
     include_once dirname(__FILE__).'/Model/BaseDao.php';
     include_once dirname(__FILE__).'/Model/UsersBo.php';
     include_once dirname(__FILE__).'/Model/UsersDao.php';
+    include_once dirname(__FILE__).'/Model/UserSettingsDao.php';
     include_once dirname(__FILE__).'/Model/ServicesBo.php';
     include_once dirname(__FILE__).'/Model/ServicesDao.php';
     include_once dirname(__FILE__).'/Model/QueryHistoryDao.php';
@@ -27,6 +28,9 @@ function initLoad()
     include_once dirname(__FILE__).'/Model/OrderActionsDao.php';
     include_once dirname(__FILE__).'/Model/PaymentsDao.php';
     include_once dirname(__FILE__).'/Model/CommentsDao.php';
+    include_once dirname(__FILE__).'/Model/CountriesDao.php';
+    include_once dirname(__FILE__).'/Model/CitiesDao.php';
+    include_once dirname(__FILE__).'/Model/CityTagsDao.php';
     return true;
 }
 

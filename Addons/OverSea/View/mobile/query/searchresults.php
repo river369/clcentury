@@ -11,6 +11,11 @@ require("../common/locations.php");
 $servicearea = '地球';
 if (isset($_SESSION ['servicearea'])){
     $servicearea = $_SESSION ['servicearea'];
+} else if (isset($_SESSION ['userSetting'])){
+    $userSetting = $_SESSION ['userSetting'];
+    if (isset($userSetting['selected_service_area'])){
+        $servicearea = $userSetting['selected_service_area'];
+    }
 }
 ?>
 
@@ -45,7 +50,7 @@ if (isset($_SESSION ['servicearea'])){
 <body>
 <div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
     <div data-role="header" data-position="fixed" data-theme="c">
-        <a href="#nav-panel"data-icon="home"><?php echo $servicearea; ?></a>
+        <a href="../../../Controller/FreelookDispatcher.php?c=getCities" rel="external" data-icon="home"><?php echo $servicearea; ?></a>
         <h1>发现</h1>
         <a href="../../../Controller/AuthUserDispatcher.php?c=searchMainPage" rel="external" data-icon="search">搜索</a>
     </div>

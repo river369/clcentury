@@ -28,6 +28,88 @@ user状态 0 created, 20 个人信息不完整, 40 已经实名, 60 已发布过
 user状态 0 created已经注册, 20 已经提交实名, 40, rejected 60 approved, 120 封号 ,
 alter table yz_users add column serve_count int(5) DEFAULT 0  COMMENT '用户提供服务次数';
 
+--Users Settings
+CREATE TABLE IF NOT EXISTS `clctravel`.`yz_user_settings` (
+`id` bigint(12) NOT NULL AUTO_INCREMENT COMMENT '主键',
+`user_id` bigint(12)  NOT NULL COMMENT 'user id foreign key',
+`selected_service_area` varchar(50) DEFAULT NULL  COMMENT '服务区域',
+`creation_date` datetime  DEFAULT NULL COMMENT 'creation datetime',
+`update_date` datetime  DEFAULT NULL COMMENT 'update datetime',
+PRIMARY KEY (`id`),
+KEY `user_id` (`user_id`)
+) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
+
+--Countries
+CREATE TABLE IF NOT EXISTS `clctravel`.`yz_countries` (
+`id` bigint(12) NOT NULL AUTO_INCREMENT COMMENT '主键',
+`country_name` varchar(50) DEFAULT NULL  COMMENT '服务区域',
+`display_sequence` int(5) DEFAULT 0  COMMENT '显示的排序',
+`creation_date` datetime  DEFAULT NULL COMMENT 'creation datetime',
+`update_date` datetime  DEFAULT NULL COMMENT 'update datetime',
+PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
+
+insert into  `clctravel`.`yz_countries` (country_name, display_sequence) values ('中国',1);
+insert into  `clctravel`.`yz_countries` (country_name, display_sequence) values ('美国',2);
+
+--Citys
+CREATE TABLE IF NOT EXISTS `clctravel`.`yz_cities` (
+`id` bigint(12) NOT NULL AUTO_INCREMENT COMMENT '主键',
+`city_name` varchar(50) DEFAULT NULL  COMMENT '城市名称',
+`first_char_pinyin` varchar(2) DEFAULT NULL  COMMENT '城市首字母拼音',
+`country_id` bigint(12)  NOT NULL COMMENT 'country id foreign key',
+`creation_date` datetime  DEFAULT NULL COMMENT 'creation datetime',
+`update_date` datetime  DEFAULT NULL COMMENT 'update datetime',
+PRIMARY KEY (`id`),
+KEY `country_id` (`country_id`)
+) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
+
+insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (1, '北京', 'B');
+insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (1, '上海', 'S');
+insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (1, '广州', 'G');
+insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (1, '杭州', 'H');
+insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (1, '深圳', 'S');
+insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (1, '厦门', 'X');
+insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (1, '南京', 'N');
+insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (1, '成都', 'C');
+insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (1, '青岛', 'Q');
+insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (1, '武汉', 'W');
+insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (1, '西安', 'X');
+insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (1, '天津', 'T');
+insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (1, '重庆', 'C');
+insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (1, '苏州', 'S');
+insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (1, '济南', 'J');
+insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (1, '长沙', 'C');
+insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (1, '香港', 'X');
+insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (1, '大连', 'D');
+insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (1, '三亚', 'S');
+insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (1, '哈尔滨', 'H');
+
+insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (2, '西雅图', 'X');
+insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (2, '拉斯维加斯', 'L');
+insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (2, '纽约', 'N');
+insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (2, '洛杉矶', 'L');
+insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (2, '夏威夷', 'X');
+insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (2, '旧金山', 'J');
+insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (2, '圣地亚哥', 'S');
+insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (2, '芝加哥', 'Z');
+insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (2, '华盛顿', 'H');
+insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (2, '奥兰多', 'A');
+insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (2, '波士顿', 'B');
+insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (2, '圣保罗', 'S');
+
+--city tags
+CREATE TABLE IF NOT EXISTS `clctravel`.`yz_city_tags` (
+`id` bigint(12) NOT NULL AUTO_INCREMENT COMMENT '主键',
+`city_name` varchar(50) DEFAULT NULL  COMMENT '城市名称',
+`service_type` int(10) DEFAULT 1  COMMENT '服务类型 1 旅游, 2 留学, 99999 all, -1 nothing',
+`tag` varchar(50) DEFAULT NULL  COMMENT 'tag',
+`creation_date` datetime  DEFAULT NULL COMMENT 'creation datetime',
+`update_date` datetime  DEFAULT NULL COMMENT 'update datetime',
+PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
+
+
 --Services
 CREATE TABLE IF NOT EXISTS `clctravel`.`yz_services` (
 `id` bigint(12) NOT NULL AUTO_INCREMENT COMMENT '主键',
@@ -164,7 +246,6 @@ KEY `order_id` (`order_id`),
 KEY `customer_id` (`customer_id`),
 KEY `seller_id` (`seller_id`)
 ) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
-
 
 
 ------------------------Deprecated V3(1 user 1 service)-------------------------
