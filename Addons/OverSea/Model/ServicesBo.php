@@ -394,13 +394,11 @@ class ServicesBo
                 }
             }
             $keyWord = '';
-            $isSaveKeyWord = 1;
             if (isset($_POST ['keyWord'])) {
                 $keyWord = $_POST ['keyWord'];
             }
             if (isset($_GET ['keyWord'])) {
                 $keyWord = $_GET ['keyWord'];
-                $isSaveKeyWord = 0;
             }
             $_SESSION['keyWord'] = $keyWord;
             Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",servicearea=" . $servicearea . ",keyWord=" . $keyWord);
@@ -418,21 +416,24 @@ class ServicesBo
                     $servicesData = $serviceDao->getServicesByKeyWordWithPage($keyWord, $pageIndexRange);
                 }
 
+                if ($pageIndex == 0) {
+                    $queryHistory = array();
+                    $queryHistory['key_word'] = $keyWord;
+                    $queryHistory['user_id'] = $_SESSION['signedUser'];
+                    $queryHistoryDao = new QueryHistoryDao();
+                    $queryHistoryDao->insert($queryHistory);
+                }
+
                 if ($pageIndex >= 0) {
                     //$retJson =  json_encode(array('status'=> 0, 'msg'=> 'done', 'serviceLists' => $servicesData));
                     //Logs::writeClcLog(__CLASS__.",".__FUNCTION__." retJson=".$retJson);
                     echo json_encode(array('status' => 0, 'msg' => 'done', 'objLists' => $servicesData));
                     exit;
                 } else {
+                    // use less code now
                     $_SESSION['servicesData'] = $servicesData;
-                    if ($isSaveKeyWord > 0) {
-                        $queryHistory = array();
-                        $queryHistory['key_word'] = $keyWord;
-                        $queryHistory['user_id'] = $_SESSION['signedUser'];
-                        $queryHistoryDao = new QueryHistoryDao();
-                        $queryHistoryDao->insert($queryHistory);
-                    }
                 }
+
             }
         }
     }

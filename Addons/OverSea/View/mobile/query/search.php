@@ -41,7 +41,7 @@ if (isset($_SESSION ['servicearea'])){
 
     <div data-role="content">
         <form id="search-user"data-ajax="false" method="post" action="../../../Controller/AuthUserDispatcher.php?c=searchByKeyWord">
-            <input type="search" name="keyWord" id="keyWord">
+            <input type="search" name="keyWord" id="keyWord" autofocus>
         </form>
     </div>
 
