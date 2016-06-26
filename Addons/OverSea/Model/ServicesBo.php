@@ -209,9 +209,11 @@ class ServicesBo
         $serviceid = $serviceDao ->update($serviceData, $serviceData['id']);
 
         if ($serviceid==0) {
-            $_SESSION['status'] = 's';
-            $_SESSION['message'] = '提交易知服务信息成功,谢谢!';
-            $_SESSION['goto'] = "../../../Controller/FreelookDispatcher.php?c=getServices";
+            //$_SESSION['status'] = 's';
+            //$_SESSION['message'] = '提交易知服务信息成功,谢谢!';
+            //$_SESSION['goto'] = "../../../Controller/FreelookDispatcher.php?c=getServices";
+            header('Location:../Controller/AuthUserDispatcher.php?c=myServices&sellerid='.$serviceData['seller_id'].'&status=20');
+            exit;
         } else {
             $_SESSION['status'] = 's';
             $_SESSION['message'] = '提交易知服务信息失败!';

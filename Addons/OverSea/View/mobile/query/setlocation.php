@@ -121,6 +121,8 @@ $countries = $_SESSION['countries'];
         </ul>
     </div>
     <!-- /#wrapper -->
+
+    <?php include '../common/footer.php';?>
 </div>
 
 <script src="../../resource/js/city/zepto.js"></script>
