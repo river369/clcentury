@@ -277,6 +277,25 @@ class ServicesBo
     }
 
     /**
+     * seller pauase service
+     */
+    public function pauseService(){
+        $serviceId = $_POST['pauseServiceId'];
+        $reason = $_POST['pausereason'];
+        $status = 100;
+        $serviceDao = new ServicesDao();
+        $serviceDao -> check($serviceId,  $reason, $status);
+        self::getMyServicesByStatus();
+    }
+    public function recoverService(){
+        $serviceId = $_POST['recoverServiceId'];
+        $status = 60;
+        $serviceDao = new ServicesDao();
+        $serviceDao -> check($serviceId,  "", $status);
+        self::getMyServicesByStatus();
+    }
+
+    /**
      * Get the pending review service (admin now)
      */
     public function getServicesByStatus() {
@@ -285,7 +304,8 @@ class ServicesBo
         $allServices = $serviceDao->getByStatus($status);
         $_SESSION['allServices'] = $allServices;
     }
-    
+
+
 
     /**
      * Admin reject or approve service  (admin now)

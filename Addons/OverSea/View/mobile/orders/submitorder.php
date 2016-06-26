@@ -8,6 +8,7 @@
 session_start();
 $serviceData= $_SESSION['serviceData'];
 $serviceId = $serviceData['id'];
+$serviceName = $serviceData['service_name'];
 $sellerId = $serviceData['seller_id'];
 $sellerName = $serviceData['seller_name'];
 $serviceArea = $serviceData['service_area'];
@@ -45,6 +46,7 @@ $signedUser = $_SESSION['signedUser'];
             <h5>服务信息:</h5>
             <ul data-role="listview" data-inset="true">
                 <li>服务编号: <span class="ui-li-count"><?php echo $serviceId; ?></span></li>
+                <li>服务名称: <span class="ui-li-count"><?php echo $serviceName; ?></span></li>
                 <li>服务地点: <span class="ui-li-count"><?php echo $serviceArea; ?></span></li>
                 <li>服务类型: <span class="ui-li-count"><?php echo $serviceTypeDesc; ?></span></li>
                 <li>服务价格: <span class="ui-li-count">￥<?php echo $price; ?>/小时</span></li>
@@ -63,6 +65,7 @@ $signedUser = $_SESSION['signedUser'];
             <textarea cols="30" rows="8" name="request_message" id="request_message" data-mini="true"></textarea>
 
             <input type="hidden" name="service_id" id="service_id"  value="<?php echo $serviceId;?>"/>
+            <input type="hidden" name="service_name" id="service_name"  value="<?php echo $serviceName;?>"/>
             <input type="hidden" name="customer_id" id="customer_id"  value="<?php echo $signedUser;?>"/>
             <input type="hidden" name="seller_id" id="seller_id"  value="<?php echo $sellerId; ?>"/>
             <input type="hidden" name="seller_name" id="seller_name"  value="<?php echo $sellerName; ?>"/>

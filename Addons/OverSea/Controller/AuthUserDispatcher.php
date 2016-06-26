@@ -51,6 +51,10 @@ $method_routes = array(
         'v'=>'../View/admin/all_services.php', 'd'=>'admin查看易知服务信息'),
     'checkService' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'checkService', 
         'v'=>'../View/admin/all_services.php', 'd'=>'admin查看易知服务信息'),
+    'pauseService' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'pauseService',
+        'v'=>'../View/mobile/service/my_services.php', 'd'=>'暂停易知服务信息'),
+    'recoverService' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'recoverService',
+        'v'=>'../View/mobile/service/my_services.php', 'd'=>'恢复易知服务信息'),
     
     'submitOrder' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'getServiceInfoById', 
         'v'=>'../View/mobile/orders/submitorder.php','d'=>'用户订购确认'),

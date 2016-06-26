@@ -65,6 +65,7 @@ function getOrderStopReason($condition, $orderActions)
             <ul data-role="listview" data-inset="true">
                 <li data-role="list-divider">订单号: <span class="ui-li-count"><?php echo $order['id'];?></span></li>
                 <li data-role="list-divider">订单状态: <span class="ui-li-count"><?php echo $orderStatus;?></span></li>
+                <li data-role="list-divider">服务名称: <span class="ui-li-count"><?php echo $order['service_name'];?></span></li>
                 <li data-role="list-divider">卖家: <span class="ui-li-count"><?php echo $order['seller_name'];?></span></li>
                 <li data-role="list-divider">买家: <span class="ui-li-count"><?php echo $order['customer_name'];?></span></li>
                 <?php if(!is_null($orderStopReason) && !empty($orderStopReason)){ ?>

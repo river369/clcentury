@@ -23,7 +23,7 @@ $openId = $tools->GetOpenid();
 
 //②、统一下单
 $input = new WxPayUnifiedOrder();
-$input->SetBody("易知海外订单:".$orderData['id']." 服务提供者:".$orderData['seller_name']);
+$input->SetBody("易知海外订单:".$orderData['id']);
 $input->SetAttach("service");
 $input->SetOut_trade_no(WxPayConfig::MCHID."_".date("YmdHis")."_".$orderData['id']);
 $input->SetTotal_fee($orderData['service_total_fee']);
@@ -34,7 +34,7 @@ $input->SetNotify_url("http://www.clcentury.com/weiphp/Addons/OverSea/Controller
 $input->SetTrade_type("JSAPI");
 $input->SetOpenid($openId);
 $order = WxPayApi::unifiedOrder($input);
-echo '<font color="#f00"><b>统一下单支付单信息</b></font><br/>';
+//echo '<font color="#f00"><b>统一下单支付单信息</b></font><br/>';
 printf_info($order);
 $jsApiParameters = $tools->GetJsApiParameters($order);
 
@@ -71,7 +71,8 @@ $jsApiParameters = $tools->GetJsApiParameters($order);
 					if(res.err_msg=='get_brand_wcpay_request:ok'){
 						//document.getElementById('payDom').style.display='none';
 						document.getElementById('successDom').style.display='block';
-     					window.location.href = '../../View/mobile/common/message.php?status=s&message=创建订单成功,谢谢!&goto_type=order_list';
+     					//window.location.href = '../../View/mobile/common/message.php?status=s&message=创建订单成功,谢谢!&goto_type=order_list';
+						window.location.href = "../AuthUserDispatcher.php?c=queryCustomerOrders&customerid=<?php echo $orderData['customer_id'];?>&status=0,10"
 					}else{
 						//document.getElementById('payDom').style.display='none';
 						document.getElementById('failDom').style.display='block';

@@ -9,7 +9,16 @@ session_start();
 $orders= $_SESSION['sellerOrders'];
 $sellerid = $_SESSION['sellerid'] ;
 $ordersStatus= $_SESSION['sellerOrdersStatus'];
-
+$querystatusString = "买家已经付款,请您尽快接收以下订单,避免买家取消带来经济损失。";
+if ($ordersStatus == 20) {
+    $querystatusString = "您已接收的订单。请等待卖家联系, 并确保订单按时执行。";
+} else if ($ordersStatus == 40 || $ordersStatus == 60 || $ordersStatus == 80 ) {
+    $querystatusString = "您已完成的订单。等待买家确认, 易知海外支付。";
+} else if ($ordersStatus == 100 ) {
+    $querystatusString = "易知海外已经完成支付的订单。";
+} else if ($ordersStatus == 1020 || $ordersStatus == 1040 || $ordersStatus == 1060){
+    $querystatusString = "已取消的订单。";
+}
 ?>
 
 <!DOCTYPE html>
@@ -43,42 +52,48 @@ $ordersStatus= $_SESSION['sellerOrdersStatus'];
                 <li><a href="../../../Controller/AuthUserDispatcher.php?c=querySellerOrders&sellerid=<?php echo $sellerid;?>&status=1020,1040,1060" <?php echo ($ordersStatus == 1020 || $ordersStatus == 1040 || $ordersStatus == 1060)? "class='ui-btn-active'" : '' ?>>已取消</a></li>
             </ul>
         </div><!-- /navbar -->
-        <?php
-        foreach($orders as $key => $order)
-        {
-            $orderid = $order['id'];
-        ?>
-        <ul data-role="listview" data-inset="true">
-            <li data-role="list-divider">订单号: <span class="ui-li-count"><?php echo $order['id'];?></span></li>
-            <li>
-                <a href="../../../Controller/AuthUserDispatcher.php?c=queryOrderDetails&order_id=<?php echo $orderid; ?>" rel="external">
-                    <img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $order['customer_id'];?>/head.png" alt="">
-                    <h2> 买家:<?php echo $order['customer_name'];?> </h2>
-                    <p style="white-space:pre-wrap;"><?php echo $order['request_message'];?> </p>
-                    <p class="ui-li-aside">￥<?php echo $order['service_price'];?>/小时</p>
-                </a>
-            </li>
-            <li data-role="list-divider">已购买: <?php echo $order['service_hours'];?>小时 <span class="ui-li-count">总计: <?php echo $order['service_total_fee'];?>元</span></li>
-            
-            <?php if ($ordersStatus == 10) {?>
-                <li data-theme="c">
-                    <div class="ui-grid-a">
-                        <div class="ui-block-a" align="left"><a href="#rejectDialog" data-rel="popup" class="ui-mini" onclick="rejectPopup('<?php echo $orderid; ?>')">拒绝订单</a></div>
-                        <div class="ui-block-b" align="right"><a href="#acceptDialog" data-rel="popup" class="ui-mini" onclick="acceptPopup('<?php echo $orderid; ?>')">确认接单</a></div>
-                    </div>
+        <?php if (isset($orders) && count($orders) >0) { ?>
+        <h6 style="color:grey"><?php echo $querystatusString ?></h6>
+            <?php
+            foreach($orders as $key => $order)
+            {
+                $orderid = $order['id'];
+            ?>
+            <ul data-role="listview" data-inset="true">
+                <li data-role="list-divider">订单号: <span class="ui-li-count"><?php echo $order['id'];?></span></li>
+                <li>
+                    <a href="../../../Controller/AuthUserDispatcher.php?c=queryOrderDetails&order_id=<?php echo $orderid; ?>" rel="external">
+                        <img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $order['customer_id'];?>/head.png" alt="">
+                        <h2> 买家:<?php echo $order['customer_name'];?> </h2>
+                        <p style="white-space:pre-wrap;"><?php echo $order['request_message'];?> </p>
+                        <p class="ui-li-aside">￥<?php echo $order['service_price'];?>/小时</p>
+                    </a>
                 </li>
-            <?php } ?>
-            
-            <?php if ($ordersStatus == 20) {?>
-                <li data-theme="c">
-                    <div class="ui-grid-a">
-                        <div class="ui-block-a" align="left"><a href="#cancelDialog" data-rel="popup" class="ui-mini" onclick="cancelPopup('<?php echo $orderid; ?>')">取消订单</a></div>
-                        <div class="ui-block-b" align="right"><a href="#finishDialog" data-rel="popup" class="ui-mini" onclick="finishPopup('<?php echo $orderid; ?>')">完成定单</a></div>
-                    </div>
-                </li>
-            <?php } ?>
-        </ul>
+                <li data-role="list-divider">已购买: <?php echo $order['service_hours'];?>小时 <span class="ui-li-count">总计: <?php echo $order['service_total_fee'];?>元</span></li>
+                
+                <?php if ($ordersStatus == 10) {?>
+                    <li data-theme="c">
+                        <div class="ui-grid-a">
+                            <div class="ui-block-a" align="left"><a href="#rejectDialog" data-rel="popup" class="ui-mini" onclick="rejectPopup('<?php echo $orderid; ?>')">拒绝订单</a></div>
+                            <div class="ui-block-b" align="right"><a href="#acceptDialog" data-rel="popup" class="ui-mini" onclick="acceptPopup('<?php echo $orderid; ?>')">确认接单</a></div>
+                        </div>
+                    </li>
+                <?php } ?>
+                
+                <?php if ($ordersStatus == 20) {?>
+                    <li data-theme="c">
+                        <div class="ui-grid-a">
+                            <div class="ui-block-a" align="left"><a href="#cancelDialog" data-rel="popup" class="ui-mini" onclick="cancelPopup('<?php echo $orderid; ?>')">取消订单</a></div>
+                            <div class="ui-block-b" align="right"><a href="#finishDialog" data-rel="popup" class="ui-mini" onclick="finishPopup('<?php echo $orderid; ?>')">完成定单</a></div>
+                        </div>
+                    </li>
+                <?php } ?>
+            </ul>
+            <?php } 
+        } else {?>
+            <h4 style="color:steelblue">没有处于该状态的订单</h4>
         <?php } ?>
+
 
         <div data-role="popup" id="acceptDialog" data-overlay-theme="a" data-theme="a" style="max-width:400px;">
             <div data-role="header" data-theme="a">

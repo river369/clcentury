@@ -9,6 +9,16 @@ session_start();
 $orders= $_SESSION['customerOrders'];
 $customerid = $_SESSION['customerId'] ;
 $ordersStatus= $_SESSION['customerOrdersStatus'];
+$querystatusString = "订单已经创建,请确认付款完毕并等待卖家接收。";
+if ($ordersStatus == 20) {
+    $querystatusString = "卖家已接收的订单。你可以查看订单获得卖家联系方式。";
+} else if ($ordersStatus == 40) {
+    $querystatusString = "等待您确认完成的订单。如果你在48小时内未处理, 易知海外将自动确认完成。";
+} else if ($ordersStatus == 60 || $ordersStatus == 80 || $ordersStatus == 100) {
+    $querystatusString = "已完成的订单。";
+} else if ($ordersStatus == 1020 || $ordersStatus == 1040 || $ordersStatus == 1060){
+    $querystatusString = "已取消的订单。";
+}
 ?>
 
 <!DOCTYPE html>
@@ -42,44 +52,49 @@ $ordersStatus= $_SESSION['customerOrdersStatus'];
                 <li><a href="../../../Controller/AuthUserDispatcher.php?c=queryCustomerOrders&customerid=<?php echo $customerid;?>&status=1020,1040,1060" <?php echo ($ordersStatus == 1020 || $ordersStatus == 1040 || $ordersStatus == 1060) ? "class='ui-btn-active'" : '' ?> rel="external">已取消</a></li>
             </ul>
         </div><!-- /navbar -->
-        <?php
-        foreach($orders as $key => $order)
-        {
-            $orderid = $order['id'];
-            $orderStatus = $order['status'];
-        ?>
-        <ul data-role="listview" data-inset="true">
-            <li data-role="list-divider">订单号: <span class="ui-li-count"><?php echo $order['id'];?></span></li>
-            <li>
-                <a href="../../../Controller/AuthUserDispatcher.php?c=queryOrderDetails&order_id=<?php echo $orderid; ?>" rel="external">
-                    <img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $order['seller_id'];?>/head.png" alt="">
-                    <h2> 卖家:<?php echo $order['seller_name'];?> </h2>
-                    <p style="white-space:pre-wrap;"><?php echo $order['request_message'];?> </p>
-                    <p class="ui-li-aside">￥<?php echo $order['service_price'];?>/小时</p>
-                </a>
-            </li>
-            <li data-role="list-divider">已购买: <?php echo $order['service_hours'];?>小时 <span class="ui-li-count">总计: <?php echo $order['service_total_fee'];?>元</span></li>
-            <?php if ($ordersStatus <= 20) {?>
-                <li data-theme="c">
-                    <div class="ui-grid-a">
-                        <?php if ($orderStatus == 0) {?>
-                          <div class="ui-block-a" align="left"><a href="../../../Controller/AuthUserDispatcher.php?c=repayOrder&order_id=<?php echo $orderid; ?>" rel="external" class="ui-mini">去付款</a></div>
-                        <?php } else {?>
+        <?php if (isset($orders) && count($orders) >0) { ?>
+        <h6 style="color:grey"><?php echo $querystatusString ?></h6>
+            <?php
+            foreach($orders as $key => $order)
+            {
+                $orderid = $order['id'];
+                $orderStatus = $order['status'];
+            ?>
+            <ul data-role="listview" data-inset="true">
+                <li data-role="list-divider">订单号: <span class="ui-li-count"><?php echo $order['id'];?></span></li>
+                <li>
+                    <a href="../../../Controller/AuthUserDispatcher.php?c=queryOrderDetails&order_id=<?php echo $orderid; ?>" rel="external">
+                        <img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $order['seller_id'];?>/head.png" alt="">
+                        <h2> 卖家:<?php echo $order['seller_name'];?> </h2>
+                        <p style="white-space:pre-wrap;"><?php echo $order['request_message'];?> </p>
+                        <p class="ui-li-aside">￥<?php echo $order['service_price'];?>/小时</p>
+                    </a>
+                </li>
+                <li data-role="list-divider">已购买: <?php echo $order['service_hours'];?>小时 <span class="ui-li-count">总计: <?php echo $order['service_total_fee'];?>元</span></li>
+                <?php if ($ordersStatus <= 20) {?>
+                    <li data-theme="c">
+                        <div class="ui-grid-a">
+                            <?php if ($orderStatus == 0) {?>
+                              <div class="ui-block-a" align="left"><a href="../../../Controller/AuthUserDispatcher.php?c=repayOrder&order_id=<?php echo $orderid; ?>" rel="external" class="ui-mini">去付款</a></div>
+                            <?php } else {?>
+                                <div class="ui-block-a" align="left"></div>
+                            <?php } ?>
+                            <div class="ui-block-b" align="right"><a href="#cancelDialog" data-rel="popup" class="ui-mini" onclick="cancelPopup('<?php echo $orderid; ?>')">取消订单</a></div>
+                        </div>
+                    </li>
+                <?php } ?>
+                <?php if ($ordersStatus == 40) {?>
+                    <li data-theme="c">
+                        <div class="ui-grid-a">
                             <div class="ui-block-a" align="left"></div>
-                        <?php } ?>
-                        <div class="ui-block-b" align="right"><a href="#cancelDialog" data-rel="popup" class="ui-mini" onclick="cancelPopup('<?php echo $orderid; ?>')">取消订单</a></div>
-                    </div>
-                </li>
-            <?php } ?>
-            <?php if ($ordersStatus == 40) {?>
-                <li data-theme="c">
-                    <div class="ui-grid-a">
-                        <div class="ui-block-a" align="left"></div>
-                        <div class="ui-block-b" align="right"><a href="#confirmDialog" data-rel="popup" class="ui-mini" onclick="confirmPopup('<?php echo $orderid; ?>')">确认完成</a></div>
-                    </div>
-                </li>
-            <?php } ?>
-        </ul>
+                            <div class="ui-block-b" align="right"><a href="#confirmDialog" data-rel="popup" class="ui-mini" onclick="confirmPopup('<?php echo $orderid; ?>')">确认完成</a></div>
+                        </div>
+                    </li>
+                <?php } ?>
+            </ul>
+            <?php }
+        } else {?>
+            <h4 style="color:steelblue">没有处于该状态的订单</h4>
         <?php } ?>
 
         <div data-role="popup" id="confirmDialog" data-overlay-theme="a" data-theme="a" style="max-width:400px;">

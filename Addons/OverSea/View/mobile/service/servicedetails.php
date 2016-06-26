@@ -110,7 +110,7 @@ $commentsData = $_SESSION['commentsData'];
 <body>
 <div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
     <div data-role="header" data-position="fixed" data-theme="c">
-        <h1><?php echo $serviceData['seller_name']; ?>的服务</h1>
+        <h1><?php echo $serviceData['seller_name']; ?>的服务-<?php echo $serviceData['service_name']; ?></h1>
     </div>
 
     <div role="main" class="ui-content">

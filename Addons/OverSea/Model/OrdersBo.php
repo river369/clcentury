@@ -25,6 +25,7 @@ class OrdersBo
         $orderData = array();
 
         $orderData['service_id'] = isset($_POST ['service_id']) ? $_POST ['service_id'] : "";
+        $orderData['service_name'] = isset($_POST ['service_name']) ? $_POST ['service_name'] : "";
         $orderData['seller_id'] = isset($_POST ['seller_id']) ? $_POST ['seller_id'] : "";
         $orderData['seller_name'] = isset($_POST ['seller_name']) ? $_POST ['seller_name'] : "";
         $orderData['customer_id'] = isset($_POST ['customer_id']) ? $_POST ['customer_id'] : "";

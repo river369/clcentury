@@ -38,6 +38,12 @@ class BusinessHelper {
             case 60:
                 $statusString = "服务审核已通过";
                 break;
+            case 80:
+                $statusString = "服务被卖家删除";
+                break;
+            case 100:
+                $statusString = "服务被卖家暂停";
+                break;
         }
         return $statusString;
     }
