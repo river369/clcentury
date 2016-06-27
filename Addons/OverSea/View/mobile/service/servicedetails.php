@@ -196,8 +196,8 @@ $commentsData = $_SESSION['commentsData'];
                 </div>
             <?php }?>
 
-            <h4 style="color:steelblue">卖家<?php echo $serviceData['seller_name'];?>的其他服务:</h4>
-            <a href="../../../Controller/AuthUserDispatcher.php?c=sellerPublishedServices&sellerid=<?php echo $seller_id;?>" rel="external">点击查看</a>
+            <h4 style="color:steelblue">卖家<?php echo $serviceData['seller_name'];?>的主页:</h4>
+            <a href="../users/user_profile.php?&sellerid=<?php echo $seller_id;?>" rel="external">点击查看</a>
         </div>
 
         <div data-role="content" id="commentsInfo">
