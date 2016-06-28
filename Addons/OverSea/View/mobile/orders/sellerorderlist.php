@@ -48,6 +48,7 @@ if ($ordersStatus == 20) {
                 <li><a href="../../../Controller/AuthUserDispatcher.php?c=querySellerOrders&sellerid=<?php echo $sellerid;?>&status=10" <?php echo $ordersStatus == 10 ? "class='ui-btn-active'" : ''; ?> rel="external">待接收</a></li>
                 <li><a href="../../../Controller/AuthUserDispatcher.php?c=querySellerOrders&sellerid=<?php echo $sellerid;?>&status=20" <?php echo $ordersStatus == 20 ? "class='ui-btn-active'" : ''; ?> rel="external">已接收</a></li>
                 <li><a href="../../../Controller/AuthUserDispatcher.php?c=querySellerOrders&sellerid=<?php echo $sellerid;?>&status=40,60,80" <?php echo ($ordersStatus == 40 || $ordersStatus == 60 || $ordersStatus == 80)? "class='ui-btn-active'" : ''; ?> rel="external">已完成</a></li>
+                <li><a href="../../../Controller/AuthUserDispatcher.php?c=querySellerOrders&sellerid=<?php echo $sellerid;?>&status=120" <?php echo ($ordersStatus == 120)? "class='ui-btn-active'" : ''; ?> rel="external">有争议</a></li>
                 <li><a href="../../../Controller/AuthUserDispatcher.php?c=querySellerOrders&sellerid=<?php echo $sellerid;?>&status=100" <?php echo $ordersStatus == 100 ? "class='ui-btn-active'" : ''; ?> rel="external">已到账</a></li>
                 <li><a href="../../../Controller/AuthUserDispatcher.php?c=querySellerOrders&sellerid=<?php echo $sellerid;?>&status=1020,1040,1060" <?php echo ($ordersStatus == 1020 || $ordersStatus == 1040 || $ordersStatus == 1060)? "class='ui-btn-active'" : '' ?>>已取消</a></li>
             </ul>

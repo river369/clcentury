@@ -7,6 +7,7 @@
  */
 
 namespace Addons\OverSea\Common;
+use Addons\OverSea\Common\Logs;
 
 class WeixinHelper
 {
@@ -90,8 +91,9 @@ class WeixinHelper
             return 0;
         }
         $url = 'https://api.weixin.qq.com/sns/userinfo?access_token='.$token.'&openid='.$openid.'&lang=zh_CN';
-        //echo $url;
+        Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",$url=".$url);
         $tempArr = json_decode ( file_get_contents ( $url ), true );
+
         return $tempArr;
     }
 
@@ -122,7 +124,7 @@ class WeixinHelper
     
     public static function triggerWeixinGetToken($token, $openid, $refreshtoken) {
             $url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='. self::$appid  .'&redirect_uri=http://www.clcentury.com/weiphp/Addons/OverSea/Controller/GetWeixinOpenID.php?response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect';
-            //echo $url;
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",url=".$url);
             header('Location:'.$url);
     }
 
