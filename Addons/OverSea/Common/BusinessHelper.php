@@ -77,6 +77,9 @@ class BusinessHelper {
             case 60:
                 $orderStatus = "买家已将订单置为完成,等待易知付款";
                 break;
+            case 70:
+                $orderStatus = "买家提出服务争议";
+                break;
             case 80:
                 $orderStatus = "买家完成评论";
                 break;

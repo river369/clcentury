@@ -14,6 +14,8 @@ if ($ordersStatus == 20) {
     $querystatusString = "您已接收的订单。请等待卖家联系, 并确保订单按时执行。";
 } else if ($ordersStatus == 40 || $ordersStatus == 60 || $ordersStatus == 80 ) {
     $querystatusString = "您已完成的订单。等待买家确认, 易知海外支付。";
+} else if ($ordersStatus == 70) {
+    $querystatusString = "买家认为有争议的订单,请及时处理。";
 } else if ($ordersStatus == 100 ) {
     $querystatusString = "易知海外已经完成支付的订单。";
 } else if ($ordersStatus == 1020 || $ordersStatus == 1040 || $ordersStatus == 1060){
@@ -48,7 +50,7 @@ if ($ordersStatus == 20) {
                 <li><a href="../../../Controller/AuthUserDispatcher.php?c=querySellerOrders&sellerid=<?php echo $sellerid;?>&status=10" <?php echo $ordersStatus == 10 ? "class='ui-btn-active'" : ''; ?> rel="external">待接收</a></li>
                 <li><a href="../../../Controller/AuthUserDispatcher.php?c=querySellerOrders&sellerid=<?php echo $sellerid;?>&status=20" <?php echo $ordersStatus == 20 ? "class='ui-btn-active'" : ''; ?> rel="external">已接收</a></li>
                 <li><a href="../../../Controller/AuthUserDispatcher.php?c=querySellerOrders&sellerid=<?php echo $sellerid;?>&status=40,60,80" <?php echo ($ordersStatus == 40 || $ordersStatus == 60 || $ordersStatus == 80)? "class='ui-btn-active'" : ''; ?> rel="external">已完成</a></li>
-                <li><a href="../../../Controller/AuthUserDispatcher.php?c=querySellerOrders&sellerid=<?php echo $sellerid;?>&status=120" <?php echo ($ordersStatus == 120)? "class='ui-btn-active'" : ''; ?> rel="external">有争议</a></li>
+                <li><a href="../../../Controller/AuthUserDispatcher.php?c=querySellerOrders&sellerid=<?php echo $sellerid;?>&status=70" <?php echo ($ordersStatus == 70)? "class='ui-btn-active'" : ''; ?> rel="external">有争议</a></li>
                 <li><a href="../../../Controller/AuthUserDispatcher.php?c=querySellerOrders&sellerid=<?php echo $sellerid;?>&status=100" <?php echo $ordersStatus == 100 ? "class='ui-btn-active'" : ''; ?> rel="external">已到账</a></li>
                 <li><a href="../../../Controller/AuthUserDispatcher.php?c=querySellerOrders&sellerid=<?php echo $sellerid;?>&status=1020,1040,1060" <?php echo ($ordersStatus == 1020 || $ordersStatus == 1040 || $ordersStatus == 1060)? "class='ui-btn-active'" : '' ?>>已取消</a></li>
             </ul>
@@ -81,7 +83,7 @@ if ($ordersStatus == 20) {
                     </li>
                 <?php } ?>
                 
-                <?php if ($ordersStatus == 20) {?>
+                <?php if ($ordersStatus == 20 || $ordersStatus == 70) {?>
                     <li data-theme="c">
                         <div class="ui-grid-a">
                             <div class="ui-block-a" align="left"><a href="#cancelDialog" data-rel="popup" class="ui-mini" onclick="cancelPopup('<?php echo $orderid; ?>')">取消订单</a></div>
@@ -128,12 +130,14 @@ if ($ordersStatus == 20) {
 
         <div data-role="popup" id="finishDialog" data-overlay-theme="a" data-theme="a" style="max-width:400px;">
             <div data-role="header" data-theme="a">
-                <h1>完成接单</h1>
+                <h1>完成订单</h1>
             </div>
             <div role="main" class="ui-content">
                 <h3 class="ui-title" id="finishOrderString">确定完成订单? </h3>
                 <form id="finishOrder" data-ajax="false" method="post" action="../../../Controller/AuthUserDispatcher.php?c=sellerFinishOrder">
                     <input type="hidden" name="finishorderid" id="finishorderid" value="">
+                    <label for="finishreason">反馈信息:</label>
+                    <textarea cols="30" rows="8" name="finishreason" id="finishreason" data-mini="true"></textarea>
                     <input type="submit" name="finishsubmit" id="finishsubmit" value="圆满完成">
                 </form>
                 <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>

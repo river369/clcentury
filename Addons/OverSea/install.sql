@@ -106,8 +106,10 @@ KEY `customer_id` (`customer_id`)
  1040 seller 已取消
  1060 customer 已取消
  60 customer 已确认完成
+ 70 customer有争议
  80 评论完成
  100 eknowhow已经支付
+
 
 --order actions
 CREATE TABLE IF NOT EXISTS `clctravel`.`yz_order_actions` (

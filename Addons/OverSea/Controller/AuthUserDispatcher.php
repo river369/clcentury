@@ -81,6 +81,9 @@ $method_routes = array(
             'v'=>'./AuthUserDispatcher.php?c=queryCustomerOrders&status=60,80,100', 'd'=>'买家评论订单'),
     'customerCancelOrder' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'customerCancelOrder',
         'v'=>'./AuthUserDispatcher.php?c=queryCustomerOrders&status=1020,1040,1060', 'd'=>'买家取消订单'),
+    'customerRejectOrder' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'customerRejectOrder',
+        'v'=>'./AuthUserDispatcher.php?c=queryCustomerOrders&status=70', 'd'=>'买家提出争议'),
+    
 
     'queryOrderDetails' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'getOrderDetailsById',
         'v'=>'../View/mobile/orders/orderdetails.php', 'd'=>'查看订单详情'),

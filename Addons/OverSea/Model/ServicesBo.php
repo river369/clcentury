@@ -275,7 +275,6 @@ class ServicesBo
         $serviceDao -> deleteService($serviceId,  $deleteReason, $userID);
         self::getMyServicesByStatus();
     }
-
     /**
      * seller pauase service
      */

@@ -16,6 +16,8 @@ if ($ordersStatus == 20) {
     $querystatusString = "等待您确认完成的订单。如果你在48小时内未处理, 易知海外将自动确认完成。";
 } else if ($ordersStatus == 60 || $ordersStatus == 80 || $ordersStatus == 100) {
     $querystatusString = "已完成的订单。";
+} else if ($ordersStatus == 70) {
+    $querystatusString = "您认为有争议的订单。";
 } else if ($ordersStatus == 1020 || $ordersStatus == 1040 || $ordersStatus == 1060){
     $querystatusString = "已取消的订单。";
 }
@@ -51,7 +53,7 @@ if ($ordersStatus == 20) {
             </ul>
             <ul>
                 <li><a href="../../../Controller/AuthUserDispatcher.php?c=queryCustomerOrders&customerid=<?php echo $customerid;?>&status=60,80,100" <?php echo ($ordersStatus == 60 || $ordersStatus == 80 || $ordersStatus == 100) ? "class='ui-btn-active'" : '' ?> rel="external">已完成</a></li>
-                <li><a href="../../../Controller/AuthUserDispatcher.php?c=queryCustomerOrders&customerid=<?php echo $customerid;?>&status=120" <?php echo $ordersStatus == 120 ? "class='ui-btn-active'" : '' ?> rel="external">有争议</a></li>
+                <li><a href="../../../Controller/AuthUserDispatcher.php?c=queryCustomerOrders&customerid=<?php echo $customerid;?>&status=70" <?php echo $ordersStatus == 70 ? "class='ui-btn-active'" : '' ?> rel="external">有争议</a></li>
                 <li><a href="../../../Controller/AuthUserDispatcher.php?c=queryCustomerOrders&customerid=<?php echo $customerid;?>&status=1020,1040,1060" <?php echo ($ordersStatus == 1020 || $ordersStatus == 1040 || $ordersStatus == 1060) ? "class='ui-btn-active'" : '' ?> rel="external">已取消</a></li>
             </ul>
         </div><!-- /navbar -->
@@ -89,7 +91,7 @@ if ($ordersStatus == 20) {
                 <?php if ($ordersStatus == 40) {?>
                     <li data-theme="c">
                         <div class="ui-grid-a">
-                            <div class="ui-block-a" align="left"></div>
+                            <div class="ui-block-a" align="left"><a href="#rejectDialog" data-rel="popup" class="ui-mini" onclick="rejectPopup('<?php echo $orderid; ?>')">提出异议</a></div>
                             <div class="ui-block-b" align="right"><a href="#confirmDialog" data-rel="popup" class="ui-mini" onclick="confirmPopup('<?php echo $orderid; ?>')">确认完成</a></div>
                         </div>
                     </li>
@@ -108,6 +110,22 @@ if ($ordersStatus == 20) {
                 <h3 class="ui-title" id="confirmOrderString">确认订单已履约完成? </h3>
                 <form id="confirmorder" data-ajax="false" method="post" action="../../../Controller/AuthUserDispatcher.php?c=customerConfirmOrder">
                     <input type="hidden" name="confirmorderid" id="confirmorderid" value="">
+                    <input type="submit" name="confirmsubmit" id="confirmsubmit" value="确定">
+                </form>
+                <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+            </div>
+        </div>
+
+        <div data-role="popup" id="rejectDialog" data-overlay-theme="a" data-theme="a" style="max-width:400px;">
+            <div data-role="header" data-theme="a">
+                <h1>提出异议</h1>
+            </div>
+            <div role="main" class="ui-content">
+                <h3 class="ui-title" id="rejectOrderString">对已完成订单提出异议? </h3>
+                <form id="rejectorder" data-ajax="false" method="post" action="../../../Controller/AuthUserDispatcher.php?c=customerRejectOrder">
+                    <input type="hidden" name="rejectorderid" id="rejectorderid" value="">
+                    <label for="cancelreason">单提出异议的原因:</label>
+                    <textarea cols="30" rows="8" name="rejectreason" id="rejectreason" data-mini="true"></textarea>
                     <input type="submit" name="confirmsubmit" id="confirmsubmit" value="确定">
                 </form>
                 <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
@@ -141,6 +159,13 @@ if ($ordersStatus == 20) {
         $('#confirmOrderString').html(messages);
         $('#confirmorderid').val(orderid);
         $('#confirmDialog').popup('open');
+    };
+    function rejectPopup(orderid) {
+        var messages = "确认对订单" + orderid + "提出异议?";
+        //alert (messages);
+        $('#rejectOrderString').html(messages);
+        $('#rejectorderid').val(orderid);
+        $('#rejectDialog').popup('open');
     };
     function cancelPopup(orderid) {
         var messages = "确定取消订单" + orderid + "?";

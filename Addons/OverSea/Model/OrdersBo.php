@@ -165,11 +165,12 @@ class OrdersBo
 
     public function sellerFinishOrder() {
         $orderid  = $_POST ['finishorderid'];
+        $reason = $_POST ['finishreason'];
         $status = 40;
         $sellerid = $_SESSION['signedUser'];
         $ordersDao = new OrdersDao();
         $ordersDao->updateSellerOrderStatus($orderid, $status, $sellerid);
-        self::storeOrderActions($orderid, $status, 2);
+        self::storeOrderActions($orderid, $status, 2, $reason);
     }
 
     public function customerConfirmOrder() {
@@ -214,6 +215,17 @@ class OrdersBo
         $ordersDao->updateCustomerOrderStatus($orderid, $status, $customerid);
         self::storeOrderActions($orderid, $status, 1, $reason);
     }
+
+    public function customerRejectOrder() {
+        $orderid  = $_POST ['rejectorderid'];
+        $reason = $_POST ['rejectreason'];
+        $status = 70;
+        $customerid = $_SESSION['signedUser'];
+        $ordersDao = new OrdersDao();
+        $ordersDao->updateCustomerOrderStatus($orderid, $status, $customerid);
+        self::storeOrderActions($orderid, $status, 1, $reason);
+    }
+
 
     public function storeOrderActions($orderid, $status, $actioner, $reason = '') {
         $orderActionData = array();
