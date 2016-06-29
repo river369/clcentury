@@ -91,4 +91,46 @@ class BusinessHelper {
         return $orderStatus;
     }
 
+    public static function translateSellerOrderTabDesc($ordersStatus)
+    {
+        $querystatusString = "买家已经付款,请您尽快接收以下订单,避免买家取消带来经济损失。";
+        if ($ordersStatus == 20) {
+            $querystatusString = "您已接收的订单。请等待卖家联系, 并确保订单按时执行。";
+        } else if ($ordersStatus == 40 || $ordersStatus == 60 || $ordersStatus == 80 ) {
+            $querystatusString = "您已完成的订单。等待买家确认, 易知海外支付。";
+        } else if ($ordersStatus == 70) {
+            $querystatusString = "买家认为有争议的订单,请及时处理。";
+        } else if ($ordersStatus == 100 ) {
+            $querystatusString = "易知海外已经完成支付的订单。";
+        } else if ($ordersStatus == 1020 || $ordersStatus == 1040 || $ordersStatus == 1060){
+            $querystatusString = "已取消的订单。";
+        }
+        return $querystatusString;
+    }
+
+    public static function translateCustomerOrderTabDesc($ordersStatus)
+    {
+        $querystatusString = "订单已经创建,请确认付款完毕并等待卖家接收。";
+        if ($ordersStatus == 20) {
+            $querystatusString = "卖家已接收的订单。你可以查看订单获得卖家联系方式。";
+        } else if ($ordersStatus == 40) {
+            $querystatusString = "等待您确认完成的订单。如果你在48小时内未处理, 易知海外将自动确认完成。";
+        } else if ($ordersStatus == 60 || $ordersStatus == 80 || $ordersStatus == 100) {
+            $querystatusString = "已完成的订单。";
+        } else if ($ordersStatus == 70) {
+            $querystatusString = "您认为有争议的订单。";
+        } else if ($ordersStatus == 1020 || $ordersStatus == 1040 || $ordersStatus == 1060){
+            $querystatusString = "已取消的订单。";
+        }
+        return $querystatusString;
+    }
+
+    public static function isOrderException($condition)
+    {
+        if ($condition == 70 || $condition == 1020 || $condition == 1040 || $condition == 1060) {
+           return 0;
+        } 
+        return 1;
+    }
+
 }

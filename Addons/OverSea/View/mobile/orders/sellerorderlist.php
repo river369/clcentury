@@ -6,21 +6,12 @@
  * Time: 21:54
  */
 session_start();
+require dirname(__FILE__).'/../../../init.php';
+use Addons\OverSea\Common\BusinessHelper;
 $orders= $_SESSION['sellerOrders'];
 $sellerid = $_SESSION['sellerid'] ;
 $ordersStatus= $_SESSION['sellerOrdersStatus'];
-$querystatusString = "买家已经付款,请您尽快接收以下订单,避免买家取消带来经济损失。";
-if ($ordersStatus == 20) {
-    $querystatusString = "您已接收的订单。请等待卖家联系, 并确保订单按时执行。";
-} else if ($ordersStatus == 40 || $ordersStatus == 60 || $ordersStatus == 80 ) {
-    $querystatusString = "您已完成的订单。等待买家确认, 易知海外支付。";
-} else if ($ordersStatus == 70) {
-    $querystatusString = "买家认为有争议的订单,请及时处理。";
-} else if ($ordersStatus == 100 ) {
-    $querystatusString = "易知海外已经完成支付的订单。";
-} else if ($ordersStatus == 1020 || $ordersStatus == 1040 || $ordersStatus == 1060){
-    $querystatusString = "已取消的订单。";
-}
+$querystatusString = BusinessHelper::translateSellerOrderTabDesc($ordersStatus);
 ?>
 
 <!DOCTYPE html>

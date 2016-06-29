@@ -15,17 +15,13 @@ $commentsData = $_SESSION['commentsData'];
 $sellerData = $_SESSION['sellerData'];
 
 $orderStatus = BusinessHelper::translateOrderStatus($order['status']);
-$orderStopReason = getOrderStopReason($order['status'], $orderActions);
 
-function getOrderStopReason($condition, $orderActions)
-{
-    foreach ($orderActions as $key => $orderAction) {
-
-        if ($orderAction['action'] == $condition){
-            return $orderAction['comments'];
-        }
+$isOrderNormal = 1;
+foreach ($orderActions as $key => $orderAction) {
+    $condition = $orderAction['action'];
+    if (BusinessHelper::isOrderException($condition) == 0) {
+        $isOrderNormal = 0;
     }
-    return null;
 }
 ?>
 
@@ -68,16 +64,13 @@ function getOrderStopReason($condition, $orderActions)
                 <li data-role="list-divider">服务名称: <span class="ui-li-count"><?php echo $order['service_name'];?></span></li>
                 <li data-role="list-divider">卖家: <span class="ui-li-count"><?php echo $order['seller_name'];?></span></li>
                 <li data-role="list-divider">买家: <span class="ui-li-count"><?php echo $order['customer_name'];?></span></li>
-                <?php if(!is_null($orderStopReason) && !empty($orderStopReason)){ ?>
-                    <li data-role="list-divider">订单停止原因: <span class="ui-li-count"><?php echo $orderStopReason;?></span></li>
-                <?php } ?>
                 <li data-role="list-divider">买家咨询话题: <span class="ui-li-count"><?php echo $order['request_message'];?></span></li>
                 <li data-role="list-divider">价格: <span class="ui-li-count">￥<?php echo $order['service_price'];?>/小时</span></li>
                 <li data-role="list-divider">已购买: <span class="ui-li-count"><?php echo $order['service_hours'];?>小时</span></li>
                 <li data-role="list-divider">总计: <span class="ui-li-count"><?php echo $order['service_total_fee'];?>元</span></li>
             </ul>
             <br>
-            <h4 style="color:steelblue">卖家联系方式</h4>
+            <h4 style="color:steelblue">卖家联系方式:</h4>
             <?php if (isset($sellerData)) {?>
                 <ul data-role="listview" data-inset="true">
                     <li data-role="list-divider">微信号: <span class="ui-li-count"><?php echo $sellerData['weixin'];?></span></li>
@@ -86,9 +79,26 @@ function getOrderStopReason($condition, $orderActions)
                 <h5>买家付款,卖家接收后即可显示卖家联系方式</h5>
             <?php } ?>
 
+            <br>
+
+            <?php if ($isOrderNormal == 0){?>
+                <h4 style="color:steelblue">订单异常变更信息:</h4>
+                <?php foreach ($orderActions as $key => $orderAction) {
+                    $condition = $orderAction['action'];
+                    $isException = BusinessHelper::isOrderException($condition);
+                    if ($isException == 0 || ($condition == 40)) {?>
+                        <div>
+                            <p>时间:<?php echo $orderAction['creation_date']?><p>
+                            <p>变更内容:<?php echo BusinessHelper::translateOrderStatus($condition)?></p>
+                            <p>原因:<?php echo $orderAction['comments'];?><p>
+                        </div>
+                        <hr>
+                <?php }
+                    }
+            } ?>
 
             <br>
-            <h4 style="color:steelblue">客户评论</h4>
+            <h4 style="color:steelblue">客户评论:</h4>
             <?php if (isset($commentsData) && count($commentsData) >0) {?>
                 <?php
                 foreach ($commentsData as $comment){ ?>
@@ -99,7 +109,7 @@ function getOrderStopReason($condition, $orderActions)
                     </div>
                     <hr>
                 <?php } ?>
-            <?php } else {?>
+            <?php } else { ?>
                 <h5>暂无评论</h5>
             <?php } ?>
         </div>

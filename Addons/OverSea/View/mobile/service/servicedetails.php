@@ -154,7 +154,7 @@ $commentsData = $_SESSION['commentsData'];
             $tagsArray = explode(',',$tags);
             if (strlen($tags) >0 && count($tagsArray) >0) {
             ?>
-            <h4 style="color:steelblue">服务标签</h4>
+            <h4 style="color:steelblue">服务标签:</h4>
             <div class="ui-grid-a">
                 <?php
                 $loc = 'a';
