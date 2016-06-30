@@ -127,7 +127,7 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
 
             </br>
             <label for="service_area">您的服务地点:</label>
-            <select name="service_area" id="service_area">
+            <select name="service_area" id="service_area" onchange="updateTagList()">
                 <?php foreach ($country_city as $key => $value) {?>
                     <optgroup label="<?php echo $key; ?>">
                     <?php foreach ($value as $city) {?>
@@ -159,9 +159,7 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
     <div data-role="popup" id="tagpopup" data-overlay-theme="a" data-corners="false" data-tolerance="30,15">
         <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
         <h3>特长:</h3>
-        <div class="ui-grid-a">
-            <div class="ui-block-a"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="tagwith('某大学1')">某大学1</a></div>
-            <div class="ui-block-b"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="tagwith('某大学8')">某大学8</a></div>
+        <div class="ui-grid-a" id="tagList">
         </div>
     </div>
 
@@ -300,6 +298,35 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
         return false;
     };
 
+    function updateTagList(){
+        var serviceArea = $('#service_area').val();
+        var serviceType = $("input[name='service_type']:checked").val();
+        $.ajax({
+            url:'../../../Controller/FreelookDispatcher.php?c=getTagsByCityBusinessType&service_area=' + serviceArea + '&service_type=' + serviceType,
+            type:'GET',
+            dataType:'json',
+            async:false,
+            success:function(result) {
+                //alert(result.status);
+                if (result.status == 0){
+                    var htmlString = '';
+                    var loc = "a";
+                    for(var i in result.objLists) {
+                        htmlString = htmlString + '<div class="ui-block-' + loc + '"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="tagwith(\''+ result.objLists[i]['tag'] + '\')">' + result.objLists[i]['tag'] + '</a></div>';
+                        loc = 'b';
+                    }
+                    alert (htmlString);
+                    $('#tagList').html(htmlString);
+                } else {
+                    $(".errmsgstring").html('Error:' + result.msg);
+                }
+            },
+            error:function(msg){
+                $(".errmsgstring").html('Error:' + msg.toSource());
+            }
+        })
+        return false;
+    };
 </script>
 
 </body>

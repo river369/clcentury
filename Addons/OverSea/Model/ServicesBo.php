@@ -17,6 +17,7 @@ use Addons\OverSea\Model\QueryHistoryDao;
 use Addons\OverSea\Model\ServicesDao;
 use Addons\OverSea\Model\CommentsDao;
 use Addons\OverSea\Model\CitiesDao;
+use Addons\OverSea\Model\CitiesTagDao;
 
 require dirname(__FILE__).'/PicCrop.php';
 
@@ -462,6 +463,18 @@ class ServicesBo
         $_SESSION['countries'] = $countries;
         //Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",citites=".json_encode($citites));
         Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",countries=".json_encode($countries));
+    }
+
+    public function getTagsByCityBusinessType(){
+        Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",");
+        $service_area = $_GET ['service_area'];
+        $service_type = $_GET ['service_type'];
+        $citiesTagDao = new CitiesTagDao();
+        $tagsData = $citiesTagDao->getTagsByCityBusinessType($service_area, $service_type);
+        $ret = json_encode(array('status' => 0, 'msg' => 'done', 'objLists' => $tagsData));
+        echo $ret;
+        Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",tags=".$ret);
+        exit;
     }
 
 }

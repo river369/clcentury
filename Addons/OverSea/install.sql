@@ -248,7 +248,11 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`yz_city_tags` (
 PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
 
-
+insert into  `clctravel`.`yz_city_tags` (city_name, service_type,tag) values('北京', 1, '故宫');
+insert into  `clctravel`.`yz_city_tags` (city_name, service_type,tag) values('北京', 1, '长城');
+insert into  `clctravel`.`yz_city_tags` (city_name, service_type,tag) values('北京', 1, '颐和园');
+insert into  `clctravel`.`yz_city_tags` (city_name, service_type,tag) values('上海', 1, '东方明珠');
+insert into  `clctravel`.`yz_city_tags` (city_name, service_type,tag) values('西雅图', 1, 'Space Needle');
 
 ------------------------Deprecated V3(1 user 1 service)-------------------------
 --Users

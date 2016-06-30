@@ -7,6 +7,7 @@
  */
 require dirname(__FILE__).'/../init.php';
 use Addons\OverSea\Common\HttpHelper;
+use Addons\OverSea\Common\Logs;
 session_start();
 
 //c - command, like signin, m - model, f - function in model, v - view,  d - description
@@ -16,10 +17,13 @@ $method_routes = array(
     'setLocation' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'setLocation','v'=>'../View/mobile/query/discover.php','d'=>'服务信息列表'),
     'getServices' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'getServices','v'=>'../View/mobile/query/discover.php','d'=>'服务信息列表'),
     'serviceDetails' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'getServiceById','v'=>'../View/mobile/service/servicedetails.php','d'=>'卖家详细信息'),
+    'getTagsByCityBusinessType' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'getTagsByCityBusinessType', 'd'=>'根据城市获得tag'),
 );
 
+Logs::writeClcLog("FreelookDispatcher start");
 HttpHelper::saveServerQueryStringVales($_SERVER['QUERY_STRING']);
 $command = HttpHelper::getVale('c');
+Logs::writeClcLog("command=".$command);
 goToCommand($method_routes, $command);
 
 function goToCommand($method_routes, $command) {
