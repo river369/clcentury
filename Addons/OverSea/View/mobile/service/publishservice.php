@@ -150,7 +150,10 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
             </label>
             <ul id="methodTags"></ul>
             <input name="mytags" id="mytags" value="<?php echo isset($serviceData['tag']) ? $serviceData['tag']: ''; ?>" type="hidden">
-
+            </br>
+            <a href="#rulePopup" data-rel="popup" class="ui-controlgroup-label">点击阅读服务发布条款:</a>
+            <input name="checkbox-mini-0" id="checkbox-mini-0" data-mini="true" type="checkbox">
+            <label for="checkbox-mini-0">我同意上述服务条款</label>
             </br>
             <input type="submit" name="yzsubmit" id="yzsubmit" value="发布信息">
         </form>
@@ -162,7 +165,10 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
         <div class="ui-grid-a" id="tagList">
         </div>
     </div>
-
+    <div data-role="popup" id="rulePopup" data-overlay-theme="a" data-corners="false" data-tolerance="60,30">
+        <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+        <iframe src="./seller_agreement.html" seamless="" height="320" width="480"></iframe>
+    </div>
     <?php include '../common/footer.php';?>
 </div>
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>

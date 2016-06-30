@@ -63,6 +63,10 @@ $signedUser = $_SESSION['signedUser'];
 
             <h5>咨询话题:</h5>
             <textarea cols="30" rows="8" name="request_message" id="request_message" data-mini="true"></textarea>
+            
+            <a href="#rulePopup" data-rel="popup" class="ui-controlgroup-label"><h5>点击阅读购买服务条款:</h5></a>
+            <input name="checkbox-mini-0" id="checkbox-mini-0" data-mini="true" type="checkbox">
+            <label for="checkbox-mini-0">我同意上述服务条款</label>
 
             <input type="hidden" name="service_id" id="service_id"  value="<?php echo $serviceId;?>"/>
             <input type="hidden" name="service_name" id="service_name"  value="<?php echo $serviceName;?>"/>
@@ -77,6 +81,10 @@ $signedUser = $_SESSION['signedUser'];
             <a href="#" onclick="JavaScript:$('#submitorder').submit();" rel="external" class="ui-shadow ui-btn ui-corner-all ui-mini">去付款</a>
         </div>
         <?php include '../common/footer.php';?>
+        <div data-role="popup" id="rulePopup" data-overlay-theme="a" data-corners="false" data-tolerance="60,30">
+            <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+            <iframe src="./customer_agreement.html" seamless="" height="320" width="480"></iframe>
+        </div>
 </div>
 <script type="text/javascript">
     $("#div-slider").change(function() {
