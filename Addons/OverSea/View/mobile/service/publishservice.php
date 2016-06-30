@@ -156,9 +156,9 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
         </form>
     </div>
 
-    <div data-role="popup" id="tagpopup" data-overlay-theme="a" data-corners="false" data-tolerance="30,15">
+    <div data-role="popup" id="tagpopup" data-overlay-theme="a" data-corners="false" data-tolerance="60,30" style="max-width:300px;width:275px;">
         <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
-        <h3>特长:</h3>
+        <h3>选取我的特长项:</h3>
         <div class="ui-grid-a" id="tagList">
         </div>
     </div>
@@ -312,10 +312,10 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
                     var htmlString = '';
                     var loc = "a";
                     for(var i in result.objLists) {
-                        htmlString = htmlString + '<div class="ui-block-' + loc + '"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="tagwith(\''+ result.objLists[i]['tag'] + '\')">' + result.objLists[i]['tag'] + '</a></div>';
+                        htmlString = htmlString + '<div class="ui-block-' + loc + '"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="tagwith(\''+ result.objLists[i]['tag'] + '\')"><h5>' + result.objLists[i]['tag'] + '</h5></a></div>';
                         loc = 'b';
                     }
-                    alert (htmlString);
+                    //alert (htmlString);
                     $('#tagList').html(htmlString);
                 } else {
                     $(".errmsgstring").html('Error:' + result.msg);
@@ -327,6 +327,10 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
         })
         return false;
     };
+
+    $(document).ready(function(){
+        updateTagList();
+    });
 </script>
 
 </body>
