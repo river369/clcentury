@@ -30,8 +30,26 @@ $signedUser = $_SESSION['signedUser'];
 
     <script src="../../resource/js/jquery/jquery-1.11.1.min.js"></script>
     <script src="../../resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
+    <script src="../../resource/js/validation/jquery.validate.min.js"></script>
+    <script src="../../resource/js/validation/localization/messages_zh.min.js"></script>
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
     <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
+    <style>
+        label.error {
+            color: red;
+            font-size: 16px;
+            font-weight: normal;
+            line-height: 1.4;
+            margin-top: 0.5em;
+            width: 100%;
+            float: none;
+        }
+        em {
+            color: red;
+            font-weight: bold;
+            padding-right: .25em;
+        }
+    </style>
 
 </head>
 <body>
@@ -53,20 +71,22 @@ $signedUser = $_SESSION['signedUser'];
             </ul>
             <h5>咨询时长:</h5>
             <div id="div-slider">
-                <input type="range" name="service_hours" id="service_hours" value="1" min="0" max="100" data-highlight="true" />
+                <input type="range" name="service_hours" id="service_hours" value="1" min="1" max="100" data-highlight="true" />
             </div>
 
             <h5>总计(￥):</h5>
             <div id="totalmoney">
-                <input type="text" name="service_total_fee" id="service_total_fee"  value="<?php echo $price; ?>"/>
+                <input type="text" name="service_total_fee" id="service_total_fee" readonly="true" value="<?php echo $price; ?>"/>
             </div>
 
             <h5>咨询话题:</h5>
-            <textarea cols="30" rows="8" name="request_message" id="request_message" data-mini="true"></textarea>
-            
+            <div id="totalmoney">
+                <textarea cols="30" rows="8" name="request_message" id="request_message" data-mini="true"></textarea>
+            </div>
+
             <a href="#rulePopup" data-rel="popup" class="ui-controlgroup-label"><h5>点击阅读购买服务声明:</h5></a>
-            <input name="checkbox-mini-0" id="checkbox-mini-0" data-mini="true" type="checkbox">
-            <label for="checkbox-mini-0">我同意上述服务声明</label>
+            <input name="agree" id="agree" data-mini="true" type="checkbox">
+            <label for="agree">我同意上述服务声明</label>
 
             <input type="hidden" name="service_id" id="service_id"  value="<?php echo $serviceId;?>"/>
             <input type="hidden" name="service_name" id="service_name"  value="<?php echo $serviceName;?>"/>
@@ -90,8 +110,27 @@ $signedUser = $_SESSION['signedUser'];
     $("#div-slider").change(function() {
         var slider_value = $("#service_hours").val();
         var service_price = <?php echo $price;?>;
-        html = '<input type="text" name="service_total_fee" id="service_total_fee"  value="' + slider_value * service_price +'"/>';
+        html = '<input type="text" name="service_total_fee" id="service_total_fee" readonly="true"  value="' + slider_value * service_price +'"/>';
         $("#totalmoney").html(html);
+        $("#totalmoney").trigger('create')
+    });
+</script>
+<script>
+    $( "#panel-fixed-page1" ).on( "pageinit", function() {
+        $( "#submitorder" ).validate({
+            rules: {
+                request_message: {
+                    required: true,
+                },
+                agree: "required"
+            },
+            messages: {
+                agree: "请接受我们的声明"
+            },
+            errorPlacement: function( error, element ) {
+                error.insertAfter( element.parent() );
+            }
+        });
     });
 </script>
 

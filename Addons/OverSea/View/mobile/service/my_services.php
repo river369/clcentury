@@ -69,7 +69,7 @@ if ($querystatus == 60) {
                     <a href="../../../Controller/AuthUserDispatcher.php?c=publishService&sellerid=<?php echo $sellerid; ?>&service_id=<?php echo $serviceid; ?>" rel="external">
                         <img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $sellerid;?>/head.png?t=<?php echo rand(0,10000); ?>" alt="">
                         <h2> <?php echo $service['service_area'];?>:<?php echo $serviceTypeDesc;?> </h2>
-                        <p style="white-space:pre-wrap;"><?php echo $service['description'];?> </p>
+                        <p style="white-space:pre-wrap;"><?php echo $service['service_name'];?> </p>
                         <p class="ui-li-aside">￥<?php echo $service['service_price'];?>/小时</p>
                     </a>
                 </li>
