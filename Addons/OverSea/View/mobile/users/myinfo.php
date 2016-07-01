@@ -112,9 +112,7 @@ $statusString = BusinessHelper::translateRealNameStatus($status);
                 <input type="text" name="email" id="email" value="<?php echo isset($existedUser['email']) ? $existedUser['email']: ''; ?>">
                 </br>
                 <label for="description">自我介绍:</label>
-                <textarea cols="30" rows="8" name="description" id="description" data-mini="true">
-                    <?php echo isset($existedUser['description']) ? $existedUser['description']: ''; ?>
-                </textarea>
+                <textarea cols="30" rows="8" name="description" id="description" data-mini="true"><?php echo isset($existedUser['description']) ? $existedUser['description']: ''; ?></textarea>
                 </br>
                 <!--
                 <input name="tags" id="methodTags" value="诚实守信,价格合理">

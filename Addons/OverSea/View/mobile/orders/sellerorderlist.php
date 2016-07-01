@@ -23,10 +23,26 @@ $querystatusString = BusinessHelper::translateSellerOrderTabDesc($ordersStatus);
 
     <script src="../../resource/js/jquery/jquery-1.11.1.min.js"></script>
     <script src="../../resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
+    <script src="../../resource/js/validation/jquery.validate.min.js"></script>
+    <script src="../../resource/js/validation/localization/messages_zh.min.js"></script>
 
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
     <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
-    <style type="text/css">
+    <style>
+        label.error {
+            color: red;
+            font-size: 16px;
+            font-weight: normal;
+            line-height: 1.4;
+            margin-top: 0.5em;
+            width: 100%;
+            float: none;
+        }
+        em {
+            color: red;
+            font-weight: bold;
+            padding-right: .25em;
+        }
     </style>
 </head>
 <body>
@@ -111,8 +127,10 @@ $querystatusString = BusinessHelper::translateSellerOrderTabDesc($ordersStatus);
                 <h3 class="ui-title" id="rejectOrderString">确定拒绝订单? </h3>
                 <form id="rejectorder" data-ajax="false" method="post" action="../../../Controller/AuthUserDispatcher.php?c=sellerRejectOrder">
                     <input type="hidden" name="rejectorderid" id="rejectorderid" value="">
-                    <label for="rejectreason">拒绝原因:</label>
-                    <textarea cols="30" rows="8" name="rejectreason" id="rejectreason" data-mini="true"></textarea>
+                    <div>
+                        <label for="rejectreason">拒绝原因:</label>
+                        <textarea cols="30" rows="8" name="rejectreason" id="rejectreason" data-mini="true"></textarea>
+                    </div>
                     <input type="submit" name="rejectsubmit" id="rejectsubmit" value="坚决拒掉">
                 </form>
                 <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
@@ -127,8 +145,10 @@ $querystatusString = BusinessHelper::translateSellerOrderTabDesc($ordersStatus);
                 <h3 class="ui-title" id="finishOrderString">确定完成订单? </h3>
                 <form id="finishOrder" data-ajax="false" method="post" action="../../../Controller/AuthUserDispatcher.php?c=sellerFinishOrder">
                     <input type="hidden" name="finishorderid" id="finishorderid" value="">
-                    <label for="finishreason">反馈信息:</label>
-                    <textarea cols="30" rows="8" name="finishreason" id="finishreason" data-mini="true"></textarea>
+                    <div>
+                        <label for="finishreason">反馈信息:</label>
+                        <textarea cols="30" rows="8" name="finishreason" id="finishreason" data-mini="true"></textarea>
+                    </div>
                     <input type="submit" name="finishsubmit" id="finishsubmit" value="圆满完成">
                 </form>
                 <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
@@ -143,8 +163,10 @@ $querystatusString = BusinessHelper::translateSellerOrderTabDesc($ordersStatus);
                 <h3 class="ui-title" id="cancelOrderString">确定取消订单? </h3>
                 <form id="cancelOrder" data-ajax="false" method="post" action="../../../Controller/AuthUserDispatcher.php?c=sellerCancelOrder">
                     <input type="hidden" name="cancelorderid" id="cancelorderid" value="">
-                    <label for="cancelreason">取消原因:</label>
-                    <textarea cols="30" rows="8" name="cancelreason" id="cancelreason" data-mini="true"></textarea>
+                    <div>
+                        <label for="cancelreason">取消原因:</label>
+                        <textarea cols="30" rows="8" name="cancelreason" id="cancelreason" data-mini="true"></textarea>
+                    </div>
                     <input type="submit" name="cancelsubmit" id="cancelsubmit" value="无奈取消">
                 </form>
                 <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
@@ -188,6 +210,40 @@ $querystatusString = BusinessHelper::translateSellerOrderTabDesc($ordersStatus);
     $(document).ready(function(){
         $("img").error(function () {
             $(this).attr("src", "../../resource/images/head_default.jpg");
+        });
+    });
+</script>
+<script>
+    $( "#panel-fixed-page1" ).on( "pageinit", function() {
+        $( "#rejectorder" ).validate({
+            rules: {
+                rejectreason: {
+                    required: true
+                },
+            },
+            errorPlacement: function( error, element ) {
+                error.insertAfter( element.parent() );
+            }
+        });
+        $( "#finishOrder" ).validate({
+            rules: {
+                finishreason: {
+                    required: true
+                },
+            },
+            errorPlacement: function( error, element ) {
+                error.insertAfter( element.parent() );
+            }
+        });
+        $( "#cancelOrder" ).validate({
+            rules: {
+                cancelreason: {
+                    required: true
+                },
+            },
+            errorPlacement: function( error, element ) {
+                error.insertAfter( element.parent() );
+            }
         });
     });
 </script>

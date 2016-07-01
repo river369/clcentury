@@ -157,9 +157,7 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
             <input type="number" name="service_price" id="service_price" value="<?php echo isset($serviceData['service_price']) ? $serviceData['service_price']: ''; ?>" >
             </br>
             <label for="description">您的服务介绍:</label>
-            <textarea cols="30" rows="8" name="description" id="description" data-mini="true">
-                <?php echo isset($serviceData['description']) ? $serviceData['description']: ''; ?>
-            </textarea>
+            <textarea name="description" id="description" data-mini="true"><?php echo isset($serviceData['description']) ? $serviceData['description']: ''; ?></textarea>
             </br>
             <label for="methodTags">
                 <a href="#tagpopup" data-rel="popup" class="ui-controlgroup-label">选取或填写标签:</a>

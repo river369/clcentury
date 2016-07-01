@@ -26,10 +26,26 @@ $querystatusString = BusinessHelper::translateCustomerOrderTabDesc($ordersStatus
 
     <script src="../../resource/js/jquery/jquery-1.11.1.min.js"></script>
     <script src="../../resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
+    <script src="../../resource/js/validation/jquery.validate.min.js"></script>
+    <script src="../../resource/js/validation/localization/messages_zh.min.js"></script>
 
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
     <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
-    <style type="text/css">
+    <style>
+        label.error {
+            color: red;
+            font-size: 16px;
+            font-weight: normal;
+            line-height: 1.4;
+            margin-top: 0.5em;
+            width: 100%;
+            float: none;
+        }
+        em {
+            color: red;
+            font-weight: bold;
+            padding-right: .25em;
+        }
     </style>
 </head>
 <body>
@@ -170,6 +186,30 @@ $querystatusString = BusinessHelper::translateCustomerOrderTabDesc($ordersStatus
     $(document).ready(function(){
         $("img").error(function () {
             $(this).attr("src", "../../resource/images/head_default.jpg");
+        });
+    });
+</script>
+<script>
+    $( "#panel-fixed-page1" ).on( "pageinit", function() {
+        $( "#cancelOrder" ).validate({
+            rules: {
+                cancelreason: {
+                    required: true
+                },
+            },
+            errorPlacement: function( error, element ) {
+                error.insertAfter( element.parent() );
+            }
+        });
+        $( "#rejectorder" ).validate({
+            rules: {
+                rejectreason: {
+                    required: true
+                },
+            },
+            errorPlacement: function( error, element ) {
+                error.insertAfter( element.parent() );
+            }
         });
     });
 </script>
