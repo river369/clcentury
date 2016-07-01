@@ -25,9 +25,27 @@ unset($_SESSION['existedUserPhoneReigon'], $_SESSION['existedUserPhoneNumber'], 
 
     <script src="../../resource/js/jquery/jquery-1.11.1.min.js"></script>
     <script src="../../resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
+    <script src="../../resource/js/validation/jquery.validate.min.js"></script>
+    <script src="../../resource/js/validation/localization/messages_zh.min.js"></script>
 
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
     <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
+    <style>
+        label.error {
+            color: red;
+            font-size: 16px;
+            font-weight: normal;
+            line-height: 1.4;
+            margin-top: 0.5em;
+            width: 100%;
+            float: none;
+        }
+        em {
+            color: red;
+            font-weight: bold;
+            padding-right: .25em;
+        }
+    </style>
 </head>
 <body>
 <div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
@@ -48,7 +66,7 @@ unset($_SESSION['existedUserPhoneReigon'], $_SESSION['existedUserPhoneNumber'], 
     <?php } ?>
 
 
-    <div data-role="content">
+    <div id="page1" data-role="content">
         <form id="submityz" data-ajax="false" method="post" action="../../../Controller/SignIn.php">
             <select name="phone_reigon" id="phone_reigon">
                 <option value="+86" <?php echo $existedUserPhoneReigon=='+86'? 'selected = "selected"' : ''; ?> >中国 +86</option>
@@ -67,6 +85,24 @@ unset($_SESSION['existedUserPhoneReigon'], $_SESSION['existedUserPhoneNumber'], 
 
     <?php include '../common/footer.php';?>
 </div>
+
+<script>
+    $( "#panel-fixed-page1" ).on( "pageinit", function() {
+        $( "#submityz" ).validate({
+            rules: {
+                phone_number: {
+                    required: true
+                },
+                password: {
+                    required: true
+                }
+            },
+            errorPlacement: function( error, element ) {
+                error.insertAfter( element.parent() );
+            }
+        });
+    });
+</script>
 </body>
 </html>
 

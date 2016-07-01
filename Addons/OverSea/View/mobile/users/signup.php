@@ -25,6 +25,8 @@ unset($_SESSION['$signInErrorMsg'] );
 
     <script src="../../resource/js/jquery/jquery-1.11.1.min.js"></script>
     <script src="../../resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
+    <script src="../../resource/js/validation/jquery.validate.min.js"></script>
+    <script src="../../resource/js/validation/localization/messages_zh.min.js"></script>
 
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
     <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
@@ -32,6 +34,22 @@ unset($_SESSION['$signInErrorMsg'] );
         *{padding:0; margin:0}
         body{font-size:12px}
         select{height:22px; line-height:18px; padding:2px 0}
+    </style>
+    <style>
+        label.error {
+            color: red;
+            font-size: 16px;
+            font-weight: normal;
+            line-height: 1.4;
+            margin-top: 0.5em;
+            width: 100%;
+            float: none;
+        }
+        em {
+            color: red;
+            font-weight: bold;
+            padding-right: .25em;
+        }
     </style>
 
 </head>
@@ -102,6 +120,27 @@ unset($_SESSION['$signInErrorMsg'] );
             settime(button);
         },1000)
     };
+
+    $( "#panel-fixed-page1" ).on( "pageinit", function() {
+        $( "#signupform" ).validate({
+            rules: {
+                phone_number: {
+                    required: true
+                },
+                password: {
+                    required: true
+                },
+                verifycode: {
+                    required: true,
+                    //equalTo: "#password"
+                }
+
+            },
+            errorPlacement: function( error, element ) {
+                error.insertAfter( element.parent() );
+            }
+        });
+    });
 </script>
 </body>
 </html>
