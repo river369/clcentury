@@ -33,6 +33,8 @@ $statusString = BusinessHelper::translateRealNameStatus($status);
     <script src="../../resource/js/jquery/jquery-ui-1.11.1.min.js"></script>
     <script src="../../resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
     <script src="../../resource/js/tag/tag-it.min.js"></script>
+    <script src="../../resource/js/validation/jquery.validate.min.js"></script>
+    <script src="../../resource/js/validation/localization/messages_zh.min.js"></script>
 
     <script>
         $(function(){
@@ -50,7 +52,22 @@ $statusString = BusinessHelper::translateRealNameStatus($status);
             });
         });
     </script>
-
+    <style>
+        label.error {
+            color: red;
+            font-size: 16px;
+            font-weight: normal;
+            line-height: 1.4;
+            margin-top: 0.5em;
+            width: 100%;
+            float: none;
+        }
+        em {
+            color: red;
+            font-weight: bold;
+            padding-right: .25em;
+        }
+    </style>
 </head>
 <body>
 <div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
@@ -75,13 +92,13 @@ $statusString = BusinessHelper::translateRealNameStatus($status);
         </div>
         <input type="hidden" id="uid" value="<?php echo $existedUser['id'];?>">
         
-        <form id="submityz" data-ajax="false" method="post" action="../../../Controller/AuthUserDispatcher.php?c=updateMyinfo">
+        <form id="myinfoForm" data-ajax="false" method="post" action="../../../Controller/AuthUserDispatcher.php?c=updateMyinfo">
             <div data-role="fieldcontain">
                 <label for="name" >您的昵称:</label>
-                <input type="text" name="name" id="name" value="<?php echo isset($existedUser['name']) ? $existedUser['name']: ''; ?> ">
+                <input type="text" name="name" id="name" value="<?php echo isset($existedUser['name']) ? $existedUser['name']: ''; ?>">
                 </br>
                 <label for="weixin">您的微信号:</label>
-                <input type="text" name="weixin" id="weixin" value="<?php echo isset($existedUser['weixin']) ? $existedUser['weixin']: ''; ?> ">
+                <input type="text" name="weixin" id="weixin" value="<?php echo isset($existedUser['weixin']) ? $existedUser['weixin']: ''; ?>">
                 </br>
                 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
                     <legend>我是:</legend>
@@ -92,7 +109,7 @@ $statusString = BusinessHelper::translateRealNameStatus($status);
                 </fieldset>
                 </br>
                 <label for="name">您的电子邮件:</label>
-                <input type="text" name="email" id="email" value="<?php echo isset($existedUser['email']) ? $existedUser['email']: ''; ?> ">
+                <input type="text" name="email" id="email" value="<?php echo isset($existedUser['email']) ? $existedUser['email']: ''; ?>">
                 </br>
                 <label for="description">自我介绍:</label>
                 <textarea cols="30" rows="8" name="description" id="description" data-mini="true">
@@ -197,6 +214,25 @@ $statusString = BusinessHelper::translateRealNameStatus($status);
         $('#avatarInput').click();
     };
 </script>
+<script>
+    $( "#panel-fixed-page1" ).on( "pageinit", function() {
+        $( "#myinfoForm" ).validate({
+            rules: {
+                name: {
+                    required: true
+                },
+                email: {
+                    email: true
+                }
+
+            },
+            errorPlacement: function( error, element ) {
+                error.insertAfter( element.parent() );
+            }
+        });
+    });
+</script>
+
 </body>
 </html>
 

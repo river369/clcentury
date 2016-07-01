@@ -65,15 +65,23 @@ unset($_SESSION['$signInErrorMsg'] );
     <?php } ?>
     <div data-role="content">
         <form id="signupform" data-ajax="false" method="post" action="../../../Controller/SignUp.php">
+            <label for="phone_reigon" >请选择地区号:</label>
             <select name="phone_reigon" id="phone_reigon">
                 <option value="+86" <?php echo $existedUserPhoneReigon=='+86'? 'selected = "selected"' : ''; ?> >中国 +86</option>
                 <option value="+1" <?php echo $existedUserPhoneReigon=='+1'? 'selected = "selected"' : ''; ?>>美国 +1</option>
             </select>
-            <input type="number" name="phone_number" id="phone_number" placeholder="请输入手机号码:" value="<?php echo $existedUserPhoneNumber; ?>">
-            <input type="password" name="password" id="password" placeholder="请输入密码:">
-            <input type="number" name="verifycode" id="verifycode" placeholder="请输入验证码:">
+            </br>
+            <label for="phone_number" >请输入手机号码:</label>
+            <input type="number" name="phone_number" id="phone_number" value="<?php echo $existedUserPhoneNumber; ?>">
+            </br>
+            <label for="password" >请输入密码:</label>
+            <input type="password" name="password" id="password" >
+            </br>
+            <label for="verifycode" >请输入验证码:</label>
+            <input type="number" name="verifycode" id="verifycode">
             <button type="button" name="getvcode" id="getvcode" onclick="getSMS(this);"> 免费获取验证码</button>
             <div class="errmsgstring" style="color:red"></div>
+            </br>
             <input type="submit" name="signinsubmit" id="signinsubmit" value="注册">
         </form>
     </div>

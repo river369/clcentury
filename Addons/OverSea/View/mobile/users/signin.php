@@ -68,12 +68,18 @@ unset($_SESSION['existedUserPhoneReigon'], $_SESSION['existedUserPhoneNumber'], 
 
     <div id="page1" data-role="content">
         <form id="submityz" data-ajax="false" method="post" action="../../../Controller/SignIn.php">
+            <label for="phone_reigon" >请选择地区号:</label>
             <select name="phone_reigon" id="phone_reigon">
                 <option value="+86" <?php echo $existedUserPhoneReigon=='+86'? 'selected = "selected"' : ''; ?> >中国 +86</option>
                 <option value="+1" <?php echo $existedUserPhoneReigon=='+1'? 'selected = "selected"' : ''; ?>>美国 +1</option>
             </select>
-            <input type="number" name="phone_number" id="phone_number" placeholder="请输入手机号码:" value="<?php echo $existedUserPhoneNumber; ?>">
-            <input type="password" name="password" id="password" placeholder="请输入密码:">
+            </br>
+            <label for="phone_number" >请输入手机号码:</label>
+            <input type="number" name="phone_number" id="phone_number" value="<?php echo $existedUserPhoneNumber; ?>">
+            </br>
+            <label for="password" >请输入密码:</label>
+            <input type="password" name="password" id="password">
+            </br>
             <input type="submit" name="signinsubmit" id="signinsubmit" value="登陆">
         </form>
     </div>
