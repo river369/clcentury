@@ -51,10 +51,11 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
     <script src="../../resource/js/jquery/jquery-ui-1.11.1.min.js"></script>
     <script src="../../resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
     <script src="../../resource/js/tag/tag-it.min.js"></script>
+    <script src="../../resource/js/validation/jquery.validate.min.js"></script>
+    <script src="../../resource/js/validation/localization/messages_zh.min.js"></script>
     <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
     <link rel="stylesheet" href="../../resource/style/weiui/weui.css"/>
     <link rel="stylesheet" href="../../resource/style/weiui/example.css"/>
-
     <script>
         $(function(){
             var sampleTags = ['c++', 'lua'];
@@ -71,7 +72,22 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
             });
         });
     </script>
-
+    <style>
+        label.error {
+            color: red;
+            font-size: 16px;
+            font-weight: normal;
+            line-height: 1.4;
+            margin-top: 0.5em;
+            width: 100%;
+            float: none;
+        }
+        em {
+            color: red;
+            font-weight: bold;
+            padding-right: .25em;
+        }
+    </style>
 </head>
 <body>
 <div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
@@ -151,9 +167,9 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
             <ul id="methodTags"></ul>
             <input name="mytags" id="mytags" value="<?php echo isset($serviceData['tag']) ? $serviceData['tag']: ''; ?>" type="hidden">
             </br>
-            <a href="#rulePopup" data-rel="popup" class="ui-controlgroup-label">点击阅读服务发布条款:</a>
-            <input name="checkbox-mini-0" id="checkbox-mini-0" data-mini="true" type="checkbox">
-            <label for="checkbox-mini-0">我同意上述服务条款</label>
+            <a href="#rulePopup" data-rel="popup" class="ui-controlgroup-label">点击阅读服务发布声明:</a>
+            <input name="agree" id="agree" data-mini="true" type="checkbox" class="{required:true}" >
+            <label for="agree">我同意上述服务声明</label>
             </br>
             <input type="submit" name="yzsubmit" id="yzsubmit" value="发布信息">
         </form>
@@ -338,7 +354,31 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
         updateTagList();
     });
 </script>
-
+<script>
+    $( "#panel-fixed-page1" ).on( "pageinit", function() {
+        $( "#submityz" ).validate({
+            rules: {
+                service_name: {
+                    required: true
+                },
+                service_price: {
+                    required: true,
+                    number:true
+                },
+                description: {
+                    required: true
+                },
+                agree: "required"
+            },
+            messages: {
+                agree: "请接受我们的声明"
+            },
+            errorPlacement: function( error, element ) {
+                error.insertAfter( element.parent() );
+            }
+        });
+    });
+</script>
 </body>
 </html>
 

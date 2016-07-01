@@ -64,9 +64,9 @@ $signedUser = $_SESSION['signedUser'];
             <h5>咨询话题:</h5>
             <textarea cols="30" rows="8" name="request_message" id="request_message" data-mini="true"></textarea>
             
-            <a href="#rulePopup" data-rel="popup" class="ui-controlgroup-label"><h5>点击阅读购买服务条款:</h5></a>
+            <a href="#rulePopup" data-rel="popup" class="ui-controlgroup-label"><h5>点击阅读购买服务声明:</h5></a>
             <input name="checkbox-mini-0" id="checkbox-mini-0" data-mini="true" type="checkbox">
-            <label for="checkbox-mini-0">我同意上述服务条款</label>
+            <label for="checkbox-mini-0">我同意上述服务声明</label>
 
             <input type="hidden" name="service_id" id="service_id"  value="<?php echo $serviceId;?>"/>
             <input type="hidden" name="service_name" id="service_name"  value="<?php echo $serviceName;?>"/>

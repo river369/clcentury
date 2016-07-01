@@ -67,7 +67,7 @@ unset($_SESSION['existedUserPhoneReigon'], $_SESSION['existedUserPhoneNumber'], 
 
 
     <div id="page1" data-role="content">
-        <form id="submityz" data-ajax="false" method="post" action="../../../Controller/SignIn.php">
+        <form id="signForm" data-ajax="false" method="post" action="../../../Controller/SignIn.php">
             <label for="phone_reigon" >请选择地区号:</label>
             <select name="phone_reigon" id="phone_reigon">
                 <option value="+86" <?php echo $existedUserPhoneReigon=='+86'? 'selected = "selected"' : ''; ?> >中国 +86</option>
@@ -94,7 +94,7 @@ unset($_SESSION['existedUserPhoneReigon'], $_SESSION['existedUserPhoneNumber'], 
 
 <script>
     $( "#panel-fixed-page1" ).on( "pageinit", function() {
-        $( "#submityz" ).validate({
+        $( "#signForm" ).validate({
             rules: {
                 phone_number: {
                     required: true
