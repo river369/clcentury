@@ -28,6 +28,7 @@ $statusString = BusinessHelper::translateRealNameStatus($status);
     <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
     <link rel="stylesheet" href="../../resource/style/cropper/cropper.min.css" />
     <link rel="stylesheet" href="../../resource/style/cropper/main.css" />
+    <link rel="stylesheet" href="../../resource/style/validation/validation.css" />
 
     <script src="../../resource/js/jquery/jquery-1.11.1.min.js"></script>
     <script src="../../resource/js/jquery/jquery-ui-1.11.1.min.js"></script>
@@ -52,22 +53,6 @@ $statusString = BusinessHelper::translateRealNameStatus($status);
             });
         });
     </script>
-    <style>
-        label.error {
-            color: red;
-            font-size: 16px;
-            font-weight: normal;
-            line-height: 1.4;
-            margin-top: 0.5em;
-            width: 100%;
-            float: none;
-        }
-        em {
-            color: red;
-            font-weight: bold;
-            padding-right: .25em;
-        }
-    </style>
 </head>
 <body>
 <div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
@@ -108,7 +93,7 @@ $statusString = BusinessHelper::translateRealNameStatus($status);
                     <label for="radio-choice-d">女生</label>
                 </fieldset>
                 </br>
-                <label for="name">您的电子邮件:</label>
+                <label for="name">您的电子邮箱:</label>
                 <input type="text" name="email" id="email" value="<?php echo isset($existedUser['email']) ? $existedUser['email']: ''; ?>">
                 </br>
                 <label for="description">自我介绍:</label>
@@ -221,8 +206,23 @@ $statusString = BusinessHelper::translateRealNameStatus($status);
                 },
                 email: {
                     email: true
+                },
+                description: {
+                    minlength: 4
                 }
-
+                
+            },
+            messages: {
+                name: {
+                    required: "昵称不能为空"
+                },
+                email: {
+                    email: "邮箱格式不正确"
+                },
+                description: {
+                    minlength: "自我介绍长度不能小于 4 个字"
+                    
+                }
             },
             errorPlacement: function( error, element ) {
                 error.insertAfter( element.parent() );

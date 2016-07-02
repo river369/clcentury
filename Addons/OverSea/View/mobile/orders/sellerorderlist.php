@@ -28,22 +28,7 @@ $querystatusString = BusinessHelper::translateSellerOrderTabDesc($ordersStatus);
 
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
     <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
-    <style>
-        label.error {
-            color: red;
-            font-size: 16px;
-            font-weight: normal;
-            line-height: 1.4;
-            margin-top: 0.5em;
-            width: 100%;
-            float: none;
-        }
-        em {
-            color: red;
-            font-weight: bold;
-            padding-right: .25em;
-        }
-    </style>
+    <link rel="stylesheet" href="../../resource/style/validation/validation.css" />
 </head>
 <body>
 <div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
@@ -218,7 +203,14 @@ $querystatusString = BusinessHelper::translateSellerOrderTabDesc($ordersStatus);
         $( "#rejectorder" ).validate({
             rules: {
                 rejectreason: {
-                    required: true
+                    required: true,
+                    minlength: 4
+                },
+                messages: {
+                    rejectreason: {
+                        required: "拒绝原因不能为空",
+                        minlength: "拒绝原因长度不能小于 4 个字"
+                    }
                 },
             },
             errorPlacement: function( error, element ) {
@@ -228,7 +220,14 @@ $querystatusString = BusinessHelper::translateSellerOrderTabDesc($ordersStatus);
         $( "#finishOrder" ).validate({
             rules: {
                 finishreason: {
-                    required: true
+                    required: true,
+                    minlength: 4
+                }, 
+                messages: {
+                    finishreason: {
+                        required: "完成备注信息不能为空",
+                        minlength: "完成备注信息长度不能小于 4 个字"
+                    }
                 },
             },
             errorPlacement: function( error, element ) {
@@ -238,8 +237,15 @@ $querystatusString = BusinessHelper::translateSellerOrderTabDesc($ordersStatus);
         $( "#cancelOrder" ).validate({
             rules: {
                 cancelreason: {
-                    required: true
-                },
+                    required: true,
+                    minlength: 4
+                }
+            },
+            messages: {
+                cancelreason: {
+                    required: "取消原因不能为空",
+                    minlength: "取消原因长度不能小于 4 个字"
+                }
             },
             errorPlacement: function( error, element ) {
                 error.insertAfter( element.parent() );

@@ -49,22 +49,7 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
     <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
     <link rel="stylesheet" href="../../resource/style/weiui/weui.css"/>
     <link rel="stylesheet" href="../../resource/style/weiui/example.css"/>
-    <style>
-        label.error {
-            color: red;
-            font-size: 16px;
-            font-weight: normal;
-            line-height: 1.4;
-            margin-top: 0.5em;
-            width: 100%;
-            float: none;
-        }
-        em {
-            color: red;
-            font-weight: bold;
-            padding-right: .25em;
-        }
-    </style>
+    <link rel="stylesheet" href="../../resource/style/validation/validation.css" />
 </head>
 <body>
 <div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">

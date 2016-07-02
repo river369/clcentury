@@ -25,22 +25,7 @@ $signInErrorMsg=$_SESSION['$signInErrorMsg'];
 
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
     <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
-    <style>
-        label.error {
-            color: red;
-            font-size: 16px;
-            font-weight: normal;
-            line-height: 1.4;
-            margin-top: 0.5em;
-            width: 100%;
-            float: none;
-        }
-        em {
-            color: red;
-            font-weight: bold;
-            padding-right: .25em;
-        }
-    </style>
+    <link rel="stylesheet" href="../../resource/style/validation/validation.css" />
 </head>
 <body>
 <div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
@@ -60,7 +45,7 @@ $signInErrorMsg=$_SESSION['$signInErrorMsg'];
             <label for="new1" >请输入新密码:</label>
             <input type="password" name="new1" id="new1">
             </br>
-            <label for="new2" >请输入再次输入新密码:</label>
+            <label for="new2" >请再次输入新密码:</label>
             <input type="password" name="new2" id="new2">
             </br>
             <input type="submit" name="signinsubmit" id="signinsubmit" value="更改密码">
@@ -77,13 +62,27 @@ $signInErrorMsg=$_SESSION['$signInErrorMsg'];
                     required: true
                 },
                 new1: {
-                    required: true
+                    required: true,
+                    minlength:6
                 },
                 new2: {
                     required: true,
                     equalTo: "#new1"
                 }
-
+            },
+            messages: {
+                orig: {
+                    required: "原密码不能为空"
+                },
+                new1: {
+                    required: "新密码不能为空",
+                    minlength: "密码长度不能小于 6 个字母"
+                },
+                new2: {
+                    required: "新密码不能为空",
+                    minlength: "密码长度不能小于 6 个字母",
+                    equalTo: "两次输入密码不一致"
+                }
             },
             errorPlacement: function( error, element ) {
                 error.insertAfter( element.parent() );

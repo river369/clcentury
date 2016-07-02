@@ -30,22 +30,7 @@ unset($_SESSION['existedUserPhoneReigon'], $_SESSION['existedUserPhoneNumber'], 
 
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
     <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
-    <style>
-        label.error {
-            color: red;
-            font-size: 16px;
-            font-weight: normal;
-            line-height: 1.4;
-            margin-top: 0.5em;
-            width: 100%;
-            float: none;
-        }
-        em {
-            color: red;
-            font-weight: bold;
-            padding-right: .25em;
-        }
-    </style>
+    <link rel="stylesheet" href="../../resource/style/validation/validation.css" />
 </head>
 <body>
 <div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
@@ -101,6 +86,14 @@ unset($_SESSION['existedUserPhoneReigon'], $_SESSION['existedUserPhoneNumber'], 
                 },
                 password: {
                     required: true
+                }
+            },
+            messages: {
+                phone_number: {
+                    required: "手机号码不能为空"
+                },
+                password: {
+                    required: "密码不能为空"
                 }
             },
             errorPlacement: function( error, element ) {

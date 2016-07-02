@@ -31,22 +31,7 @@ $querystatusString = BusinessHelper::translateCustomerOrderTabDesc($ordersStatus
 
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
     <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
-    <style>
-        label.error {
-            color: red;
-            font-size: 16px;
-            font-weight: normal;
-            line-height: 1.4;
-            margin-top: 0.5em;
-            width: 100%;
-            float: none;
-        }
-        em {
-            color: red;
-            font-weight: bold;
-            padding-right: .25em;
-        }
-    </style>
+    <link rel="stylesheet" href="../../resource/style/validation/validation.css" />
 </head>
 <body>
 <div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
@@ -134,8 +119,10 @@ $querystatusString = BusinessHelper::translateCustomerOrderTabDesc($ordersStatus
                 <h3 class="ui-title" id="rejectOrderString">对已完成订单提出异议? </h3>
                 <form id="rejectorder" data-ajax="false" method="post" action="../../../Controller/AuthUserDispatcher.php?c=customerRejectOrder">
                     <input type="hidden" name="rejectorderid" id="rejectorderid" value="">
-                    <label for="cancelreason">单提出异议的原因:</label>
-                    <textarea cols="30" rows="8" name="rejectreason" id="rejectreason" data-mini="true"></textarea>
+                    <div>
+                        <label for="cancelreason">提出异议的原因:</label>
+                        <textarea cols="30" rows="8" name="rejectreason" id="rejectreason" data-mini="true"></textarea>
+                    </div>
                     <input type="submit" name="confirmsubmit" id="confirmsubmit" value="确定">
                 </form>
                 <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
@@ -150,8 +137,10 @@ $querystatusString = BusinessHelper::translateCustomerOrderTabDesc($ordersStatus
                 <h3 class="ui-title" id="cancelOrderString">确定取消订单? </h3>
                 <form id="cancelOrder" data-ajax="false" method="post" action="../../../Controller/AuthUserDispatcher.php?c=customerCancelOrder">
                     <input type="hidden" name="cancelorderid" id="cancelorderid" value="">
-                    <label for="cancelreason">取消原因:</label>
-                    <textarea cols="30" rows="8" name="cancelreason" id="cancelreason" data-mini="true"></textarea>
+                    <div>
+                        <label for="cancelreason">取消原因:</label>
+                        <textarea cols="30" rows="8" name="cancelreason" id="cancelreason" data-mini="true"></textarea>
+                    </div>
                     <input type="submit" name="cancelsubmit" id="cancelsubmit" value="无奈取消">
                 </form>
                 <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
@@ -194,8 +183,15 @@ $querystatusString = BusinessHelper::translateCustomerOrderTabDesc($ordersStatus
         $( "#cancelOrder" ).validate({
             rules: {
                 cancelreason: {
-                    required: true
+                    required: true,
+                    minlength: 4
                 },
+            },
+            messages: {
+                cancelreason: {
+                    required: "取消原因不能为空",
+                    minlength: "取消原因长度不能小于 4 个字"
+                }
             },
             errorPlacement: function( error, element ) {
                 error.insertAfter( element.parent() );
@@ -204,8 +200,15 @@ $querystatusString = BusinessHelper::translateCustomerOrderTabDesc($ordersStatus
         $( "#rejectorder" ).validate({
             rules: {
                 rejectreason: {
-                    required: true
+                    required: true,
+                    minlength: 4
                 },
+            },
+            messages: {
+                rejectreason: {
+                    required: "拒绝原因不能为空",
+                    minlength: "拒绝原因长度不能小于 4 个字"
+                }
             },
             errorPlacement: function( error, element ) {
                 error.insertAfter( element.parent() );

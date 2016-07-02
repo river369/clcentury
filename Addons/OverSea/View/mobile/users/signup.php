@@ -30,28 +30,12 @@ unset($_SESSION['$signInErrorMsg'] );
 
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
     <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
+    <link rel="stylesheet" href="../../resource/style/validation/validation.css" />
     <style>
         *{padding:0; margin:0}
         body{font-size:12px}
         select{height:22px; line-height:18px; padding:2px 0}
     </style>
-    <style>
-        label.error {
-            color: red;
-            font-size: 16px;
-            font-weight: normal;
-            line-height: 1.4;
-            margin-top: 0.5em;
-            width: 100%;
-            float: none;
-        }
-        em {
-            color: red;
-            font-weight: bold;
-            padding-right: .25em;
-        }
-    </style>
-
 </head>
 <body>
 <div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
@@ -136,13 +120,24 @@ unset($_SESSION['$signInErrorMsg'] );
                     required: true
                 },
                 password: {
-                    required: true
+                    required: true,
+                    minlength: 6
                 },
                 verifycode: {
                     required: true,
-                    //equalTo: "#password"
                 }
-
+            },
+            messages: {
+                phone_number: {
+                    required: "手机号码不能为空"
+                },
+                password: {
+                    required: "密码不能为空",
+                    minlength: "密码长度不能小于 6 个字母"
+                },
+                verifycode: {
+                    required: "验证码不能为空",
+                }
             },
             errorPlacement: function( error, element ) {
                 error.insertAfter( element.parent() );

@@ -56,6 +56,7 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
     <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
     <link rel="stylesheet" href="../../resource/style/weiui/weui.css"/>
     <link rel="stylesheet" href="../../resource/style/weiui/example.css"/>
+    <link rel="stylesheet" href="../../resource/style/validation/validation.css" />
     <script>
         $(function(){
             var sampleTags = ['c++', 'lua'];
@@ -72,22 +73,6 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
             });
         });
     </script>
-    <style>
-        label.error {
-            color: red;
-            font-size: 16px;
-            font-weight: normal;
-            line-height: 1.4;
-            margin-top: 0.5em;
-            width: 100%;
-            float: none;
-        }
-        em {
-            color: red;
-            font-weight: bold;
-            padding-right: .25em;
-        }
-    </style>
 </head>
 <body>
 <div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
@@ -156,8 +141,10 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
             <label for="service_price">您的服务价格(￥/小时):</label>
             <input type="number" name="service_price" id="service_price" value="<?php echo isset($serviceData['service_price']) ? $serviceData['service_price']: ''; ?>" >
             </br>
+            <div>
             <label for="description">您的服务介绍:</label>
             <textarea name="description" id="description" data-mini="true"><?php echo isset($serviceData['description']) ? $serviceData['description']: ''; ?></textarea>
+            </div>
             </br>
             <label for="methodTags">
                 <a href="#tagpopup" data-rel="popup" class="ui-controlgroup-label">选取或填写标签:</a>
@@ -357,18 +344,32 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
         $( "#submityz" ).validate({
             rules: {
                 service_name: {
-                    required: true
+                    required: true,
+                    minlength: 2
                 },
                 service_price: {
                     required: true,
                     number:true
                 },
                 description: {
-                    required: true
+                    required: true,
+                    minlength: 4
                 },
                 agree: "required"
             },
             messages: {
+                service_name: {
+                    required: "服务名称不能为空",
+                    minlength: "服务介绍长度不能小于 2 个字"
+                },
+                service_price: {
+                    required: "服务价格不能为空",
+                    number:"服务价格必须为数字"
+                },
+                description: {
+                    required: "服务介绍不能为空",
+                    minlength: "服务介绍长度不能小于 4 个字"
+                },
                 agree: "请接受我们的声明"
             },
             errorPlacement: function( error, element ) {
