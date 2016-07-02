@@ -5,7 +5,7 @@
  * Date: 16/5/1
  * Time: 17:05
  */
-use Addons\OverSea\Model\UsersDao;
+use Addons\OverSea\Model\UserAccountsDao;
 use Addons\OverSea\Common\EncryptHelper;
 require dirname(__FILE__).'/../init.php';
 
@@ -32,7 +32,7 @@ if ($userData['user_type'] == 1) { // register by phone user
     }
 
     // verifycode to be implement
-    $userDao = new UsersDao();
+    $userDao = new UserAccountsDao();
     $existedUser = $userDao->getUserByPhone($userData['phone_reigon'] , $userData['phone_number']);
     if (!isset($existedUser['phone_number'])){
         //echo $userData['phone_reigon'] . $userData['phone_number']. " 号码尚未注册.";
@@ -43,9 +43,9 @@ if ($userData['user_type'] == 1) { // register by phone user
         header('Location:../View/mobile/users/signin.php');
     } else {
         //echo $existedUser['id'].$_SESSION['weixinOpenid'];
-        $_SESSION['signedUser'] = $existedUser['id'];
+        $_SESSION['signedUser'] = $existedUser['user_id'];
         // try to set uid in cookie
-        $cookieValue = EncryptHelper::encrypt($existedUser['id']);
+        $cookieValue = EncryptHelper::encrypt($existedUser['user_id']);
         setcookie("signedUser", $cookieValue, time()+7*24*3600);
 
         if (isset($_SESSION['weixinOpenid'])) {

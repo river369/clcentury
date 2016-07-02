@@ -69,6 +69,31 @@ class BaseDao
         }
     }
 
+    public function updateByKv($data, $key, $value)
+    {
+        try {
+            date_default_timezone_set('PRC');
+            $data['update_date'] = date('y-m-d H:i:s', time());
+            $sql = "update ". $this->talbeName ." set ";
+            foreach ($data as $k => $v) {
+                //echo $k."-".$v;
+                if ($v != null && $v != '') {
+                    $sql = $sql . $k . "='" . $v . "',";
+                }
+            }
+            $sql = substr($sql, 0, strlen($sql) - 1);
+            $sql = $sql . ' where '.$key.'=:' .$key;
+            $parameter = array(':'.$key => $value);
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",sql=".$sql);
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",parameters=".json_encode($parameter));
+            MySqlHelper::query($sql, $parameter);
+            return 0;
+        } catch (\Exception $e) {
+            return -1;
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . $e);
+        }
+    }
+
     public function getById($id)
     {
         try {
@@ -78,6 +103,20 @@ class BaseDao
             Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",parameters=".json_encode(array(':id' => $id)));
             $user = MySqlHelper::fetchOne($sql, array(':id' => $id));
             return $user;
+        }catch (\Exception $e){
+            Logs::writeClcLog(__CLASS__.",".__FUNCTION__.$e);
+            exit(1);
+        }
+    }
+
+    public function isExistByUid($key, $value){
+        try {
+            $sql = 'SELECT id FROM '. $this->talbeName . ' WHERE ' .$key .'=:' .$key.' LIMIT 1';
+            $parameter = array(':'.$key => $value);
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",sql=".$sql);
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",parameters=".json_encode($parameter));
+            $user = MySqlHelper::fetchOne($sql, $parameter);
+            return isset($user['id']) ? $user['id'] : 0;
         }catch (\Exception $e){
             Logs::writeClcLog(__CLASS__.",".__FUNCTION__.$e);
             exit(1);
@@ -97,6 +136,23 @@ class BaseDao
         return $services;
     }
 
+    
+    public function checkByKv($key, $value,  $check_reason, $status)
+    {
+        try {
+            $sql = "update ". $this->talbeName. " set status = :status, check_reason = :check_reason where ".$key."=:".$key;
+            //echo $sql
+            $parameter =  array(':check_reason' => $check_reason, ':'.$key => $value, ':status' => $status);
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",sql=".$sql);
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",parameters=".json_encode($parameter));
+            MySqlHelper::query($sql,$parameter);
+            return 0;
+        } catch (\Exception $e){
+            return -1;
+            echo $e;
+        }
+    }
+    // To be deprecated??????check(..)???
     public function check($id,  $check_reason, $status)
     {
         try {

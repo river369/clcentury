@@ -18,11 +18,11 @@ class UserSettingsDao extends BaseDao
     }
 
     public function insertOrUpdateUserSetting($userSetting){
-        $existedUserSetting = $this->getUserSettingByUserId($userSetting['user_id']);
-        if (empty($existedUserSetting)){
-            parent::insert($userSetting);
+        $id = parent::isExistByUid('user_id', $userSetting['user_id']);
+        if ($id){
+            parent::update($userSetting, $id);
         } else {
-            parent::update($userSetting, $existedUserSetting['id']);
+            parent::insert($userSetting);
         }
     }
 

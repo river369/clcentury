@@ -35,7 +35,7 @@ $allUsers= $_SESSION['allUsers'];
         <?php
         foreach($allUsers as $key => $user)
         {
-            $userid= $user['id'];
+            $userid= $user['user_id'];
             $status = $user['status'];
         ?>
         <ul data-role="listview" data-inset="true">

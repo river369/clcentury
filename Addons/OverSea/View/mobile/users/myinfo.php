@@ -8,6 +8,7 @@
 session_start();
 require dirname(__FILE__).'/../../../init.php';
 use Addons\OverSea\Common\BusinessHelper;
+$userId = $_SESSION['signedUser'];
 $existedUser = $_SESSION['signedUserInfo'] ;
 $status = $existedUser['status'];
 $statusString = BusinessHelper::translateRealNameStatus($status);
@@ -72,10 +73,10 @@ $statusString = BusinessHelper::translateRealNameStatus($status);
         <!-- Current avatar -->
         <div class="container" id="crop-avatar" data-role="content">
             <div class="avatar-view" title="Change the avatar">
-                <img src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $existedUser['id'];?>/head.png?t=<?php echo rand(10,100); ?>" id='myhead' alt="点击上传头像" onclick="chooseImages()">
+                <img src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $userId;?>/head.png?t=<?php echo rand(10,100); ?>" id='myhead' alt="点击上传头像" onclick="chooseImages()">
             </div>
         </div>
-        <input type="hidden" id="uid" value="<?php echo $existedUser['id'];?>">
+        <input type="hidden" id="uid" value="<?php echo $userId;?>">
         
         <form id="myinfoForm" data-ajax="false" method="post" action="../../../Controller/AuthUserDispatcher.php?c=updateMyinfo">
             <div data-role="fieldcontain">

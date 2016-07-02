@@ -8,7 +8,8 @@
 
 namespace Addons\OverSea\Model;
 
-use Addons\OverSea\Model\UsersDao;
+use Addons\OverSea\Model\UserInfosDao;
+use Addons\OverSea\Model\UserAccountsDao;
 use Addons\OverSea\Model\UserSettingsDao;
 use Addons\OverSea\Common\OSSHelper;
 use Addons\OverSea\Common\HttpHelper;
@@ -45,9 +46,9 @@ class UsersBo
             $servicearea = $_GET ['servicearea'];
             $_SESSION ['servicearea'] = $servicearea;
         }
-        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",servicearea=".$servicearea);
-
         $user_id = self::getUserIdFromSession();
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",servicearea=".$servicearea." user_id=".$user_id);
+
         if (!empty($user_id) && !is_null($user_id)){
             self::setUserSettingInSessionById($user_id);
             $userSettingsDao = new UserSettingsDao();
@@ -91,8 +92,8 @@ class UsersBo
      */
     public function getCurrentUserInfo() {
         $userid = $_SESSION['signedUser'];
-        $userDao = new UsersDao();
-        $existedUser = $userDao ->getById($userid);
+        $userDao = new UserInfosDao();
+        $existedUser = $userDao ->getUserInfoByUserId($userid);
         $_SESSION['signedUserInfo'] = $existedUser;
     }
 
@@ -101,11 +102,11 @@ class UsersBo
         $userData['password'] = isset($_POST ['new1']) ? trim($_POST ['new1']) : '';
 
         $userid = $_SESSION['signedUser'];
-        $userDao = new UsersDao();
-        $existedUser = $userDao ->getById($userid);
+        $userDao = new UserAccountsDao();
+        $existedUser = $userDao ->getAccountByUserId($userid);
         if ($origPassword == $existedUser['password']){
-            $userid = $userDao ->update($userData,$_SESSION['signedUser']);
-            if ($userid == 0) {
+            $ret = $userDao ->update($userData, $existedUser['id']);
+            if ($ret == 0) {
                 $_SESSION['status'] = 's';
                 $_SESSION['message'] = "密码修改成功!";
                 $_SESSION['goto'] = "../../../Controller/AuthUserDispatcher.php?c=mine";
@@ -123,7 +124,7 @@ class UsersBo
     /**
      * Update User info
      */
-    public function updateUserInfo() {
+    public function createOrUpdateUserInfo() {
         $userData['name'] = isset($_POST ['name']) ? trim($_POST ['name']) : '';
         $userData['weixin'] = isset($_POST ['weixin']) ? trim($_POST ['weixin']) : '';
         $userData['gender'] = $_POST ['gender'];
@@ -133,9 +134,18 @@ class UsersBo
         if (isset( $_POST ['mytags'])){
             $userData['tag'] = $_POST ['mytags'];
         }
-        $userDao = new UsersDao();
-        $userid = $userDao ->update($userData,$_SESSION['signedUser']);
-        if ($userid == 0) {
+        $userDao = new UserInfosDao();
+        $userid = $_SESSION['signedUser'];
+        $ret = 0;
+        $exist = $userDao -> isExistByUid('user_id', $userid);
+        if ($exist){
+            $ret = $userDao -> updateByKv($userData, 'user_id', $userid);
+        } else {
+            $userData['user_id'] = $userid;
+            $ret = $userDao -> insert($userData);
+        }
+
+        if ($ret >= 0) {
             $_SESSION['status'] = 's';
             $_SESSION['message'] = $userData['name'].'提交个人信息成功,谢谢!';
             $_SESSION['goto'] = "../../../Controller/AuthUserDispatcher.php?c=mine";
@@ -283,8 +293,8 @@ class UsersBo
         $realNameData['certificate_type'] = $_POST ['certificate_type'];
         $realNameData['certificate_no'] = isset($_POST ['certificate_no']) ? $_POST ['certificate_no'] : '';
 
-        $usersDao = new UsersDao();
-        $userid = $usersDao ->update($realNameData, $userID);
+        $usersDao = new UserInfosDao();
+        $userid = $usersDao ->updateByKv($realNameData, 'user_id', $userID);
 
         if ($userid==0) {
             $_SESSION['status'] = 's';
@@ -304,7 +314,7 @@ class UsersBo
      */
     public function getUsers() {
         $status = HttpHelper::getVale('status');
-        $usersDao = new UsersDao();
+        $usersDao = new UserInfosDao();
         $allServices = $usersDao->getByStatus($status);
         $_SESSION['allUsers'] = $allServices;
     }
@@ -320,8 +330,8 @@ class UsersBo
         if ($action == 1){
             $status = 40;
         }
-        $usersDao = new UsersDao();
-        $usersDao -> check($userId,  $reason, $status);
+        $usersDao = new UserInfosDao();
+        $usersDao -> checkByKv('user_id', $userId,  $reason, $status);
         self::getUsers();
     }
 

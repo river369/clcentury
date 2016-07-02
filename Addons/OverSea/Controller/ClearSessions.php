@@ -5,39 +5,33 @@
  * Date: 16/5/1
  * Time: 17:05
  */
-use Addons\OverSea\Model\UsersDao;
+use Addons\OverSea\Model\UserInfosDao;
+use Addons\OverSea\Model\UserAccountsDao;
+
 require dirname(__FILE__).'/../init.php';
 
 session_start();
-/*
-$servicetype=1; // Tourism
-$usersData=UsersDao::getUsersByServiceType($servicetype);
-
-foreach($usersData as $key => $userData)
-{
-    echo $key.":".$userData['name']."--------";
-}
-*/
 
 echo '  [session_weixinOpenid='.$_SESSION['weixinOpenid'];
 echo '  ] [session_weixinOpenidTried='.$_SESSION['weixinOpenidTried'];
 echo '  ] [id='.$_SESSION['signedUser'];
-$userDao = new UsersDao();
-$userData=$userDao->getById($_SESSION['signedUser']);
+$userInfosDao = new UserInfosDao();
+$userData=$userInfosDao->getUserInfoByUserId($_SESSION['signedUser']);
 if (isset($userData['phone_number'])){
     echo "] [got phone by id=".$userData['phone_number'];
 } else {
     echo "] [not got by id";
 }
 
-$userData=$userDao->getUserByExternalId($_SESSION['weixinOpenid']);
+$userAccountDao = new UserAccountsDao();
+$userData=$userAccountDao->getUserByExternalId($_SESSION['weixinOpenid']);
 if (isset($userData['phone_number'])){
     echo "] [got phone by weixinOpenid=".$userData['phone_number'];
 } else {
     echo "] [not got by weixinOpenid]";
 }
 echo "[".$_SESSION['signedUser']."]";
-$userDao->updateExternalId(-1, $_SESSION['signedUser']);
+$userAccountDao->updateExternalId(-1, $_SESSION['signedUser']);
 setcookie("signedUser", "", time()-1000);
 
 unset($_SESSION['signedUser'],$_SESSION['userSetting']);

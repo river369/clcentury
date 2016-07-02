@@ -25,7 +25,7 @@ $method_routes = array(
         'v'=>'../View/mobile/common/message.php','d'=>'修改密码'),
     'myinfo' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'getCurrentUserInfo', 
         'v'=>'../View/mobile/users/myinfo.php','d'=>'查看我的新的'),
-    'updateMyinfo' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'updateUserInfo', 
+    'updateMyinfo' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'createOrUpdateUserInfo', 
         'v'=>'../View/mobile/common/message.php','d'=>'完善我的信息'),
     'submitheadpic' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'handleHeads', 'd'=>'发个人头像'),
     'publishRealName' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'prepareRealName', 

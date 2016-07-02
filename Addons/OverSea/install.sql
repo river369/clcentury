@@ -1,11 +1,24 @@
---Users
-CREATE TABLE IF NOT EXISTS `clctravel`.`yz_users` (
+--Account
+CREATE TABLE IF NOT EXISTS `clctravel`.`yz_user_accounts` (
 `id` bigint(12) NOT NULL AUTO_INCREMENT COMMENT '主键',
+`user_id` varchar(36) DEFAULT NULL COMMENT 'User Id to show in the internal system',
 `user_type` int(5) DEFAULT 1  COMMENT 'User类型 1 phone, 2 weixin, 3 qq ...',
 `phone_reigon` varchar(6) DEFAULT NULL  COMMENT '电话区号',
 `phone_number` varchar(20) DEFAULT NULL  COMMENT '电话号码',
 `password` varchar(50) DEFAULT NULL  COMMENT '',
 `external_id` varchar(100) DEFAULT NULL COMMENT '1微信,openid 2 ...',
+`creation_date` datetime  DEFAULT NULL COMMENT 'creation datetime',
+`update_date` datetime  DEFAULT NULL COMMENT 'update datetime',
+PRIMARY KEY (`id`),
+UNIQUE KEY (`user_id`)
+) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
+
+update yz_user_accounts set external_id = 'om0h_wdY-532dGj__zVFKJVj9wJ0';
+
+--Users Info
+CREATE TABLE IF NOT EXISTS `clctravel`.`yz_user_infos` (
+`id` bigint(12) NOT NULL AUTO_INCREMENT COMMENT '主键',
+`user_id` varchar(36) DEFAULT NULL COMMENT 'User Id to show in the internal system',
 `name` varchar(255)  DEFAULT NULL  COMMENT '姓名',
 `gender` int(2)  DEFAULT 1 COMMENT '性别 1 male, 2 female',
 `weixin` varchar(50)  DEFAULT NULL  COMMENT '微信号',
@@ -21,7 +34,9 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`yz_users` (
 `check_reason` varchar(255)  DEFAULT NULL  COMMENT 'approve or reject reason',
 `creation_date` datetime  DEFAULT NULL COMMENT 'creation datetime',
 `update_date` datetime  DEFAULT NULL COMMENT 'update datetime',
-PRIMARY KEY (`id`)
+PRIMARY KEY (`id`),
+UNIQUE KEY (`name`),
+KEY (`status`)
 ) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
 
 user状态 0 created, 20 个人信息不完整, 40 已经实名, 60 已发布过服务, 80 完成一次服务, 100 多次服务, 120 封号 ,
@@ -31,7 +46,7 @@ alter table yz_users add column serve_count int(5) DEFAULT 0  COMMENT '用户提
 --Users Settings
 CREATE TABLE IF NOT EXISTS `clctravel`.`yz_user_settings` (
 `id` bigint(12) NOT NULL AUTO_INCREMENT COMMENT '主键',
-`user_id` bigint(12)  NOT NULL COMMENT 'user id foreign key',
+`user_id` varchar(36) DEFAULT NULL COMMENT 'user id foreign key',
 `selected_service_area` varchar(50) DEFAULT NULL  COMMENT '服务区域',
 `creation_date` datetime  DEFAULT NULL COMMENT 'creation datetime',
 `update_date` datetime  DEFAULT NULL COMMENT 'update datetime',
@@ -149,7 +164,7 @@ KEY `order_id` (`order_id`)
 --query history
 CREATE TABLE IF NOT EXISTS `clctravel`.`yz_query_history` (
 `id` bigint(12) NOT NULL AUTO_INCREMENT COMMENT '主键',
-`user_id` bigint(12)  NOT NULL COMMENT 'The people to query',
+`user_id` varchar(36) DEFAULT NULL COMMENT 'user id foreign key',
 `key_word` varchar(255)  DEFAULT NULL  COMMENT 'search key',
 `status` int(2) DEFAULT 0  COMMENT 'active 0, deleted 1' ,
 `creation_date` datetime  DEFAULT NULL COMMENT 'creation datetime',
