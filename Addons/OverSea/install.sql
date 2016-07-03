@@ -10,7 +10,8 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`yz_user_accounts` (
 `creation_date` datetime  DEFAULT NULL COMMENT 'creation datetime',
 `update_date` datetime  DEFAULT NULL COMMENT 'update datetime',
 PRIMARY KEY (`id`),
-UNIQUE KEY (`user_id`)
+UNIQUE KEY (`user_id`),
+KEY `phone` (`phone_reigon`, `phone_number`)
 ) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
 
 update yz_user_accounts set external_id = 'om0h_wdY-532dGj__zVFKJVj9wJ0';
@@ -36,6 +37,7 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`yz_user_infos` (
 `update_date` datetime  DEFAULT NULL COMMENT 'update datetime',
 PRIMARY KEY (`id`),
 UNIQUE KEY (`name`),
+UNIQUE KEY (`user_id`),
 KEY (`status`)
 ) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
 
@@ -57,8 +59,9 @@ KEY `user_id` (`user_id`)
 --Services
 CREATE TABLE IF NOT EXISTS `clctravel`.`yz_services` (
 `id` bigint(12) NOT NULL AUTO_INCREMENT COMMENT '主键',
+`service_id` varchar(36) DEFAULT NULL COMMENT 'Service Id to show in the internal system',
 `service_name` varchar(255)  DEFAULT NULL  COMMENT 'service title',
-`seller_id` bigint(12)  NOT NULL COMMENT 'The people to sell',
+`seller_id` varchar(36) DEFAULT NULL COMMENT 'The people to sell',
 `seller_name` varchar(255)  DEFAULT NULL  COMMENT 'seller姓名',
 `status` int(5) DEFAULT 0  COMMENT 'service状态 0 created, ...' ,
 `description` text DEFAULT NULL  COMMENT 'service详细介绍',
@@ -74,7 +77,10 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`yz_services` (
 `creation_date` datetime  DEFAULT NULL COMMENT 'creation datetime',
 `update_date` datetime  DEFAULT NULL COMMENT 'update datetime',
 PRIMARY KEY (`id`),
-KEY `seller_id` (`seller_id`)
+UNIQUE KEY (`service_id`),
+KEY `seller_id` (`seller_id`),
+KEY `service_area` (`service_area`),
+KEY `service_type` (`service_type`)
 ) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
 
 service status:
@@ -176,7 +182,7 @@ KEY `user_id` (`user_id`)
 --Comments
 CREATE TABLE IF NOT EXISTS `clctravel`.`yz_comments` (
 `id` bigint(12) NOT NULL AUTO_INCREMENT COMMENT '主键',
-`service_id` bigint(12)  NOT NULL COMMENT 'service to buy,foreign key',
+`service_id` varchar(36) DEFAULT NULL COMMENT 'Service Id to show in the internal system',
 `order_id` bigint(12) NOT NULL COMMENT 'order Id, foreign key',
 `customer_id` bigint(12)  NOT NULL COMMENT 'The people to buy',
 `seller_id` bigint(12)  NOT NULL COMMENT 'The people to sell',

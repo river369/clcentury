@@ -16,7 +16,7 @@ echo '  [session_weixinOpenid='.$_SESSION['weixinOpenid'];
 echo '  ] [session_weixinOpenidTried='.$_SESSION['weixinOpenidTried'];
 echo '  ] [id='.$_SESSION['signedUser'];
 $userInfosDao = new UserInfosDao();
-$userData=$userInfosDao->getUserInfoByUserId($_SESSION['signedUser']);
+$userData=$userInfosDao->getByKv('user_id', $_SESSION['signedUser']);
 if (isset($userData['phone_number'])){
     echo "] [got phone by id=".$userData['phone_number'];
 } else {

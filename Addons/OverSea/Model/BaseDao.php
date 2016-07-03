@@ -109,6 +109,21 @@ class BaseDao
         }
     }
 
+    public function getByKv($key, $value)
+    {
+        try {
+            $sql = 'SELECT * FROM '. $this->talbeName. ' WHERE '.$key.'= :'.$key.' LIMIT 1';
+            $parameter = array(':'.$key => $value);
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",sql=".$sql);
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",parameters=".json_encode($parameter));
+            $user = MySqlHelper::fetchOne($sql, $parameter);
+            return $user;
+        }catch (\Exception $e){
+            Logs::writeClcLog(__CLASS__.",".__FUNCTION__.$e);
+            exit(1);
+        }
+    }
+
     public function isExistByUid($key, $value){
         try {
             $sql = 'SELECT id FROM '. $this->talbeName . ' WHERE ' .$key .'=:' .$key.' LIMIT 1';

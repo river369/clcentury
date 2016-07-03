@@ -92,8 +92,8 @@ class UsersBo
      */
     public function getCurrentUserInfo() {
         $userid = $_SESSION['signedUser'];
-        $userDao = new UserInfosDao();
-        $existedUser = $userDao ->getUserInfoByUserId($userid);
+        $userInfosDao = new UserInfosDao();
+        $existedUser = $userInfosDao ->getByKv('user_id', $userid);
         $_SESSION['signedUserInfo'] = $existedUser;
     }
 
@@ -102,10 +102,10 @@ class UsersBo
         $userData['password'] = isset($_POST ['new1']) ? trim($_POST ['new1']) : '';
 
         $userid = $_SESSION['signedUser'];
-        $userDao = new UserAccountsDao();
-        $existedUser = $userDao ->getAccountByUserId($userid);
+        $userAccountsDao = new UserAccountsDao();
+        $existedUser = $userAccountsDao ->getByKv('user_id', $userid);
         if ($origPassword == $existedUser['password']){
-            $ret = $userDao ->update($userData, $existedUser['id']);
+            $ret = $userAccountsDao ->update($userData, $existedUser['id']);
             if ($ret == 0) {
                 $_SESSION['status'] = 's';
                 $_SESSION['message'] = "密码修改成功!";

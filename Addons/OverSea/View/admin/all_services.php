@@ -35,7 +35,7 @@ $allServices= $_SESSION['allServices'];
         <?php
         foreach($allServices as $key => $service)
         {
-            $serviceid= $service['id'];
+            $serviceid= $service['service_id'];
             $status = $service['status'];
             $serviceType = $service['service_type'];
             $serviceTypeDesc = '旅游';
@@ -44,12 +44,12 @@ $allServices= $_SESSION['allServices'];
             }
         ?>
         <ul data-role="listview" data-inset="true">
-            <li data-role="list-divider">服务编号: <span class="ui-li-count"><?php echo $service['id'];?></span></li>
+            <li data-role="list-divider">服务编号: <span class="ui-li-count"><?php echo $serviceid;?></span></li>
             <li>
                 <a href="../../Controller/AuthUserDispatcher.php?c=publishService&sellerid=<?php echo $service['seller_id'];?>&service_id=<?php echo $serviceid; ?>" rel="external">
                     <img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $service['seller_id'];?>/head.png" alt="">
                     <h2> <?php echo $service['service_area'];?>:<?php echo $serviceTypeDesc;?> </h2>
-                    <p style="white-space:pre-wrap;"><?php echo $service['description'];?> </p>
+                    <p style="white-space:pre-wrap;"><?php echo $service['service_name'];?> </p>
                     <p class="ui-li-aside">￥<?php echo $service['service_price'];?>/小时</p>
                 </a>
             </li>

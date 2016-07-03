@@ -55,7 +55,7 @@ if ($querystatus == 60) {
             <?php
             foreach($myServices as $key => $service)
             {
-                $serviceid= $service['id'];
+                $serviceid= $service['service_id'];
                 $status = $service['status'];
                 $serviceType = $service['service_type'];
                 $serviceTypeDesc = '旅游';
@@ -64,7 +64,7 @@ if ($querystatus == 60) {
                 }
             ?>
             <ul data-role="listview" data-inset="true">
-                <li data-role="list-divider">服务编号: <span class="ui-li-count"><?php echo $service['id'];?></span></li>
+                <li data-role="list-divider">服务编号: <span class="ui-li-count"><?php echo $serviceid;?></span></li>
                 <li>
                     <a href="../../../Controller/AuthUserDispatcher.php?c=publishService&sellerid=<?php echo $sellerid; ?>&service_id=<?php echo $serviceid; ?>" rel="external">
                         <img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $sellerid;?>/head.png?t=<?php echo rand(0,10000); ?>" alt="">

@@ -127,7 +127,7 @@ if (isset($_SESSION ['servicearea'])){
                             servicetypeDesc = (value.service_type ==1) ? '旅游' : '留学';
                             var newstr = '<div id="d'+itemIdx+'"> <ul data-role="listview" data-inset="true">';
                             newstr = newstr + '<li data-role="list-divider">' + value.service_area + ':' + servicetypeDesc + ' <span class="ui-li-count"><div class="rate' + itemIdx +'"></div></span></li>';
-                            newstr = newstr + '<li> <a href="../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id=' + value.id +'" rel="external">';
+                            newstr = newstr + '<li> <a href="../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id=' + value.service_id +'" rel="external">';
                             newstr = newstr + '<img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/' + value.seller_id + '/head.png" alt="">';
                             newstr = newstr + '<h2>'+ value.seller_name + '</h2>';
                             newstr = newstr + '<p style="white-space:pre-wrap;">' +value.service_name+ '</p>' ;

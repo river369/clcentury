@@ -12,7 +12,8 @@ use Addons\OverSea\Common\WeixinHelper;
 use Addons\OverSea\Common\Logs;
 use Addons\OverSea\Model\CropAvatar;
 use Addons\OverSea\Common\HttpHelper;
-use Addons\OverSea\Model\UsersDao;
+use Addons\OverSea\Model\UserInfosDao;
+use Addons\OverSea\Model\UserAccountsDao;
 use Addons\OverSea\Model\QueryHistoryDao;
 use Addons\OverSea\Model\ServicesDao;
 use Addons\OverSea\Model\CommentsDao;
@@ -83,8 +84,8 @@ class ServicesBo
      */
     public function getCurrentSellerInfo($sellerid) {
         unset($_SESSION['sellerData']);
-        $userDao = new UsersDao();
-        $sellerData = $userDao ->getById($sellerid);
+        $userInfoDao = new UserInfosDao();
+        $sellerData = $userInfoDao ->getByKv('user_id', $sellerid);
         $_SESSION['sellerData']= $sellerData;
         return $sellerData;
     }
@@ -96,7 +97,7 @@ class ServicesBo
         unset($_SESSION['serviceData']);
         if (!is_null($service_id) && strlen($service_id) >0 ){
             $serviceDao = new ServicesDao();
-            $serviceData = $serviceDao ->getById($service_id);
+            $serviceData = $serviceDao ->getByKv('service_id', $service_id);
             $_SESSION['serviceData']= $serviceData;
             return $serviceData;
         }
@@ -141,7 +142,7 @@ class ServicesBo
         if (!isset($_SESSION['serviceData'])){
             self::createNewService();
         }
-        $serviceId = $_SESSION['serviceData']['id'] ;
+        $serviceId = $_SESSION['serviceData']['service_id'] ;
         Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",userid=".$userID." serviceid=".$serviceId);
         // upload image if need to
         if (isset($_GET ['serverids'])){
@@ -228,9 +229,14 @@ class ServicesBo
      * create new service
      */
     private function createNewService(){
+        if(!isset($_SESSION['sellerData'])){
+            $userID = $_SESSION['signedUser'];
+            self::getCurrentSellerInfo($userID);
+        }
         $sellerData = $_SESSION['sellerData'] ;
         $serviceData = array();
-        $serviceData['seller_id'] = $sellerData['id'];
+        $serviceData['service_id'] = uniqid().mt_rand(100, 999);
+        $serviceData['seller_id'] = $sellerData['user_id'];
         $serviceData['seller_name'] = $sellerData['name'];
         $serviceData['status'] = 0;
         $serviceDao = new ServicesDao();
@@ -284,14 +290,14 @@ class ServicesBo
         $reason = $_POST['pausereason'];
         $status = 100;
         $serviceDao = new ServicesDao();
-        $serviceDao -> check($serviceId,  $reason, $status);
+        $serviceDao -> checkByKv('service_id', $serviceId,  $reason, $status);
         self::getMyServicesByStatus();
     }
     public function recoverService(){
         $serviceId = $_POST['recoverServiceId'];
         $status = 60;
         $serviceDao = new ServicesDao();
-        $serviceDao -> check($serviceId,  "", $status);
+        $serviceDao -> checkByKv('service_id', $serviceId,  "", $status);
         self::getMyServicesByStatus();
     }
 
@@ -319,7 +325,7 @@ class ServicesBo
             $status = 40;
         }
         $serviceDao = new ServicesDao();
-        $serviceDao -> check($serviceId,  $reason, $status);
+        $serviceDao -> checkByKv('service_id', $serviceId,  $reason, $status);
         self::getServicesByStatus();
     }
     

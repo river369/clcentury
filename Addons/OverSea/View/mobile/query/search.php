@@ -96,7 +96,7 @@ if (isset($_SESSION ['servicearea'])){
                             itemIdx++;
                             var newstr = '<div id="d'+itemIdx+'"> <ul data-role="listview" data-inset="true">';
                             newstr = newstr + '<li data-role="list-divider">' +value.stars+ '星服务 <span class="ui-li-count">6次咨询</span></li>';
-                            newstr = newstr + '<li> <a href="../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id=' + value.id +'" rel="external">';
+                            newstr = newstr + '<li> <a href="../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id=' + value.service_id +'" rel="external">';
                             newstr = newstr + '<img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/' + value.seller_id + '/head.png" alt="">';
                             newstr = newstr + '<h2>'+ value.seller_name + '</h2>';
                             newstr = newstr + '<p style="white-space:pre-wrap;">' +value.description+ '</p>' ;

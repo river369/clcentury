@@ -51,12 +51,12 @@ class ServicesDao extends BaseDao
         return $services;
     }
     
-    public static function deleteService($id,  $delete_reason, $seller_id)
+    public static function deleteService($service_id,  $delete_reason, $seller_id)
     {
         try {
-            $sql = "update yz_services set status = 80, delete_reason = :delete_reason where id =:id and seller_id=:seller_id";
+            $sql = "update yz_services set status = 80, delete_reason = :delete_reason where service_id =:service_id and seller_id=:seller_id";
             //echo $sql
-            $parameter =  array(':delete_reason' => $delete_reason, ':id' => $id, ':seller_id' => $seller_id);
+            $parameter =  array(':delete_reason' => $delete_reason, ':service_id' => $service_id, ':seller_id' => $seller_id);
             Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",sql=".$sql);
             Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",parameters=".json_encode($parameter));
             MySqlHelper::query($sql,$parameter);
