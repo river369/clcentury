@@ -132,5 +132,27 @@ class BusinessHelper {
         } 
         return 1;
     }
-
+    public static function translateOrderFeeling($feel)
+    {
+        $levelDesc = '';
+        switch ($feel)
+        {
+            case 1:
+                $levelDesc = "非常不满意";
+                break;
+            case 2:
+                $levelDesc = "不满意";
+                break;
+            case 3:
+                $levelDesc = "正常";
+                break;
+            case 4:
+                $levelDesc = "满意";
+                break;
+            case 5:
+                $levelDesc = "非常满意";
+                break;
+        }
+        return $levelDesc;
+    }
 }

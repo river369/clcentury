@@ -58,7 +58,7 @@ $realnameStatusString = BusinessHelper::translateRealNameStatus($sellerData['sta
 
     <div role="main" class="ui-content jqm-content jqm-fullwidth">
         <div class="avatar-view" title="Change the avatar">
-            <img src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $sellerData['id'];?>/head.png?t=<?php echo rand(10,100); ?>" id='myhead' alt="点击上传头像" onclick="chooseImages()">
+            <img src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $sellerData['user_id'];?>/head.png?t=<?php echo rand(10,100); ?>" id='myhead' alt="点击上传头像" onclick="chooseImages()">
         </div>
         <h4 style="color:steelblue">卖家介绍:</h4>
         <p><?php echo $sellerData['description']; ?></p>

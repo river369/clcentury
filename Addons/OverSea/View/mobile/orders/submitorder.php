@@ -7,7 +7,7 @@
  */
 session_start();
 $serviceData= $_SESSION['serviceData'];
-$serviceId = $serviceData['id'];
+$serviceId = $serviceData['service_id'];
 $serviceName = $serviceData['service_name'];
 $sellerId = $serviceData['seller_id'];
 $sellerName = $serviceData['seller_name'];

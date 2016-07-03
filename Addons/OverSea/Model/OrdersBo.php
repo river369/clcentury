@@ -8,7 +8,7 @@
 
 namespace Addons\OverSea\Model;
 
-use Addons\OverSea\Model\OrdersDao;
+use Addons\OverSea\Model\UserInfosDao;
 use Addons\OverSea\Model\OrderActionsDao;
 use Addons\OverSea\Model\PaymentsDao;
 use Addons\OverSea\Model\CommentsDao;
@@ -24,6 +24,8 @@ class OrdersBo
     public function createOrder() {
         $orderData = array();
 
+        $orderId = uniqid().mt_rand(100, 999);
+        $orderData['order_id'] = $orderId;
         $orderData['service_id'] = isset($_POST ['service_id']) ? $_POST ['service_id'] : "";
         $orderData['service_name'] = isset($_POST ['service_name']) ? $_POST ['service_name'] : "";
         $orderData['seller_id'] = isset($_POST ['seller_id']) ? $_POST ['seller_id'] : "";
@@ -37,18 +39,18 @@ class OrdersBo
         $orderData['service_hours']  = isset($_POST ['service_hours']) ? $_POST ['service_hours'] : "";
         $orderData['service_total_fee']  = isset($_POST ['service_total_fee']) ? $_POST ['service_total_fee'] : "";
         $orderData['request_message']  = isset($_POST ['request_message']) ? $_POST ['request_message'] : "";
-
-        $userDao = new UsersDao();
-        $userData=$userDao->getById($orderData['customer_id']);
+        
+        $userInfosDao = new UserInfosDao();
+        $userData=$userInfosDao->getByKv('user_id', $orderData['customer_id']);
         $customerName = (isset($userData['name']) && !is_null($userData['name']))? $userData['name']: "匿名用户";
         $orderData['customer_name'] = $customerName;
 
         $ordersDao = new OrdersDao();
-        $orderid = $ordersDao->insert($orderData);
-        $orderData['id'] = $orderid;
+        $id = $ordersDao->insert($orderData);
+        $orderData['id'] = $id;
         $_SESSION['orderData']= $orderData;
-        if ($orderid) {
-            self::storeOrderActions($orderid, 0, 1);
+        if ($id) {
+            self::storeOrderActions($orderId, 0, 1);
             $_SESSION['createOrderStatus'] = '成功';
             header('Location:'."../Controller/wxpayv3/PrePayJs.php");
             exit;
@@ -64,7 +66,7 @@ class OrdersBo
     public function repayOrder() {
         $orderId = $_GET['order_id'];
         $ordersDao = new OrdersDao();
-        $orderDetail = $ordersDao->getById($orderId);
+        $orderDetail = $ordersDao->getByKv('order_id', $orderId);
         $_SESSION['orderData']= $orderDetail;
         $_SESSION['createOrderStatus'] = '成功';
         header('Location:'."../Controller/wxpayv3/PrePayJs.php");
@@ -109,7 +111,7 @@ class OrdersBo
 
     public function getOrderById($orderId){
         $ordersDao = new OrdersDao();
-        $orderDetail = $ordersDao->getById($orderId);
+        $orderDetail = $ordersDao->getByKv('order_id', $orderId);
         $_SESSION['orderDetail'] = $orderDetail;
         return $orderDetail;
     }
@@ -127,8 +129,8 @@ class OrdersBo
     }
 
     public function getSellerById($sellId) {
-        $userDao = new UsersDao();
-        $userData=$userDao->getById($sellId);
+        $userInfoDao = new UserInfosDao();
+        $userData=$userInfoDao->getByKv('user_id', $sellId);
         $_SESSION['sellerData']= $userData;
     }
 

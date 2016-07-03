@@ -23,8 +23,8 @@ class OrdersDao extends BaseDao
     public function updateSellerOrderStatus($order_id, $status, $seller_id)
     {
         try {
-            $sql = "update " . parent::getTableName(). " set status = :status where id =:id and seller_id=:seller_id";
-            $parameter = array(':status' => $status, ':id' => $order_id, ':seller_id' => $seller_id );
+            $sql = "update " . parent::getTableName(). " set status = :status where order_id =:order_id and seller_id=:seller_id";
+            $parameter = array(':status' => $status, ':order_id' => $order_id, ':seller_id' => $seller_id );
             Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",sql=".$sql);
             Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",parameters=".json_encode($parameter));
             MySqlHelper::query($sql, $parameter);
@@ -38,8 +38,8 @@ class OrdersDao extends BaseDao
     public function updateCustomerOrderStatus($order_id, $status, $customer_id)
     {
         try {
-            $sql = "update " . parent::getTableName(). " set status = :status where id =:id and customer_id=:customer_id";
-            $parameter = array(':status' => $status, ':id' => $order_id, ':customer_id' => $customer_id );
+            $sql = "update " . parent::getTableName(). " set status = :status where order_id =:order_id and customer_id=:customer_id";
+            $parameter = array(':status' => $status, ':order_id' => $order_id, ':customer_id' => $customer_id );
             Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",sql=".$sql);
             Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",parameters=".json_encode($parameter));
             MySqlHelper::query($sql, $parameter);
@@ -53,8 +53,8 @@ class OrdersDao extends BaseDao
     public function updateOrderStatus($order_id, $status)
     {
         try {
-            $sql = "update " . parent::getTableName(). " set status = :status where id =:id";
-            $parameter = array(':status' => $status, ':id' => $order_id);
+            $sql = "update " . parent::getTableName(). " set status = :status where order_id =:order_id";
+            $parameter = array(':status' => $status, ':order_id' => $order_id);
             Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",sql=".$sql);
             Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",parameters=".json_encode($parameter));
             MySqlHelper::query($sql, $parameter);

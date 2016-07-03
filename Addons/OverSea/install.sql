@@ -94,12 +94,12 @@ alter table yz_services add column serve_count int(5) DEFAULT 0  COMMENT '用户
 --Orders
 CREATE TABLE IF NOT EXISTS `clctravel`.`yz_orders` (
 `id` bigint(12) NOT NULL AUTO_INCREMENT COMMENT '主键',
-`order_no` varchar(64)  DEFAULT NULL  COMMENT 'order id for user to check',
-`service_id` bigint(12)  NOT NULL COMMENT 'service to buy',
+`order_id` varchar(36) DEFAULT NULL COMMENT 'order Id to show in the internal system',
+`service_id` varchar(36) DEFAULT NULL COMMENT 'Service Id to show in the internal system',
 `service_name` varchar(255)  DEFAULT NULL  COMMENT 'service title',
-`customer_id` bigint(12)  NOT NULL COMMENT 'The people to buy',
+`customer_id` varchar(36)  NOT NULL COMMENT 'The people to buy',
 `customer_name` varchar(255)  DEFAULT NULL  COMMENT 'customer姓名',
-`seller_id` bigint(12)  NOT NULL COMMENT 'The people to sell',
+`seller_id` varchar(36)  NOT NULL COMMENT 'The people to sell',
 `seller_name` varchar(255)  DEFAULT NULL  COMMENT 'seller姓名',
 `status` int(5) DEFAULT 0  COMMENT '订单状态 0 created...' ,
 `service_area` varchar(50) DEFAULT NULL  COMMENT '服务区域',
@@ -112,7 +112,7 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`yz_orders` (
 `creation_date` datetime  DEFAULT NULL COMMENT 'creation datetime',
 `update_date` datetime  DEFAULT NULL COMMENT 'update datetime',
 PRIMARY KEY (`id`),
-KEY `order_no` (`order_no`),
+KEY `order_id` (`order_id`),
 KEY `service_id` (`service_id`),
 KEY `seller_id` (`seller_id`),
 KEY `customer_id` (`customer_id`)
@@ -135,7 +135,7 @@ KEY `customer_id` (`customer_id`)
 --order actions
 CREATE TABLE IF NOT EXISTS `clctravel`.`yz_order_actions` (
 `id` bigint(12) NOT NULL AUTO_INCREMENT COMMENT '主键',
-`order_id` bigint(12)  NOT NULL COMMENT 'order id',
+`order_id` varchar(36) DEFAULT NULL COMMENT 'order Id to show in the internal system',
 `action` int(10) DEFAULT 0 NOT NULL COMMENT '服务类型 0 创建订单',
 `creation_date` datetime  NOT NULL COMMENT 'entry datetime',
 `update_date` datetime  DEFAULT NULL COMMENT 'update datetime',
@@ -148,7 +148,7 @@ KEY `order_id` (`order_id`)
 ----pay
 CREATE TABLE IF NOT EXISTS `clctravel`.`yz_payments` (
 `id` bigint(12) NOT NULL AUTO_INCREMENT COMMENT '主键',
-`order_id` bigint(12) NOT NULL COMMENT 'foreign key',
+`order_id` varchar(36) DEFAULT NULL COMMENT 'order Id to show in the internal system',
 `transaction_id` varchar(64)  DEFAULT NULL  COMMENT 'transaction id in payside',
 `out_trade_no` varchar(64)  DEFAULT NULL  COMMENT 'the payment number in yz',
 `cash_fee` decimal(10,2)  DEFAULT NULL COMMENT 'cache fee',
@@ -183,9 +183,9 @@ KEY `user_id` (`user_id`)
 CREATE TABLE IF NOT EXISTS `clctravel`.`yz_comments` (
 `id` bigint(12) NOT NULL AUTO_INCREMENT COMMENT '主键',
 `service_id` varchar(36) DEFAULT NULL COMMENT 'Service Id to show in the internal system',
-`order_id` bigint(12) NOT NULL COMMENT 'order Id, foreign key',
-`customer_id` bigint(12)  NOT NULL COMMENT 'The people to buy',
-`seller_id` bigint(12)  NOT NULL COMMENT 'The people to sell',
+`order_id` varchar(36) DEFAULT NULL COMMENT 'order Id to show in the internal system',
+`customer_id` varchar(36)  NOT NULL COMMENT 'The people to buy',
+`seller_id` varchar(36)  NOT NULL COMMENT 'The people to sell',
 `customer_name` varchar(255)  DEFAULT NULL  COMMENT 'customer姓名',
 `seller_name` varchar(255)  DEFAULT NULL  COMMENT 'seller姓名',
 `comments` text DEFAULT NULL  COMMENT '评论',

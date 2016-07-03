@@ -6,6 +6,7 @@ use Addons\OverSea\Common\BusinessHelper;
 //service info
 $serviceData= $_SESSION['serviceData'];
 $seller_id = $serviceData['seller_id'];
+$service_id = $serviceData['service_id'];
 $servicetype = $serviceData['service_type'];
 $servicetypeDesc;
 if ($servicetype==1){
@@ -205,7 +206,7 @@ $commentsData = $_SESSION['commentsData'];
                 foreach ($commentsData as $comment){ ?>
                     <div>
                         <p>评论者:<?php echo $comment['customer_name'];?> 于 <?php echo $comment['creation_date']?><p>
-                        <p>评分等级:<?php echo $comment['stars'];?>星<p>
+                        <p>服务体验:<?php echo BusinessHelper::translateOrderFeeling($comment['stars']); ?><p>
                         <p>详细意见:<?php echo $comment['comments'];?><p>
                     </div>
                     <hr>
@@ -215,7 +216,7 @@ $commentsData = $_SESSION['commentsData'];
             <?php } ?>
         </div>
         <div data-theme="c">
-            <a href="../../../Controller/AuthUserDispatcher.php?c=submitOrder&$service_id=<?php echo $seller_id; ?>" rel="external" class="ui-shadow ui-btn ui-corner-all ui-mini">购买</a>
+            <a href="../../../Controller/AuthUserDispatcher.php?c=submitOrder&$service_id=<?php echo $service_id; ?>" rel="external" class="ui-shadow ui-btn ui-corner-all ui-mini">购买</a>
         </div>
     </div>
 

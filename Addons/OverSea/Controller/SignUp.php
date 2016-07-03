@@ -32,7 +32,7 @@ if ($userData['user_type'] == 1) { // register by phone user
     if (isset($_SESSION['weixinOpenid'])) {
         $userData['external_id'] = $_SESSION['weixinOpenid'];
     }
-    $userData['user_id'] = uniqid().mt_rand(10, 99);
+    $userData['user_id'] = uniqid().mt_rand(100, 999);
 
     if ((isset($_SESSION['verifcationCode']) && isset($_POST['verifycode'])
             && $_SESSION['verifcationCode'] == $_POST['verifycode'])

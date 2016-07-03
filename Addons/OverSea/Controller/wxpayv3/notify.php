@@ -26,8 +26,8 @@ class PayNotifyCallBack extends WxPayNotify
 			$out_trade_no = $result["out_trade_no"];
 			$paymentData['out_trade_no'] = $out_trade_no;
 			$spit = explode('_', $out_trade_no);
-			$paymentData['order_id'] = $spit[2];
-			$paymentData['start_date'] =  $spit[1];
+			$paymentData['order_id'] = $spit[1];
+			$paymentData['start_date'] =  $spit[0];
 			$paymentData['transaction_id'] = $result["transaction_id"];
 			$paymentData['cash_fee'] = $result["cash_fee"];
 			$paymentData['total_fee'] = $result["total_fee"];

@@ -52,10 +52,10 @@ $querystatusString = BusinessHelper::translateSellerOrderTabDesc($ordersStatus);
             <?php
             foreach($orders as $key => $order)
             {
-                $orderid = $order['id'];
+                $orderid = $order['order_id'];
             ?>
             <ul data-role="listview" data-inset="true">
-                <li data-role="list-divider">订单号: <span class="ui-li-count"><?php echo $order['id'];?></span></li>
+                <li data-role="list-divider">订单号: <span class="ui-li-count"><?php echo $orderid;?></span></li>
                 <li>
                     <a href="../../../Controller/AuthUserDispatcher.php?c=queryOrderDetails&order_id=<?php echo $orderid; ?>" rel="external">
                         <img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $order['customer_id'];?>/head.png" alt="">

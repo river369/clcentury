@@ -36,7 +36,7 @@ $orderDetail = $_SESSION['orderDetail'];
         <p>感谢您使用<?php echo $orderDetail['seller_name'];?>提供的服务,请对本次服务进行打分和评论</p>
         <form id="submityz" data-ajax="false" method="post" action="../../../Controller/AuthUserDispatcher.php?c=customerCommnetOrder">
             <input type="hidden" name="service_id" id="service_id"  value="<?php echo $orderDetail['service_id'];?>"/>
-            <input type="hidden" name="order_id" id="order_id"  value="<?php echo $orderDetail['id'];?>"/>
+            <input type="hidden" name="order_id" id="order_id"  value="<?php echo $orderDetail['order_id'];?>"/>
             <input type="hidden" name="customer_id" id="customer_id"  value="<?php echo $orderDetail['customer_id'];?>"/>
             <input type="hidden" name="seller_id" id="seller_id"  value="<?php echo $orderDetail['seller_id']; ?>"/>
             <input type="hidden" name="customer_name" id="customer_name"  value="<?php echo $orderDetail['customer_name'];?>"/>
@@ -44,7 +44,7 @@ $orderDetail = $_SESSION['orderDetail'];
             <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
                 <legend>本次服务体验:</legend>
                 <input name="star" id="star1" value="1" type="radio">
-                <label for="star1">很不满意</label>
+                <label for="star1">非常不满意</label>
                 <input name="star" id="star2" value="2" type="radio">
                 <label for="star2">不满意</label>
                 <input name="star" id="star3" value="3" type="radio">
@@ -57,8 +57,7 @@ $orderDetail = $_SESSION['orderDetail'];
 
             </br>
             <label for="comments">您的建议:</label>
-            <textarea cols="30" rows="8" name="comments" id="comments" data-mini="true">
-            </textarea>
+            <textarea cols="30" rows="8" name="comments" id="comments" data-mini="true"></textarea>
             </br>
             <input type="submit" name="comments_submit" id="comments_submit" value="提交评论">
         </form>

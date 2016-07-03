@@ -35,10 +35,25 @@ foreach ($orderActions as $key => $orderAction) {
     <script src="../../resource/js/jquery/jquery-1.11.1.min.js"></script>
     <script src="../../resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
     <script src="../../resource/js/horizontal/jquery.timelineMe.js"></script>
+    <script src="../../resource/js/rater/rater.min.js"></script>
 
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
     <link rel="stylesheet" href="../../resource/style/horizontal/jquery.timelineMe.css" />
     <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
+    <style>
+        .rate-base-layer
+        {
+            color: #aaa;
+        }
+        .rate-hover-layer
+        {
+            color: orange;
+        }
+        .rate-select-layer
+        {
+            color:orange;
+        }
+    </style>
 </head>
 <body>
 <div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
@@ -59,7 +74,7 @@ foreach ($orderActions as $key => $orderAction) {
         <div data-role="content" id="orderdetail">
             <h4 style="color:steelblue">订单信息</h4>
             <ul data-role="listview" data-inset="true">
-                <li data-role="list-divider">订单号: <span class="ui-li-count"><?php echo $order['id'];?></span></li>
+                <li data-role="list-divider">订单号: <span class="ui-li-count"><?php echo $order['order_id'];?></span></li>
                 <li data-role="list-divider">订单状态: <span class="ui-li-count"><?php echo $orderStatus;?></span></li>
                 <li data-role="list-divider">服务名称: <span class="ui-li-count"><?php echo $order['service_name'];?></span></li>
                 <li data-role="list-divider">卖家: <span class="ui-li-count"><?php echo $order['seller_name'];?></span></li>
@@ -104,8 +119,9 @@ foreach ($orderActions as $key => $orderAction) {
                 foreach ($commentsData as $comment){ ?>
                     <div>
                         <p>评论者:<?php echo $comment['customer_name'];?> 于 <?php echo $comment['creation_date']?><p>
-                        <p>评分等级:<?php echo $comment['stars'];?>星<p>
+                        <p>服务体验:<?php echo BusinessHelper::translateOrderFeeling($comment['stars']); ?><p>
                         <p>详细意见:<?php echo $comment['comments'];?><p>
+
                     </div>
                     <hr>
                 <?php } ?>
@@ -180,6 +196,14 @@ foreach ($orderActions as $key => $orderAction) {
         $('#orderdetail').hide();
         $('#orderstatus').show();
     }
+    $(document).ready(function(){
+        var options = {
+            max_value: 5,
+            step_size: 0.5,
+            initial_value: $('#orderratevalue').val(),
+        };
+        $(".orderrate").rate(options);
+    });
 </script>
 </body>
 </html>
