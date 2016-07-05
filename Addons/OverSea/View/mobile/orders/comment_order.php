@@ -44,7 +44,7 @@ $orderDetail = $_SESSION['orderDetail'];
             <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
                 <legend>本次服务体验:</legend>
                 <input name="star" id="star1" value="1" type="radio">
-                <label for="star1">非常不满意</label>
+                <label for="star1">很不满意</label>
                 <input name="star" id="star2" value="2" type="radio">
                 <label for="star2">不满意</label>
                 <input name="star" id="star3" value="3" type="radio">

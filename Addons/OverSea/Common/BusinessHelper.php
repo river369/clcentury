@@ -138,7 +138,7 @@ class BusinessHelper {
         switch ($feel)
         {
             case 1:
-                $levelDesc = "非常不满意";
+                $levelDesc = "很不满意";
                 break;
             case 2:
                 $levelDesc = "不满意";

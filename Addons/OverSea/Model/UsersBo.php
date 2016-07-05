@@ -146,9 +146,11 @@ class UsersBo
         }
 
         if ($ret >= 0) {
-            $_SESSION['status'] = 's';
-            $_SESSION['message'] = $userData['name'].'提交个人信息成功,谢谢!';
-            $_SESSION['goto'] = "../../../Controller/AuthUserDispatcher.php?c=mine";
+            //$_SESSION['status'] = 's';
+            //$_SESSION['message'] = $userData['name'].'提交个人信息成功,谢谢!';
+            //$_SESSION['goto'] = "../../../Controller/AuthUserDispatcher.php?c=mine";
+            header('Location:../Controller/AuthUserDispatcher.php?c=mine');
+            exit;
         } else {
             $_SESSION['status'] = 'f';
             $_SESSION['message'] = $userData['name'].'提交个人信息失败!';
@@ -297,9 +299,11 @@ class UsersBo
         $userid = $usersDao ->updateByKv($realNameData, 'user_id', $userID);
 
         if ($userid==0) {
-            $_SESSION['status'] = 's';
-            $_SESSION['message'] = '实名认证信息发布成功,谢谢!';
-            $_SESSION['goto'] = "../../../Controller/AuthUserDispatcher.php?c=mine";
+            //$_SESSION['status'] = 's';
+            //$_SESSION['message'] = '实名认证信息发布成功,谢谢!';
+            //$_SESSION['goto'] = "../../../Controller/AuthUserDispatcher.php?c=mine";
+            header('Location:../Controller/AuthUserDispatcher.php?c=mine');
+            exit;
         } else {
             $_SESSION['status'] = 'f';
             $_SESSION['message'] = '实名认证信息发布失败!';
