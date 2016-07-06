@@ -98,6 +98,20 @@ class OrdersDao extends BaseDao
             exit;
         }
     }
-    
+
+    public function getWeixinOpenIdByOrderId($userIdString, $order_id)
+    {
+        try {
+            $sql = 'SELECT external_id, order_id, seller_name, customer_name, service_name FROM ' . parent::getTableName(). ' o inner join yz_user_accounts a on a.user_id = o.'.$userIdString.' WHERE o.order_id= :order_id and external_id_type =1';
+            $parameter = array(':order_id' => $order_id);
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",sql=".$sql);
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",parameters=".json_encode($parameter));
+            $account = MySqlHelper::fetchOne($sql, $parameter);
+            return $account;
+        } catch (\Exception $e){
+            echo $e;
+            exit;
+        }
+    }
 }
 ?>

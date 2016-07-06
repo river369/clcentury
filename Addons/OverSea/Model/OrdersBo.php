@@ -12,7 +12,8 @@ use Addons\OverSea\Model\UserInfosDao;
 use Addons\OverSea\Model\OrderActionsDao;
 use Addons\OverSea\Model\PaymentsDao;
 use Addons\OverSea\Model\CommentsDao;
-
+use Addons\OverSea\Common\WeixinHelper;
+use Addons\OverSea\Common\BusinessHelper;
 use Addons\OverSea\Common\Logs;
 
 class OrdersBo
@@ -144,6 +145,7 @@ class OrdersBo
         $ordersDao = new OrdersDao();
         $ordersDao->updateSellerOrderStatus($orderid, $status, $sellerid);
         self::storeOrderActions($orderid, $status, 2, $reason);
+        self::sendMessagesThroughWeixin($orderid, $status);
     }
 
     public function sellerAcceptOrder() {
@@ -153,6 +155,7 @@ class OrdersBo
         $ordersDao = new OrdersDao();
         $ordersDao->updateSellerOrderStatus($orderid, $status, $sellerid);
         self::storeOrderActions($orderid, $status, 2);
+        self::sendMessagesThroughWeixin($orderid, $status);
     }
 
     public function sellerCancelOrder() {
@@ -163,6 +166,7 @@ class OrdersBo
         $ordersDao = new OrdersDao();
         $ordersDao->updateSellerOrderStatus($orderid, $status, $sellerid);
         self::storeOrderActions($orderid, $status, 2, $reason);
+        selef::sendMessagesThroughWeixin($orderid, $status);
     }
 
     public function sellerFinishOrder() {
@@ -173,6 +177,7 @@ class OrdersBo
         $ordersDao = new OrdersDao();
         $ordersDao->updateSellerOrderStatus($orderid, $status, $sellerid);
         self::storeOrderActions($orderid, $status, 2, $reason);
+        self::sendMessagesThroughWeixin($orderid, $status);
     }
 
     public function customerConfirmOrder() {
@@ -183,6 +188,7 @@ class OrdersBo
         $ordersDao->updateCustomerOrderStatus($orderid, $status, $customerid);
         self::storeOrderActions($orderid, $status, 1);
         self::getOrderById($orderid);
+        self::sendMessagesThroughWeixin($orderid, $status);
     }
 
     public function customerCommentOrder() {
@@ -201,10 +207,11 @@ class OrdersBo
             $commentsDao = new CommentsDao();
             $commentsDao->insert($comments);
             $status = 80;
-            $order_id = $comments['order_id'];
+            $orderid = $comments['order_id'];
             $ordersDao = new OrdersDao();
-            $ordersDao->updateCustomerOrderStatus($order_id, $status, $customer_id);
-            self::storeOrderActions($order_id, $status, 1);
+            $ordersDao->updateCustomerOrderStatus($orderid, $status, $customer_id);
+            self::storeOrderActions($orderid, $status, 1);
+            //self::sendMessagesThroughWeixin($orderid, $status); //don't need now
         }
     }
     
@@ -216,6 +223,7 @@ class OrdersBo
         $ordersDao = new OrdersDao();
         $ordersDao->updateCustomerOrderStatus($orderid, $status, $customerid);
         self::storeOrderActions($orderid, $status, 1, $reason);
+        self::sendMessagesThroughWeixin($orderid, $status);
     }
 
     public function customerRejectOrder() {
@@ -226,19 +234,7 @@ class OrdersBo
         $ordersDao = new OrdersDao();
         $ordersDao->updateCustomerOrderStatus($orderid, $status, $customerid);
         self::storeOrderActions($orderid, $status, 1, $reason);
-    }
-
-
-    public function storeOrderActions($orderid, $status, $actioner, $reason = '') {
-        $orderActionData = array();
-        $orderActionData['order_id'] = $orderid;
-        $orderActionData['action'] = $status;
-        date_default_timezone_set('PRC');
-        $orderActionData['creation_date'] = date('y-m-d H:i:s',time());
-        $orderActionData['actioner'] = $actioner;
-        $orderActionData['comments'] = $reason;
-        $orderActionsDao = new OrderActionsDao ();
-        $orderActionsDao->insert($orderActionData);
+        self::sendMessagesThroughWeixin($orderid, $status);
     }
 
     /**
@@ -254,6 +250,53 @@ class OrdersBo
         self::storeOrderActions($orderid, $status, 0);
         $paymentDao = new PaymentsDao();
         $paymentDao->insert($paymentData);
+        self::sendMessagesThroughWeixin($orderid, $status);
     }
-    
+
+    /**
+     *
+     * Store order actions into table
+     * @param $orderid
+     * @param $status
+     * @param $actioner
+     * @param string $reason
+     */
+    public function storeOrderActions($orderid, $status, $actioner, $reason = '') {
+        $orderActionData = array();
+        $orderActionData['order_id'] = $orderid;
+        $orderActionData['action'] = $status;
+        date_default_timezone_set('PRC');
+        $orderActionData['creation_date'] = date('y-m-d H:i:s',time());
+        $orderActionData['actioner'] = $actioner;
+        $orderActionData['comments'] = $reason;
+        $orderActionsDao = new OrderActionsDao ();
+        $orderActionsDao->insert($orderActionData);
+    }
+
+    /**
+     * When user is logged on ,the weixin open id is available, so we can send notify messages to sellers or customers through weixin
+     * @param $order_id
+     * @param $status
+     */
+    public static function sendMessagesThroughWeixin($order_id, $status) {
+        Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",".$order_id);
+        $ordersDao = new OrdersDao();
+        $notifyUserType = BusinessHelper::translateOrderResponseUserType($status);
+        $order = $ordersDao->getWeixinOpenIdByOrderId($notifyUserType.'_id', $order_id);
+        if (isset($order['external_id'])) {
+            $data = array(
+                'first'=>array('value'=>urlencode(BusinessHelper::translateOrderNotifyMessages($status, $order)),'color'=>"#743A3A"),
+                'OrderSn'=>array('value'=>urlencode($order['order_id']),'color'=>'#173177'),
+                'OrderStatus'=>array('value'=>urlencode(BusinessHelper::translateOrderStatus($status)),'color'=>'#173177'),
+                //'remark'=>array('value'=>urlencode('永久有效!密码为:1231313'),'color'=>'#173177'),
+            );
+            $url = '';
+            if ($notifyUserType == 'customer'){
+                $url = 'http://www.clcentury.com/weiphp/Addons/OverSea/Controller/AuthUserDispatcher.php?c=queryCustomerOrders&status='.$status;
+            } else {
+                $url = 'http://www.clcentury.com/weiphp/Addons/OverSea/Controller/AuthUserDispatcher.php?c=querySellerOrders&status='.$status;
+            }
+            WeixinHelper::sendOrderChangeMessage($order['external_id'], $data, $url, $topcolor = '#7B68EE');
+        }
+    }
 }

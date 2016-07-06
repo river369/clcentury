@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`yz_user_accounts` (
 `phone_number` varchar(20) DEFAULT NULL  COMMENT '电话号码',
 `password` varchar(50) DEFAULT NULL  COMMENT '',
 `external_id` varchar(100) DEFAULT NULL COMMENT '1微信,openid 2 ...',
+`external_id_type` int(5) DEFAULT 1 COMMENT '1微信,openid 2 ...',
 `creation_date` datetime  DEFAULT NULL COMMENT 'creation datetime',
 `update_date` datetime  DEFAULT NULL COMMENT 'update datetime',
 PRIMARY KEY (`id`),
@@ -15,6 +16,8 @@ KEY `phone` (`phone_reigon`, `phone_number`)
 ) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
 
 update yz_user_accounts set external_id = 'om0h_wdY-532dGj__zVFKJVj9wJ0';
+alter table yz_user_accounts add column `external_id_type` int(5) DEFAULT 1 COMMENT '1微信,openid 2 ...';
+
 
 --Users Info
 CREATE TABLE IF NOT EXISTS `clctravel`.`yz_user_infos` (

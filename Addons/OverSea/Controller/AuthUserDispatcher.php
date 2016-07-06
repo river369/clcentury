@@ -5,7 +5,7 @@
  * Date: 16/5/1
  * Time: 17:05
  */
-use Addons\OverSea\Model\UsersDao;
+use Addons\OverSea\Model\UserAccountsDao;
 use Addons\OverSea\Common\WeixinHelper;
 use Addons\OverSea\Common\EncryptHelper;
 use Addons\OverSea\Common\HttpHelper;
@@ -113,7 +113,7 @@ if (isset($_SESSION['signedUser'])) {
         goToCommand($method_routes, $command);
     } else if (isset($_SESSION['weixinOpenid'])) {
         // check if weixin openid match the db saving values
-        $userDao = new UsersDao();
+        $userDao = new UserAccountsDao();
         $existedUser=$userDao->getUserByExternalId($_SESSION['weixinOpenid']);
         if (isset($existedUser['openid']) && $existedUser['openid'] == $_SESSION['weixinOpenid']){
             Logs::writeClcLog("AuthUserDipatcher.php, Get user from session openid as ".$existedUser['id']);

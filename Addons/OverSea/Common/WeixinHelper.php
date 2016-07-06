@@ -8,6 +8,7 @@
 
 namespace Addons\OverSea\Common;
 use Addons\OverSea\Common\Logs;
+use Addons\OverSea\Common\HttpHelper;
 
 class WeixinHelper
 {
@@ -204,6 +205,38 @@ class WeixinHelper
         $signature = sha1( $string1 );
         return $signature;
     }
+
+    // ================= The following parts is to send order change message to user ===========
+
+    public static function sendOrderChangeMessage($touser, $data, $url, $topcolor = '#7B68EE')
+    {
+        try {
+            $access_token = self::getAccessTokenWithLocalFile();
+            $template = array(
+                'touser' => $touser,
+                'template_id' => 'zpmfp62dBsAiOzgmOxV2Hq44lg2A1HfqZgUt3Ys0kug',
+                'url' => $url,
+                'topcolor' => $topcolor,
+                'data' => $data
+            );
+            $json_template = json_encode($template);
+            $url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" . $access_token;
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",$url=".$url);
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",parameters=".$json_template);
+            $dataRes = HttpHelper::request_post($url, urldecode($json_template));
+            if ($dataRes['errcode'] == 0) {
+                return true;
+            } else {
+                return false;
+            } 
+        }  catch (\Exception $e){
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . $e);
+            return false;
+        }
+        
+    }
+
+
 
 }
 
