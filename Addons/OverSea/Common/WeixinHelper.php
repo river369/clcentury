@@ -76,7 +76,7 @@ class WeixinHelper
             $codeUrl = '&code='.$code.'&grant_type=authorization_code';
         }
         $url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=' . self::$appid . '&secret=' . self::$secret.$codeUrl ;
-        //echo $url;
+        Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",url=".$url);
         $tempArr = json_decode ( file_get_contents ( $url ), true );
         return $tempArr;
     }
@@ -92,7 +92,7 @@ class WeixinHelper
             return 0;
         }
         $url = 'https://api.weixin.qq.com/sns/userinfo?access_token='.$token.'&openid='.$openid.'&lang=zh_CN';
-        Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",$url=".$url);
+        Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",url=".$url);
         $tempArr = json_decode ( file_get_contents ( $url ), true );
 
         return $tempArr;
@@ -221,7 +221,6 @@ class WeixinHelper
             );
             $json_template = json_encode($template);
             $url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" . $access_token;
-            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",$url=".$url);
             Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",parameters=".$json_template);
             $dataRes = HttpHelper::request_post($url, urldecode($json_template));
             if ($dataRes['errcode'] == 0) {

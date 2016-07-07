@@ -8,6 +8,7 @@
 require dirname(__FILE__).'/../init.php';
 use Addons\OverSea\Common\Logs;
 use Addons\OverSea\Common\WeixinHelper;
+use Addons\OverSea\Model\UserAccountsDao;
 
 session_start();
 $_SESSION['weixinOpenidTried'] = 1;
@@ -18,15 +19,18 @@ if (isset($_GET['code'])){
 }else{
     echo "NO CODE";
 }
-
-$tokenArray = WeixinHelper::getAuthToken ($code);
-$token = $tokenArray['refresh_token'];
-$openid = $tokenArray['openid'];
-$refreshtoken = $tokenArray['refresh_token'];
 Logs::writeClcLog( "GetWeixinOpenID, code=".$code);
-$user = WeixinHelper::getWeixinUserInfoWithRefresh($token, $openid, $refreshtoken);
-$_SESSION['weixinOpenid'] = $user['openid'];
-//echo $user['openid'];
+$tokenArray = WeixinHelper::getAuthToken ($code);
+$openid = $tokenArray['openid'];
+Logs::writeClcLog( "GetWeixinOpenID, openId1=".$openid);
+//$token = $tokenArray['refresh_token'];
+//$refreshtoken = $tokenArray['refresh_token'];
+//$user = WeixinHelper::getWeixinUserInfoWithRefresh($token, $openid, $refreshtoken);
+//$_SESSION['weixinOpenid'] = $user['openid'];
+$_SESSION['weixinOpenid'] = $openid;
+if (isset($_SESSION['weixinOpenid'])) {
+    $userDao = new UserAccountsDao();
+    $userDao->updateExternalUserId($_SESSION['weixinOpenid'], $_SESSION['signedUser']);
+}
 header('Location:./AuthUserDispatcher.php');
-
 ?>

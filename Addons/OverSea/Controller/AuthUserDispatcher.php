@@ -111,7 +111,7 @@ if (isset($_SESSION['signedUser'])) {
         Logs::writeClcLog("AuthUserDipatcher.php, Get user from cookie as ".$cookieValue);
         saveId($cookieValue);
         goToCommand($method_routes, $command);
-    } else if (isset($_SESSION['weixinOpenid'])) {
+    } /*else if (isset($_SESSION['weixinOpenid'])) {
         // check if weixin openid match the db saving values
         $userDao = new UserAccountsDao();
         $existedUser=$userDao->getUserByExternalId($_SESSION['weixinOpenid']);
@@ -123,12 +123,12 @@ if (isset($_SESSION['signedUser'])) {
             Logs::writeClcLog("AuthUserDipatcher.php, go to sign in page");
             needSignin($method_routes, $command);
         }
-        /**/
+
     } else if (!isset($_SESSION['weixinOpenidTried'])) {
         Logs::writeClcLog("AuthUserDipatcher.php,try to call weixin to verify");
         // Try to get weixin open id 1 times
         WeixinHelper::triggerWeixinGetToken();
-    } else {
+    } */ else {
         Logs::writeClcLog("AuthUserDipatcher.php, go to sign in page");
         needSignin($method_routes, $command);
     }

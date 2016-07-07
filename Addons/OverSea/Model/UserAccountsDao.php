@@ -17,11 +17,11 @@ class UserAccountsDao extends BaseDao
         parent::__construct("yz_user_accounts");
     }
 
-    public function updateExternalId($external_id, $id)
+    public function updateExternalUserId($external_id, $user_id)
     {
         try {
-            $sql = "update " . parent::getTableName(). " set external_id = :external_id where id =:id";
-            $parameter = array(':external_id' => $external_id, ':id' => $id);
+            $sql = "update " . parent::getTableName(). " set external_id = :external_id where user_id =:user_id";
+            $parameter = array(':external_id' => $external_id, ':user_id' => $user_id);
             Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",sql=".$sql);
             Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",parameters=".json_encode($parameter));
             MySqlHelper::query($sql, $parameter);

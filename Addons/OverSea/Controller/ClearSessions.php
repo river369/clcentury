@@ -31,7 +31,7 @@ if (isset($userData['phone_number'])){
     echo "] [not got by weixinOpenid]";
 }
 echo "[".$_SESSION['signedUser']."]";
-$userAccountDao->updateExternalId(-1, $_SESSION['signedUser']);
+//$userAccountDao->updateExternalUserId(-1, $_SESSION['signedUser']);
 setcookie("signedUser", "", time()-1000);
 
 unset($_SESSION['signedUser'],$_SESSION['userSetting']);

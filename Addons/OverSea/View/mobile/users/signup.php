@@ -61,6 +61,9 @@ unset($_SESSION['$signInErrorMsg'] );
             <label for="password" >请输入密码:</label>
             <input type="password" name="password" id="password" >
             </br>
+            <label for="new2" >请再次输入密码:</label>
+            <input type="password" name="new2" id="new2">
+            </br>
             <label for="verifycode" >请输入验证码:</label>
             <input type="number" name="verifycode" id="verifycode">
             <button type="button" name="getvcode" id="getvcode" onclick="getSMS(this);"> 免费获取验证码</button>
@@ -123,6 +126,10 @@ unset($_SESSION['$signInErrorMsg'] );
                     required: true,
                     minlength: 6
                 },
+                new2: {
+                    required: true,
+                    equalTo: "#password"
+                },
                 verifycode: {
                     required: true,
                 }
@@ -134,6 +141,11 @@ unset($_SESSION['$signInErrorMsg'] );
                 password: {
                     required: "密码不能为空",
                     minlength: "密码长度不能小于 6 个字母"
+                },
+                new2: {
+                    required: "新密码不能为空",
+                    minlength: "密码长度不能小于 6 个字母",
+                    equalTo: "两次输入密码不一致"
                 },
                 verifycode: {
                     required: "验证码不能为空",

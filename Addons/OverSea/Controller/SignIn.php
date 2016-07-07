@@ -7,14 +7,9 @@
  */
 use Addons\OverSea\Model\UserAccountsDao;
 use Addons\OverSea\Common\EncryptHelper;
+use Addons\OverSea\Common\WeixinHelper;
+use Addons\OverSea\Common\Logs;
 require dirname(__FILE__).'/../init.php';
-
-//$day2=48*3600;
-//// each client should remember their session id for EXACTLY 2 days
-//session_set_cookie_params($day2);
-//ini_set("session.cookie_lifetime",$day2);
-//// server should keep session data for AT LEAST 2 days
-//ini_set('session.gc_maxlifetime', $day2);
 
 session_start();
 $userData;
@@ -42,17 +37,13 @@ if ($userData['user_type'] == 1) { // register by phone user
         $_SESSION['$signInErrorMsg']= $userData['phone_reigon'] . $userData['phone_number']. " 密码错误.";
         header('Location:../View/mobile/users/signin.php');
     } else {
-        //echo $existedUser['id'].$_SESSION['weixinOpenid'];
         $_SESSION['signedUser'] = $existedUser['user_id'];
         // try to set uid in cookie
         $cookieValue = EncryptHelper::encrypt($existedUser['user_id']);
         setcookie("signedUser", $cookieValue, time()+7*24*3600);
-
-        if (isset($_SESSION['weixinOpenid'])) {
-            $userDao->updateExternalId($_SESSION['weixinOpenid'], $existedUser['id']);
-        }
-
-        header('Location:./AuthUserDispatcher.php');
+        
+        Logs::writeClcLog("Signin.php,try to call weixin to verify");
+        WeixinHelper::triggerWeixinGetToken();
     }
 }
 

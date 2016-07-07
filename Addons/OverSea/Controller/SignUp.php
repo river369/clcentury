@@ -6,7 +6,9 @@
  * Time: 17:05
  */
 use Addons\OverSea\Model\UserAccountsDao;
+use Addons\OverSea\Common\WeixinHelper;
 use Addons\OverSea\Common\EncryptHelper;
+use Addons\OverSea\Common\Logs;
 require dirname(__FILE__).'/../init.php';
 
 //$day2=48*3600;
@@ -53,7 +55,11 @@ if ($userData['user_type'] == 1) { // register by phone user
                 // try to set uid in cookie
                 $cookieValue = EncryptHelper::encrypt($userData['user_id']);
                 setcookie("signedUser", $cookieValue, time()+7*24*3600);
-                header('Location:../View/mobile/common/message.php');
+
+                Logs::writeClcLog("Signin.php,try to call weixin to verify");
+                WeixinHelper::triggerWeixinGetToken();
+
+                //header('Location:../View/mobile/common/message.php');
             } else {
                // $_SESSION['signupstatus'] = '1失败:创建用户失败!';
                 $_SESSION['existedUserPhoneReigon']= $userData['phone_reigon'];
