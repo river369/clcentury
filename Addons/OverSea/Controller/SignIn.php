@@ -41,9 +41,11 @@ if ($userData['user_type'] == 1) { // register by phone user
         // try to set uid in cookie
         $cookieValue = EncryptHelper::encrypt($existedUser['user_id']);
         setcookie("signedUser", $cookieValue, time()+7*24*3600);
-        
-        Logs::writeClcLog("Signin.php,try to call weixin to verify");
-        WeixinHelper::triggerWeixinGetToken();
+
+        if ($_GET['free'] != 1){
+            Logs::writeClcLog("Signin.php,try to call weixin to verify");
+            WeixinHelper::triggerWeixinGetToken();
+        }
     }
 }
 

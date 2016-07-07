@@ -10,7 +10,7 @@ $existedUserPhoneReigon=$_SESSION['existedUserPhoneReigon'];
 $existedUserPhoneNumber=$_SESSION['existedUserPhoneNumber'];
 $signInErrorMsg=$_SESSION['$signInErrorMsg'];
 unset($_SESSION['existedUserPhoneReigon'], $_SESSION['existedUserPhoneNumber'], $_SESSION['$signInErrorMsg'] );
-
+$isFreeWeb=$_GET['free'];
 //$callbackurl = $_GET ['callbackurl'];
 
 ?>
@@ -52,7 +52,7 @@ unset($_SESSION['existedUserPhoneReigon'], $_SESSION['existedUserPhoneNumber'], 
 
 
     <div id="page1" data-role="content">
-        <form id="signForm" data-ajax="false" method="post" action="../../../Controller/SignIn.php">
+        <form id="signForm" data-ajax="false" method="post" action="../../../Controller/SignIn.php?free=<?php echo $isFreeWeb;?>">
             <label for="phone_reigon" >请选择地区号:</label>
             <select name="phone_reigon" id="phone_reigon">
                 <option value="+86" <?php echo $existedUserPhoneReigon=='+86'? 'selected = "selected"' : ''; ?> >中国 +86</option>
