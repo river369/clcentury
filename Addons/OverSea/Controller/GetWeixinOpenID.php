@@ -32,5 +32,12 @@ if (isset($_SESSION['weixinOpenid'])) {
     $userDao = new UserAccountsDao();
     $userDao->updateExternalUserId($_SESSION['weixinOpenid'], $_SESSION['signedUser']);
 }
-header('Location:./AuthUserDispatcher.php');
+
+if (isset($_SESSION['tempCode'])){
+    $_SESSION['$signInErrorMsg'] = "请尽快修改密码";
+    header('Location:../View/mobile/users/change_password.php');
+} else {
+    header('Location:./AuthUserDispatcher.php');
+}
+
 ?>

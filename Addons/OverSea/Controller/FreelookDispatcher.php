@@ -18,6 +18,12 @@ $method_routes = array(
     'getServices' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'getServices','v'=>'../View/mobile/query/discover.php','d'=>'服务信息列表'),
     'serviceDetails' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'getServiceById','v'=>'../View/mobile/service/servicedetails.php','d'=>'卖家详细信息'),
     'getTagsByCityBusinessType' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'getTagsByCityBusinessType', 'd'=>'根据城市获得tag'),
+
+    'sendRegistrationPassword' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'sendRegistrationPassword', 'd'=>'发送验证码'),
+    'sendTempPasswordToPhone' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'sendTempPasswordToPhone',
+        'v'=>'../View/mobile/common/message.php','d'=>'获取临时密码'),
+
+    
 );
 
 Logs::writeClcLog("FreelookDispatcher start");
@@ -37,7 +43,9 @@ function goToCommand($method_routes, $command) {
             echo $e->getTrace();
         }
     }
-    header('Location:'.$method_routes[$command]['v'].'?t='.rand(0,10000));
+    if (isset($method_routes[$command]['v'])) {
+        header('Location:' . $method_routes[$command]['v'] . '?t=' . rand(0, 10000));
+    }
 }
 
 ?>

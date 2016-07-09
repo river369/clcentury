@@ -16,6 +16,7 @@ use Addons\OverSea\Common\HttpHelper;
 use Addons\OverSea\Common\WeixinHelper;
 use Addons\OverSea\Common\Logs;
 use Addons\OverSea\Common\EncryptHelper;
+use Addons\OverSea\Common\YunpianSMSHelper;
 
 class UsersBo
 {
@@ -97,30 +98,6 @@ class UsersBo
         $_SESSION['signedUserInfo'] = $existedUser;
     }
 
-    public function changePassword(){
-        $origPassword= $_POST ['orig'];
-        $userData['password'] = isset($_POST ['new1']) ? trim($_POST ['new1']) : '';
-
-        $userid = $_SESSION['signedUser'];
-        $userAccountsDao = new UserAccountsDao();
-        $existedUser = $userAccountsDao ->getByKv('user_id', $userid);
-        if ($origPassword == $existedUser['password']){
-            $ret = $userAccountsDao ->update($userData, $existedUser['id']);
-            if ($ret == 0) {
-                $_SESSION['status'] = 's';
-                $_SESSION['message'] = "密码修改成功!";
-                $_SESSION['goto'] = "../../../Controller/AuthUserDispatcher.php?c=mine";
-            } else {
-                $_SESSION['status'] = 'f';
-                $_SESSION['message'] = '密码修改失败!';
-                $_SESSION['goto'] = "../../../Controller/AuthUserDispatcher.php?c=mine";
-            }
-        } else {
-            $_SESSION['$signInErrorMsg'] = '原密码不正确,无法修改密码,请重试!';
-            header('Location:'."../View/mobile/users/change_password.php");
-            exit;
-        }
-    }
     /**
      * Update User info
      */
@@ -339,5 +316,106 @@ class UsersBo
         self::getUsers();
     }
 
+    // =========SMS User Get registration code, Get temppassowrd ======= //
+    public function sendRegistrationPassword(){
+        $mobile = '';
+        if (isset($_POST['phone_reigon']) && isset($_POST['phone_number'])){
+            $mobile = $_POST['phone_reigon'].$_POST['phone_number'];
+            $_SESSION['verifcationCode'] = rand(1000,9999);
+            Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",sending ".$_SESSION['verifcationCode']." to ".$mobile);
+            $text="【易知海外】您的验证码是".$_SESSION['verifcationCode'];
+            if ($_POST['phone_reigon'] != '+86') {
+                $text="【eknowhow】Your verification code is ".$_SESSION['verifcationCode'];
+            }
+            $result = YunpianSMSHelper::sendSMS($text, $mobile);
+            $resultJson = json_encode(array('status'=> $result['code'], 'msg'=> $result['msg'].':'.$result['detail']));
+            Logs::writeClcLog(__CLASS__.",".__FUNCTION__.", sent response ".$resultJson);
+            echo $resultJson;
+        } else {
+            echo json_encode(array('status'=> -1));
+        }
+        exit;
+    }
+    
+    public function sendTempPasswordToPhone(){
+        $userData = array();
+        $userData['user_type'] = 1;
+
+        if ($userData['user_type'] == 1) { // register by phone user
+            if (isset($_POST ['phone_reigon'])){
+                $userData['phone_reigon'] = $_POST ['phone_reigon'];
+            }
+            if (isset($_POST ['phone_number'])){
+                $userData['phone_number'] = $_POST ['phone_number'];
+            }
+            if (isset($_POST ['password'] )){
+                $userData['password'] = $_POST ['password'];
+            }
+
+            // verifycode to be implement
+            $userDao = new UserAccountsDao();
+            $existedUser = $userDao->getUserByPhone($userData['phone_reigon'] , $userData['phone_number']);
+            if (!isset($existedUser['phone_number'])){
+                $_SESSION['$signInErrorMsg']= $userData['phone_reigon'] . $userData['phone_number']. " 号码尚未注册.";
+                header('Location:../View/mobile/users/forget_password.php');
+
+            } else {
+                $mobile = $_POST['phone_reigon'].$_POST['phone_number'];
+                $_SESSION['tempCode'] = rand(100000,999999);
+                Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",sending ".$_SESSION['tempCode']." to ".$mobile);
+                $text="【易知海外】您的临时登陆码是".$_SESSION['tempCode'];
+                if ($_POST['phone_reigon'] != '+86') {
+                    $text="【eknowhow】Your temporary sign in code is ".$_SESSION['tempCode'];
+                }
+                $result = YunpianSMSHelper::sendSMS($text, $mobile);
+                $resultJson = json_encode(array('status'=> $result['code'], 'msg'=> $result['msg'].':'.$result['detail']));
+                Logs::writeClcLog(__CLASS__.",".__FUNCTION__.", sent response ".$resultJson);
+                if ($result['code'] == 0) {
+                    $_SESSION['existedUserPhoneReigon']= $userData['phone_reigon'];
+                    $_SESSION['existedUserPhoneNumber']= $userData['phone_number'];
+                    $_SESSION['$signInErrorMsg']= "临时登陆密码号已发送到手机,有效期三分钟。 请用临时登陆密码登陆系统, 并尽快用该号码执行修改密码操作.";
+                    header('Location:../View/mobile/users/signin.php');
+                } else {
+                    $_SESSION['$signInErrorMsg']= $result['msg'].':'.$result['detail'];
+                    header('Location:../View/mobile/users/forget_password.php');
+                }
+            }
+            exit;
+        }
+    }
+
+    public function changePassword(){
+        $origPassword= $_POST ['orig'];
+        $userData['password'] = isset($_POST ['new1']) ? trim($_POST ['new1']) : '';
+
+        $userid = $_SESSION['signedUser'];
+        $userAccountsDao = new UserAccountsDao();
+        $existedUser = $userAccountsDao ->getByKv('user_id', $userid);
+        if (isset($_SESSION['tempCode']) && $origPassword != $_SESSION['tempCode']) {
+            $_SESSION['existedUserPhoneReigon']= $userData['phone_reigon'];
+            $_SESSION['existedUserPhoneNumber']= $userData['phone_number'];
+            $_SESSION['$signInErrorMsg']= $userData['phone_reigon'] . $userData['phone_number']. " 临时登陆密码错误.";
+            header('Location:'."../View/mobile/users/change_password.php");
+            exit;
+        } else if ((!isset($_SESSION['tempCode']) && ($origPassword != $existedUser['password'])) ){
+            $_SESSION['existedUserPhoneReigon']= $userData['phone_reigon'];
+            $_SESSION['existedUserPhoneNumber']= $userData['phone_number'];
+            $_SESSION['$signInErrorMsg'] = '原密码不正确,无法修改密码,请重试!';
+            header('Location:'."../View/mobile/users/change_password.php");
+            exit;
+        } else {
+            $ret = $userAccountsDao ->update($userData, $existedUser['id']);
+            if ($ret == 0) {
+                $_SESSION['status'] = 's';
+                $_SESSION['message'] = "密码修改成功!";
+                $_SESSION['goto'] = "../../../Controller/AuthUserDispatcher.php?c=mine";
+                unset($_SESSION['tempCode'], $_SESSION['existedUser'], $_SESSION['existedUserPhoneReigon'], $_SESSION['existedUserPhoneNumber'], $_SESSION['$signInErrorMsg'] );
+            } else {
+                $_SESSION['status'] = 'f';
+                $_SESSION['message'] = '密码修改失败!';
+                $_SESSION['goto'] = "../../../Controller/AuthUserDispatcher.php?c=mine";
+            }
+        }
+    }
 
 }

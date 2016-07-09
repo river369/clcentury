@@ -9,9 +9,7 @@ session_start();
 $existedUserPhoneReigon=$_SESSION['existedUserPhoneReigon'];
 $existedUserPhoneNumber=$_SESSION['existedUserPhoneNumber'];
 $signInErrorMsg=$_SESSION['$signInErrorMsg'];
-unset($_SESSION['existedUser'], $_SESSION['existedUserPhoneReigon'], $_SESSION['existedUserPhoneNumber'], $_SESSION['$signInErrorMsg'] );
-$isFreeWeb=$_GET['free'];
-//$callbackurl = $_GET ['callbackurl'];
+unset($_SESSION['existedUserPhoneReigon'], $_SESSION['existedUserPhoneNumber'], $_SESSION['$signInErrorMsg'] );
 
 ?>
 <!DOCTYPE html>
@@ -38,12 +36,6 @@ $isFreeWeb=$_GET['free'];
         <h1>登陆</h1>
     </div>
 
-    <?php if(isset($_SESSION['existedUser'])){ ?>
-        <div class="errmsgstring1" style="color:red" data-role="content">
-            <?php echo $existedUserPhoneReigon.$existedUserPhoneNumber; ?>已经存在,请直接登陆.
-        </div>
-    <?php } ?>
-
     <?php if($signInErrorMsg != null){ ?>
         <div class="errmsgstring2" style="color:red" data-role="content">
             <?php echo $signInErrorMsg; ?>
@@ -52,7 +44,7 @@ $isFreeWeb=$_GET['free'];
 
 
     <div id="page1" data-role="content">
-        <form id="signForm" data-ajax="false" method="post" action="../../../Controller/SignIn.php?free=<?php echo $isFreeWeb;?>">
+        <form id="signForm" data-ajax="false" method="post" action="../../../Controller/FreelookDispatcher.php?c=sendTempPasswordToPhone">
             <label for="phone_reigon" >请选择地区号:</label>
             <select name="phone_reigon" id="phone_reigon">
                 <option value="+86" <?php echo $existedUserPhoneReigon=='+86'? 'selected = "selected"' : ''; ?> >中国 +86</option>
@@ -62,16 +54,8 @@ $isFreeWeb=$_GET['free'];
             <label for="phone_number" >请输入手机号码:</label>
             <input type="number" name="phone_number" id="phone_number" value="<?php echo $existedUserPhoneNumber; ?>">
             </br>
-            <label for="password" >请输入<?php echo isset($_SESSION['tempCode'])? "临时登陆":"" ?>密码:</label>
-            <input type="password" name="password" id="password">
-            </br>
-            <input type="submit" name="signinsubmit" id="signinsubmit" value="登陆">
+            <input type="submit" name="signinsubmit" id="signinsubmit" value="发送临时密码到该手机">
         </form>
-    </div>
-
-    <div data-role="content">
-        <a href="./forget_password.php" rel="external"  data-icon="home">忘记密码</a>
-        <a href="./signup.php" rel="external" data-icon="home">立即注册</a>
     </div>
 
     <?php include '../common/footer.php';?>
@@ -84,18 +68,12 @@ $isFreeWeb=$_GET['free'];
                 phone_number: {
                     required: true,
                     minlength: 6
-                },
-                password: {
-                    required: true
                 }
             },
             messages: {
                 phone_number: {
                     required: "手机号码不能为空",
                     minlength: "手机号码位数不足"
-                },
-                password: {
-                    required: "密码不能为空"
                 }
             },
             errorPlacement: function( error, element ) {

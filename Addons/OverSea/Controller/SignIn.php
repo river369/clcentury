@@ -33,15 +33,23 @@ if ($userData['user_type'] == 1) { // register by phone user
         //echo $userData['phone_reigon'] . $userData['phone_number']. " 号码尚未注册.";
         $_SESSION['$signInErrorMsg']= $userData['phone_reigon'] . $userData['phone_number']. " 号码尚未注册.";
         header('Location:../View/mobile/users/signin.php');
-    } else if ($_POST ['password'] != $existedUser['password']){
+    } else if (isset($_SESSION['tempCode']) && $_POST ['password'] != $_SESSION['tempCode']) {
+        $_SESSION['existedUserPhoneReigon']= $userData['phone_reigon'];
+        $_SESSION['existedUserPhoneNumber']= $userData['phone_number'];
+        $_SESSION['$signInErrorMsg']= $userData['phone_reigon'] . $userData['phone_number']. " 临时登陆密码错误.";
+        header('Location:../View/mobile/users/signin.php');
+    } else if (!isset($_SESSION['tempCode']) && $_POST ['password'] != $existedUser['password']){
+        $_SESSION['existedUserPhoneReigon']= $userData['phone_reigon'];
+        $_SESSION['existedUserPhoneNumber']= $userData['phone_number'];
         $_SESSION['$signInErrorMsg']= $userData['phone_reigon'] . $userData['phone_number']. " 密码错误.";
         header('Location:../View/mobile/users/signin.php');
     } else {
+
         $_SESSION['signedUser'] = $existedUser['user_id'];
         // try to set uid in cookie
         $cookieValue = EncryptHelper::encrypt($existedUser['user_id']);
         setcookie("signedUser", $cookieValue, time()+7*24*3600);
-
+        
         if ($_GET['free'] != 1){
             Logs::writeClcLog("Signin.php,try to call weixin to verify");
             WeixinHelper::triggerWeixinGetToken();

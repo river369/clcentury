@@ -57,10 +57,8 @@ if (isset($_GET['goto_type'])){
         <h3><?php echo $message; ?></h3>
         <a href="<?php echo $goto; ?>" rel="external" data-icon="home"><h3>返回</h3></a>
     </div>
-    
-    <div data-role="footer" data-position="fixed" data-theme="c">
-        <h4>Copyright (c) 2016 .</h4>
-    </div>
+
+    <?php include '../common/footer.php';?>
 </div>
 </body>
 </html>

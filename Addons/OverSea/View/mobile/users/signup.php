@@ -31,11 +31,6 @@ unset($_SESSION['$signInErrorMsg'] );
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
     <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
     <link rel="stylesheet" href="../../resource/style/validation/validation.css" />
-    <style>
-        *{padding:0; margin:0}
-        body{font-size:12px}
-        select{height:22px; line-height:18px; padding:2px 0}
-    </style>
 </head>
 <body>
 <div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
@@ -79,7 +74,7 @@ unset($_SESSION['$signInErrorMsg'] );
 <script>
     function getSMS(button) {
         $.ajax({
-            url:'../../../Controller/SendSMS.php',
+            url:'../../../Controller/FreelookDispatcher.php?c=sendRegistrationPassword',
             type:'POST',
             data : $('#signupform').serialize(),
             dataType:'json',
@@ -120,7 +115,8 @@ unset($_SESSION['$signInErrorMsg'] );
         $( "#signupform" ).validate({
             rules: {
                 phone_number: {
-                    required: true
+                    required: true,
+                    minlength: 6
                 },
                 password: {
                     required: true,
@@ -136,7 +132,8 @@ unset($_SESSION['$signInErrorMsg'] );
             },
             messages: {
                 phone_number: {
-                    required: "手机号码不能为空"
+                    required: "手机号码不能为空",
+                    minlength: "手机号码位数不足"
                 },
                 password: {
                     required: "密码不能为空",

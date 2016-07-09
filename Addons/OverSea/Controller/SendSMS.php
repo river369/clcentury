@@ -5,6 +5,8 @@
  * Date: 16/5/14
  * Time: 17:55
  */
+//[ This is just for test, not use now ]
+
 require dirname(__FILE__).'/../init.php';
 use Addons\OverSea\Common\YunpianSMSHelper;
 session_start();
@@ -20,7 +22,7 @@ if (isset($_POST['phone_reigon']) && isset($_POST['phone_number'])){
     $mobile = $_POST['phone_reigon'].$_POST['phone_number'];
     $_SESSION['verifcationCode'] = rand(1000,9999);
     $text="【易知海外】您的验证码是".$_SESSION['verifcationCode'];
-    if ($_POST['phonereigon'] != '+86') {
+    if ($_POST['phone_reigon'] != '+86') {
         $text="【eknowhow】Your verification code is ".$_SESSION['verifcationCode'];
     }
     $result = YunpianSMSHelper::sendSMS($text, $mobile);

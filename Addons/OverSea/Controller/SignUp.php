@@ -42,6 +42,7 @@ if ($userData['user_type'] == 1) { // register by phone user
         $userDao = new UserAccountsDao();
         $existedUser = $userDao->getUserByPhone($userData['phone_reigon'] , $userData['phone_number']);
         if (isset($existedUser['phone_number'])){
+            $_SESSION['existedUser'] = 1;
             $_SESSION['existedUserPhoneReigon']= $existedUser['phone_reigon'];
             $_SESSION['existedUserPhoneNumber']= $existedUser['phone_number'];
             header('Location:../View/mobile/users/signin.php');

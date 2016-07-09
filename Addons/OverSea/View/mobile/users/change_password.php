@@ -39,7 +39,7 @@ $signInErrorMsg=$_SESSION['$signInErrorMsg'];
     <?php } ?>
     <div data-role="content">
         <form id="passform" data-ajax="false" method="post" action="../../../Controller/AuthUserDispatcher.php?c=changePassword">
-            <label for="password" >请输入原密码:</label>
+            <label for="password" >请输入<?php echo isset($_SESSION['tempCode'])? "临时登陆":"原" ?>密码:</label>
             <input type="password" name="orig" id="orig">
             </br>
             <label for="new1" >请输入新密码:</label>
@@ -59,7 +59,8 @@ $signInErrorMsg=$_SESSION['$signInErrorMsg'];
         $( "#passform" ).validate({
             rules: {
                 orig: {
-                    required: true
+                    required: true,
+                    minlength:6
                 },
                 new1: {
                     required: true,
@@ -72,7 +73,8 @@ $signInErrorMsg=$_SESSION['$signInErrorMsg'];
             },
             messages: {
                 orig: {
-                    required: "原密码不能为空"
+                    required: "原密码不能为空",
+                    minlength: "密码长度不能小于 6 个字母"
                 },
                 new1: {
                     required: "新密码不能为空",

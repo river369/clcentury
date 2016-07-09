@@ -41,9 +41,10 @@ unset($_SESSION['$timestamp'], $_SESSION['$nonceStr'], $_SESSION['$signature']);
 unset($_SESSION['serviceData'], $_SESSION['sellerData'], $_SESSION['commentsData'], $_SESSION['myServices']);
 unset($_SESSION['objArray']);
 
-$_SESSION['status'] = 's';
-$_SESSION['message'] = "成功退出!";
-$_SESSION['goto'] = "../../../Controller/FreelookDispatcher.php?c=index";
-header('Location:'."../View/mobile/common/message.php");
+//$_SESSION['status'] = 's';
+//$_SESSION['message'] = "成功退出!";
+//$_SESSION['goto'] = "../../../Controller/FreelookDispatcher.php?c=index";
+//header('Location:'."../View/mobile/common/message.php");
+header('Location:'."./FreelookDispatcher.php?c=index");
 exit;
 ?>
