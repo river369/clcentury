@@ -46,6 +46,7 @@ class ServicesBo
         if (!isset($sellerName) || strlen($sellerName) == 0 || !isset($weixin) || strlen($weixin) == 0){
             $_SESSION['status'] = 'f';
             $_SESSION['message'] = '用户信息不完善,请完善个人信息,确保微信号,昵称已填写完毕!';
+            $_SESSION['link_name'] = '去填写个人信息';
             $_SESSION['goto'] = "../../../Controller/AuthUserDispatcher.php?c=myinfo&customerid=".$sellerid;
             header('Location:../View/mobile/common/message.php');
             exit;
@@ -60,7 +61,7 @@ class ServicesBo
      * Prepare for service info for service read only when discover
      */
     public function getServiceById() {
-        $service_id = HttpHelper::getVale('service_id');
+        $service_id = $_GET['service_id'];
         Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",service_id=".$service_id);
         $service = self::getServiceInfo($service_id);
         $seller_id = $service['seller_id'];

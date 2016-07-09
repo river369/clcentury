@@ -30,6 +30,7 @@ class OrdersDao extends BaseDao
             MySqlHelper::query($sql, $parameter);
             return 0;
         } catch (\Exception $e){
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . $e);
             return -1;
             echo $e;
         }
@@ -45,6 +46,7 @@ class OrdersDao extends BaseDao
             MySqlHelper::query($sql, $parameter);
             return 0;
         } catch (\Exception $e){
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . $e);
             return -1;
             echo $e;
         }
@@ -60,6 +62,7 @@ class OrdersDao extends BaseDao
             MySqlHelper::query($sql, $parameter);
             return 0;
         } catch (\Exception $e){
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . $e);
             return -1;
             echo $e;
         }
@@ -77,6 +80,7 @@ class OrdersDao extends BaseDao
             $orders = MySqlHelper::fetchAll($sql, $parameter);
             return $orders;
         } catch (\Exception $e){
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . $e);
             echo $e;
             exit;
         }
@@ -94,6 +98,7 @@ class OrdersDao extends BaseDao
             $orders = MySqlHelper::fetchAll($sql, $parameter);
             return $orders;
         } catch (\Exception $e){
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . $e);
             echo $e;
             exit;
         }
@@ -109,6 +114,7 @@ class OrdersDao extends BaseDao
             $account = MySqlHelper::fetchOne($sql, $parameter);
             return $account;
         } catch (\Exception $e){
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . $e);
             echo $e;
             exit;
         }

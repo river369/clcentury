@@ -15,6 +15,7 @@ use Addons\OverSea\Model\CommentsDao;
 use Addons\OverSea\Common\WeixinHelper;
 use Addons\OverSea\Common\BusinessHelper;
 use Addons\OverSea\Common\Logs;
+use Addons\OverSea\Common\HttpHelper;
 
 class OrdersBo
 {
@@ -78,7 +79,7 @@ class OrdersBo
     // Get Order Lists
     public function getOrdersByCustomerAndStatus() {
         $customerid  = isset($_GET ['customer_id']) ? $_GET ['customer_id'] : $_SESSION['signedUser'];
-        $status= $_GET ['status'];
+        $status= HttpHelper::getVale('status');
         $ordersDao = new OrdersDao();
         $orders = $ordersDao->getOrdersByCustomerAndStatus($customerid, $status);
         $_SESSION['customerOrders'] = $orders;
@@ -88,7 +89,7 @@ class OrdersBo
 
     public function getOrdersBySellerAndStatus() {
         $sellerid  = $customerid  = isset($_GET ['seller_id']) ? $_GET ['seller_id'] : $_SESSION['signedUser'];
-        $status = $_GET ['status'];
+        $status= HttpHelper::getVale('status');
         $ordersDao = new OrdersDao();
         $orders = $ordersDao->getOrdersBySellerAndStatus($sellerid, $status);
         $_SESSION['sellerOrders'] = $orders;

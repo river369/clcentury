@@ -27,8 +27,9 @@ $method_routes = array(
 );
 
 Logs::writeClcLog("FreelookDispatcher start");
-HttpHelper::saveServerQueryStringVales($_SERVER['QUERY_STRING']);
-$command = HttpHelper::getVale('c');
+$command = $_GET['c'];
+//HttpHelper::saveServerQueryStringVales($_SERVER['QUERY_STRING']);
+//$command = HttpHelper::getVale('c');
 Logs::writeClcLog("command=".$command);
 goToCommand($method_routes, $command);
 

@@ -8,6 +8,11 @@ $message = $_SESSION['message'];
 if (isset($_GET['message'])) {
     $message = $_GET['message'];
 }
+$link_name =  $_SESSION['link_name'];
+if (isset($_GET['link_name'])) {
+    $goto = $_GET['link_name'];
+}
+
 $goto = $_SESSION['goto'];
 if (isset($_GET['goto'])) {
     $goto = $_GET['goto'];
@@ -55,7 +60,7 @@ if (isset($_GET['goto_type'])){
     <br>
     <div data-role="content" style="text-align:center">
         <h3><?php echo $message; ?></h3>
-        <a href="<?php echo $goto; ?>" rel="external" data-icon="home"><h3>返回</h3></a>
+        <a href="<?php echo $goto; ?>" rel="external" data-icon="home"><h3><?php echo isset($link_name)? $link_name : '返回'; ?></h3></a>
     </div>
 
     <?php include '../common/footer.php';?>

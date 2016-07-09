@@ -57,7 +57,7 @@ $method_routes = array(
         'v'=>'../View/mobile/service/my_services.php', 'd'=>'恢复易知服务信息'),
     
     'submitOrder' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'getServiceInfoById', 
-        'v'=>'../View/mobile/orders/submitorder.php','d'=>'用户订购确认'),
+        'v'=>'../View/mobile/orders/submitorder.php','d'=>'订购'),//用户订购确认
     'createOrder' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'createOrder', 
         'v'=>'../View/mobile/orders/common/message.php','d'=>'创建订单'),
     'repayOrder' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'repayOrder',
