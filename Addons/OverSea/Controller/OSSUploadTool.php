@@ -1,4 +1,6 @@
 <?php
+//[ This is just for test, not use now ]
+
 require dirname(__FILE__).'/../init.php';
 
 use Addons\OverSea\Common\OSSHelper;

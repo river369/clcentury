@@ -5,6 +5,7 @@ use Addons\OverSea\Common\YunpianSMSHelper;
 use Addons\OverSea\Common\OSSHelper;
 use Addons\OverSea\Common\EncryptHelper;
 use Addons\OverSea\Common\Logs;
+use Addons\OverSea\Common\MNSHelper;
 
 function initLoad()
 {
@@ -32,6 +33,7 @@ function initLoad()
     include_once dirname(__FILE__).'/Model/CountriesDao.php';
     include_once dirname(__FILE__).'/Model/CitiesDao.php';
     include_once dirname(__FILE__).'/Model/CityTagsDao.php';
+    include_once dirname(__FILE__).'/Common/MNSHelper.php';
     return true;
 }
 
@@ -73,4 +75,5 @@ unset($yunpianappid, $yunpianappid);
 
 
 OSSHelper::initData($accessKeyId, $accessKeySecret, $endpoint, $bucket);
-unset($accessKeyId, $accessKeySecret, $endpoint, $bucket);
+MNSHelper::initData($accessKeyId, $accessKeySecret, $mnsEndPoint);
+unset($accessKeyId, $accessKeySecret, $endpoint, $bucket, $mnsEndPoint);

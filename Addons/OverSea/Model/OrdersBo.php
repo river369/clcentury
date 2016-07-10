@@ -16,6 +16,7 @@ use Addons\OverSea\Common\WeixinHelper;
 use Addons\OverSea\Common\BusinessHelper;
 use Addons\OverSea\Common\Logs;
 use Addons\OverSea\Common\HttpHelper;
+use Addons\OverSea\Common\MNSHelper;
 
 class OrdersBo
 {
@@ -274,13 +275,23 @@ class OrdersBo
         $orderActionsDao->insert($orderActionData);
     }
 
+    public static function sendMessagesToMNS($order_id, $status){
+        Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",order_id=".$order_id." status=".$status);
+        $data = array(
+            'order_id'=>$order_id,
+            'status'=>$status
+        );
+        MNSHelper::publishMessage('clcOrderTopic', json_encode($data));
+    }
+
     /**
      * When user is logged on ,the weixin open id is available, so we can send notify messages to sellers or customers through weixin
      * @param $order_id
      * @param $status
      */
     public static function sendMessagesThroughWeixin($order_id, $status) {
-        Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",".$order_id);
+        Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",order_id=".$order_id." status=".$status);
+        //self::sendMessagesToMNS($order_id, $status);
         $ordersDao = new OrdersDao();
         $notifyUserType = BusinessHelper::translateOrderResponseUserType($status);
         $order = $ordersDao->getWeixinOpenIdByOrderId($notifyUserType.'_id', $order_id);
