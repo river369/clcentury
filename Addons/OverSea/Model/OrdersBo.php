@@ -213,6 +213,23 @@ class OrdersBo
             $ordersDao = new OrdersDao();
             $ordersDao->updateCustomerOrderStatus($orderid, $status, $customer_id);
             self::storeOrderActions($orderid, $status, 1);
+
+            $userStar = $commentsDao->getAverageStarById('seller_id', $comments['seller_id']);
+            if (isset($userStar['star'])) {
+                $userData = array();
+                $userData['stars'] = ceil($userStar['star']);
+                $usersDao = new UserInfosDao();
+                $usersDao ->updateByKv($userData, 'user_id', $comments['seller_id']);
+            }
+
+            $serviceStar = $commentsDao->getAverageStarById('service_id', $comments['service_id']);
+            if (isset($serviceStar['star'])) {
+                $serviceData = array();
+                $serviceData['stars'] = ceil($serviceStar['star']);
+                $servicesDao = new ServicesDao();
+                $servicesDao ->updateByKv($serviceData, 'service_id', $comments['service_id']);
+            }
+
             //self::sendMessagesThroughWeixin($orderid, $status); //don't need now
         }
     }

@@ -30,6 +30,7 @@ class CommentsDao extends BaseDao
             $comments = MySqlHelper::fetchAll($sql, $parameter);
             return $comments;
         } catch (\Exception $e){
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . $e);
             echo $e;
             exit;
         }
@@ -45,6 +46,7 @@ class CommentsDao extends BaseDao
             $comments = MySqlHelper::fetchAll($sql, $parameter);
             return $comments;
         } catch (\Exception $e){
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . $e);
             echo $e;
             exit;
         }
@@ -60,6 +62,23 @@ class CommentsDao extends BaseDao
             $comments = MySqlHelper::fetchAll($sql, $parameter);
             return $comments;
         } catch (\Exception $e){
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . $e);
+            echo $e;
+            exit;
+        }
+    }
+
+    public function getAverageStarById($type,$id)
+    {
+        try {
+            $sql = 'SELECT avg(stars) star FROM ' . parent::getTableName(). ' WHERE '.$type.'= :id';
+            $parameter = array(':id' => $id);
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",sql=".$sql);
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",parameters=".json_encode($parameter));
+            $comments = MySqlHelper::fetchOne($sql, $parameter);
+            return $comments;
+        } catch (\Exception $e){
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . $e);
             echo $e;
             exit;
         }
