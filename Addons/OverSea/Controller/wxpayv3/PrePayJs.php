@@ -26,7 +26,7 @@ $input = new WxPayUnifiedOrder();
 $input->SetBody("易知海外订单:".$orderData['order_id']);
 $input->SetAttach("service");
 $input->SetOut_trade_no(date("YmdHis")."_".$orderData['order_id']);
-$input->SetTotal_fee($orderData['service_total_fee']);
+$input->SetTotal_fee($orderData['service_total_fee']*100);
 $input->SetTime_start(date("YmdHis"));
 $input->SetTime_expire(date("YmdHis", time() + 600));
 $input->SetGoods_tag("test");

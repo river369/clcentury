@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`yz_user_infos` (
 `stars` int(3) DEFAULT 3  COMMENT '用户等级',
 `serve_count` int(5) DEFAULT 0  COMMENT '用户提供服务次数',
 `tag` varchar(255) DEFAULT "" COMMENT 'user tags',
-`status` int(5) DEFAULT 0  COMMENT 'user状态 0 created...' ,
+`status` decimal(5,1) DEFAULT 0  COMMENT 'user状态 0 created...' ,
 `real_name` varchar(255)  DEFAULT NULL  COMMENT '真实姓名',
 `certificate_type` int(5) DEFAULT 1  COMMENT 'User类型 1 身份证, 2 Passport',
 `certificate_no` varchar(25)  DEFAULT NULL  COMMENT '身份号码',
@@ -47,6 +47,9 @@ KEY (`status`)
 user状态 0 created, 20 个人信息不完整, 40 已经实名, 60 已发布过服务, 80 完成一次服务, 100 多次服务, 120 封号 ,
 user状态 0 created已经注册, 20 已经提交实名, 40, rejected 60 approved, 120 封号 ,
 alter table yz_users add column serve_count int(5) DEFAULT 0  COMMENT '用户提供服务次数';
+
+alter table yz_user_infos drop column stars;
+alter table yz_user_infos add column `stars` decimal(5,1) DEFAULT 3  COMMENT '服务价格';
 
 --Users Settings
 CREATE TABLE IF NOT EXISTS `clctravel`.`yz_user_settings` (
@@ -70,9 +73,9 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`yz_services` (
 `description` text DEFAULT NULL  COMMENT 'service详细介绍',
 `service_area` varchar(50) DEFAULT NULL  COMMENT '服务区域',
 `service_type` int(10) DEFAULT 1  COMMENT '服务类型 1 旅游, 2 留学, 99999 all, -1 nothing',
-`service_price` int(10) DEFAULT 50  COMMENT '服务价格',
+`service_price` decimal(10,2) DEFAULT 50  COMMENT '服务价格',
 `service_price_unit` varchar(10)  DEFAULT "人民币"  COMMENT '服务价格单位',
-`stars` int(3) DEFAULT 3  COMMENT '服务评级',
+`stars` decimal(5,1) DEFAULT 3  COMMENT '服务评级',
 `serve_count` int(5) DEFAULT 0  COMMENT '服务旅行次数',
 `check_reason` varchar(255) DEFAULT NULL  COMMENT '管理员拒绝理由',
 `delete_reason` varchar(255) DEFAULT NULL  COMMENT 'seller删除原因,当有用户购买时必须输入',
@@ -94,6 +97,12 @@ service status:
 80 deleted
 alter table yz_services add column serve_count int(5) DEFAULT 0  COMMENT '用户提供服务次数';
 
+alter table yz_services drop column service_price;
+alter table yz_services add column `service_price` decimal(10,2) DEFAULT 50  COMMENT '服务价格';
+
+alter table yz_services drop column stars;
+alter table yz_services add column `stars` decimal(5,1) DEFAULT 3  COMMENT '服务评级';
+
 --Orders
 CREATE TABLE IF NOT EXISTS `clctravel`.`yz_orders` (
 `id` bigint(12) NOT NULL AUTO_INCREMENT COMMENT '主键',
@@ -107,10 +116,10 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`yz_orders` (
 `status` int(5) DEFAULT 0  COMMENT '订单状态 0 created...' ,
 `service_area` varchar(50) DEFAULT NULL  COMMENT '服务区域',
 `service_type` int(10) DEFAULT -1  COMMENT '服务类型 1 旅游, 2 留学, 99999 all, -1 nothing',
-`service_price` int(10) DEFAULT 50  COMMENT '服务价格',
+`service_price` decimal(10,2) DEFAULT 50  COMMENT '服务价格',
 `service_price_unit` varchar(10)  DEFAULT "人民币"  COMMENT '服务价格单位',
 `service_hours` int(10) DEFAULT 1  COMMENT '服务小时数',
-`service_total_fee` int(10) DEFAULT 50  COMMENT '支付金额',
+`service_total_fee` decimal(10,2) DEFAULT 50  COMMENT '支付金额',
 `request_message` text DEFAULT NULL  COMMENT '留言',
 `creation_date` datetime  DEFAULT NULL COMMENT 'creation datetime',
 `update_date` datetime  DEFAULT NULL COMMENT 'update datetime',
@@ -134,6 +143,10 @@ KEY `customer_id` (`customer_id`)
  80 评论完成
  100 eknowhow已经支付
 
+alter table yz_orders drop column service_price;
+alter table yz_orders add column `service_price` decimal(10,2) DEFAULT 50  COMMENT '服务价格';
+alter table yz_orders drop column service_total_fee;
+alter table yz_orders add column `service_total_fee` decimal(10,2) DEFAULT 50  COMMENT '服务价格';
 
 --order actions
 CREATE TABLE IF NOT EXISTS `clctravel`.`yz_order_actions` (

@@ -59,7 +59,7 @@ $method_routes = array(
     'submitOrder' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'getServiceInfoById', 
         'v'=>'../View/mobile/orders/submitorder.php','d'=>'订购'),//用户订购确认
     'createOrder' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'createOrder', 
-        'v'=>'../View/mobile/orders/common/message.php','d'=>'创建订单'),
+        'v'=>'../View/mobile/common/message.php','d'=>'创建订单'),
     'repayOrder' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'repayOrder',
         'v'=>'../View/mobile/orders/submitorderstatus.php','d'=>'支付订单'),
     'queryCustomerOrders' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'getOrdersByCustomerAndStatus',

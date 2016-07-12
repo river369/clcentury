@@ -9,6 +9,7 @@
 namespace Addons\OverSea\Model;
 
 use Addons\OverSea\Model\UserInfosDao;
+use Addons\OverSea\Model\ServicesDao;
 use Addons\OverSea\Model\OrderActionsDao;
 use Addons\OverSea\Model\PaymentsDao;
 use Addons\OverSea\Model\CommentsDao;
@@ -42,6 +43,22 @@ class OrdersBo
         $orderData['service_hours']  = isset($_POST ['service_hours']) ? $_POST ['service_hours'] : "";
         $orderData['service_total_fee']  = isset($_POST ['service_total_fee']) ? $_POST ['service_total_fee'] : "";
         $orderData['request_message']  = isset($_POST ['request_message']) ? $_POST ['request_message'] : "";
+        
+        $serviceDao = new ServicesDao();
+        $serviceData = $serviceDao ->getByKv('service_id',  $orderData['service_id']);
+
+        if ($serviceData['status'] != 60){
+            $_SESSION['status'] = 'f';
+            $_SESSION['message'] = '对不起,卖家已经改变了服务状态。订单已经不能生成,请选择其他服务。';
+            $_SESSION['goto'] = "../../../Controller/FreelookDispatcher.php?c=index";
+            return;
+        }
+        if ($serviceData['service_price'] != $orderData['service_price'] ){
+            $_SESSION['status'] = 'f';
+            $_SESSION['message'] = '对不起,卖家已经改变了订单价格。订单已经不能生成,请重新生成订单。';
+            $_SESSION['goto'] = "../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id=".$orderData['service_id'];
+            return;
+        }
         
         $userInfosDao = new UserInfosDao();
         $userData=$userInfosDao->getByKv('user_id', $orderData['customer_id']);
@@ -217,7 +234,7 @@ class OrdersBo
             $userStar = $commentsDao->getAverageStarById('seller_id', $comments['seller_id']);
             if (isset($userStar['star'])) {
                 $userData = array();
-                $userData['stars'] = ceil($userStar['star']);
+                $userData['stars'] = $userStar['star'];
                 $usersDao = new UserInfosDao();
                 $usersDao ->updateByKv($userData, 'user_id', $comments['seller_id']);
             }
@@ -225,7 +242,7 @@ class OrdersBo
             $serviceStar = $commentsDao->getAverageStarById('service_id', $comments['service_id']);
             if (isset($serviceStar['star'])) {
                 $serviceData = array();
-                $serviceData['stars'] = ceil($serviceStar['star']);
+                $serviceData['stars'] = $serviceStar['star'];
                 $servicesDao = new ServicesDao();
                 $servicesDao ->updateByKv($serviceData, 'service_id', $comments['service_id']);
             }
