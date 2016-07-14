@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-cmn-Hans">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
     <title>易知海外</title>
@@ -8,9 +9,11 @@
     <script src="../../resource/js/jquery/jquery-1.11.1.min.js"></script>
     <script src="../../resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
     <script src="../../resource/js/rater/rater.min.js"></script>
+    <script src="../../resource/js/bootstrap/bootstrap.min.js"></script>
 
-    <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
+    <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
+    <link rel="stylesheet" href="../../resource/style/bootstrap/bootstrap.min.css"/>
     <script>
         $(document).ready(function(){
             var options = {
@@ -36,9 +39,6 @@
         {
             color:orange;
         }
-        #my-listview .ui-li {
-            height : 20%;
-        }
     </style>
 </head>
 <body>
@@ -56,8 +56,81 @@
                 <li><a href="#">留学</a></li>
             </ul>
         </div><!-- /navbar -->
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span6">
+                    <p style="white-space:pre-wrap;">1由状，有自己的运行轨道.</p>
+                </div>
+                <div class="span6">
+                    <p style="white-space:pre-wrap;">1由状，有自己的运行轨道.</p>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">222</div>
+                <div class="col-md-6">3333</div>
+            </div>
+            <div class="row">...</div>
+        </div>
+        <ul data-role="listview" data-inset="true">
+            <li data-role="list-divider">River <span class="ui-li-count">5星服务</span></li>
+            <li>
+                <a href="../service/servicedetails.html" rel="external">
+                    <img src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/3/head.png" alt="">
+                    <h2>Broken Bells </h2>
+                    <div class="container">
+                            <div class="row">
+                                <div class="col-xs-6"><p style="white-space:pre-wrap;">1由状，有自己的运行轨道.</p></div>
+                                <div class="col-xs-6"><p style="white-space:pre-wrap;">1由状，有自己的运行轨道.</p></div>
+                            </div>
+                    </div>
+                    <p class="ui-li-aside">$1000/小时</p>
+                </a>
+            </li>
+        </ul>
+        <ul data-role="listview" data-inset="true">
+            <li data-role="list-divider">River <span class="ui-li-count">5星服务</span></li>
+            <li>
+                <a href="../service/servicedetails.html" rel="external">
+                    <img src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/3/head.png" alt="">
+                    <h2>Broken Bells </h2>
+                    <div class="container-fluid">
 
+                            <div class="row">
+                                <div class="col-xs-6"><p style="white-space:pre-wrap;">1由状，有自己的运行轨道.</p></div>
+                                <div class="col-xs-6"><p style="white-space:pre-wrap;">1由状，有自己的运行轨道.</p></div>
+                            </div>
+                        </div>
+                    <p class="ui-li-aside">$1000/小时</p>
+                </a>
+            </li>
+        </ul>
+        <ul data-role="listview" data-inset="true">
+            <li data-role="list-divider">River <span class="ui-li-count">5星服务</span></li>
+            <li>
+                <a href="../service/servicedetails.html" rel="external">
+                    <img src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/3/head.png" alt="">
+                    <h2>Broken Bells </h2>
+                    <div class="container-fluid">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-3"><p style="white-space:pre-wrap;">1由状，有自己的运行轨道.</p></div>
+                                <div class="col-sm-3"><p style="white-space:pre-wrap;">1由状，有自己的运行轨道.</p></div>
+                            </div>
+                        </div>
+                    </div>
 
+                    <p class="ui-li-aside">$1000/小时</p>
+                </a>
+            </li>
+            <li data-role="list-divider">
+                <p>
+                    <a href="javascript:alert(222);">西雅图</a>
+                    <a href="javascript:alert(222);">WA</a>
+                </p>
+            </li>
+        </ul>
 
         <ul data-role="listview" data-inset="true">
             <li data-role="list-divider">River <span class="ui-li-count">5星服务</span></li>
