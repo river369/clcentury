@@ -12,7 +12,7 @@
     <script src="../../resource/js/bootstrap/bootstrap.min.js"></script>
 
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
-    <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
+    <link rel="stylesheet" href="../../resource/style/themes/my-theme1.min.css" />
     <link rel="stylesheet" href="../../resource/style/bootstrap/bootstrap.min.css"/>
     <script>
         $(document).ready(function(){
@@ -39,14 +39,58 @@
         {
             color:orange;
         }
+
+    </style>
+    <style>
+        .leftimg{overflow:hidden;position:fixed;top:10px;left:10px;text-align:center;}
+        .rightimg{overflow:hidden;position:fixed;top:10px;right:10px;text-align:center;}
     </style>
 </head>
 <body>
 <div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
-    <div data-role="header" data-position="fixed" data-theme="d">
-        <a href="#nav-panel"data-icon="home">地球</a>
+    <div data-role="header" data-position="fixed" data-theme="c">
+        <!--
+       <table class="header-table">
+           <tr>
+               <td colspan="1">
+                   <a href="/gp/vendor/members/home"><img src="../../resource/images/add.jpg"  width='25'/>dddd</a>
+               </td>
+               <td colspan="40">
+                   <h4>发现d</h4>
+               </td>
+               <td colspan="10">
+                   <div class="container">
+                       <div class="row">
+                           <div class="col-xs-8" align="center"><h4>发现</h4></div>
+                           <div class="col-xs-1" align="ritht"><img src="../../resource/images/add1.jpg" width='25' alt=""></div>
+                       </div>
+                   </div>
+               </td>
+           </tr>
+       </table>
+          -->
+           <div class="container">
+               <div class="row">
+                   <div class="col-xs-4" align="left" >
+                       <div class="leftimg">
+                           <a href="../service/servicedetails.html" rel="external">通利福尼亚</a>
+                       </div>
+                   </div>
+                   <div class="col-xs-4" align="center"><h5>发现</h5></div>
+                   <div class="col-xs-2" align="right" >
+                       <div class="rightimg">
+                           <a href="../service/servicedetails.html" rel="external">
+                               <img src="../../resource/images/add.jpg" style="vertical-align:middle;text-align:center" width='25' alt=""/>搜索</a>
+                       </div>
+                   </div>
+               </div>
+           </div>
+
+        <!--
+        <a href="#nav-panel" data-icon="home" data-iconpos="notext" data-direction="reverse" data-theme="c">地球</a>
         <h1>发现</h1>
-        <a href="../query/search.html" rel="external" data-icon="search">搜索</a>
+        <a href="../query/search.html" rel="external" data-icon="search" data-theme="c" data-corner="false">搜索</a>
+        -->
     </div>
 
     <div role="main" class="ui-content jqm-content jqm-fullwidth" >
@@ -56,23 +100,7 @@
                 <li><a href="#">留学</a></li>
             </ul>
         </div><!-- /navbar -->
-        <div class="container-fluid">
-            <div class="row-fluid">
-                <div class="span6">
-                    <p style="white-space:pre-wrap;">1由状，有自己的运行轨道.</p>
-                </div>
-                <div class="span6">
-                    <p style="white-space:pre-wrap;">1由状，有自己的运行轨道.</p>
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">222</div>
-                <div class="col-md-6">3333</div>
-            </div>
-            <div class="row">...</div>
-        </div>
+
         <ul data-role="listview" data-inset="true">
             <li data-role="list-divider">River <span class="ui-li-count">5星服务</span></li>
             <li>
@@ -207,9 +235,9 @@
 
 
     <div data-role="footer" data-position="fixed" data-id="footernav" data-position="fixed" data-tap-toggle="false">
-    <div data-role="navbar" data-iconpos="left">
+    <div data-role="navbar" data-iconpos="left"  data-theme="c">
             <ul>
-                <li><a href="alert()" data-icon="search">求易知</a></li>
+                <li><a href="alert()" class="ui-btn-active"  data-icon="search">求易知</a></li>
                 <li><a href="#" data-icon="action">发易知</a></li>
                 <li><a href="#" data-icon="user">我的</a></li>
             </ul>
@@ -228,22 +256,8 @@
             <li><a>西雅图</a></li>
             <li><a>西雅图</a></li>
             <li><a>西雅图</a></li>
-            <li><a>西雅图</a></li>
-            <li><a>西雅图</a></li>
-            <li><a>西雅图</a></li>
-            <li><a>西雅图</a></li>
-            <li><a>西雅图</a></li>
-            <li><a>西雅图</a></li>
-            <li><a>西雅图</a></li>
             <li data-role="list-divider">中国</li>
             <li><a>北京市</a></li>
-            <li><a>天津市</a></li>
-            <li><a>上海市</a></li>
-            <li><a>重庆市</a></li>
-            <li><a>北京市</a></li>
-            <li><a>天津市</a></li>
-            <li><a>上海市</a></li>
-            <li><a>重庆市</a></li>
             <li><a>北京市</a></li>
             <li><a>天津市</a></li>
             <li><a>上海市</a></li>
