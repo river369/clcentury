@@ -29,8 +29,14 @@ $isDiscover = 1;
     <script src="../../resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
     <script src="../../resource/js/rater/rater.min.js"></script>
 
+    <script src="../../resource/js/camera/jquery.min.js"></script>
+    <script src="../../resource/js/camera/jquery.easing.1.3.js"></script>
+    <script src="../../resource/js/camera/camera.min.js"></script>
+    <script src="../../resource/js/camera/jquery.mobile.customized.min.js"></script>
+
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
     <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
+    <link rel="stylesheet" href="../../resource/style/camera/camera.css" type="text/css" media="all">
 
     <style>
         .rate-base-layer
@@ -50,6 +56,47 @@ $isDiscover = 1;
             outline:0;
         }
     </style>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        a {
+            color: #09f;
+        }
+        a:hover {
+            text-decoration: none;
+        }
+        #back_to_camera {
+            clear: both;
+            display: block;
+            height: 80px;
+            line-height: 40px;
+            padding: 20px;
+        }
+        .fluid_container {
+            margin: 0 auto;
+            max-width: 1000px;
+            width: 100%;
+        }
+    </style>
+
+    <script>
+        jQuery(function(){
+            jQuery('#camera_wrap_1').camera({
+                thumbnails: false,
+                loader: 'none',
+                portrait :false,
+                pagination : false,
+                height: '120px',
+                navigation : false,
+                playPause : false,
+                transPeriod: 1000
+
+            });
+        });
+    </script>
 </head>
 <body>
 <div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
@@ -60,12 +107,24 @@ $isDiscover = 1;
     </div>
 
     <div id="discoverMain" role="main" class="ui-content jqm-content jqm-fullwidth">
+
         <div data-role="navbar">
             <ul>
                 <li><a href="#" rel="external" class="ui-btn-active" data-theme="e" onclick="setServiceType(1)">旅游</a></li>
                 <li><a href="#" rel="external" data-theme="e" onclick="setServiceType(2)">留学</a></li>
             </ul>
         </div><!-- /navbar -->
+
+        <div class="fluid_container">
+            <div class="camera_wrap camera_azure_skin" id="camera_wrap_1">
+                <div data-src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/pics/57790fb728713607/578d004e91059576/20160719001406_1.jpg" data-fx='mosaicReverse' onclick="alert(1);">
+                </div>
+                <div data-src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/pics/57790fb728713607/578d004e91059576/20160719001407_2.jpg" data-fx='mosaicReverse'>
+                </div>
+            </div><!-- #camera_wrap_1 -->
+        </div><!-- .fluid_container -->
+
+
         <div id="serviceType1">
         </div>
         <div id="serviceType2">

@@ -9,12 +9,19 @@
     <script src="../../resource/js/jquery/jquery-1.11.1.min.js"></script>
     <script src="../../resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
     <script src="../../resource/js/rater/rater.min.js"></script>
+
     <!--
+    <script src="../../resource/js/camera/jquery.min.js"></script>
+    <script src="../../resource/js/camera/jquery.easing.1.3.js"></script>
+    <script src="../../resource/js/camera/camera.min.js"></script>
+    <script src="../../resource/js/camera/jquery.mobile.customized.min.js"></script>
     <script src="../../resource/js/bootstrap/bootstrap.min.js"></script>
     -->
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
     <link rel="stylesheet" href="../../resource/style/themes/my-theme1.min.css" />
+    <link rel="stylesheet" href="../../resource/style/swiper/swiper.min.css" />
     <!--
+     <link rel="stylesheet" href="../../resource/style/camera/camera.css" type="text/css" media="all">
     <link rel="stylesheet" href="../../resource/style/bootstrap/bootstrap.min.css"/>
     -->
     <script>
@@ -54,9 +61,76 @@
         }
         *{font-family:"YouYuan";}
     </style>
+    <!--
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        a {
+            color: #09f;
+        }
+        a:hover {
+            text-decoration: none;
+        }
+        #back_to_camera {
+            clear: both;
+            display: block;
+            height: 80px;
+            line-height: 40px;
+            padding: 20px;
+        }
+        .fluid_container {
+            margin: 0 auto;
+            max-width: 1000px;
+            width: 100%;
+        }
+    </style>
+
+    <script>
+        jQuery(function(){
+            jQuery('#camera_wrap_1').camera({
+                thumbnails: false,
+                loader: 'none',
+                portrait :false,
+                pagination : true,
+                height: '150px',
+                navigation : false,
+                playPause : false,
+                transPeriod: 1000
+
+            });
+        });
+    </script>
+    -->
     <style>
         .leftimg{overflow:hidden;position:fixed;top:10px;left:10px;text-align:center;}
         .rightimg{overflow:hidden;position:fixed;top:10px;right:10px;text-align:center;}
+    </style>
+    <!-- Demo styles -->
+    <style>
+        html, body {
+            position: relative;
+            height: 100%;
+        }
+        body {
+            background: #eee;
+            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            color:#000;
+            margin: 0;
+            padding: 0;
+        }
+        .swiper-container {
+            width: 100%;
+            height: 100px;
+        }
+        .swiper-slide {
+            background-position: center;
+            background-size: cover;
+            width: 300px;
+            height: 300px;
+        }
     </style>
 </head>
 <body>
@@ -66,7 +140,8 @@
         <h1 style="font-family:'YouYuan'" >发现</h1>
         <a href="../query/search.html" rel="external" data-icon="search" data-shadow="false">搜索</a>
     </div>
-    <div>你好 hello world &nbsp;&nbsp; def旅游  </div>
+    <!--
+    <
     <div style="font-family: serif">你好 hello world &nbsp;&nbsp; 衬线旅游 </div>
     <div style="font-family: sans-serif">你好 hello world &nbsp;&nbsp; 无衬线旅游 </div>
     <div style="font-family: monospace">你好 hello world &nbsp;&nbsp; 等宽旅游 </div>
@@ -74,8 +149,32 @@
     <div style="font-family: cuisive">你好 hello world &nbsp;&nbsp; 草体旅游 </div>
     <div style="font-family: 'YouYuan'">你好 hello world &nbsp;&nbsp; YouYuan旅游 </div>
     <div style="font-family: 'Songti TC'">你好 hello world &nbsp;&nbsp; 宋体旅游 </div>
-    <div style="font-family: 'Yuanti SC'">你好 hello world &nbsp;&nbsp; yuanti SC旅游 </div>
-    <div style="font-family: 'Yuanti TC'">你好 hello world &nbsp;&nbsp; Yuanti TC旅游 </div>
+     -->
+    <div>你好 hello world旅游  </div>
+    <div style="font-family: 'Arial, Helvetica', sans-serif">1你好 hello world 旅游 </div>
+    <div style="font-family: 'Arial Black', Gadget, sans-serif">2你好 hello world 旅游 </div>
+    <div style="font-family: 'Bookman Old Style', serif;">3你好 hello world 旅游 </div>
+    <div style="font-family: 'Comic Sans MS', cursive">4你好 hello world 旅游 </div>
+    <div style="font-family: Courier, monospace">5你好 hello world 旅游 </div>
+    <div style="font-family: 'Courier New', Courier, monospace">6你好 hello world 旅游 </div>
+    <div style="font-family: Garamond, serif">7你好 hello world 旅游 </div>
+    <div style="font-family: Georgia, serif">8你好 hello world 旅游 </div>
+    <div style="font-family: Impact, Charcoal, sans-serif">9你好 hello world 旅游 </div>
+    <div style="font-family: 'Lucida Console', Monaco, monospace">10你好 hello world 旅游 </div>
+    <div style="font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif">11你好 hello world 旅游 </div>
+    <div style="font-family: 'MS Sans Serif', Geneva, sans-serif">12你好 hello world 旅游 </div>
+    <div style="font-family: 'MS Serif', 'New York', sans-serif">13你好 hello world 旅游 </div>
+    <div style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif">14你好 hello world 旅游 </div>
+    <div style="font-family: Symbol, sans-serif">15你好 hello world 旅游 </div>
+    <div style="font-family: Tahoma, Geneva, sans-serif">16你好 hello world 旅游 </div>
+    <div style="font-family: 'Times New Roman', Times, serif">17你好 hello world 旅游 </div>
+    <div style="font-family: 'Trebuchet MS', Helvetica, sans-serif">18你好 hello world 旅游 </div>
+    <div style="font-family: Verdana, Geneva, sans-serif">19你好 hello world 旅游 </div>
+    <div style="font-family: Webdings, sans-serif">20你好 hello world 旅游 </div>
+    <div style="font-family: Wingdings, 'Zapf Dingbats', sans-serif">21你好 hello world 旅游 </div>
+    <div style="font-family:'宋体','Arial Narrow'">22你好 hello world 旅游 </div>
+    <div style="font-family:'宋体','Arial Narrow'">22你好 hello world 旅游 </div>
+    <div style="font-family:'宋体','Arial Narrow'">22你好 hello world 旅游 </div>
     <!--
        <table class="header-table">
            <tr>
@@ -115,7 +214,28 @@
            </div>
     -->
 
-    <div role="main" class="ui-content jqm-content jqm-fullwidth" >
+    <div data-role="main" class="ui-content jqm-content jqm-fullwidth" >
+        <!--
+      <div class="fluid_container">
+          <div class="camera_wrap camera_azure_skin" id="camera_wrap_1">
+              <div data-src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/pics/57790fb728713607/578d004e91059576/20160719001406_1.jpg" onclick="alert()" data-fx='mosaicReverse'>
+              </div>
+              <div data-src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/pics/57790fb728713607/578d004e91059576/20160719001407_2.jpg" data-fx='mosaicReverse'>
+              </div>
+          </div>
+        </div>
+         -->
+
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/pics/57790fb728713607/578d004e91059576/20160719001406_1.jpg" height="100%" alt=""></div>
+                <div class="swiper-slide"><img src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/pics/57790fb728713607/578d004e91059576/20160719001407_2.jpg" height="100%" alt=""></div>
+            </div>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination"></div>
+        </div>
+<br>
+
         <div data-role="navbar" >
             <ul>
                 <li><a href="#" class="ui-btn-active" data-theme="e" style="font-family:'YouYuan'">旅游</a></li>
@@ -141,8 +261,8 @@
                 </a>
             </li>
         </ul>
-        <ul data-role="listview" data-inset="true">
-            <li data-role="list-divider">River <span class="ui-li-count">5星服务</span></li>
+        <ul data-role="listview" data-inset="true" data-theme="c">
+            <li data-role="list-divider">River <span class="ui-li-count"  data-theme="c">5星服务</span></li>
             <li>
                 <a href="../service/servicedetails.html" rel="external">
                     <img src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/57790fb728713607/head.png" alt="">
@@ -288,7 +408,18 @@
         </ul>
     </div><!-- /panel -->
 </div>
+<script src="../../resource/js/swiper/swiper.min.js"></script>
+<!-- Initialize Swiper -->
+<script>
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        paginationClickable: true,
 
+        centeredSlides: true,
+        autoplay: 2500,
+        autoplayDisableOnInteraction: false
+    });
+</script>
 <script>
     $(document).ready(function(){
         $("img").error(function () {
