@@ -31,11 +31,17 @@ if (isset($_SESSION ['servicearea'])){
 
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
     <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
+    <style>
+        .ui-btn { border: none !important; }
+        a {
+            outline:0;
+        }
+    </style>
 </head>
 <body>
 <div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
     <div data-role="header" data-position="fixed" data-theme="c">
-        <a href="../../../Controller/FreelookDispatcher.php?c=getCities" rel="external" data-icon="home"><?php echo $servicearea; ?></a>
+        <a href="../../../Controller/FreelookDispatcher.php?c=getCities" rel="external" data-icon="home" data-shadow="false"><?php echo $servicearea; ?></a>
         <h1>搜索</h1>
     </div>
 

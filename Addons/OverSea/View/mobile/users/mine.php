@@ -2,6 +2,7 @@
 session_start();
 $customerid = $_SESSION['signedUser'];
 $existedUser = $_SESSION['signedUserInfo'] ;
+$isMine = 1;
 ?>
 <!DOCTYPE html>
 <html lang="zh-cmn-Hans">

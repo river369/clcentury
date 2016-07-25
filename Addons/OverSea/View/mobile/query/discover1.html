@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>易知海外</title>
+
+    <script src="../../resource/js/jquery/jquery-1.11.1.min.js"></script>
+    <script src="../../resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
+    <script src="../../resource/js/rater/rater.min.js"></script>
+    <!--
+    <script src="../../resource/js/bootstrap/bootstrap.min.js"></script>
+    -->
+    <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
+    <link rel="stylesheet" href="../../resource/style/themes/my-theme1.min.css" />
+    <!--
+    <link rel="stylesheet" href="../../resource/style/bootstrap/bootstrap.min.css"/>
+    -->
+    <script>
+        $(document).ready(function(){
+            var options = {
+                max_value: 5,
+                step_size: 0.5,
+                initial_value: 3,
+            }
+            $(".rate").rate(options);
+            //$(".rate").rate();
+        });
+    </script>
+
+    <style>
+        .rate-base-layer
+        {
+            color: #aaa;
+        }
+        .rate-hover-layer
+        {
+            color: orange;
+        }
+        .rate-select-layer
+        {
+            color:orange;
+        }
+        .ui-btn { border: none !important; }
+        a {
+            outline:0;
+        }
+        div.rounded-corners {
+            height: 71px;
+            width: 71px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+        *{font-family:"YouYuan";}
+    </style>
+    <style>
+        .leftimg{overflow:hidden;position:fixed;top:10px;left:10px;text-align:center;}
+        .rightimg{overflow:hidden;position:fixed;top:10px;right:10px;text-align:center;}
+    </style>
+</head>
+<body>
+<div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
+    <div data-role="header" data-position="fixed" data-theme="c">
+        <a href="#nav-panel" data-icon="home" data-shadow="false">地球</a>
+        <h1>发现</h1>
+        <a href="../query/search.html" rel="external" data-icon="search" data-shadow="false">搜索</a>
+    </div>
+
+    <!--
+       <table class="header-table">
+           <tr>
+               <td colspan="1">
+                   <a href="/gp/vendor/members/home"><img src="../../resource/images/add.jpg"  width='25'/>dddd</a>
+               </td>
+               <td colspan="40">
+                   <h4>发现d</h4>
+               </td>
+               <td colspan="10">
+                   <div class="container">
+                       <div class="row">
+                           <div class="col-xs-8" align="center"><h4>发现</h4></div>
+                           <div class="col-xs-1" align="ritht"><img src="../../resource/images/add1.jpg" width='25' alt=""></div>
+                       </div>
+                   </div>
+               </td>
+           </tr>
+       </table>
+          -->
+         <!--
+           <div class="container">
+               <div class="row">
+                   <div class="col-xs-4" align="left" >
+                       <div class="leftimg">
+                           <a href="../service/servicedetails.html" rel="external">通利福尼亚</a>
+                       </div>
+                   </div>
+                   <div class="col-xs-4" align="center"><h5>发现</h5></div>
+                   <div class="col-xs-2" align="right" >
+                       <div class="rightimg">
+                           <a href="../service/servicedetails.html" rel="external">
+                               <img src="../../resource/images/add.jpg" style="vertical-align:middle;text-align:center" width='25' alt=""/>搜索</a>
+                       </div>
+                   </div>
+               </div>
+           </div>
+    -->
+
+    <div role="main" class="ui-content jqm-content jqm-fullwidth" >
+        <div data-role="navbar" >
+            <ul>
+                <li><a href="#" class="ui-btn-active" data-theme="e">旅游</a></li>
+                <li><a href="#" data-theme="e">留学</a></li>
+            </ul>
+        </div><!-- /navbar -->
+
+        <ul data-role="listview" data-inset="true">
+            <li data-role="list-divider">River <span class="ui-li-count">5星服务</span></li>
+            <li>
+                <a href="../service/servicedetails.html" rel="external">
+                    <div class="rounded-corners">
+                        <img src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/57790fb728713607/head.png" height="100%" alt="">
+                    </div>
+                    <h2>Broken Bells </h2>
+                    <div class="container">
+                            <div class="row">
+                                <div class="col-xs-6"><p style="white-space:pre-wrap;">1由状，有自己的运行轨道.</p></div>
+                                <div class="col-xs-6"><p style="white-space:pre-wrap;">1由状，有自己的运行轨道.</p></div>
+                            </div>
+                    </div>
+                    <p class="ui-li-aside">$1000/小时</p>
+                </a>
+            </li>
+        </ul>
+        <ul data-role="listview" data-inset="true">
+            <li data-role="list-divider">River <span class="ui-li-count">5星服务</span></li>
+            <li>
+                <a href="../service/servicedetails.html" rel="external">
+                    <img src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/57790fb728713607/head.png" alt="">
+                    <h2>Broken Bells </h2>
+                    <div class="container-fluid">
+
+                            <div class="row">
+                                <div class="col-xs-6"><p style="white-space:pre-wrap;">1由状，有自己的运行轨道.</p></div>
+                                <div class="col-xs-6"><p style="white-space:pre-wrap;">1由状，有自己的运行轨道.</p></div>
+                            </div>
+                        </div>
+                    <p class="ui-li-aside">$1000/小时</p>
+                </a>
+            </li>
+        </ul>
+        <ul data-role="listview" data-inset="true">
+            <li data-role="list-divider">River <span class="ui-li-count">5星服务</span></li>
+            <li>
+                <a href="../service/servicedetails.html" rel="external">
+                    <img src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/3/head.png" alt="">
+                    <h2>Broken Bells </h2>
+                    <div class="container-fluid">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-3"><p style="white-space:pre-wrap;">1由状，有自己的运行轨道.</p></div>
+                                <div class="col-sm-3"><p style="white-space:pre-wrap;">1由状，有自己的运行轨道.</p></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="ui-li-aside">$1000/小时</p>
+                </a>
+            </li>
+            <li data-role="list-divider">
+                <p>
+                    <a href="javascript:alert(222);">西雅图</a>
+                    <a href="javascript:alert(222);">WA</a>
+                </p>
+            </li>
+        </ul>
+
+        <ul data-role="listview" data-inset="true">
+            <li data-role="list-divider">River <span class="ui-li-count">5星服务</span></li>
+            <li>
+                <a href="../service/servicedetails.html" rel="external">
+                    <img src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/1/head.png" alt="">
+                    <h2 font-weight="normal" style="white-space:pre-wrap;">0由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道. </h2>
+
+                    <p></p>
+                    <p class="ui-li-aside">$1000/小时</p>
+                </a>
+            </li>
+            <!--
+            <li data-role="list-divider">6次咨询 <span class="ui-li-count">5星</span></li>
+            -->
+            <li data-role="list-divider">
+                <p>
+                    <a href="javascript:alert(222);">西雅图</a>
+                    <a href="javascript:alert(222);">WA</a>
+                </p>
+            </li>
+        </ul>
+        <ul data-role="listview" data-inset="true">
+            <li>
+                <a href="../service/servicedetails.html" rel="external">
+                    <img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/3/head.png" alt="">
+                    <h2>Broken Bells </h2>
+                    <pre style="white-space:pre-wrap;">1由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道. <BR> 6次咨询 5星服务</pre>
+                    <p class="ui-li-aside">$1000/小时</p>
+                </a>
+            </li>
+            <li data-role="list-divider">
+                <p>
+                    <a href="javascript:alert(222);">西雅图</a>
+                    <a href="javascript:alert(222);">WA</a>
+                </p>
+            </li>
+        </ul>
+        <ul data-role="listview" data-inset="true">
+            <li data-role="list-divider"><div class="rate"></div> <span class="ui-li-count"><div class="rate"></div></span></li>
+            <li>
+                <a href="../service/servicedetails.html" rel="external">
+                    <img class="weui_media_appmsg_thumb" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB4CAMAAAAOusbgAAAAeFBMVEUAwAD///+U5ZTc9twOww7G8MYwzDCH4YcfyR9x23Hw+/DY9dhm2WZG0kbT9NP0/PTL8sux7LFe115T1VM+zz7i+OIXxhes6qxr2mvA8MCe6J6M4oz6/frr+us5zjn2/fa67rqB4IF13XWn6ad83nxa1loqyirn+eccHxx4AAAC/klEQVRo3u2W2ZKiQBBF8wpCNSCyLwri7v//4bRIFVXoTBBB+DAReV5sG6lTXDITiGEYhmEYhmEYhmEYhmEY5v9i5fsZGRx9PyGDne8f6K9cfd+mKXe1yNG/0CcqYE86AkBMBh66f20deBc7wA/1WFiTwvSEpBMA2JJOBsSLxe/4QEEaJRrASP8EVF8Q74GbmevKg0saa0B8QbwBdjRyADYxIhqxAZ++IKYtciPXLQVG+imw+oo4Bu56rjEJ4GYsvPmKOAB+xlz7L5aevqUXuePWVhvWJ4eWiwUQ67mK51qPj4dFDMlRLBZTqF3SDvmr4BwtkECu5gHWPkmDfQh02WLxXuvbvC8ku8F57GsI5e0CmUwLz1kq3kD17R1In5816rGvQ5VMk5FEtIiWislTffuDpl/k/PzscdQsv8r9qWq4LRWX6tQYtTxvI3XyrwdyQxChXioOngH3dLgOFjk0all56XRi/wDFQrGQU3Os5t0wJu1GNtNKHdPqYaGYQuRDfbfDf26AGLYSyGS3ZAK4S8XuoAlxGSdYMKwqZKM9XJMtyqXi7HX/CiAZS6d8bSVUz5J36mEMFDTlAFQzxOT1dzLRljjB6+++ejFqka+mXIe6F59mw22OuOw1F4T6lg/9VjL1rLDoI9Xzl1MSYDNHnPQnt3D1EE7PrXjye/3pVpr1Z45hMUdcACc5NVQI0bOdS1WA0wuz73e7/5TNqBPhQXPEFGJNV2zNqWI7QKBd2Gn6AiBko02zuAOXeWIXjV0jNqdKegaE/kJQ6Bfs4aju04lMLkA2T5wBSYPKDGF3RKhFYEa6A1L1LG2yacmsaZ6YPOSAMKNsO+N5dNTfkc5Aqe26uxHpx7ZirvgCwJpWq/lmX1hA7LyabQ34tt5RiJKXSwQ+0KU0V5xg+hZrd4Bn1n4EID+WkQdgLfRNtvil9SPfwy+WQ7PFBWQz6dGWZBLkeJFXZGCfLUjCgGgqXo5TuSu3cugdcTv/HjqnBTEMwzAMwzAMwzAMwzAMw/zf/AFbXiOA6frlMAAAAABJRU5ErkJggg==" alt="">
+                    <h2>River </h2>
+                    <p><h3 style="white-space:pre-wrap;">2由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道.</h3></p>
+                    <p class="ui-li-aside">$1000/小时</p>
+                </a>
+            </li>
+            <li data-role="list-divider">
+                <p>
+                    <a href="javascript:alert(222);">西雅图</a>
+                    <a href="javascript:alert(222);">WA</a>
+                </p>
+            </li>
+        </ul>
+        <ul data-role="listview" data-inset="true">
+            <li data-role="list-divider"><img src="../../resource/images/4.png" alt="" height = '20%' onclick="alert()"> <span class="ui-li-count">6次咨询</span></li>
+            <li>
+                <a href="../service/servicedetails.html" rel="external">
+                    <img class="weui_media_appmsg_thumb" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB4CAMAAAAOusbgAAAAeFBMVEUAwAD///+U5ZTc9twOww7G8MYwzDCH4YcfyR9x23Hw+/DY9dhm2WZG0kbT9NP0/PTL8sux7LFe115T1VM+zz7i+OIXxhes6qxr2mvA8MCe6J6M4oz6/frr+us5zjn2/fa67rqB4IF13XWn6ad83nxa1loqyirn+eccHxx4AAAC/klEQVRo3u2W2ZKiQBBF8wpCNSCyLwri7v//4bRIFVXoTBBB+DAReV5sG6lTXDITiGEYhmEYhmEYhmEYhmEY5v9i5fsZGRx9PyGDne8f6K9cfd+mKXe1yNG/0CcqYE86AkBMBh66f20deBc7wA/1WFiTwvSEpBMA2JJOBsSLxe/4QEEaJRrASP8EVF8Q74GbmevKg0saa0B8QbwBdjRyADYxIhqxAZ++IKYtciPXLQVG+imw+oo4Bu56rjEJ4GYsvPmKOAB+xlz7L5aevqUXuePWVhvWJ4eWiwUQ67mK51qPj4dFDMlRLBZTqF3SDvmr4BwtkECu5gHWPkmDfQh02WLxXuvbvC8ku8F57GsI5e0CmUwLz1kq3kD17R1In5816rGvQ5VMk5FEtIiWislTffuDpl/k/PzscdQsv8r9qWq4LRWX6tQYtTxvI3XyrwdyQxChXioOngH3dLgOFjk0all56XRi/wDFQrGQU3Os5t0wJu1GNtNKHdPqYaGYQuRDfbfDf26AGLYSyGS3ZAK4S8XuoAlxGSdYMKwqZKM9XJMtyqXi7HX/CiAZS6d8bSVUz5J36mEMFDTlAFQzxOT1dzLRljjB6+++ejFqka+mXIe6F59mw22OuOw1F4T6lg/9VjL1rLDoI9Xzl1MSYDNHnPQnt3D1EE7PrXjye/3pVpr1Z45hMUdcACc5NVQI0bOdS1WA0wuz73e7/5TNqBPhQXPEFGJNV2zNqWI7QKBd2Gn6AiBko02zuAOXeWIXjV0jNqdKegaE/kJQ6Bfs4aju04lMLkA2T5wBSYPKDGF3RKhFYEa6A1L1LG2yacmsaZ6YPOSAMKNsO+N5dNTfkc5Aqe26uxHpx7ZirvgCwJpWq/lmX1hA7LyabQ34tt5RiJKXSwQ+0KU0V5xg+hZrd4Bn1n4EID+WkQdgLfRNtvil9SPfwy+WQ7PFBWQz6dGWZBLkeJFXZGCfLUjCgGgqXo5TuSu3cugdcTv/HjqnBTEMwzAMwzAMwzAMwzAMw/zf/AFbXiOA6frlMAAAAABJRU5ErkJggg==" alt="">
+                    <h2>River </h2>
+                    <p style="white-space:pre-wrap;">2由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道.</p>
+                    <p class="ui-li-aside">$1000/小时</p>
+                </a>
+            </li>
+            <li data-role="list-divider">
+                <p>
+                    <a href="javascript:alert(222);">西雅图</a>
+                    <a href="javascript:alert(222);">WA</a>
+                </p>
+            </li>
+        </ul>
+    </div>
+
+
+    <div data-role="footer" data-position="fixed" data-id="footernav" data-position="fixed" data-tap-toggle="false"  data-theme="d">
+        <div data-role="navbar" data-iconpos="left" >
+            <ul>
+                <li><a href="alert()" class="ui-btn-active"  data-icon="search">求易知</a></li>
+                <li><a href="#" data-icon="action">发易知</a></li>
+                <li><a href="#" data-icon="user">我的</a></li>
+            </ul>
+        </div><!-- /navbar -->
+    </div>
+
+
+    <div data-role="panel" data-position-fixed="true" data-display="push" data-theme="o" id="nav-panel">
+        <ul data-role="listview">
+            <li data-role="list-divider" data-icon="delete"><a href="#" data-rel="close">返回</a></li>
+            <li data-role="list-divider">美国</li>
+            <li><a onclick="alert();" data-rel="close" >西雅图</a></li>
+            <li><a href="../common/location.html" rel="external" data-rel="close" >西雅图</a></li>
+            <li><a href="./discover.html" rel="external" data-rel="close" >西雅图</a></li>
+            <li><a>西雅图</a></li>
+            <li><a>西雅图</a></li>
+            <li><a>西雅图</a></li>
+            <li><a>西雅图</a></li>
+            <li data-role="list-divider">中国</li>
+            <li><a>北京市</a></li>
+            <li><a>北京市</a></li>
+            <li><a>天津市</a></li>
+            <li><a>上海市</a></li>
+            <li><a>重庆市</a></li>
+        </ul>
+    </div><!-- /panel -->
+</div>
+
+<script>
+    $(document).ready(function(){
+        $("img").error(function () {
+            $(this).attr("src", "../../resource/images/head_default.jpg");
+        });
+    });
+</script>
+</body>
+</html>

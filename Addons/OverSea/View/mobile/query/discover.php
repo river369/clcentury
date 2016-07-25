@@ -15,6 +15,7 @@ if (isset($_SESSION ['servicearea'])){
         $servicearea = $userSetting['selected_service_area'];
     }
 }
+$isDiscover = 1;
 ?>
 
 <!DOCTYPE html>
@@ -44,21 +45,25 @@ if (isset($_SESSION ['servicearea'])){
         {
             color:orange;
         }
+        .ui-btn { border: none !important; }
+        a {
+            outline:0;
+        }
     </style>
 </head>
 <body>
 <div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
     <div data-role="header" data-position="fixed" data-theme="c">
-        <a href="../../../Controller/FreelookDispatcher.php?c=getCities" rel="external" data-icon="home"><?php echo $servicearea; ?></a>
+        <a href="../../../Controller/FreelookDispatcher.php?c=getCities" rel="external" data-icon="home" data-shadow="false"><?php echo $servicearea; ?></a>
         <h1>发现</h1>
-        <a href="../../../Controller/AuthUserDispatcher.php?c=searchMainPage" rel="external" data-icon="search">搜索</a>
+        <a href="../../../Controller/AuthUserDispatcher.php?c=searchMainPage" rel="external" data-icon="search" data-shadow="false">搜索</a>
     </div>
 
     <div id="discoverMain" role="main" class="ui-content jqm-content jqm-fullwidth">
         <div data-role="navbar">
             <ul>
-                <li><a href="#" rel="external" class="ui-btn-active" onclick="setServiceType(1)">旅游</a></li>
-                <li><a href="#" rel="external" onclick="setServiceType(2)">留学</a></li>
+                <li><a href="#" rel="external" class="ui-btn-active" data-theme="e" onclick="setServiceType(1)">旅游</a></li>
+                <li><a href="#" rel="external" data-theme="e" onclick="setServiceType(2)">留学</a></li>
             </ul>
         </div><!-- /navbar -->
         <div id="serviceType1">

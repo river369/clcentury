@@ -32,6 +32,7 @@ $maxcount = 5;
 $remainingcount = 5 - count($objArray);
 $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
 
+$isPublishService = 1;
 ?>
 
 <!DOCTYPE html>
