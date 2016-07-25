@@ -137,6 +137,7 @@ if (isset($_SESSION ['servicearea'])){
                             newstr = newstr + '<p style="white-space:pre-wrap;">' +value.service_name+ '</p>' ;
                             newstr = newstr + '<p class="ui-li-aside">￥' +value.service_price+ '/小时</p>' ;
                             newstr = newstr + '</a></li> ' ;
+                            /*
                             newstr = newstr + '<li data-role="list-divider"> <p> ';
                             var strs= new Array(); 
                             strs=value.tag.split(",");
@@ -144,8 +145,9 @@ if (isset($_SESSION ['servicearea'])){
                             {
                                 newstr = newstr + ' <a href="../../../Controller/AuthUserDispatcher.php?c=searchByKeyWord&keyWord=' + strs[i] + '" rel="external">'+ strs[i] +'</a>'  ;
                             }
-                            newstr = newstr + '</p> </li> </ul>' ;
-                            newstr=newstr+'</div>';
+                            newstr = newstr + '</p> </li> ' ;
+                            */
+                            newstr=newstr+'</ul></div>';
                             $('#discoverMain').append(newstr);
                             setRate(itemIdx, value.stars);
                             $('#d'+itemIdx).trigger('create');
