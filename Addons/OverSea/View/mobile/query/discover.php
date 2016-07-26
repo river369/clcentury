@@ -108,7 +108,7 @@ $isDiscover = 1;
 
     <div id="discoverMain" role="main" class="ui-content jqm-content jqm-fullwidth">
 
-        <div data-role="navbar">
+        <div data-role="navbar" style="margin: -5px 0px 10px 0px ">
             <ul>
                 <li><a href="#" rel="external" class="ui-btn-active" data-theme="e" onclick="setServiceType(1)">旅游</a></li>
                 <li><a href="#" rel="external" data-theme="e" onclick="setServiceType(2)">留学</a></li>
@@ -116,7 +116,7 @@ $isDiscover = 1;
         </div><!-- /navbar -->
 
         <div class="fluid_container">
-            <div class="camera_wrap camera_azure_skin" id="camera_wrap_1">
+            <div class="camera_wrap camera_azure_skin" id="camera_wrap_1" style="margin: 0px 0px 5px 0px ">
                 <div data-src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/pics/57790fb728713607/578d004e91059576/20160719001406_1.jpg" data-fx='mosaicReverse' onclick="alert(1);">
                 </div>
                 <div data-src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/pics/57790fb728713607/578d004e91059576/20160719001407_2.jpg" data-fx='mosaicReverse'>
@@ -200,9 +200,9 @@ $isDiscover = 1;
                         $(".endMsgString").html('');
                         jQuery.each(result.objLists,function(key,value){
                             itemIdx++;
-                            var newstr = '<div id="d'+itemIdx+'"> <ul data-role="listview" data-inset="true">';
-                            var servicetypeDesc = value.service_type ==1 ? '旅游' : '留学';
-                            newstr = newstr + '<li data-role="list-divider">' +value.service_area + ':' + servicetypeDesc + '<span class="ui-li-count"><div class="rate' + itemIdx +'"></div></span></li>';
+                            var newstr = '<div id="d'+itemIdx+'" style="margin: -5px 0px 0px 0px "> <ul data-role="listview" data-inset="true" data-theme="f">';
+                            var servicetypeDesc = value.service_type ==1 ? '【旅游】' : '【留学】';
+                            newstr = newstr + '<li data-role="list-divider">' + servicetypeDesc + ':' + value.service_area + '<span class="ui-li-count"><div class="rate' + itemIdx +'"></div></span></li>';
                             newstr = newstr + '<li> <a href="../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id=' + value.service_id +'" rel="external">';
                             newstr = newstr + '<img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/' + value.seller_id + '/head.png" alt="">';
                             newstr = newstr + '<h2>'+ value.seller_name + '</h2>';
