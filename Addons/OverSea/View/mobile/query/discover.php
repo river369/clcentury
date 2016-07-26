@@ -124,7 +124,6 @@ $isDiscover = 1;
             </div><!-- #camera_wrap_1 -->
         </div><!-- .fluid_container -->
 
-
         <div id="serviceType1">
         </div>
         <div id="serviceType2">
@@ -202,9 +201,9 @@ $isDiscover = 1;
                             itemIdx++;
                             var newstr = '<div id="d'+itemIdx+'" style="margin: -5px 0px 0px 0px "> <ul data-role="listview" data-inset="true" data-theme="f">';
                             var servicetypeDesc = value.service_type ==1 ? '【旅游】' : '【留学】';
-                            newstr = newstr + '<li data-role="list-divider">' + servicetypeDesc + ':' + value.service_area + '<span class="ui-li-count"><div class="rate' + itemIdx +'"></div></span></li>';
+                            newstr = newstr + '<li data-role="list-divider">' + servicetypeDesc + value.service_area + '<span class="ui-li-count"><div class="rate' + itemIdx +'"></div></span></li>';
                             newstr = newstr + '<li> <a href="../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id=' + value.service_id +'" rel="external">';
-                            newstr = newstr + '<img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/' + value.seller_id + '/head.png" alt="">';
+                            newstr = newstr + '<img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/' + value.seller_id + '/head.png">';
                             newstr = newstr + '<h2>'+ value.seller_name + '</h2>';
                             newstr = newstr + '<p style="white-space:pre-wrap;">' +value.service_name+ '</p>' ;
                             newstr = newstr + '<p class="ui-li-aside">￥' +value.service_price+ '/小时</p>' ;
