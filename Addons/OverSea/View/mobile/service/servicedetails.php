@@ -117,9 +117,9 @@ $commentsData = $_SESSION['commentsData'];
     <div role="main" class="ui-content">
         <div data-role="navbar">
             <ul>
-                <li><a href="javascript:showServices()" class="ui-btn-active">服务信息</a></li>
-                <li><a href="javascript:showSellers()">卖家信息</a></li>
-                <li><a href="javascript:showComments()">服务评论</a></li>
+                <li><a href="javascript:showServices()" class="ui-btn-active" data-theme="e">服务信息</a></li>
+                <li><a href="javascript:showSellers()" data-theme="e">卖家信息</a></li>
+                <li><a href="javascript:showComments()" data-theme="e">服务评论</a></li>
             </ul>
         </div><!-- /navbar -->
 
