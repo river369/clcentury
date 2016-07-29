@@ -60,7 +60,6 @@ $isDiscover = 1;
             width: 65px;
         }
     </style>
-
     <style>
         body {
             margin: 0;
@@ -213,9 +212,9 @@ $isDiscover = 1;
                             var servicetypeDesc = value.service_type ==1 ? '【旅游】' : '【留学】';
                             newstr = newstr + '<li data-role="list-divider">' + servicetypeDesc + value.service_area + '<span class="ui-li-count"><div class="rate' + itemIdx +'"></div></span></li>';
                             newstr = newstr + '<li> <a href="../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id=' + value.service_id +'" rel="external">';
-                            newstr = newstr + '<table><tr><td><div class="headimag">';
+                            newstr = newstr + '<table style="table-layout:fixed;width:260px;" border="0"><tr><td style="width:80px"><div class="headimag">';
                             newstr = newstr + '<img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/' + value.seller_id + '/head.png" height="100%">';
-                            newstr = newstr + '</div></td> <td>&nbsp;&nbsp;</td> <td>';
+                            newstr = newstr + '</div></td> <td style="width:180px">';
                             newstr = newstr + '<h3>'+ value.seller_name + '</h3>';
                             newstr = newstr + '<p style="white-space:pre-wrap;">' +value.service_name+ '</p>' ;
                             newstr = newstr + '</td></tr></table>';

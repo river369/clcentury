@@ -45,7 +45,6 @@ $commentsData = $_SESSION['commentsData'];
     <script src="../../resource/js/camera/camera.min.js"></script>
     <script src="../../resource/js/camera/jquery.mobile.customized.min.js"></script>
 
-
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
     <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
     <link rel="stylesheet" href="../../resource/style/camera/camera.css" type="text/css" media="all">
@@ -62,6 +61,12 @@ $commentsData = $_SESSION['commentsData'];
         .rate-select-layer
         {
             color:orange;
+        }
+        div.rounded-head-image {
+            height: 85px;
+            width: 85px;
+            border-radius: 50%;
+            overflow: hidden;
         }
     </style>
 
@@ -110,15 +115,33 @@ $commentsData = $_SESSION['commentsData'];
 <body>
 <div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
     <div data-role="header" data-position="fixed" data-theme="c">
-        <h1><?php echo $serviceData['seller_name']; ?>的服务-<?php echo $serviceData['service_name']; ?></h1>
+        <h1>详细服务信息</h1>
+    </div>
+
+    <div>
+        <table style="table-layout:fixed;width:350px;" border="0" bgcolor="#f6f6f6" border="0">
+            <tr>
+                <td style="width:50px"></td>
+                <td style="width:100px">
+                    <div class="rounded-head-image" style="margin: 0px -20px 0px 0px">
+                        <img src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $seller_id;?>/head.png" height="100%" alt="">
+                    </div>
+                </td>
+                <td style="width:200px">
+                    <h3>卖家:<?php echo $serviceData['seller_name'];?></h3>
+                    <pre style="white-space:pre-wrap;">服务:<?php echo $serviceData['service_name']; ?></pre>
+                </td>
+
+            </tr>
+        </table>
     </div>
 
     <div role="main" class="ui-content">
         <div data-role="navbar">
             <ul>
-                <li><a href="javascript:showServices()" class="ui-btn-active" data-theme="d">服务信息</a></li>
-                <li><a href="javascript:showSellers()" data-theme="d">卖家信息</a></li>
-                <li><a href="javascript:showComments()" data-theme="d">服务评论</a></li>
+                <li><a href="#" onclick="showServices()" class="ui-btn-active" data-theme="e">服务信息</a></li>
+                <li><a href="#" onclick="showSellers()" data-theme="e">卖家信息</a></li>
+                <li><a href="#" onclick="showComments()" data-theme="e">服务评论</a></li>
             </ul>
         </div><!-- /navbar -->
 
@@ -214,8 +237,8 @@ $commentsData = $_SESSION['commentsData'];
                 <h5>暂无评论</h5>
             <?php } ?>
         </div>
-        <div data-theme="c">
-            <a href="../../../Controller/AuthUserDispatcher.php?c=submitOrder&$service_id=<?php echo $service_id; ?>" data-theme="c" rel="external" class="ui-shadow ui-btn ui-corner-all ui-mini">购买</a>
+        <div>
+            <a href="../../../Controller/AuthUserDispatcher.php?c=submitOrder&$service_id=<?php echo $service_id; ?>" data-theme="c" data-role="button" rel="external">购买</a>
         </div>
     </div>
 

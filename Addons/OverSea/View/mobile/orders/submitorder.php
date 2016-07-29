@@ -79,10 +79,12 @@ $signedUser = $_SESSION['signedUser'];
             <input type="hidden" name="service_area" id="service_area"  value="<?php echo $serviceArea; ?>"/>
             <input type="hidden" name="service_type" id="service_type"  value="<?php echo $serviceType; ?>"/>
             <input type="hidden" name="service_price" id="service_price"  value="<?php echo $price; ?>"/>
+
+            <div>
+                <a href="#" onclick="JavaScript:$('#submitorder').submit();" data-theme="c" data-role="button" rel="external">去付款</a>
+            </div>
         </div>
-        <div data-theme="c">
-            <a href="#" onclick="JavaScript:$('#submitorder').submit();" rel="external" class="ui-shadow ui-btn ui-corner-all ui-mini">去付款</a>
-        </div>
+
         <?php include '../common/footer.php';?>
         <div data-role="popup" id="rulePopup" data-overlay-theme="a" data-corners="false" data-tolerance="60,30">
             <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
