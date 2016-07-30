@@ -146,8 +146,6 @@ $commentsData = $_SESSION['commentsData'];
         </div><!-- /navbar -->
 
         <div data-role="content" id="serviceInfo">
-
-            <h4 style="color:steelblue"> 图片:</h4>
             <?php if (sizeof($objArray) > 0) { ?>
                 <div class="fluid_container">
                     <div class="camera_wrap camera_azure_skin" id="camera_wrap_1">
@@ -160,11 +158,11 @@ $commentsData = $_SESSION['commentsData'];
                 <p>未上传图片</p>
             <?php } ?>
 
-            <h4 style="color:steelblue">服务介绍:</h4>
-            <p><?php echo $serviceData['description']; ?></p>
+            <h5 style="color:#33c8ce">服务介绍:</h5>
+            <p style="font-size:14px;">&emsp;&emsp;<?php echo $serviceData['description']; ?></p>
 
-            <h4 style="color:steelblue">服务信息:</h4>
-            <ul data-role="listview" data-inset="true">
+            <h5 style="color:#33c8ce">服务信息:</h5>
+            <ul data-role="listview" data-inset="true" data-theme="f" style="font-size:14px;">
                 <li>服务等级: <span class="ui-li-count"><div class="servicerate"/></span></li>
                 <input type="hidden" id="serviceratevalue" value="<?php echo $serviceData['stars'];?>">
                 <li>服务地点: <span class="ui-li-count"><?php echo $serviceData['service_area']; ?></span></li>
@@ -177,14 +175,20 @@ $commentsData = $_SESSION['commentsData'];
             $tagsArray = explode(',',$tags);
             if (strlen($tags) >0 && count($tagsArray) >0) {
             ?>
-            <h4 style="color:steelblue">服务标签:</h4>
-            <div class="ui-grid-a">
+            <h5 style="color:#33c8ce">服务标签:</h5>
+            <div class="ui-grid-b">
                 <?php
                 $loc = 'a';
                 foreach ($tagsArray as $tag){ ?>
-                    <div class="ui-block-<?php echo $loc;?>"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini"><?php echo $tag;?></a></div>
+                    <div style="font-size:14px;" class="ui-block-<?php echo $loc;?>"><a href="../../../Controller/AuthUserDispatcher.php?c=searchByKeyWord&keyWord=<?php echo $tag;?>" rel="external"><?php echo $tag;?></a></div>
                 <?php
-                    $loc = $loc=='a'? 'b' : 'a';
+                    if ($loc=='a') {
+                        $loc = 'b';
+                    } else if ($loc=='b'){
+                        $loc = 'c';
+                    } else {
+                        $loc = 'a';
+                    }
                 } ?>
             </div>
             <?php }?>
@@ -192,11 +196,10 @@ $commentsData = $_SESSION['commentsData'];
 
 
         <div data-role="content" id="sellerInfo">
-            <h4 style="color:steelblue">卖家介绍:</h4>
-            <p><?php echo $sellerData['description']; ?></p>
-
-            <h4 style="color:steelblue">卖家信息:</h4>
-            <ul data-role="listview" data-inset="true">
+            <h5 style="color:#33c8ce">卖家介绍:</h5>
+            <p style="font-size:12px;">&emsp;&emsp;<?php echo $sellerData['description']; ?></p>
+            <h5 style="color:#33c8ce">卖家信息:</h5>
+            <ul data-role="listview" data-inset="true" data-theme="f" style="font-size:14px;">
                 <li>卖家等级: <span class="ui-li-count"><div class="sellerrate"/></span></li>
                 <li>实名认证: <span class="ui-li-count"><?php echo $realnameStatusString; ?></span></li>
                 <input type="hidden" id="sellerratevalue" value="<?php echo $sellerData['stars'];?>">
@@ -207,20 +210,25 @@ $commentsData = $_SESSION['commentsData'];
             $tagsSellerArray = explode(',',$tagsSeller);
             if (count($tagsSellerArray) >0) {
                 ?>
-                <h4 style="color:steelblue">卖家标签</h4>
-                <div class="ui-grid-a">
+                <h5 style="color:#33c8ce">卖家标签</h5>
+                <div class="ui-grid-b">
                     <?php
                     $loc = 'a';
                     foreach ($tagsSellerArray as $tagSeller){ ?>
-                        <div class="ui-block-<?php echo $loc;?>"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini"><?php echo $tagSeller;?></a></div>
+                        <div style="font-size:12px;" class="ui-block-<?php echo $loc;?>"><a href="../../../Controller/AuthUserDispatcher.php?c=searchByKeyWord&keyWord=<?php echo $tagSeller;?>" rel="external"><?php echo $tagSeller;?></a></div>
                         <?php
-                        $loc = $loc=='a'? 'b' : 'a';
+                        if ($loc=='a') {
+                            $loc = 'b';
+                        } else if ($loc=='b'){
+                            $loc = 'c';
+                        } else {
+                            $loc = 'a';
+                        }
                     } ?>
                 </div>
             <?php }?>
-
-            <h4 style="color:steelblue">卖家<?php echo $serviceData['seller_name'];?>的主页:</h4>
-            <a href="../users/user_profile.php?&sellerid=<?php echo $seller_id;?>" rel="external">点击查看</a>
+            <h5 style="color:#33c8ce">卖家<?php echo $serviceData['seller_name'];?>的主页:</h5>
+            <a href="../users/user_profile.php?&sellerid=<?php echo $seller_id;?>" rel="external" style="font-size:14px;>点击查看</a>
         </div>
 
         <div data-role="content" id="commentsInfo">
