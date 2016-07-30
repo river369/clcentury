@@ -17,6 +17,7 @@ if (isset($_SESSION ['servicearea'])){
 }
 $citites = $_SESSION['citites'];
 $countries = $_SESSION['countries'];
+$isDiscover = 1;
 ?>
 
 <!DOCTYPE html>

@@ -17,6 +17,7 @@ if (isset($_SESSION ['servicearea'])){
         $servicearea = $userSetting['selected_service_area'];
     }
 }
+$isDiscover = 1;
 ?>
 
 <!DOCTYPE html>
@@ -47,16 +48,17 @@ if (isset($_SESSION ['servicearea'])){
 
     <div data-role="content">
         <form id="search-user"data-ajax="false" method="post" action="../../../Controller/AuthUserDispatcher.php?c=searchByKeyWord">
-            <input type="search" name="keyWord" id="keyWord" autofocus>
+            <input type="search" name="keyWord" id="keyWord" data-theme="c" autofocus>
         </form>
     </div>
 
     <div data-role="content">
         <?php if (count($queryHistories) >0) {?>
-        历史搜索
-        <ul data-role="listview" data-split-icon="delete" data-split-theme="a" data-inset="true">
+            <h5 style="color:#33c8ce">历史搜索:</h5>
+
+        <ul data-role="listview" data-split-icon="delete"  data-inset="true">
         <?php foreach($queryHistories as $key => $queryHistory) {?>
-            <li><a href="../../../Controller/AuthUserDispatcher.php?c=searchByKeyWord&keyWord=<?php echo $queryHistory['key_word'];?> " rel="external"><h2><?php echo $queryHistory['key_word'] ?></h2></a>
+            <li data-theme="f"><a href="../../../Controller/AuthUserDispatcher.php?c=searchByKeyWord&keyWord=<?php echo $queryHistory['key_word'];?> " rel="external"><h5><?php echo $queryHistory['key_word'] ?></h5></a>
                 <a href="../../../Controller/AuthUserDispatcher.php?c=deleteKeyWordById&query_id=<?php echo $queryHistory['id'] ?>');">干掉</a>
             </li>
         <?php } ?>

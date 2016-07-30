@@ -77,16 +77,17 @@ $isPublishService = 1;
 </head>
 <body>
 <div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
-    <div data-role="header" data-position="fixed" data-theme="d">
+    <div data-role="header" data-position="fixed" data-theme="c">
         <h1>发布易知服务</h1>
     </div>
+
+    <ul data-role="listview" data-inset="true" data-theme="f">
+        <li data-role="list-divider">您的服务状态: <span class="ui-li-count"><?php echo $statusString; ?></span></li>
+        <?php if ($status == 40) {?>
+            <li data-role="list-divider">拒绝原因: <span class="ui-li-count"><?php echo $serviceData['check_reason']; ?></span></li>
+        <?php } ?>
+    </ul>
     <div role="main" class="ui-content jqm-content jqm-fullwidth">
-        <ul data-role="listview" data-inset="true">
-            <li>您的服务状态: <span class="ui-li-count"><?php echo $statusString; ?></span></li>
-            <?php if ($status == 40) {?>
-                <li>拒绝原因: <span class="ui-li-count"><?php echo $serviceData['check_reason']; ?></span></li>
-            <?php } ?>
-        </ul>
         <ul data-role="listview" data-inset="true">
             <li data-role="list-divider">请点击加号添加图片, 最多上传<?=$maxcount?>张.</li>
         </ul>

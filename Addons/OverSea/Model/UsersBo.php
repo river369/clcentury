@@ -103,6 +103,7 @@ class UsersBo
      */
     public function createOrUpdateUserInfo() {
         $userData['name'] = isset($_POST ['name']) ? trim($_POST ['name']) : '';
+        $userData['signature'] = isset($_POST ['signature']) ? trim($_POST ['signature']) : '';
         $userData['weixin'] = isset($_POST ['weixin']) ? trim($_POST ['weixin']) : '';
         $userData['gender'] = $_POST ['gender'];
         $userData['email'] = isset($_POST ['email']) ? trim($_POST ['email']) : '';

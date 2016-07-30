@@ -30,7 +30,11 @@ $statusString = BusinessHelper::translateRealNameStatus($status);
     <link rel="stylesheet" href="../../resource/style/cropper/cropper.min.css" />
     <link rel="stylesheet" href="../../resource/style/cropper/main.css" />
     <link rel="stylesheet" href="../../resource/style/validation/validation.css" />
-
+    <style>
+        label{ color:#33c8ce; font-size:14px;}
+        table{ table-layout : fixed; width:100% }
+        hr{border:0;background-color:#2c2c2c;height:1px;}
+    </style>
     <script src="../../resource/js/jquery/jquery-1.11.1.min.js"></script>
     <script src="../../resource/js/jquery/jquery-ui-1.11.1.min.js"></script>
     <script src="../../resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
@@ -60,56 +64,124 @@ $statusString = BusinessHelper::translateRealNameStatus($status);
     <div data-role="header" data-position="fixed" data-theme="c">
         <h1>个人信息</h1>
     </div>
-
+    <ul data-role="listview" data-inset="true" data-theme="f">
+        <li data-role="list-divider">用户状态: <span class="ui-li-count"><?php echo $statusString; ?></span></li>
+        <?php if ($status == 40) {?>
+            <li data-role="list-divider">拒绝原因: <span class="ui-li-count"><?php echo $existedUser['check_reason']; ?></span></li>
+        <?php } ?>
+    </ul>
     <div data-role="content">
-        <ul data-role="listview" data-inset="true">
-            <li>您的用户状态: <span class="ui-li-count"><?php echo $statusString; ?></span></li>
-            <?php if ($status == 40) {?>
-                <li>拒绝原因: <span class="ui-li-count"><?php echo $existedUser['check_reason']; ?></span></li>
-            <?php } ?>
-        </ul>
 
-        <label for="name" >我的头像:</label>
-        <!-- Current avatar -->
-        <div class="container" id="crop-avatar" data-role="content">
-            <div class="avatar-view" title="Change the avatar">
-                <img src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $userId;?>/head.png?t=<?php echo rand(10,100); ?>" id='myhead' alt="点击上传头像" onclick="chooseImages()">
-            </div>
-        </div>
+        <table>
+            <tr>
+                <td style="width:15%">
+                    <label >头像:</label >
+                </td>
+                <td style="width:85%">
+                    <div class="container" id="crop-avatar" data-role="content">
+                        <div class="avatar-view" title="Change the avatar">
+                            <img src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $userId;?>/head.png?t=<?php echo rand(10,100); ?>" id='myhead' alt="点击上传头像" onclick="chooseImages()">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
         <input type="hidden" id="uid" value="<?php echo $userId;?>">
         
         <form id="myinfoForm" data-ajax="false" method="post" action="../../../Controller/AuthUserDispatcher.php?c=updateMyinfo">
-            <div data-role="fieldcontain">
-                <label for="name" >您的昵称:</label>
-                <input type="text" name="name" id="name" value="<?php echo isset($existedUser['name']) ? $existedUser['name']: ''; ?>">
-                </br>
-                <label for="weixin">您的微信号:</label>
-                <input type="text" name="weixin" id="weixin" value="<?php echo isset($existedUser['weixin']) ? $existedUser['weixin']: ''; ?>">
-                </br>
-                <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
-                    <legend>我是:</legend>
-                    <input name="gender" id="radio-choice-c" value="1" <?php if ($existedUser['gender'] == 1) {echo 'checked="true"'; } ?> type="radio">
-                    <label for="radio-choice-c">男生</label>
-                    <input name="gender" id="radio-choice-d" value="2" <?php if ($existedUser['gender'] == 2) {echo 'checked="true"'; } ?> type="radio">
-                    <label for="radio-choice-d">女生</label>
-                </fieldset>
-                </br>
-                <label for="name">您的电子邮箱:</label>
-                <input type="text" name="email" id="email" value="<?php echo isset($existedUser['email']) ? $existedUser['email']: ''; ?>">
-                </br>
-                <label for="description">自我介绍:</label>
-                <textarea cols="30" rows="8" name="description" id="description" data-mini="true"><?php echo isset($existedUser['description']) ? $existedUser['description']: ''; ?></textarea>
-                </br>
-                <!--
-                <input name="tags" id="methodTags" value="诚实守信,价格合理">
-                -->
-                <label for="methodTags">
-                    <a href="#tagpopup" data-rel="popup" class="ui-controlgroup-label">选取或填写特长:</a>
-                </label>
-                <ul id="methodTags"></ul>
-                <input name="mytags" id="mytags" value="<?php echo isset($existedUser['tag']) ? $existedUser['tag']: ''; ?>" type="hidden">
-            </div>
-            <input type="submit" name="yzsubmit" id="yzsubmit" value="发布">
+            <table>
+                <tr>
+                    <td style="width:25%">
+                        <label for="name" >昵称:</label >
+                    </td>
+                    <td style="width:75%">
+                        <input type="text" name="name" id="name" value="<?php echo isset($existedUser['name']) ? $existedUser['name']: ''; ?>">
+                    </td>
+                </tr>
+            </table>
+
+            <table>
+                <tr>
+                    <td style="width:25%">
+                        <label for="signature">个性签名:</label>
+                    </td>
+                    <td style="width:75%">
+                        <input type="text" name="signature" id="signature" value="<?php echo isset($existedUser['signature']) ? $existedUser['signature']: ''; ?>">
+                    </td>
+                </tr>
+            </table>
+
+            <table>
+                <tr>
+                    <td style="width:25%">
+                        <label for="weixin">微信号:</label>
+                    </td>
+                    <td style="width:75%">
+                        <input type="text" name="weixin" id="weixin" value="<?php echo isset($existedUser['weixin']) ? $existedUser['weixin']: ''; ?>">
+                    </td>
+                </tr>
+            </table>
+
+            <table>
+                <tr>
+                    <td style="width:25%">
+                        <label>我是:</>
+                    </td>
+                    <td style="width:75%">
+                        <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" data-theme="e">
+                            <input name="gender" id="radio-choice-c" value="1" <?php if ($existedUser['gender'] == 1) {echo 'checked="true"'; } ?> type="radio">
+                            <label for="radio-choice-c">男生</label>
+                            <input name="gender" id="radio-choice-d" value="2" <?php if ($existedUser['gender'] == 2) {echo 'checked="true"'; } ?> type="radio">
+                            <label for="radio-choice-d">女生</label>
+                        </fieldset>
+                    </td>
+                </tr>
+            </table>
+
+            <table>
+                <tr>
+                    <td style="width:25%">
+                        <label for="name">电子邮箱:</label>
+                    </td>
+                    <td style="width:75%">
+                        <input type="text" name="email" id="email" value="<?php echo isset($existedUser['email']) ? $existedUser['email']: ''; ?>">
+                    </td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <td>
+                        <label for="description">自我介绍:</label>
+                    </td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <td style="width:95%">
+                        <textarea cols="30" rows="8" name="description" id="description" data-mini="true"><?php echo isset($existedUser['description']) ? $existedUser['description']: ''; ?></textarea>
+                    </td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <td>
+                        <label for="methodTags" >
+                            <a href="#tagpopup" data-rel="popup" data-theme="f">选取或填写特长:</a>
+                        </label>
+                    </td>
+                </tr>
+            </table>
+            <table style="margin: -10px 0px 0px 0px" >
+                <tr>
+                    <td style="width:95%">
+                        <ul id="methodTags"></ul>
+                        <input name="mytags" id="mytags" value="<?php echo isset($existedUser['tag']) ? $existedUser['tag']: ''; ?>" type="hidden">
+                    </td>
+                </tr>
+            </table>
+
+            <input type="submit" name="yzsubmit" id="yzsubmit" value="发布" data-theme="c" >
         </form>
     </div>
 

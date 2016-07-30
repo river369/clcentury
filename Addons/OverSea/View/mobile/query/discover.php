@@ -209,8 +209,9 @@ $isDiscover = 1;
                         jQuery.each(result.objLists,function(key,value){
                             itemIdx++;
                             var newstr = '<div id="d'+itemIdx+'" style="margin: -5px 0px 0px 0px "> <ul data-role="listview" data-inset="true" data-theme="f">';
-                            var servicetypeDesc = value.service_type ==1 ? '【旅游】' : '【留学】';
-                            newstr = newstr + '<li data-role="list-divider">' + servicetypeDesc + value.service_area + '<span class="ui-li-count"><div class="rate' + itemIdx +'"></div></span></li>';
+                            //var servicetypeDesc = value.service_type ==1 ? '【旅游】' : '【留学】';
+                            //newstr = newstr + '<li data-role="list-divider">' + servicetypeDesc + value.service_area + '<span class="ui-li-count"><div class="rate' + itemIdx +'"></div></span></li>';
+                            newstr = newstr + '<li data-role="list-divider">【' + value.service_area + '】'+ value.service_name +'<span class="ui-li-count"><div class="rate' + itemIdx +'"></div></span></li>';
                             newstr = newstr + '<li> <a href="../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id=' + value.service_id +'" rel="external">';
                             newstr = newstr + '<table style="table-layout:fixed;width:260px;" border="0"><tr><td style="width:80px"><div class="headimag">';
                             newstr = newstr + '<img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/' + value.seller_id + '/head.png" height="100%">';

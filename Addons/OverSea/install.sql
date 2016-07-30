@@ -24,6 +24,7 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`yz_user_infos` (
 `id` bigint(12) NOT NULL AUTO_INCREMENT COMMENT '主键',
 `user_id` varchar(36) DEFAULT NULL COMMENT 'User Id to show in the internal system',
 `name` varchar(255)  DEFAULT NULL  COMMENT '姓名',
+`signature` varchar(255)  DEFAULT NULL  COMMENT '个性签名',
 `gender` int(2)  DEFAULT 1 COMMENT '性别 1 male, 2 female',
 `weixin` varchar(50)  DEFAULT NULL  COMMENT '微信号',
 `email` varchar(50) DEFAULT NULL  COMMENT '邮件',
@@ -50,6 +51,7 @@ alter table yz_users add column serve_count int(5) DEFAULT 0  COMMENT '用户提
 
 alter table yz_user_infos drop column stars;
 alter table yz_user_infos add column `stars` decimal(5,1) DEFAULT 3  COMMENT '服务价格';
+alter table yz_user_infos add column `signature` varchar(255)  DEFAULT NULL  COMMENT '个性签名';
 
 --Users Settings
 CREATE TABLE IF NOT EXISTS `clctravel`.`yz_user_settings` (
