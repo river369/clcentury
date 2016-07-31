@@ -424,7 +424,8 @@ $isPublishService = 1;
             rules: {
                 service_name: {
                     required: true,
-                    minlength: 2
+                    minlength: 2,
+                    maxlength: 10
                 },
                 service_brief: {
                     required: true,
@@ -443,7 +444,8 @@ $isPublishService = 1;
             messages: {
                 service_name: {
                     required: "服务名称不能为空",
-                    minlength: "服务介绍长度不能小于 2 个字"
+                    minlength: "服务名称长度不能小于 2 个字",
+                    maxlength: "服务名称长度不能大于 20 个字",
                 },
                 service_brief: {
                     required: "内容简介不能为空",

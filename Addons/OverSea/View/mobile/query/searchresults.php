@@ -17,6 +17,7 @@ if (isset($_SESSION ['servicearea'])){
         $servicearea = $userSetting['selected_service_area'];
     }
 }
+$isDiscover = 1;
 ?>
 
 <!DOCTYPE html>
@@ -49,6 +50,10 @@ if (isset($_SESSION ['servicearea'])){
         a {
             outline:0;
         }
+        div.headimag {
+            height: 65px;
+            width: 65px;
+        }
     </style>
 </head>
 <body>
@@ -59,7 +64,7 @@ if (isset($_SESSION ['servicearea'])){
         <a href="../../../Controller/AuthUserDispatcher.php?c=searchMainPage" rel="external" data-icon="search" data-shadow="false">搜索</a>
     </div>
 
-    <div id="discoverMain" role="main" class="ui-content jqm-content jqm-fullwidth">
+    <div id="discoverMain" role="main" class="ui-content jqm-content jqm-fullwidth" style="margin: 0px -10px 0px -10px">
     </div>
     <div data-role="content"class="endMsgString"></div>
 
@@ -128,26 +133,20 @@ if (isset($_SESSION ['servicearea'])){
                         $(".endMsgString").html('');
                         jQuery.each(result.objLists,function(key,value){
                             itemIdx++;
-                            servicetypeDesc = (value.service_type ==1) ? '旅游' : '留学';
-                            var newstr = '<div id="d'+itemIdx+'"> <ul data-role="listview" data-inset="true">';
-                            newstr = newstr + '<li data-role="list-divider">' + value.service_area + ':' + servicetypeDesc + ' <span class="ui-li-count"><div class="rate' + itemIdx +'"></div></span></li>';
+                            var newstr = '<div id="d'+itemIdx+'" style="margin: -5px 0px 0px 0px "> <ul data-role="listview" data-inset="true" data-theme="f">';
+                            var servicetypeDesc = value.service_type ==1 ? '旅游' : '留学';
+                            newstr = newstr + '<li data-role="list-divider">【' + servicetypeDesc + ':' + value.service_area + '】' + value.service_name +' <span class="ui-li-count"><div class="rate' + itemIdx +'"></div></span></li>';
                             newstr = newstr + '<li> <a href="../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id=' + value.service_id +'" rel="external">';
-                            newstr = newstr + '<img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/' + value.seller_id + '/head.png" alt="">';
-                            newstr = newstr + '<h2>'+ value.seller_name + '</h2>';
-                            newstr = newstr + '<p style="white-space:pre-wrap;">' +value.service_name+ '</p>' ;
+                            newstr = newstr + '<table style="table-layout:fixed;width:260px;" border="0"><tr><td style="width:80px"><div class="headimag">';
+                            newstr = newstr + '<img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/' + value.seller_id + '/head.png" height="100%">';
+                            newstr = newstr + '</div></td> <td style="width:180px">';
+                            newstr = newstr + '<h4>卖家:'+ value.seller_name + '</h4>';
+                            newstr = newstr + '<p style="white-space:pre-wrap;">简介:' +value.service_brief+ '</p>' ;
+                            newstr = newstr + '</td></tr></table>';
                             newstr = newstr + '<p class="ui-li-aside">￥' +value.service_price+ '/小时</p>' ;
-                            newstr = newstr + '</a></li> ' ;
-                            /*
-                            newstr = newstr + '<li data-role="list-divider"> <p> ';
-                            var strs= new Array(); 
-                            strs=value.tag.split(",");
-                            for (i=0;i<strs.length ;i++ )
-                            {
-                                newstr = newstr + ' <a href="../../../Controller/AuthUserDispatcher.php?c=searchByKeyWord&keyWord=' + strs[i] + '" rel="external">'+ strs[i] +'</a>'  ;
-                            }
-                            newstr = newstr + '</p> </li> ' ;
-                            */
+                            newstr = newstr + '</a></li>';
                             newstr=newstr+'</ul></div>';
+                            //alert(newstr);
                             $('#discoverMain').append(newstr);
                             setRate(itemIdx, value.stars);
                             $('#d'+itemIdx).trigger('create');

@@ -28,7 +28,7 @@ $sellerData = $_SESSION['sellerData'];
 $realnameStatusString = BusinessHelper::translateRealNameStatus($sellerData['status']);
 
 $commentsData = $_SESSION['commentsData'];
-
+$isDiscover = 1;
 ?>
 <!DOCTYPE html>
 <html lang="zh-cmn-Hans">
@@ -62,12 +62,6 @@ $commentsData = $_SESSION['commentsData'];
         {
             color:orange;
         }
-        div.rounded-head-image {
-            height: 85px;
-            width: 85px;
-            border-radius: 50%;
-            overflow: hidden;
-        }
         body {
             margin: 0;
             padding: 0;
@@ -89,6 +83,12 @@ $commentsData = $_SESSION['commentsData'];
             margin: 0 auto;
             max-width: 1000px;
             width: 100%;
+        }
+        div.rounded-head-image {
+            height: 85px;
+            width: 85px;
+            border-radius: 50%;
+            overflow: hidden;
         }
         h5{ color:#33c8ce}
         p{ font-size:14px;}
@@ -120,15 +120,15 @@ $commentsData = $_SESSION['commentsData'];
     </div>
 
     <div>
-        <table style="table-layout:fixed;width:350px;" border="0" bgcolor="#f6f6f6" border="0">
+        <table border="0" bgcolor="#f6f6f6">
             <tr>
-                <td style="width:50px"></td>
-                <td style="width:100px">
+                <td style="width:10%"></td>
+                <td style="width:30%">
                     <div class="rounded-head-image" style="margin: 0px -20px 0px 0px">
                         <img src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $seller_id;?>/head.png" height="100%" alt="">
                     </div>
                 </td>
-                <td style="width:200px">
+                <td style="width:60%">
                     <h3>卖家:<?php echo $serviceData['seller_name'];?></h3>
                     <pre style="white-space:pre-wrap;">服务:<?php echo $serviceData['service_name']; ?></pre>
                 </td>
@@ -184,7 +184,7 @@ $commentsData = $_SESSION['commentsData'];
                 <?php
                 $loc = 'a';
                 foreach ($tagsArray as $tag){ ?>
-                    <div style="font-size:14px;" class="ui-block-<?php echo $loc;?>"><a href="../../../Controller/AuthUserDispatcher.php?c=searchByKeyWord&keyWord=<?php echo $tag;?>" rel="external"><?php echo $tag;?></a></div>
+                    <div style="font-size:10px;" class="ui-block-<?php echo $loc;?>"><a href="../../../Controller/AuthUserDispatcher.php?c=searchByKeyWord&keyWord=<?php echo $tag;?>" rel="external" data-theme="d"  data-role="button"><?php echo $tag;?></a></div>
                 <?php
                     if ($loc=='a') {
                         $loc = 'b';
@@ -221,7 +221,7 @@ $commentsData = $_SESSION['commentsData'];
                     <?php
                     $loc = 'a';
                     foreach ($tagsSellerArray as $tagSeller){ ?>
-                        <div style="font-size:12px;" class="ui-block-<?php echo $loc;?>"><a href="../../../Controller/AuthUserDispatcher.php?c=searchByKeyWord&keyWord=<?php echo $tagSeller;?>" rel="external"><?php echo $tagSeller;?></a></div>
+                        <div style="font-size:10px;" class="ui-block-<?php echo $loc;?>"><a href="../../../Controller/AuthUserDispatcher.php?c=searchByKeyWord&keyWord=<?php echo $tagSeller;?>" rel="external" data-theme="d"  data-role="button"><?php echo $tagSeller;?></a></div>
                         <?php
                         if ($loc=='a') {
                             $loc = 'b';
@@ -234,7 +234,9 @@ $commentsData = $_SESSION['commentsData'];
                 </div>
             <?php }?>
             <h5>卖家<?php echo $serviceData['seller_name'];?>的主页:</h5>
-            <a href="../users/user_profile.php?sellerid=<?php echo $seller_id;?>" rel="external" style="font-size:12px;">点击查看</a>
+            <div class="ui-grid-b">
+                <div style="font-size:10px;" class="ui-block-a"><a href="../users/user_profile.php?sellerid=<?php echo $seller_id;?>" rel="external" data-theme="d"  data-role="button">点击查看</a></div>
+            </div>
         </div>
 
         <div data-role="content" id="commentsInfo">

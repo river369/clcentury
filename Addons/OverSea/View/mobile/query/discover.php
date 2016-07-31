@@ -55,12 +55,6 @@ $isDiscover = 1;
         a {
             outline:0;
         }
-        div.headimag {
-            height: 65px;
-            width: 65px;
-        }
-    </style>
-    <style>
         body {
             margin: 0;
             padding: 0;
@@ -83,6 +77,13 @@ $isDiscover = 1;
             max-width: 1000px;
             width: 100%;
         }
+        div.headimag {
+            height: 65px;
+            width: 65px;
+        }
+        h5{ color:#33c8ce}
+        p{ font-size:14px;}
+        table{ table-layout : fixed; width:100% }
     </style>
 
     <script>
@@ -117,7 +118,7 @@ $isDiscover = 1;
         <a href="../../../Controller/AuthUserDispatcher.php?c=searchMainPage" rel="external" data-icon="search" data-shadow="false">搜索</a>
     </div>
 
-    <div id="discoverMain" role="main" class="ui-content jqm-content jqm-fullwidth">
+    <div id="discoverMain" role="main" class="ui-content jqm-content jqm-fullwidth" style="margin: 0px -5px 0px -5px ">
 
         <div data-role="navbar" style="margin: -5px 0px 10px 0px ">
             <ul>
@@ -213,9 +214,9 @@ $isDiscover = 1;
                             //newstr = newstr + '<li data-role="list-divider">' + servicetypeDesc + value.service_area + '<span class="ui-li-count"><div class="rate' + itemIdx +'"></div></span></li>';
                             newstr = newstr + '<li data-role="list-divider">【' + value.service_area + '】'+ value.service_name +'<span class="ui-li-count"><div class="rate' + itemIdx +'"></div></span></li>';
                             newstr = newstr + '<li> <a href="../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id=' + value.service_id +'" rel="external">';
-                            newstr = newstr + '<table style="table-layout:fixed;width:260px;" border="0"><tr><td style="width:80px"><div class="headimag">';
+                            newstr = newstr + '<table border="0"><tr><td style="width:30%"><div class="headimag">';
                             newstr = newstr + '<img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/' + value.seller_id + '/head.png" height="100%">';
-                            newstr = newstr + '</div></td> <td style="width:180px">';
+                            newstr = newstr + '</div></td> <td style="70%">';
                             newstr = newstr + '<h4>卖家:'+ value.seller_name + '</h4>';
                             newstr = newstr + '<p style="white-space:pre-wrap;">简介:' +value.service_brief+ '</p>' ;
                             newstr = newstr + '</td></tr></table>';

@@ -19,6 +19,7 @@ $servicesData= $_SESSION['servicesData'];
 $serviceBo->getCurrentSellerInfo(HttpHelper::getVale('sellerid'));
 $sellerData = $_SESSION['sellerData'] ;
 $realnameStatusString = BusinessHelper::translateRealNameStatus($sellerData['status']);
+$isDiscover = 1;
 ?>
 
 <!DOCTYPE html>
@@ -48,23 +49,52 @@ $realnameStatusString = BusinessHelper::translateRealNameStatus($sellerData['sta
         {
             color:orange;
         }
+        div.headimag {
+            height: 65px;
+            width: 65px;
+        }
+        div.rounded-head-image {
+            height: 85px;
+            width: 85px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+        h5{ color:#33c8ce}
+        p{ font-size:14px;}
+        table{ table-layout : fixed; width:100% }
     </style>
 </head>
 <body>
 <div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
     <div data-role="header" data-position="fixed" data-theme="c">
-        <h1><?php echo $sellerData['name'];?>的主页</h1>
+        <h1>个人主页</h1>
+    </div>
+
+    <div>
+        <table bgcolor="#f6f6f6" border="0">
+            <tr>
+                <td style="width:10%"></td>
+                <td style="width:28%">
+                    <div class="rounded-head-image" style="margin: 0px -20px 0px 0px">
+                        <img src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $sellerData['user_id'];?>/head.png" height="100%" alt="">
+                    </div>
+                </td>
+                <td style="width:60%">
+                    <h3><?php echo $sellerData['name'];?></h3>
+                    <pre style="white-space:pre-wrap;"><?php echo $sellerData['signature'];?></pre>
+                </td>
+                <td style="width:2%"></td>
+            </tr>
+        </table>
     </div>
 
     <div role="main" class="ui-content jqm-content jqm-fullwidth">
-        <div class="avatar-view" title="Change the avatar">
-            <img src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $sellerData['user_id'];?>/head.png?t=<?php echo rand(10,100); ?>" id='myhead' alt="点击上传头像" onclick="chooseImages()">
-        </div>
-        <h4 style="color:steelblue">卖家介绍:</h4>
-        <p><?php echo $sellerData['description']; ?></p>
 
-        <h4 style="color:steelblue">卖家信息:</h4>
-        <ul data-role="listview" data-inset="true">
+        <h5>卖家介绍:</h5>
+        <p>&emsp;&emsp;<?php echo $sellerData['description']; ?></p>
+
+        <h5>卖家信息:</h5>
+        <ul data-role="listview" data-inset="true" data-theme="f">
             <li>卖家等级: <span class="ui-li-count"><div class="sellerrate"/></span></li>
             <li>实名认证: <span class="ui-li-count"><?php echo $realnameStatusString; ?></span></li>
             <input type="hidden" id="sellerratevalue" value="<?php echo $sellerData['stars'];?>">
@@ -75,45 +105,53 @@ $realnameStatusString = BusinessHelper::translateRealNameStatus($sellerData['sta
         $tagsSellerArray = explode(',',$tagsSeller);
         if (count($tagsSellerArray) >0) {
             ?>
-            <h4 style="color:steelblue">卖家标签</h4>
-            <div class="ui-grid-a">
+            <h5>卖家标签</h5>
+            <div class="ui-grid-b">
                 <?php
                 $loc = 'a';
                 foreach ($tagsSellerArray as $tagSeller){ ?>
-                    <div class="ui-block-<?php echo $loc;?>"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini"><?php echo $tagSeller;?></a></div>
+                    <div style="font-size:10px;" class="ui-block-<?php echo $loc;?>"><a href="../../../Controller/AuthUserDispatcher.php?c=searchByKeyWord&keyWord=<?php echo $tagSeller;?>" rel="external" data-theme="d"  data-role="button" ><?php echo $tagSeller;?></a></div>
                     <?php
-                    $loc = $loc=='a'? 'b' : 'a';
+                    if ($loc=='a') {
+                        $loc = 'b';
+                    } else if ($loc=='b'){
+                        $loc = 'c';
+                    } else {
+                        $loc = 'a';
+                    }
                 } ?>
             </div>
         <?php }?>
 
-        <h4 style="color:steelblue">卖家全部服务:</h4>
+        <h5>卖家全部服务:</h5>
         <?php
         $itemIndx = -1;
         foreach($servicesData as $key => $serviceData)
         {
             $itemIndex++; ?>
-            <ul data-role="listview" data-inset="true">
+            <ul data-role="listview" data-inset="true" data-theme="f">
                 <li data-role="list-divider">
                     <?php $servicetypeDesc = $serviceData['service_type'] ==1 ? '旅游' : '留学';
                     echo $serviceData['service_area'].":".$servicetypeDesc?> <span class="ui-li-count"><div class="rate<?php echo $itemIndex; ?>"></span>
-                    <input type="hidden" id="ratevalue<?php echo $itemIndex; ?>" value="<?php echo $serviceData['stars'];?>">
+                    <input type="hidden" id="ratevalue<?php echo $itemIndex; ?>" value="<?php echo $serviceData['stars'];?>"/>
+                </li>
                 <li>
                     <a href="../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id=<?php echo $serviceData['service_id']; ?>" rel="external">
-                        <img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $serviceData['seller_id'];?>/head.png" alt="">
-                        <h2><?php echo $serviceData['seller_name']?></h2>
-                        <p style="white-space:pre-wrap;"><?php echo $serviceData['service_name']?></p>
+                        <table border="0">
+                            <tr>
+                                <td style="width:30%">
+                                    <div class="headimag">
+                                        <img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $serviceData['seller_id']; ?>/head.png" height="100%">
+                                    </div>
+                                </td>
+                                <td style="70%">
+                                    <h6><?php echo $serviceData['service_name']?></h6>
+                                    <p style="white-space:pre-wrap;"><?php echo $serviceData['service_brief']?></p>
+                                </td>
+                            </tr>
+                        </table>
                         <p class="ui-li-aside">￥<?php echo $serviceData['service_price']?>/小时</p>
                     </a>
-                </li>
-                <li data-role="list-divider">
-                    <p>
-                        <?php $tags = $serviceData['tag'];
-                        $tagsArray = explode(',',$tags);
-                        foreach ($tagsArray as $tag){ ?>
-                            <a href="../../../Controller/AuthUserDispatcher.php?c=searchByKeyWord&keyWord=<?php echo $tag;?> " rel="external"><?php echo $tag; ?></a>
-                        <?php } ?>
-                    </p>
                 </li>
             </ul>
         <?php } ?>
