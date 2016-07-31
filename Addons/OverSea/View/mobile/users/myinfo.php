@@ -126,7 +126,7 @@ $statusString = BusinessHelper::translateRealNameStatus($status);
             <table>
                 <tr>
                     <td style="width:25%">
-                        <label>我是:</>
+                        <label>我是:<label/>
                     </td>
                     <td style="width:75%">
                         <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" data-theme="e">
@@ -158,7 +158,7 @@ $statusString = BusinessHelper::translateRealNameStatus($status);
             </table>
             <table>
                 <tr>
-                    <td style="width:95%">
+                    <td>
                         <textarea cols="30" rows="8" name="description" id="description" data-mini="true"><?php echo isset($existedUser['description']) ? $existedUser['description']: ''; ?></textarea>
                     </td>
                 </tr>
@@ -275,24 +275,36 @@ $statusString = BusinessHelper::translateRealNameStatus($status);
         $( "#myinfoForm" ).validate({
             rules: {
                 name: {
-                    required: true
+                    required: true,
+                    minlength: 2
+                },
+                signature: {
+                    required: true,
+                    minlength: 2
                 },
                 email: {
                     email: true
                 },
                 description: {
+                    required: true,
                     minlength: 4
                 }
                 
             },
             messages: {
                 name: {
-                    required: "昵称不能为空"
+                    required: "昵称不能为空",
+                    minlength: "昵称长度不能小于 2 个字"
+                },
+                signature: {
+                    required: "个性签名不能为空",
+                    minlength: "个性签名长度不能小于 2 个字"
                 },
                 email: {
                     email: "邮箱格式不正确"
                 },
                 description: {
+                    required: "自我介绍不能为空",
                     minlength: "自我介绍长度不能小于 4 个字"
                     
                 }

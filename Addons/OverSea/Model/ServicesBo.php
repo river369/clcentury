@@ -203,6 +203,7 @@ class ServicesBo
         $serviceData['status'] = 20;// change satus to waiting for approve
         $serviceData['service_area'] = isset($_POST ['service_area']) ? $_POST ['service_area'] : '';
         $serviceData['service_name'] = isset($_POST ['service_name']) ? $_POST ['service_name'] : '';
+        $serviceData['service_brief'] = isset($_POST ['service_brief']) ? $_POST ['service_brief'] : '';
         $serviceData['description'] = isset($_POST ['description']) ? trim($_POST ['description']) : '';
         $serviceData['service_type'] = $_POST ['service_type'];
         $serviceData['service_price'] = isset($_POST ['service_price']) ? $_POST ['service_price'] : '';

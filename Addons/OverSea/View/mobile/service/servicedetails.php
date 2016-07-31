@@ -68,9 +68,6 @@ $commentsData = $_SESSION['commentsData'];
             border-radius: 50%;
             overflow: hidden;
         }
-    </style>
-
-    <style>
         body {
             margin: 0;
             padding: 0;
@@ -93,6 +90,10 @@ $commentsData = $_SESSION['commentsData'];
             max-width: 1000px;
             width: 100%;
         }
+        h5{ color:#33c8ce}
+        p{ font-size:14px;}
+        label{ color:#33c8ce; font-size:14px;}
+        table{ table-layout : fixed; width:100% }
     </style>
 
     <script>
@@ -158,10 +159,13 @@ $commentsData = $_SESSION['commentsData'];
                 <p>未上传图片</p>
             <?php } ?>
 
-            <h5 style="color:#33c8ce">服务介绍:</h5>
-            <p style="font-size:14px;">&emsp;&emsp;<?php echo $serviceData['description']; ?></p>
+            <h5>服务内容简介:</h5>
+            <p>&emsp;&emsp;<?php echo $serviceData['service_brief']; ?></p>
 
-            <h5 style="color:#33c8ce">服务信息:</h5>
+            <h5>服务内容详细介绍:</h5>
+            <p>&emsp;&emsp;<?php echo $serviceData['description']; ?></p>
+
+            <h5>服务信息:</h5>
             <ul data-role="listview" data-inset="true" data-theme="f" style="font-size:14px;">
                 <li>服务等级: <span class="ui-li-count"><div class="servicerate"/></span></li>
                 <input type="hidden" id="serviceratevalue" value="<?php echo $serviceData['stars'];?>">
@@ -175,7 +179,7 @@ $commentsData = $_SESSION['commentsData'];
             $tagsArray = explode(',',$tags);
             if (strlen($tags) >0 && count($tagsArray) >0) {
             ?>
-            <h5 style="color:#33c8ce">服务标签:</h5>
+            <h5>服务标签:</h5>
             <div class="ui-grid-b">
                 <?php
                 $loc = 'a';
@@ -196,9 +200,11 @@ $commentsData = $_SESSION['commentsData'];
 
 
         <div data-role="content" id="sellerInfo">
-            <h5 style="color:#33c8ce">卖家介绍:</h5>
-            <p style="font-size:12px;">&emsp;&emsp;<?php echo $sellerData['description']; ?></p>
-            <h5 style="color:#33c8ce">卖家信息:</h5>
+            <h5>个性签名:</h5>
+            <p>&emsp;&emsp;<?php echo $sellerData['signature']; ?></p>
+            <h5>卖家介绍:</h5>
+            <p>&emsp;&emsp;<?php echo $sellerData['description']; ?></p>
+            <h5>卖家信息:</h5>
             <ul data-role="listview" data-inset="true" data-theme="f" style="font-size:14px;">
                 <li>卖家等级: <span class="ui-li-count"><div class="sellerrate"/></span></li>
                 <li>实名认证: <span class="ui-li-count"><?php echo $realnameStatusString; ?></span></li>
@@ -210,7 +216,7 @@ $commentsData = $_SESSION['commentsData'];
             $tagsSellerArray = explode(',',$tagsSeller);
             if (count($tagsSellerArray) >0) {
                 ?>
-                <h5 style="color:#33c8ce">卖家标签</h5>
+                <h5>卖家标签</h5>
                 <div class="ui-grid-b">
                     <?php
                     $loc = 'a';
@@ -227,17 +233,21 @@ $commentsData = $_SESSION['commentsData'];
                     } ?>
                 </div>
             <?php }?>
-            <h5 style="color:#33c8ce">卖家<?php echo $serviceData['seller_name'];?>的主页:</h5>
-            <a href="../users/user_profile.php?&sellerid=<?php echo $seller_id;?>" rel="external" style="font-size:14px;>点击查看</a>
+            <h5>卖家<?php echo $serviceData['seller_name'];?>的主页:</h5>
+            <a href="../users/user_profile.php?sellerid=<?php echo $seller_id;?>" rel="external" style="font-size:12px;">点击查看</a>
         </div>
 
         <div data-role="content" id="commentsInfo">
             <?php if (isset($commentsData) && count($commentsData) >0) {
                 foreach ($commentsData as $comment){ ?>
                     <div>
-                        <p>评论者:<?php echo $comment['customer_name'];?> 于 <?php echo $comment['creation_date']?><p>
-                        <p>服务体验:<?php echo BusinessHelper::translateOrderFeeling($comment['stars']); ?><p>
-                        <p>详细意见:<?php echo $comment['comments'];?><p>
+                        <ul data-role="listview" data-inset="true" data-theme="f">
+                            <li data-role="list-divider">评论者:<?php echo $comment['customer_name'];?> <span class="ui-li-count"><?php echo BusinessHelper::translateOrderFeeling($comment['stars']); ?></span></li>
+                            <li>
+                                <p>意见:<?php echo $comment['comments'];?><p>
+                                <p>日期:<?php echo $comment['creation_date'];?><p>
+                            </li>
+                        </ul>
                     </div>
                     <hr>
                 <?php } ?>

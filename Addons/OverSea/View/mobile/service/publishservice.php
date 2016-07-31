@@ -44,24 +44,29 @@ $isPublishService = 1;
     <meta content="application/xhtml+xml;charset=UTF-8" http-equiv="Content-Type">
     <title>易知海外</title>
 
-    <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
-    <link rel="stylesheet" href="../../resource/style/tag/jquery.tagit.css"type="text/css" />
-    <link rel="stylesheet" href="../../resource/style/tag/tagit.ui-zendesk.css"type="text/css" />
-
     <script src="../../resource/js/jquery/jquery-1.11.1.min.js"></script>
     <script src="../../resource/js/jquery/jquery-ui-1.11.1.min.js"></script>
     <script src="../../resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
     <script src="../../resource/js/tag/tag-it.min.js"></script>
     <script src="../../resource/js/validation/jquery.validate.min.js"></script>
     <script src="../../resource/js/validation/localization/messages_zh.min.js"></script>
+
+
+    <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
+    <link rel="stylesheet" href="../../resource/style/tag/jquery.tagit.css"type="text/css" />
+    <link rel="stylesheet" href="../../resource/style/tag/tagit.ui-zendesk.css"type="text/css" />
     <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
     <link rel="stylesheet" href="../../resource/style/weiui/weui.css"/>
     <link rel="stylesheet" href="../../resource/style/weiui/example.css"/>
     <link rel="stylesheet" href="../../resource/style/validation/validation.css" />
+    <style>
+        label{ color:#33c8ce; font-size:14px;}
+        table{ table-layout : fixed; width:100% }
+        hr{border:0;background-color:#2c2c2c;height:1px;}
+    </style>
     <script>
         $(function(){
             var sampleTags = ['c++', 'lua'];
-
             //-------------------------------
             // Tag-it methods
             //-------------------------------
@@ -82,15 +87,14 @@ $isPublishService = 1;
     </div>
 
     <ul data-role="listview" data-inset="true" data-theme="f">
-        <li data-role="list-divider">您的服务状态: <span class="ui-li-count"><?php echo $statusString; ?></span></li>
+        <li data-role="list-divider">服务状态: <span class="ui-li-count"><?php echo $statusString; ?></span></li>
         <?php if ($status == 40) {?>
             <li data-role="list-divider">拒绝原因: <span class="ui-li-count"><?php echo $serviceData['check_reason']; ?></span></li>
         <?php } ?>
     </ul>
     <div role="main" class="ui-content jqm-content jqm-fullwidth">
-        <ul data-role="listview" data-inset="true">
-            <li data-role="list-divider">请点击加号添加图片, 最多上传<?=$maxcount?>张.</li>
-        </ul>
+        <label> 请点击图标上传图片, 最多上传<?=$maxcount?>张.<label>
+                <br>
         <input type="hidden" name="remainingCount" id="remainingCount" value="<?php echo $remainingcount; ?> ">
         <!--
         <p>请点击加号添加图片, 最多上传<?=$maxcount?>张. </p>
@@ -102,13 +106,13 @@ $isPublishService = 1;
                 <li class="weui_uploader_file" onclick="changepopup('<?php echo $obj; ?>')" style="background-image:url(<?php echo $imageurl.$obj; ?>)"></li>
             <?php }
             if ($remainingcount > 0) {?>
-                <li class="weui_uploader_file" id="uplaodImages" onclick="selectImages()" style="background-image:url(../../resource/images/add.jpg)"></li>
+                <li class="weui_uploader_file" id="uplaodImages" onclick="selectImages()" style="background-image:url(../../resource/images/addpic.png)"></li>
             <?php } ?>
         </ul>
 
         <div data-role="popup" id="reviewpopup" class="reviewpopup" data-overlay-theme="a" data-corners="false" data-tolerance="30,15">
             <!--<p>是否删除该图片?</p>-->
-            <div><a id="deletebutton" href="" onclick="deletePic();" rel="external" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-mini">删除此图片</a></div>
+            <div><a id="deletebutton" href="" onclick="deletePic();" data-theme="c" data-role="button" rel="external">删除此图片</a></div>
             <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
             <img src="" alt="review" class="reviewimage">
             <input type="hidden" name="delobj" id="delobj" value="">
@@ -117,48 +121,121 @@ $isPublishService = 1;
 
     <div data-role="content">
         <form id="submityz" data-ajax="false" method="post" action="../../../Controller/AuthUserDispatcher.php?c=publishServiceInfo">
-            <label for="service_name">您的服务名称(显示标题):</label>
-            <input type="text" name="service_name" id="service_name" value="<?php echo isset($serviceData['service_name']) ? $serviceData['service_name']: ''; ?>" >
-            </br>
-            <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
-                <legend>您的服务类型:</legend>
-                <input name="service_type" id="radio-choice-c" value="1" <?php if (!isset($serviceData) ||$serviceData['service_type'] == 1) {echo 'checked="true"'; } ?> type="radio">
-                <label for="radio-choice-c">旅游</label>
-                <input name="service_type" id="radio-choice-d" value="2" <?php if ($serviceData['service_type'] == 2) {echo 'checked="true"'; } ?> type="radio">
-                <label for="radio-choice-d">留学</label>
-            </fieldset>
+            <table>
+                <tr>
+                    <td style="width:25%">
+                        <label>服务类型:<label/>
+                    </td>
+                    <td style="width:75%">
+                        <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" data-theme="e">
+                            <input name="service_type" id="radio-choice-c" value="1" <?php if (!isset($serviceData) ||$serviceData['service_type'] == 1) {echo 'checked="true"'; } ?> type="radio">
+                            <label for="radio-choice-c">旅游</label>
+                            <input name="service_type" id="radio-choice-d" value="2" <?php if ($serviceData['service_type'] == 2) {echo 'checked="true"'; } ?> type="radio">
+                            <label for="radio-choice-d">留学</label>
+                        </fieldset>
+                    </td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <td style="width:25%">
+                        <label for="service_area">服务地区:</label>
+                    </td>
+                    <td style="width:75%">
+                        <select name="service_area" id="service_area" onchange="updateTagList()">
+                            <?php foreach ($country_city as $key => $value) {?>
+                                <optgroup label="<?php echo $key; ?>">
+                                    <?php foreach ($value as $city) {?>
+                                        <option value="<?php echo $city; ?>" <?php echo $serviceData['service_area']==$city ? 'selected = "selected"' : ''; ?> ><?php echo $city; ?></option>
+                                    <?php } ?>
+                                </optgroup>
+                            <?php } ?>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <td style="width:25%">
+                        <label for="service_name">服务名称:</label>
+                    </td>
+                    <td style="width:75%">
+                        <input type="text" name="service_name" id="service_name" value="<?php echo isset($serviceData['service_name']) ? $serviceData['service_name']: ''; ?>" >
+                    </td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <td style="width:25%">
+                        <label for="service_brief">内容简介:</label>
+                    </td>
+                    <td style="width:75%">
+                        <input type="text" name="service_brief" id="service_brief" value="<?php echo isset($serviceData['service_brief']) ? $serviceData['service_brief']: ''; ?>" >
+                    </td>
+                </tr>
+            </table>
 
-            </br>
-            <label for="service_area">您的服务地点:</label>
-            <select name="service_area" id="service_area" onchange="updateTagList()">
-                <?php foreach ($country_city as $key => $value) {?>
-                    <optgroup label="<?php echo $key; ?>">
-                    <?php foreach ($value as $city) {?>
-                        <option value="<?php echo $city; ?>" <?php echo $serviceData['service_area']==$city ? 'selected = "selected"' : ''; ?> ><?php echo $city; ?></option>
-                    <?php } ?>
-                    </optgroup>
-                <?php } ?>
-            </select>
-            </br>
-            <label for="service_price">您的服务价格(￥/小时):</label>
-            <input type="number" name="service_price" id="service_price" value="<?php echo isset($serviceData['service_price']) ? $serviceData['service_price']: ''; ?>" >
-            </br>
-            <div>
-            <label for="description">您的服务介绍:</label>
-            <textarea name="description" id="description" data-mini="true"><?php echo isset($serviceData['description']) ? $serviceData['description']: ''; ?></textarea>
-            </div>
-            </br>
-            <label for="methodTags">
-                <a href="#tagpopup" data-rel="popup" class="ui-controlgroup-label">选取或填写标签:</a>
-            </label>
-            <ul id="methodTags"></ul>
-            <input name="mytags" id="mytags" value="<?php echo isset($serviceData['tag']) ? $serviceData['tag']: ''; ?>" type="hidden">
-            </br>
-            <a href="#rulePopup" data-rel="popup" class="ui-controlgroup-label">点击阅读服务发布声明:</a>
-            <input name="agree" id="agree" data-mini="true" type="checkbox" class="{required:true}" >
-            <label for="agree">我同意上述服务声明</label>
-            </br>
-            <input type="submit" name="yzsubmit" id="yzsubmit" value="发布信息">
+            <table>
+                <tr>
+                    <td style="width:25%">
+                        <label for="service_price">服务价格(￥/小时):</label>
+                    </td>
+                    <td style="width:75%">
+                        <input type="number" name="service_price" id="service_price" value="<?php echo isset($serviceData['service_price']) ? $serviceData['service_price']: ''; ?>" >
+                    </td>
+                </tr>
+            </table>
+
+            <table>
+                <tr>
+                    <td>
+                        <label for="description">服务内容详细介绍:</label>
+                    </td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <td>
+                        <textarea cols="30" rows="8" name="description" id="description" data-mini="true"><?php echo isset($serviceData['description']) ? $serviceData['description']: ''; ?></textarea>
+                    </td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <td>
+                        <label for="methodTags" >
+                            <a href="#tagpopup" data-rel="popup" data-theme="f">选取或填写标签:</a>
+                        </label>
+                    </td>
+                </tr>
+            </table>
+            <table style="margin: -10px 0px 0px 0px" >
+                <tr>
+                    <td style="width:95%">
+                        <ul id="methodTags"></ul>
+                        <input name="mytags" id="mytags" value="<?php echo isset($serviceData['tag']) ? $serviceData['tag']: ''; ?>" type="hidden">
+                    </td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <td>
+                        <a href="#rulePopup" data-rel="popup" data-theme="f">点击阅读服务发布声明:</a>
+                    </td>
+                    <td style="width:50%">
+
+                    </td>
+                </tr>
+            </table>
+            <table style="margin: -10px 0px 0px 0px" >
+                <tr>
+                    <td style="width:95%">
+                        <input name="agree" id="agree" data-mini="true" type="checkbox" class="{required:true}" data-theme="e">
+                        <label for="agree">我同意上述服务声明</label>
+                    </td>
+                </tr>
+            </table>
+            <input type="submit" name="yzsubmit" id="yzsubmit" value="发布信息" data-theme="c">
         </form>
     </div>
 
@@ -168,7 +245,7 @@ $isPublishService = 1;
         <div class="ui-grid-a" id="tagList">
         </div>
     </div>
-    <div data-role="popup" id="rulePopup" data-overlay-theme="a" data-corners="false" data-tolerance="60,30">
+    <div data-role="popup" id="rulePopup" data-overlay-theme="a" data-corners="false" data-tolerance="60,30" style="max-width:300px;width:275px;">
         <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
         <iframe src="./seller_agreement.html" seamless="" height="320" width="480"></iframe>
     </div>
@@ -349,6 +426,10 @@ $isPublishService = 1;
                     required: true,
                     minlength: 2
                 },
+                service_brief: {
+                    required: true,
+                    minlength: 2
+                },
                 service_price: {
                     required: true,
                     number:true
@@ -364,13 +445,17 @@ $isPublishService = 1;
                     required: "服务名称不能为空",
                     minlength: "服务介绍长度不能小于 2 个字"
                 },
+                service_brief: {
+                    required: "内容简介不能为空",
+                    minlength: "内容简介长度不能小于 2 个字"
+                },
                 service_price: {
                     required: "服务价格不能为空",
                     number:"服务价格必须为数字"
                 },
                 description: {
-                    required: "服务介绍不能为空",
-                    minlength: "服务介绍长度不能小于 4 个字"
+                    required: "服务内容详情不能为空",
+                    minlength: "服务内容详情长度不能小于 4 个字"
                 },
                 agree: "请接受我们的声明"
             },

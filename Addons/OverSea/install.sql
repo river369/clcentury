@@ -69,6 +69,7 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`yz_services` (
 `id` bigint(12) NOT NULL AUTO_INCREMENT COMMENT '主键',
 `service_id` varchar(36) DEFAULT NULL COMMENT 'Service Id to show in the internal system',
 `service_name` varchar(255)  DEFAULT NULL  COMMENT 'service title',
+`service_brief` varchar(255)  DEFAULT NULL  COMMENT 'service 简介',
 `seller_id` varchar(36) DEFAULT NULL COMMENT 'The people to sell',
 `seller_name` varchar(255)  DEFAULT NULL  COMMENT 'seller姓名',
 `status` int(5) DEFAULT 0  COMMENT 'service状态 0 created, ...' ,
@@ -104,6 +105,8 @@ alter table yz_services add column `service_price` decimal(10,2) DEFAULT 50  COM
 
 alter table yz_services drop column stars;
 alter table yz_services add column `stars` decimal(5,1) DEFAULT 3  COMMENT '服务评级';
+
+alter table yz_services add column `service_brief` varchar(255)  DEFAULT NULL  COMMENT 'service 简介';
 
 --Orders
 CREATE TABLE IF NOT EXISTS `clctravel`.`yz_orders` (
