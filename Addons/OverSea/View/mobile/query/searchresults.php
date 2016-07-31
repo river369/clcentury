@@ -50,7 +50,7 @@ $isDiscover = 1;
         a {
             outline:0;
         }
-        div.headimag {
+        div.headimage {
             height: 65px;
             width: 65px;
         }
@@ -137,7 +137,7 @@ $isDiscover = 1;
                             var servicetypeDesc = value.service_type ==1 ? '旅游' : '留学';
                             newstr = newstr + '<li data-role="list-divider">【' + servicetypeDesc + ':' + value.service_area + '】' + value.service_name +' <span class="ui-li-count"><div class="rate' + itemIdx +'"></div></span></li>';
                             newstr = newstr + '<li> <a href="../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id=' + value.service_id +'" rel="external">';
-                            newstr = newstr + '<table style="table-layout:fixed;width:260px;" border="0"><tr><td style="width:80px"><div class="headimag">';
+                            newstr = newstr + '<table style="table-layout:fixed;width:260px;" border="0"><tr><td style="width:80px"><div class="headimage">';
                             newstr = newstr + '<img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/' + value.seller_id + '/head.png" height="100%">';
                             newstr = newstr + '</div></td> <td style="width:180px">';
                             newstr = newstr + '<h4>卖家:'+ value.seller_name + '</h4>';

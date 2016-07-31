@@ -34,6 +34,11 @@ $signedUser = $_SESSION['signedUser'];
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
     <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
     <link rel="stylesheet" href="../../resource/style/validation/validation.css" />
+    <style>
+        h5{ color:#33c8ce}
+        p{ font-size:14px;}
+        table{ table-layout : fixed; width:100% }
+    </style>
 </head>
 <body>
 
@@ -45,7 +50,7 @@ $signedUser = $_SESSION['signedUser'];
     <form id="submitorder" data-ajax="false" method="post" action="../../../Controller/AuthUserDispatcher.php?c=createOrder">
         <div data-role="content">
             <h5>服务信息:</h5>
-            <ul data-role="listview" data-inset="true">
+            <ul data-role="listview" data-inset="true" data-theme="f" style="font-size:14px;">
                 <li>服务编号: <span class="ui-li-count"><?php echo $serviceId; ?></span></li>
                 <li>服务名称: <span class="ui-li-count"><?php echo $serviceName; ?></span></li>
                 <li>服务地点: <span class="ui-li-count"><?php echo $serviceArea; ?></span></li>

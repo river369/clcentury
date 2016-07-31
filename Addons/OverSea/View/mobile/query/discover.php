@@ -77,7 +77,7 @@ $isDiscover = 1;
             max-width: 1000px;
             width: 100%;
         }
-        div.headimag {
+        div.headimage {
             height: 65px;
             width: 65px;
         }
@@ -214,7 +214,7 @@ $isDiscover = 1;
                             //newstr = newstr + '<li data-role="list-divider">' + servicetypeDesc + value.service_area + '<span class="ui-li-count"><div class="rate' + itemIdx +'"></div></span></li>';
                             newstr = newstr + '<li data-role="list-divider">【' + value.service_area + '】'+ value.service_name +'<span class="ui-li-count"><div class="rate' + itemIdx +'"></div></span></li>';
                             newstr = newstr + '<li> <a href="../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id=' + value.service_id +'" rel="external">';
-                            newstr = newstr + '<table border="0"><tr><td style="width:30%"><div class="headimag">';
+                            newstr = newstr + '<table border="0"><tr><td style="width:30%"><div class="headimage">';
                             newstr = newstr + '<img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/' + value.seller_id + '/head.png" height="100%">';
                             newstr = newstr + '</div></td> <td style="70%">';
                             newstr = newstr + '<h4>卖家:'+ value.seller_name + '</h4>';

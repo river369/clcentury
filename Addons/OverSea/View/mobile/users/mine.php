@@ -15,6 +15,10 @@ $isMine = 1;
     <script src="../../resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
     <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
+    <style>
+        h5{ color:#33c8ce}
+        p{ font-size:18px;}
+    </style>
 
 </head>
 <body>
@@ -25,7 +29,7 @@ $isMine = 1;
     </div>
 
     <div class="container" id="crop-avatar" data-role="content">
-        <ul data-role="listview" data-inset="true">
+        <ul data-role="listview" data-inset="true" data-theme="f">
             <li>
                 <a href="../../../Controller/AuthUserDispatcher.php?c=myinfo&customerid=<?php echo $customerid;?>" rel="external">
                     <img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $customerid;?>/head.png?t=<?php echo rand(0,10000); ?>" alt="">
@@ -34,42 +38,42 @@ $isMine = 1;
                 </a>
             </li>
         </ul>
-        <h4 style="color:steelblue">服务:</h4>
-        <ul data-role="listview" data-inset="true">
+        <h5>服务:</h5>
+        <ul data-role="listview" data-inset="true" data-theme="e">
             <li>
                 <a href="../../../Controller/AuthUserDispatcher.php?c=myServices&sellerid=<?php echo $customerid;?>&status=20" rel="external">
-                    我发布的易知服务
+                    <p>我发布的易知服务</p>
                 </a>
             </li>
         </ul>
-        <h4 style="color:steelblue">订单:</h4>
-        <ul data-role="listview" data-inset="true">
+        <h5>订单:</h5>
+        <ul data-role="listview" data-inset="true" data-theme="e">
             <li>
                 <a href="../../../Controller/AuthUserDispatcher.php?c=queryCustomerOrders&customerid=<?php echo $customerid;?>&status=0,10" rel="external">
-                    我购买订单
+                    <p>我购买订单</p>
                 </a>
             </li>
             <li>
                 <a href="../../../Controller/AuthUserDispatcher.php?c=querySellerOrders&sellerid=<?php echo $customerid;?>&status=10" rel="external">
-                    购买我服务的订单
+                    <p>购买我服务的订单</p>
                 </a>
             </li>
         </ul>
-        <h4 style="color:steelblue">个人:</h4>
-        <ul data-role="listview" data-inset="true">
+        <h5>个人:</h5>
+        <ul data-role="listview" data-inset="true" data-theme="e">
             <li>
                 <a href="../../../Controller/AuthUserDispatcher.php?c=publishRealName&userid=<?php echo $customerid;?>" rel="external">
-                    申请实名认证
+                    <p>申请实名认证</p>
                 </a>
             </li>
             <li>
                 <a href="./change_password.php" rel="external">
-                    修改密码
+                    <p>修改密码</p>
                 </a>
             </li>
             <li>
                 <a href="../../../Controller/ClearSessions.php" rel="external">
-                    退出登录
+                    <p>退出登录</p>
                 </a>
             </li>
         </ul>

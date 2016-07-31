@@ -32,6 +32,22 @@ $querystatusString = BusinessHelper::translateCustomerOrderTabDesc($ordersStatus
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
     <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
     <link rel="stylesheet" href="../../resource/style/validation/validation.css" />
+    <style>
+        div.rounded-head-image {
+            height: 85px;
+            width: 85px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+        div.headimage {
+            height: 65px;
+            width: 65px;
+        }
+        h5{ color:#33c8ce}
+        p{ font-size:14px;}
+        table{ table-layout : fixed; width:100%; }
+    </style>
+
 </head>
 <body>
 <div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
@@ -60,37 +76,53 @@ $querystatusString = BusinessHelper::translateCustomerOrderTabDesc($ordersStatus
                 $orderid = $order['order_id'];
                 $orderStatus = $order['status'];
             ?>
-            <ul data-role="listview" data-inset="true">
-                <li data-role="list-divider">订单号: <span class="ui-li-count"><?php echo $orderid;?></span></li>
+            <ul data-role="listview" data-inset="true" data-theme="f">
+                <li data-role="list-divider">订单号: <?php echo $orderid;?>
+                    <span class="ui-li-count">购买:<?php echo $order['service_hours'];?>小时</span>
+                </li>
                 <li>
                     <a href="../../../Controller/AuthUserDispatcher.php?c=queryOrderDetails&order_id=<?php echo $orderid; ?>" rel="external">
-                        <img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $order['seller_id'];?>/head.png" alt="">
-                        <h2> 卖家:<?php echo $order['seller_name'];?> </h2>
-                        <p style="white-space:pre-wrap;"><?php echo $order['request_message'];?> </p>
+                        <table border="0">
+                            <tr>
+                                <td style="width:30%">
+                                    <div class="headimage">
+                                        <img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $order['seller_id'];?>/head.png" height="100%">
+                                    </div>
+                                </td>
+                                <td style="width:70%">
+                                    <h2> 卖家:<?php echo $order['seller_name'];?> </h2>
+                                    <p style="white-space:pre-wrap;"><?php echo $order['request_message'];?> </p>
+                                </td>
+                            </tr>
+                        </table>
                         <p class="ui-li-aside">￥<?php echo $order['service_price'];?>/小时</p>
                     </a>
                 </li>
-                <li data-role="list-divider">已购买: <?php echo $order['service_hours'];?>小时 <span class="ui-li-count">总计: <?php echo $order['service_total_fee'];?>元</span></li>
-                <?php if ($ordersStatus <= 20) {?>
-                    <li data-theme="c">
-                        <div class="ui-grid-a">
-                            <?php if ($orderStatus == 0) {?>
-                              <div class="ui-block-a" align="left"><a href="../../../Controller/AuthUserDispatcher.php?c=repayOrder&order_id=<?php echo $orderid; ?>" rel="external" class="ui-mini">去付款</a></div>
-                            <?php } else {?>
-                                <div class="ui-block-a" align="left"></div>
-                            <?php } ?>
-                            <div class="ui-block-b" align="right"><a href="#cancelDialog" data-rel="popup" class="ui-mini" onclick="cancelPopup('<?php echo $orderid; ?>')">取消订单</a></div>
-                        </div>
-                    </li>
-                <?php } ?>
-                <?php if ($ordersStatus == 40) {?>
-                    <li data-theme="c">
-                        <div class="ui-grid-a">
-                            <div class="ui-block-a" align="left"><a href="#rejectDialog" data-rel="popup" class="ui-mini" onclick="rejectPopup('<?php echo $orderid; ?>')">提出异议</a></div>
-                            <div class="ui-block-b" align="right"><a href="#confirmDialog" data-rel="popup" class="ui-mini" onclick="confirmPopup('<?php echo $orderid; ?>')">确认完成</a></div>
-                        </div>
-                    </li>
-                <?php } ?>
+                <li>
+                    <table border="0">
+                        <tr>
+                            <td width="50%">
+                                <p style="white-space:pre-wrap;font-size:15px;">总计: <?php echo $order['service_total_fee'];?>元</p>
+                            </td>
+                            <td width="25%">
+                                <?php if ($ordersStatus <= 20 && $orderStatus == 0) {?>
+                                    <a href="../../../Controller/AuthUserDispatcher.php?c=repayOrder&order_id=<?php echo $orderid; ?>" rel="external" class="ui-mini">去付款</a>
+                                <?php } ?>
+                                <?php if ($ordersStatus == 40) {?>
+                                    <a href="#rejectDialog" data-rel="popup" class="ui-mini" onclick="rejectPopup('<?php echo $orderid; ?>')">提出异议</a>
+                                <?php } ?>
+                            </td>
+                            <td width="25%">
+                                <?php if ($ordersStatus <= 20) {?>
+                                    <a href="#cancelDialog" data-rel="popup" class="ui-mini" onclick="cancelPopup('<?php echo $orderid; ?>')">取消订单</a>
+                                <?php } ?>
+                                <?php if ($ordersStatus == 40) {?>
+                                    <a href="#confirmDialog" data-rel="popup" class="ui-mini" onclick="confirmPopup('<?php echo $orderid; ?>')">确认完成</a>
+                                <?php } ?>
+                            </td>
+                        </tr>
+                    </table>
+                </li>
             </ul>
             <?php }
         } else {?>

@@ -247,7 +247,7 @@ $isDiscover = 1;
                             <li data-role="list-divider">评论者:<?php echo $comment['customer_name'];?> <span class="ui-li-count"><?php echo BusinessHelper::translateOrderFeeling($comment['stars']); ?></span></li>
                             <li>
                                 <p>意见:<?php echo $comment['comments'];?><p>
-                                <p>日期:<?php echo $comment['creation_date'];?><p>
+                                <p>日期:<?php echo substr($comment['creation_date'], 0, 10 );?><p>
                             </li>
                         </ul>
                     </div>

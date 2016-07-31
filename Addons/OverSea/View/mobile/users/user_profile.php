@@ -137,19 +137,28 @@ $isDiscover = 1;
                 </li>
                 <li>
                     <a href="../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id=<?php echo $serviceData['service_id']; ?>" rel="external">
-                        <table border="0">
+                        <table style="width:80%" border="0">
                             <tr>
-                                <td style="width:30%">
-                                    <div class="headimag">
-                                        <img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $serviceData['seller_id']; ?>/head.png" height="100%">
-                                    </div>
-                                </td>
-                                <td style="70%">
-                                    <h6><?php echo $serviceData['service_name']?></h6>
+                                <td >
+                                    <p style="white-space:pre-wrap;"><?php echo $serviceData['service_name']?></p>
                                     <p style="white-space:pre-wrap;"><?php echo $serviceData['service_brief']?></p>
                                 </td>
                             </tr>
                         </table>
+
+<!--                        <table border="0">-->
+<!--                            <tr>-->
+<!--                                <td style="width:30%">-->
+<!--                                    <div class="headimag">-->
+<!--                                        <img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/--><?php //echo $serviceData['seller_id']; ?><!--/head.png" height="100%">-->
+<!--                                    </div>-->
+<!--                                </td>-->
+<!--                                <td>-->
+<!--                                    <h6>--><?php //echo $serviceData['service_name']?><!--</h6>-->
+<!--                                    <p style="white-space:pre-wrap;">--><?php //echo $serviceData['service_brief']?><!--</p>-->
+<!--                                </td>-->
+<!--                            </tr>-->
+<!--                        </table>-->
                         <p class="ui-li-aside">￥<?php echo $serviceData['service_price']?>/小时</p>
                     </a>
                 </li>
