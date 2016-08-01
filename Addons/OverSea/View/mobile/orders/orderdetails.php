@@ -23,6 +23,7 @@ foreach ($orderActions as $key => $orderAction) {
         $isOrderNormal = 0;
     }
 }
+$isMine = 1;
 ?>
 
 <!DOCTYPE html>
@@ -53,6 +54,9 @@ foreach ($orderActions as $key => $orderAction) {
         {
             color:orange;
         }
+        h5{ color:#33c8ce}
+        p{ font-size:14px;}
+        table{ table-layout : fixed; width:100%; }
     </style>
 </head>
 <body>
@@ -63,8 +67,8 @@ foreach ($orderActions as $key => $orderAction) {
     <div role="main" class="ui-content">
         <div data-role="navbar">
             <ul>
-                <li><a href="javascript:showOrderDetail()" class="ui-btn-active">订单详情</a></li>
-                <li><a href="javascript:showStatus()">订单状态(北京时间)</a></li>
+                <li><a href="javascript:showOrderDetail()" class="ui-btn-active" data-theme="e">订单详情</a></li>
+                <li><a href="javascript:showStatus()" data-theme="e">订单状态(北京时间)</a></li>
             </ul>
         </div><!-- /navbar -->
         <div data-role="content" id="orderstatus">
@@ -72,40 +76,46 @@ foreach ($orderActions as $key => $orderAction) {
         </div>
 
         <div data-role="content" id="orderdetail">
-            <h4 style="color:steelblue">订单信息</h4>
-            <ul data-role="listview" data-inset="true">
-                <li data-role="list-divider">订单号: <span class="ui-li-count"><?php echo $order['order_id'];?></span></li>
-                <li data-role="list-divider">订单状态: <span class="ui-li-count"><?php echo $orderStatus;?></span></li>
-                <li data-role="list-divider">服务名称: <span class="ui-li-count"><?php echo $order['service_name'];?></span></li>
-                <li data-role="list-divider">卖家: <span class="ui-li-count"><?php echo $order['seller_name'];?></span></li>
-                <li data-role="list-divider">买家: <span class="ui-li-count"><?php echo $order['customer_name'];?></span></li>
-                <li data-role="list-divider">买家咨询话题: <span class="ui-li-count"><?php echo $order['request_message'];?></span></li>
-                <li data-role="list-divider">价格: <span class="ui-li-count">￥<?php echo $order['service_price'];?>/小时</span></li>
-                <li data-role="list-divider">已购买: <span class="ui-li-count"><?php echo $order['service_hours'];?>小时</span></li>
-                <li data-role="list-divider">总计: <span class="ui-li-count"><?php echo $order['service_total_fee'];?>元</span></li>
+            <h5>订单信息</h5>
+            <ul data-role="listview" data-inset="true" data-theme="f" style="font-size:14px;">
+                <li>订单号: <span class="ui-li-count"><?php echo $order['order_id'];?></span></li>
+                <li>订单状态: <span class="ui-li-count"><?php echo $orderStatus;?></span></li>
+                <li>服务名称: <span class="ui-li-count"><?php echo $order['service_name'];?></span></li>
+                <li>卖家: <span class="ui-li-count"><?php echo $order['seller_name'];?></span></li>
+                <li>买家: <span class="ui-li-count"><?php echo $order['customer_name'];?></span></li>
+                <li>买家咨询话题: <span class="ui-li-count"><?php echo $order['request_message'];?></span></li>
+                <li>价格: <span class="ui-li-count">￥<?php echo $order['service_price'];?>/小时</span></li>
+                <li>已购买: <span class="ui-li-count"><?php echo $order['service_hours'];?>小时</span></li>
+                <li>总计: <span class="ui-li-count"><?php echo $order['service_total_fee'];?>元</span></li>
             </ul>
             <br>
-            <h4 style="color:steelblue">卖家联系方式:</h4>
+            <h5>卖家联系方式:</h5>
             <?php if (isset($sellerData)) {?>
-                <ul data-role="listview" data-inset="true">
-                    <li data-role="list-divider">微信号: <span class="ui-li-count"><?php echo $sellerData['weixin'];?></span></li>
+                <ul data-role="listview" data-inset="true" data-theme="f" style="font-size:14px;">
+                    <li>微信号: <span class="ui-li-count"><?php echo $sellerData['weixin'];?></span></li>
                 </ul>
             <?php } else {?>
-                <h5>买家付款,卖家接收后即可显示卖家联系方式</h5>
+                <ul data-role="listview" data-inset="true" data-theme="f" style="font-size:14px;">
+                    <li>买家付款,卖家接收后即可显示卖家联系方式</li>
+                </ul>
             <?php } ?>
 
             <br>
 
             <?php if ($isOrderNormal == 0){?>
-                <h4 style="color:steelblue">订单异常变更信息:</h4>
+                <h5>订单异常变更信息:</h5>
                 <?php foreach ($orderActions as $key => $orderAction) {
                     $condition = $orderAction['action'];
                     $isException = BusinessHelper::isOrderException($condition);
                     if ($isException == 0 || ($condition == 40)) {?>
                         <div>
-                            <p>时间:<?php echo $orderAction['creation_date']?><p>
-                            <p>变更内容:<?php echo BusinessHelper::translateOrderStatus($condition)?></p>
-                            <p>原因:<?php echo $orderAction['comments'];?><p>
+                            <ul data-role="listview" data-inset="true" data-theme="f" style="font-size:14px;">
+                                <li>变更内容: <span class="ui-li-count"><?php echo BusinessHelper::translateOrderStatus($condition)?></span></li>
+                                <li>
+                                    <p>原因:<?php echo $orderAction['comments'];?><p>
+                                    <p>日期:<?php echo substr($orderAction['creation_date'], 0, 10 );?><p>
+                                </li>
+                            </ul>
                         </div>
                         <hr>
                 <?php }
@@ -113,15 +123,18 @@ foreach ($orderActions as $key => $orderAction) {
             } ?>
 
             <br>
-            <h4 style="color:steelblue">客户评论:</h4>
+            <h5>客户评论:</h5>
             <?php if (isset($commentsData) && count($commentsData) >0) {?>
                 <?php
                 foreach ($commentsData as $comment){ ?>
                     <div>
-                        <p>评论者:<?php echo $comment['customer_name'];?> 于 <?php echo $comment['creation_date']?><p>
-                        <p>服务体验:<?php echo BusinessHelper::translateOrderFeeling($comment['stars']); ?><p>
-                        <p>详细意见:<?php echo $comment['comments'];?><p>
-
+                        <ul data-role="listview" data-inset="true" data-theme="f" style="font-size:14px;">
+                            <li>评论者:<?php echo $comment['customer_name'];?> <span class="ui-li-count"><?php echo BusinessHelper::translateOrderFeeling($comment['stars']); ?></span></li>
+                            <li>
+                                <p>意见:<?php echo $comment['comments'];?><p>
+                                <p>日期:<?php echo substr($comment['creation_date'], 0, 10 );?><p>
+                            </li>
+                        </ul>
                     </div>
                     <hr>
                 <?php } ?>

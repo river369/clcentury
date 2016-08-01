@@ -14,7 +14,7 @@ $customerid = $_SESSION['customerId'] ;
 $ordersStatus= $_SESSION['customerOrdersStatus'];
 
 $querystatusString = BusinessHelper::translateCustomerOrderTabDesc($ordersStatus);
-
+$isMine = 1;
 ?>
 
 <!DOCTYPE html>
@@ -33,17 +33,12 @@ $querystatusString = BusinessHelper::translateCustomerOrderTabDesc($ordersStatus
     <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
     <link rel="stylesheet" href="../../resource/style/validation/validation.css" />
     <style>
-        div.rounded-head-image {
-            height: 85px;
-            width: 85px;
-            border-radius: 50%;
-            overflow: hidden;
-        }
         div.headimage {
             height: 65px;
             width: 65px;
         }
         h5{ color:#33c8ce}
+        h6{ color:#33c8ce}
         p{ font-size:14px;}
         table{ table-layout : fixed; width:100%; }
     </style>
@@ -102,7 +97,7 @@ $querystatusString = BusinessHelper::translateCustomerOrderTabDesc($ordersStatus
                     <table border="0">
                         <tr>
                             <td width="50%">
-                                <p style="white-space:pre-wrap;font-size:15px;">总计: <?php echo $order['service_total_fee'];?>元</p>
+                                <h6>总计: <?php echo $order['service_total_fee'];?>元</h6>
                             </td>
                             <td width="25%">
                                 <?php if ($ordersStatus <= 20 && $orderStatus == 0) {?>
@@ -126,10 +121,10 @@ $querystatusString = BusinessHelper::translateCustomerOrderTabDesc($ordersStatus
             </ul>
             <?php }
         } else {?>
-            <h4 style="color:steelblue">没有处于该状态的订单</h4>
+            <h5 style="color:steelblue">没有处于该状态的订单</h5>
         <?php } ?>
 
-        <div data-role="popup" id="confirmDialog" data-overlay-theme="a" data-theme="a" style="max-width:400px;">
+        <div data-role="popup" id="confirmDialog" data-overlay-theme="a" data-theme="c" style="max-width:400px;">
             <div data-role="header" data-theme="a">
                 <h1>确认完成</h1>
             </div>
@@ -143,7 +138,7 @@ $querystatusString = BusinessHelper::translateCustomerOrderTabDesc($ordersStatus
             </div>
         </div>
 
-        <div data-role="popup" id="rejectDialog" data-overlay-theme="a" data-theme="a" style="max-width:400px;">
+        <div data-role="popup" id="rejectDialog" data-overlay-theme="a" data-theme="c" style="max-width:400px;">
             <div data-role="header" data-theme="a">
                 <h1>提出异议</h1>
             </div>
@@ -161,7 +156,7 @@ $querystatusString = BusinessHelper::translateCustomerOrderTabDesc($ordersStatus
             </div>
         </div>
 
-        <div data-role="popup" id="cancelDialog" data-overlay-theme="a" data-theme="a" style="max-width:400px;">
+        <div data-role="popup" id="cancelDialog" data-overlay-theme="a" data-theme="c" style="max-width:400px;">
             <div data-role="header" data-theme="a">
                 <h1>取消订单</h1>
             </div>

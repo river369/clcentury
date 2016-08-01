@@ -12,6 +12,7 @@ $orders= $_SESSION['sellerOrders'];
 $sellerid = $_SESSION['sellerid'] ;
 $ordersStatus= $_SESSION['sellerOrdersStatus'];
 $querystatusString = BusinessHelper::translateSellerOrderTabDesc($ordersStatus);
+$isMine = 1;
 ?>
 
 <!DOCTYPE html>
@@ -29,6 +30,16 @@ $querystatusString = BusinessHelper::translateSellerOrderTabDesc($ordersStatus);
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
     <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
     <link rel="stylesheet" href="../../resource/style/validation/validation.css" />
+    <style>
+        div.headimage {
+            height: 65px;
+            width: 65px;
+        }
+        h6{ color:#33c8ce}
+        h5{ color:#33c8ce}
+        p{ font-size:14px;}
+        table{ table-layout : fixed; width:100%; }
+    </style>
 </head>
 <body>
 <div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
@@ -56,43 +67,62 @@ $querystatusString = BusinessHelper::translateSellerOrderTabDesc($ordersStatus);
             {
                 $orderid = $order['order_id'];
             ?>
-            <ul data-role="listview" data-inset="true">
-                <li data-role="list-divider">订单号: <span class="ui-li-count"><?php echo $orderid;?></span></li>
+            <ul data-role="listview" data-inset="true" data-theme="f">
+                <li data-role="list-divider">订单号: <?php echo $orderid;?>
+                    <span class="ui-li-count">购买:<?php echo $order['service_hours'];?>小时</span>
+                </li>
+
                 <li>
                     <a href="../../../Controller/AuthUserDispatcher.php?c=queryOrderDetails&order_id=<?php echo $orderid; ?>" rel="external">
-                        <img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $order['customer_id'];?>/head.png" alt="">
-                        <h2> 买家:<?php echo $order['customer_name'];?> </h2>
-                        <p style="white-space:pre-wrap;"><?php echo $order['request_message'];?> </p>
+                        <table border="0">
+                            <tr>
+                                <td style="width:30%">
+                                    <div class="headimage">
+                                        <img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $order['customer_id'];?>/head.png" height="100%">
+                                    </div>
+                                </td>
+                                <td style="width:70%">
+                                    <h2> 买家:<?php echo $order['customer_name'];?> </h2>
+                                    <p style="white-space:pre-wrap;"><?php echo $order['request_message'];?> </p>
+                                </td>
+                            </tr>
+                        </table>
                         <p class="ui-li-aside">￥<?php echo $order['service_price'];?>/小时</p>
                     </a>
                 </li>
-                <li data-role="list-divider">已购买: <?php echo $order['service_hours'];?>小时 <span class="ui-li-count">总计: <?php echo $order['service_total_fee'];?>元</span></li>
-                
-                <?php if ($ordersStatus == 10) {?>
-                    <li data-theme="c">
-                        <div class="ui-grid-a">
-                            <div class="ui-block-a" align="left"><a href="#rejectDialog" data-rel="popup" class="ui-mini" onclick="rejectPopup('<?php echo $orderid; ?>')">拒绝订单</a></div>
-                            <div class="ui-block-b" align="right"><a href="#acceptDialog" data-rel="popup" class="ui-mini" onclick="acceptPopup('<?php echo $orderid; ?>')">确认接单</a></div>
-                        </div>
-                    </li>
-                <?php } ?>
-                
-                <?php if ($ordersStatus == 20 || $ordersStatus == 70) {?>
-                    <li data-theme="c">
-                        <div class="ui-grid-a">
-                            <div class="ui-block-a" align="left"><a href="#cancelDialog" data-rel="popup" class="ui-mini" onclick="cancelPopup('<?php echo $orderid; ?>')">取消订单</a></div>
-                            <div class="ui-block-b" align="right"><a href="#finishDialog" data-rel="popup" class="ui-mini" onclick="finishPopup('<?php echo $orderid; ?>')">完成定单</a></div>
-                        </div>
-                    </li>
-                <?php } ?>
+                <li>
+                    <table border="0">
+                        <tr>
+                            <td width="50%">
+                                <h6>总计: <?php echo $order['service_total_fee'];?>元</h6>
+                            </td>
+                            <td width="25%">
+                                <?php if ($ordersStatus == 10) {?>
+                                    <a href="#rejectDialog" data-rel="popup" class="ui-mini" onclick="rejectPopup('<?php echo $orderid; ?>')">拒绝订单</a>
+                                <?php } ?>
+                                <?php if ($ordersStatus == 20 || $ordersStatus == 70) {?>
+                                    <a href="#acceptDialog" data-rel="popup" class="ui-mini" onclick="acceptPopup('<?php echo $orderid; ?>')">确认接单</a>
+                                <?php } ?>
+                            </td>
+                            <td width="25%">
+                                <?php if ($ordersStatus == 10) {?>
+                                    <a href="#cancelDialog" data-rel="popup" class="ui-mini" onclick="cancelPopup('<?php echo $orderid; ?>')">取消订单</a>
+                                <?php } ?>
+                                <?php if ($ordersStatus == 20 || $ordersStatus == 70) {?>
+                                    <a href="#finishDialog" data-rel="popup" class="ui-mini" onclick="finishPopup('<?php echo $orderid; ?>')">完成定单</a>
+                                <?php } ?>
+                            </td>
+                        </tr>
+                    </table>
+                </li>
             </ul>
             <?php } 
         } else {?>
-            <h4 style="color:steelblue">没有处于该状态的订单</h4>
+            <h5 style="color:steelblue">没有处于该状态的订单</h5>
         <?php } ?>
 
 
-        <div data-role="popup" id="acceptDialog" data-overlay-theme="a" data-theme="a" style="max-width:400px;">
+        <div data-role="popup" id="acceptDialog" data-overlay-theme="a" data-theme="c" style="max-width:400px;">
             <div data-role="header" data-theme="a">
                 <h1>确认接单</h1>
             </div>
@@ -106,7 +136,7 @@ $querystatusString = BusinessHelper::translateSellerOrderTabDesc($ordersStatus);
             </div>
         </div>
 
-        <div data-role="popup" id="rejectDialog" data-overlay-theme="a" data-theme="a" style="max-width:400px;">
+        <div data-role="popup" id="rejectDialog" data-overlay-theme="a" data-theme="c" style="max-width:400px;">
             <div data-role="header" data-theme="a">
                 <h1>拒绝订单</h1>
             </div>
@@ -124,7 +154,7 @@ $querystatusString = BusinessHelper::translateSellerOrderTabDesc($ordersStatus);
             </div>
         </div>
 
-        <div data-role="popup" id="finishDialog" data-overlay-theme="a" data-theme="a" style="max-width:400px;">
+        <div data-role="popup" id="finishDialog" data-overlay-theme="a" data-theme="c" style="max-width:400px;">
             <div data-role="header" data-theme="a">
                 <h1>完成订单</h1>
             </div>
@@ -142,7 +172,7 @@ $querystatusString = BusinessHelper::translateSellerOrderTabDesc($ordersStatus);
             </div>
         </div>
 
-        <div data-role="popup" id="cancelDialog" data-overlay-theme="a" data-theme="a" style="max-width:400px;">
+        <div data-role="popup" id="cancelDialog" data-overlay-theme="a" data-theme="c" style="max-width:400px;">
             <div data-role="header" data-theme="a">
                 <h1>取消订单</h1>
             </div>

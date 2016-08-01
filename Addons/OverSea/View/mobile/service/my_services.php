@@ -18,6 +18,7 @@ if ($querystatus == 60) {
 } else if ($querystatus == 100) {
     $querystatusString = "已经被您暂停的易知服务。未购买的买家不能查询到该服务。";
 }
+$isMine = 1;
 ?>
 
 <!DOCTYPE html>
