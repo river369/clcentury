@@ -60,7 +60,7 @@ $isPublishService = 1;
     <link rel="stylesheet" href="../../resource/style/weiui/example.css"/>
     <link rel="stylesheet" href="../../resource/style/validation/validation.css" />
     <style>
-        label{ color:#33c8ce; font-size:14px;}
+        label{ color:#33c8ce}
         table{ table-layout : fixed; width:100% }
         hr{border:0;background-color:#2c2c2c;height:1px;}
     </style>
@@ -87,9 +87,9 @@ $isPublishService = 1;
     </div>
 
     <ul data-role="listview" data-inset="true" data-theme="f">
-        <li data-role="list-divider">服务状态: <span class="ui-li-count"><?php echo $statusString; ?></span></li>
+        <li data-role="list-divider">服务状态 <span class="ui-li-count"><?php echo $statusString; ?></span></li>
         <?php if ($status == 40) {?>
-            <li data-role="list-divider">拒绝原因: <span class="ui-li-count"><?php echo $serviceData['check_reason']; ?></span></li>
+            <li data-role="list-divider">拒绝原因 <span class="ui-li-count"><?php echo $serviceData['check_reason']; ?></span></li>
         <?php } ?>
     </ul>
     <div role="main" class="ui-content jqm-content jqm-fullwidth">
@@ -123,10 +123,10 @@ $isPublishService = 1;
         <form id="submityz" data-ajax="false" method="post" action="../../../Controller/AuthUserDispatcher.php?c=publishServiceInfo">
             <table>
                 <tr>
-                    <td style="width:25%">
-                        <label>服务类型:<label/>
+                    <td style="width:20%">
+                        <label style="font-size:14px;">服务类型<label/>
                     </td>
-                    <td style="width:75%">
+                    <td style="width:80%">
                         <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" data-theme="e">
                             <input name="service_type" id="radio-choice-c" value="1" <?php if (!isset($serviceData) ||$serviceData['service_type'] == 1) {echo 'checked="true"'; } ?> type="radio">
                             <label for="radio-choice-c">旅游</label>
@@ -138,10 +138,10 @@ $isPublishService = 1;
             </table>
             <table>
                 <tr>
-                    <td style="width:25%">
-                        <label for="service_area">服务地区:</label>
+                    <td style="width:20%">
+                        <label style="font-size:14px;" for="service_area">服务地区</label>
                     </td>
-                    <td style="width:75%">
+                    <td style="width:80%">
                         <select name="service_area" id="service_area" onchange="updateTagList()">
                             <?php foreach ($country_city as $key => $value) {?>
                                 <optgroup label="<?php echo $key; ?>">
@@ -156,20 +156,20 @@ $isPublishService = 1;
             </table>
             <table>
                 <tr>
-                    <td style="width:25%">
-                        <label for="service_name">服务名称:</label>
+                    <td style="width:20%">
+                        <label style="font-size:14px;" for="service_name">服务名称</label>
                     </td>
-                    <td style="width:75%">
+                    <td style="width:80%">
                         <input type="text" name="service_name" id="service_name" value="<?php echo isset($serviceData['service_name']) ? $serviceData['service_name']: ''; ?>" >
                     </td>
                 </tr>
             </table>
             <table>
                 <tr>
-                    <td style="width:25%">
-                        <label for="service_brief">内容简介:</label>
+                    <td style="width:20%">
+                        <label style="font-size:14px;" for="service_brief">内容简介</label>
                     </td>
-                    <td style="width:75%">
+                    <td style="width:80%">
                         <input type="text" name="service_brief" id="service_brief" value="<?php echo isset($serviceData['service_brief']) ? $serviceData['service_brief']: ''; ?>" >
                     </td>
                 </tr>
@@ -177,10 +177,10 @@ $isPublishService = 1;
 
             <table>
                 <tr>
-                    <td style="width:25%">
-                        <label for="service_price">服务价格(￥/小时):</label>
+                    <td style="width:20%">
+                        <label style="font-size:14px;" for="service_price">服务价格(￥/小时)</label>
                     </td>
-                    <td style="width:75%">
+                    <td style="width:80%">
                         <input type="number" name="service_price" id="service_price" value="<?php echo isset($serviceData['service_price']) ? $serviceData['service_price']: ''; ?>" >
                     </td>
                 </tr>
@@ -189,7 +189,7 @@ $isPublishService = 1;
             <table>
                 <tr>
                     <td>
-                        <label for="description">服务内容详细介绍:</label>
+                        <label style="font-size:14px;" for="description">服务内容详细介绍</label>
                     </td>
                 </tr>
             </table>
@@ -203,13 +203,11 @@ $isPublishService = 1;
             <table>
                 <tr>
                     <td>
-                        <label for="methodTags" >
-                            <a href="#tagpopup" data-rel="popup" data-theme="f">选取或填写标签:</a>
-                        </label>
+                        <a href="#tagpopup" data-rel="popup" class="ui-mini"  data-theme="f">点击选取或填写标签</a>
                     </td>
                 </tr>
             </table>
-            <table style="margin: -10px 0px 0px 0px" >
+            <table >
                 <tr>
                     <td style="width:95%">
                         <ul id="methodTags"></ul>
@@ -220,18 +218,18 @@ $isPublishService = 1;
             <table>
                 <tr>
                     <td>
-                        <a href="#rulePopup" data-rel="popup" data-theme="f">点击阅读服务发布声明:</a>
+                        <a href="#rulePopup" data-rel="popup" class="ui-mini" data-theme="f">点击阅读服务发布声明</a>
                     </td>
                     <td style="width:50%">
 
                     </td>
                 </tr>
             </table>
-            <table style="margin: -10px 0px 0px 0px" >
+            <table style="margin: -5px 0px 0px 0px" >
                 <tr>
-                    <td style="width:95%">
+                    <td>
                         <input name="agree" id="agree" data-mini="true" type="checkbox" class="{required:true}" data-theme="e">
-                        <label for="agree">我同意上述服务声明</label>
+                        <label style="font-size:14px;" for="agree">我同意上述服务声明</label>
                     </td>
                 </tr>
             </table>

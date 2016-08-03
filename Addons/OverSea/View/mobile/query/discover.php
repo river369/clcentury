@@ -214,7 +214,7 @@ $isDiscover = 1;
                             //newstr = newstr + '<li data-role="list-divider">' + servicetypeDesc + value.service_area + '<span class="ui-li-count"><div class="rate' + itemIdx +'"></div></span></li>';
                             newstr = newstr + '<li data-role="list-divider" style="margin: -5px 0px -5px 0px">【' + value.service_area + '】'+ value.service_name +'<span class="ui-li-count"><div class="rate' + itemIdx +'"></div></span></li>';
                             newstr = newstr + '<li style="margin: -5px 0px -5px 0px"> <a href="../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id=' + value.service_id +'" rel="external">';
-                            newstr = newstr + '<table border="0"><tr><td style="width:30%"><div class="headimage">';
+                            newstr = newstr + '<table border="0" style="margin: -8px 0px -8px 0px"><tr><td style="width:30%"><div class="headimage">';
                             newstr = newstr + '<img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/' + value.seller_id + '/head.png" height="100%">';
                             newstr = newstr + '</div></td> <td style="70%">';
                             newstr = newstr + '<p style="white-space:pre-wrap;word-break:break-all">卖家:'+ value.seller_name + '</p>';

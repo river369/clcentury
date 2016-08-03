@@ -114,7 +114,7 @@ $isDiscover = 1;
 
 </head>
 <body>
-<div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
+<div data-url="panel-fixed-page1" data-role="page" data-theme="a" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
     <div data-role="header" data-position="fixed" data-theme="c">
         <h1>详细服务信息</h1>
     </div>
@@ -159,19 +159,19 @@ $isDiscover = 1;
                 <p>未上传图片</p>
             <?php } ?>
 
-            <h5>服务内容简介:</h5>
+            <h5 style="margin: 0px 0px -5px 0px">服务内容简介</h5>
             <p>&emsp;&emsp;<?php echo $serviceData['service_brief']; ?></p>
 
-            <h5>服务内容详细介绍:</h5>
+            <h5 style="margin: 0px 0px -5px 0px">服务内容详细介绍</h5>
             <p>&emsp;&emsp;<?php echo $serviceData['description']; ?></p>
 
-            <h5>服务信息:</h5>
+            <h5 style="margin: 0px 0px -5px 0px">服务信息</h5>
             <ul data-role="listview" data-inset="true" data-theme="f" style="font-size:14px;">
-                <li>服务等级: <span class="ui-li-count"><div class="servicerate"/></span></li>
+                <li>服务等级 <span class="ui-li-count"><div class="servicerate"/></span></li>
                 <input type="hidden" id="serviceratevalue" value="<?php echo $serviceData['stars'];?>">
-                <li>服务地点: <span class="ui-li-count"><?php echo $serviceData['service_area']; ?></span></li>
-                <li>服务类型: <span class="ui-li-count"><?php echo $servicetypeDesc; ?></span></li>
-                <li>服务价格: <span class="ui-li-count">￥<?php echo $serviceData['service_price']; ?>/小时</span></li>
+                <li>服务地点 <span class="ui-li-count"><?php echo $serviceData['service_area']; ?></span></li>
+                <li>服务类型 <span class="ui-li-count"><?php echo $servicetypeDesc; ?></span></li>
+                <li>服务价格 <span class="ui-li-count">￥<?php echo $serviceData['service_price']; ?>/小时</span></li>
             </ul>
 
             <?php
@@ -179,7 +179,7 @@ $isDiscover = 1;
             $tagsArray = explode(',',$tags);
             if (strlen($tags) >0 && count($tagsArray) >0) {
             ?>
-            <h5>服务标签:</h5>
+            <h5  style="margin: 0px 0px 3px 0px">服务标签</h5>
             <div class="ui-grid-b">
                 <?php
                 $loc = 'a';
@@ -200,14 +200,14 @@ $isDiscover = 1;
 
 
         <div data-role="content" id="sellerInfo">
-            <h5>个性签名:</h5>
+            <h5 style="margin: 0px 0px -5px 0px">个性签名</h5>
             <p>&emsp;&emsp;<?php echo $sellerData['signature']; ?></p>
-            <h5>卖家介绍:</h5>
+            <h5 style="margin: 0px 0px -5px 0px">卖家介绍</h5>
             <p>&emsp;&emsp;<?php echo $sellerData['description']; ?></p>
-            <h5>卖家信息:</h5>
+            <h5 style="margin: 0px 0px -5px 0px">卖家信息</h5>
             <ul data-role="listview" data-inset="true" data-theme="f" style="font-size:14px;">
-                <li>卖家等级: <span class="ui-li-count"><div class="sellerrate"/></span></li>
-                <li>实名认证: <span class="ui-li-count"><?php echo $realnameStatusString; ?></span></li>
+                <li>卖家等级 <span class="ui-li-count"><div class="sellerrate"/></span></li>
+                <li>实名认证 <span class="ui-li-count"><?php echo $realnameStatusString; ?></span></li>
                 <input type="hidden" id="sellerratevalue" value="<?php echo $sellerData['stars'];?>">
             </ul>
 
@@ -216,7 +216,7 @@ $isDiscover = 1;
             $tagsSellerArray = explode(',',$tagsSeller);
             if (count($tagsSellerArray) >0) {
                 ?>
-                <h5>卖家标签</h5>
+                <h5 style="margin: 0px 0px 3px 0px">卖家标签</h5>
                 <div class="ui-grid-b">
                     <?php
                     $loc = 'a';
@@ -233,7 +233,7 @@ $isDiscover = 1;
                     } ?>
                 </div>
             <?php }?>
-            <h5>卖家<?php echo $serviceData['seller_name'];?>的主页:</h5>
+            <h5 style="margin: 3px 0px 3px 0px">卖家<?php echo $serviceData['seller_name'];?>的主页</h5>
             <div class="ui-grid-b">
                 <div style="font-size:10px;" class="ui-block-a"><a href="../users/user_profile.php?sellerid=<?php echo $seller_id;?>" rel="external" data-theme="d"  data-role="button">点击查看</a></div>
             </div>
@@ -243,9 +243,9 @@ $isDiscover = 1;
             <?php if (isset($commentsData) && count($commentsData) >0) {
                 foreach ($commentsData as $comment){ ?>
                     <div>
-                        <ul data-role="listview" data-inset="true" data-theme="f">
+                        <ul data-role="listview" data-inset="true" data-theme="f" style="margin: -5px 0px 2px 0px">
                             <li data-role="list-divider">评论者:<?php echo $comment['customer_name'];?> <span class="ui-li-count"><?php echo BusinessHelper::translateOrderFeeling($comment['stars']); ?></span></li>
-                            <li>
+                            <li style="margin: -10px 0px -10px 0px">
                                 <p>意见:<?php echo $comment['comments'];?><p>
                                 <p>日期:<?php echo substr($comment['creation_date'], 0, 10 );?><p>
                             </li>
