@@ -358,6 +358,18 @@ class ServicesBo
         } else {
             $servicesData=$serviceDao->getServicesByServiceTypeWithPage($serviceType, $pageIndexRange);
         }
+        foreach($servicesData as $key => $serviceData)
+        {
+            if (mb_strlen($serviceData['service_name'])>30){
+                $servicesData[$key]['service_name'] = mb_substr($serviceData['service_name'],0, 10,"utf-8")."...";
+            }
+            if (mb_strlen($serviceData['service_brief'])>120){
+                $servicesData[$key]['service_brief'] = mb_substr($serviceData['service_brief'],0, 40,"utf-8")."...";
+            }
+            if (mb_strlen($serviceData['seller_name'])>30){
+                $servicesData[$key]['seller_name'] = mb_substr($serviceData['seller_name'],0, 10,"utf-8")."...";
+            }
+        }
         if ($pageIndex >= 0){
             //$retJson =  json_encode(array('status'=> 0, 'msg'=> 'done', 'serviceLists' => $servicesData));
             //Logs::writeClcLog(__CLASS__.",".__FUNCTION__." retJson=".$retJson);
@@ -368,6 +380,8 @@ class ServicesBo
             $_SESSION['servicesData']= $servicesData;
         }
     }
+
+
 
     public function getQueryHistory() {
         if (isset($_SESSION['signedUser'])){
@@ -484,5 +498,25 @@ class ServicesBo
         Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",tags=".$ret);
         exit;
     }
+
+    /*
+    public function abslength($str){
+        $len=strlen($str);
+        $i=0; $j=0;
+        while($i<$len)
+        {
+            if(preg_match("/^[".chr(0xa1)."-".chr(0xf9)."]+$/",$str[$i]))
+            {
+                $i+=2;
+            }
+            else
+            {
+                $i+=1;
+            }
+            $j++;
+        }
+        return $j;
+    }
+    */
 
 }

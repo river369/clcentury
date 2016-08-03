@@ -111,14 +111,14 @@ $isDiscover = 1;
     </script>
 </head>
 <body>
-<div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
+<div data-url="panel-fixed-page1" data-role="page" data-theme="a" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
     <div data-role="header" data-position="fixed" data-theme="c">
         <a href="../../../Controller/FreelookDispatcher.php?c=getCities" rel="external" data-icon="home" data-shadow="false"><?php echo $servicearea; ?></a>
         <h1>发现</h1>
         <a href="../../../Controller/AuthUserDispatcher.php?c=searchMainPage" rel="external" data-icon="search" data-shadow="false">搜索</a>
     </div>
 
-    <div id="discoverMain" role="main" class="ui-content jqm-content jqm-fullwidth" style="margin: 0px -5px 0px -5px ">
+    <div id="discoverMain" role="main" class="ui-content jqm-content jqm-fullwidth" style="margin: 0px -3px 0px -3px ">
 
         <div data-role="navbar" style="margin: -5px 0px 10px 0px ">
             <ul>
@@ -212,13 +212,13 @@ $isDiscover = 1;
                             var newstr = '<div id="d'+itemIdx+'" style="margin: -5px 0px 0px 0px "> <ul data-role="listview" data-inset="true" data-theme="f">';
                             //var servicetypeDesc = value.service_type ==1 ? '【旅游】' : '【留学】';
                             //newstr = newstr + '<li data-role="list-divider">' + servicetypeDesc + value.service_area + '<span class="ui-li-count"><div class="rate' + itemIdx +'"></div></span></li>';
-                            newstr = newstr + '<li data-role="list-divider">【' + value.service_area + '】'+ value.service_name +'<span class="ui-li-count"><div class="rate' + itemIdx +'"></div></span></li>';
-                            newstr = newstr + '<li> <a href="../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id=' + value.service_id +'" rel="external">';
+                            newstr = newstr + '<li data-role="list-divider" style="margin: -5px 0px -5px 0px">【' + value.service_area + '】'+ value.service_name +'<span class="ui-li-count"><div class="rate' + itemIdx +'"></div></span></li>';
+                            newstr = newstr + '<li style="margin: -5px 0px -5px 0px"> <a href="../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id=' + value.service_id +'" rel="external">';
                             newstr = newstr + '<table border="0"><tr><td style="width:30%"><div class="headimage">';
                             newstr = newstr + '<img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/' + value.seller_id + '/head.png" height="100%">';
                             newstr = newstr + '</div></td> <td style="70%">';
-                            newstr = newstr + '<h4>卖家:'+ value.seller_name + '</h4>';
-                            newstr = newstr + '<p style="white-space:pre-wrap;">简介:' +value.service_brief+ '</p>' ;
+                            newstr = newstr + '<p style="white-space:pre-wrap;word-break:break-all">卖家:'+ value.seller_name + '</p>';
+                            newstr = newstr + '<p style="white-space:pre-wrap;word-break:break-all">简介:' +value.service_brief+ '</p>' ;
                             newstr = newstr + '</td></tr></table>';
                             newstr = newstr + '<p class="ui-li-aside">￥' +value.service_price+ '/小时</p>' ;
                             newstr = newstr + '</a></li> ' ;
