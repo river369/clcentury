@@ -363,8 +363,8 @@ class ServicesBo
             if (mb_strlen($serviceData['service_name'])>30){
                 $servicesData[$key]['service_name'] = mb_substr($serviceData['service_name'],0, 10,"utf-8")."...";
             }
-            if (mb_strlen($serviceData['service_brief'])>120){
-                $servicesData[$key]['service_brief'] = mb_substr($serviceData['service_brief'],0, 40,"utf-8")."...";
+            if (mb_strlen($serviceData['service_brief'])>111){
+                $servicesData[$key]['service_brief'] = mb_substr($serviceData['service_brief'],0, 37,"utf-8")."...";
             }
             if (mb_strlen($serviceData['seller_name'])>30){
                 $servicesData[$key]['seller_name'] = mb_substr($serviceData['seller_name'],0, 10,"utf-8")."...";

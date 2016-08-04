@@ -84,6 +84,10 @@ $isDiscover = 1;
             max-width: 1000px;
             width: 100%;
         }
+        div.headimage {
+            height: 65px;
+            width: 65px;
+        }
         div.rounded-head-image {
             height: 85px;
             width: 85px;

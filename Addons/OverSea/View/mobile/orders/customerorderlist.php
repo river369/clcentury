@@ -42,7 +42,6 @@ $isMine = 1;
         p{ font-size:14px;}
         table{ table-layout : fixed; width:100%; }
     </style>
-
 </head>
 <body>
 <div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
@@ -121,7 +120,7 @@ $isMine = 1;
             </ul>
             <?php }
         } else {?>
-            <h5 style="color:steelblue">没有处于该状态的订单</h5>
+            <h5>没有处于该状态的订单</h5>
         <?php } ?>
 
         <div data-role="popup" id="confirmDialog" data-overlay-theme="a" data-theme="c" style="max-width:400px;">

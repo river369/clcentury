@@ -23,7 +23,7 @@ $isMine = 1;
 </head>
 <body>
 
-<div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
+<div data-url="panel-fixed-page1" data-role="page" data-theme="a" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
     <div data-role="header" data-position="fixed" data-theme="c">
         <h1>我的</h1>
     </div>
@@ -38,45 +38,54 @@ $isMine = 1;
                 </a>
             </li>
         </ul>
-        <h5>服务:</h5>
-        <ul data-role="listview" data-inset="true" data-theme="e">
-            <li>
-                <a href="../../../Controller/AuthUserDispatcher.php?c=myServices&sellerid=<?php echo $customerid;?>&status=20" rel="external">
-                    <p>我发布的易知服务</p>
-                </a>
-            </li>
-        </ul>
-        <h5>订单:</h5>
-        <ul data-role="listview" data-inset="true" data-theme="e">
-            <li>
-                <a href="../../../Controller/AuthUserDispatcher.php?c=queryCustomerOrders&customerid=<?php echo $customerid;?>&status=0,10" rel="external">
-                    <p>我购买订单</p>
-                </a>
-            </li>
-            <li>
-                <a href="../../../Controller/AuthUserDispatcher.php?c=querySellerOrders&sellerid=<?php echo $customerid;?>&status=10" rel="external">
-                    <p>购买我服务的订单</p>
-                </a>
-            </li>
-        </ul>
+        <h5>服务</h5>
+        <div style="margin: -20px 0px -20px 0px">
+            <ul data-role="listview" data-inset="true" data-theme="e">
+                <li >
+                    <a href="../../../Controller/AuthUserDispatcher.php?c=myServices&sellerid=<?php echo $customerid;?>&status=20" rel="external">
+                        <p style="margin: 0px 0px 0px 0px" >我发布的易知服务</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <h5>订单</h5>
+        <div style="margin: -20px 0px -20px 0px">
+            <ul data-role="listview" data-inset="true" data-theme="e">
+                <li>
+                    <a href="../../../Controller/AuthUserDispatcher.php?c=queryCustomerOrders&customerid=<?php echo $customerid;?>&status=0,10" rel="external">
+                        <p style="margin: 0px 0px 0px 0px">我购买订单</p>
+                    </a>
+                </li>
+<!--                <hr width="90%">-->
+                <li>
+                    <a href="../../../Controller/AuthUserDispatcher.php?c=querySellerOrders&sellerid=<?php echo $customerid;?>&status=10" rel="external">
+                        <p style="margin: 0px 0px 0px 0px">购买我服务的订单</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
         <h5>个人:</h5>
-        <ul data-role="listview" data-inset="true" data-theme="e">
-            <li>
-                <a href="../../../Controller/AuthUserDispatcher.php?c=publishRealName&userid=<?php echo $customerid;?>" rel="external">
-                    <p>申请实名认证</p>
-                </a>
-            </li>
-            <li>
-                <a href="./change_password.php" rel="external">
-                    <p>修改密码</p>
-                </a>
-            </li>
-            <li>
-                <a href="../../../Controller/ClearSessions.php" rel="external">
-                    <p>退出登录</p>
-                </a>
-            </li>
-        </ul>
+        <div style="margin: -20px 0px -20px 0px">
+            <ul data-role="listview" data-inset="true" data-theme="e">
+                <li>
+                    <a href="../../../Controller/AuthUserDispatcher.php?c=publishRealName&userid=<?php echo $customerid;?>" rel="external">
+                        <p style="margin: 0px 0px 0px 0px">申请实名认证</p>
+                    </a>
+                </li>
+<!--                <hr width="90%">-->
+                <li>
+                    <a href="./change_password.php" rel="external">
+                        <p style="margin: 0px 0px 0px 0px">修改密码</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="../../../Controller/ClearSessions.php" rel="external">
+                        <p style="margin: 0px 0px 0px 0px">退出登录</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
 
     <?php include '../common/footer.php';?>

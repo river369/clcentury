@@ -68,10 +68,9 @@ $isMine = 1;
                 $orderid = $order['order_id'];
             ?>
             <ul data-role="listview" data-inset="true" data-theme="f">
-                <li data-role="list-divider">订单号: <?php echo $orderid;?>
+                <li data-role="list-divider" style="margin: -5px 0px -5px 0px">订单号: <?php echo $orderid;?>
                     <span class="ui-li-count">购买:<?php echo $order['service_hours'];?>小时</span>
                 </li>
-
                 <li>
                     <a href="../../../Controller/AuthUserDispatcher.php?c=queryOrderDetails&order_id=<?php echo $orderid; ?>" rel="external">
                         <table border="0">
@@ -90,8 +89,8 @@ $isMine = 1;
                         <p class="ui-li-aside">￥<?php echo $order['service_price'];?>/小时</p>
                     </a>
                 </li>
-                <li>
-                    <table border="0">
+                <li data-role="list-divider" style="margin: -5px 0px -5px 0px">
+                    <table border="0" style="margin: -10px 0px -10px 0px">
                         <tr>
                             <td width="50%">
                                 <h6>总计: <?php echo $order['service_total_fee'];?>元</h6>
@@ -118,7 +117,7 @@ $isMine = 1;
             </ul>
             <?php } 
         } else {?>
-            <h5 style="color:steelblue">没有处于该状态的订单</h5>
+            <h5>没有处于该状态的订单</h5>
         <?php } ?>
 
 

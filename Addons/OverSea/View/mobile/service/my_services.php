@@ -52,7 +52,7 @@ $isMine = 1;
     </style>
 </head>
 <body>
-<div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
+<div data-url="panel-fixed-page1" data-role="page" data-theme="a" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
     <div data-role="header" data-position="fixed" data-theme="c">
         <h1>我的服务</h1>
     </div>
@@ -83,7 +83,7 @@ $isMine = 1;
                 }
             ?>
             <ul data-role="listview" data-inset="true" data-theme="f">
-                <li data-role="list-divider">服务编号:<?php echo $serviceid;?>
+                <li data-role="list-divider" style="margin: -5px 0px -5px 0px">服务编号:<?php echo $serviceid;?>
                     <span class="ui-li-count"><div class="rate<?php echo $itemIndex; ?>"></span>
                     <input type="hidden" id="ratevalue<?php echo $itemIndex; ?>" value="<?php echo $stars;?>"/>
                 </li>
@@ -95,8 +95,8 @@ $isMine = 1;
                         <p class="ui-li-aside">￥<?php echo $service['service_price'];?>/小时</p>
                     </a>
                 </li>
-                <li data-role="list-divider">
-                    <table border="0">
+                <li data-role="list-divider" style="margin: -5px 0px -5px 0px">
+                    <table border="0" style="margin: -10px 0px -10px 0px">
                         <tr>
                             <td width="50%">
                                 <p style="white-space:pre-wrap;">创建日期:<?php echo substr($service['creation_date'], 0, 10 )?></p>
