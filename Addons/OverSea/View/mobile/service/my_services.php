@@ -60,10 +60,10 @@ $isMine = 1;
     <div role="main" class="ui-content jqm-content jqm-fullwidth">
         <div data-role="navbar">
             <ul>
-                <li><a href="../../../Controller/AuthUserDispatcher.php?c=myServices&sellerid=<?php echo $sellerid;?>&status=20" <?php echo $querystatus == 20 ? "class='ui-btn-active'" : ''; ?> rel="external" data-theme="e">审核中</a></li>
-                <li><a href="../../../Controller/AuthUserDispatcher.php?c=myServices&sellerid=<?php echo $sellerid;?>&status=60" <?php echo $querystatus == 60 ? "class='ui-btn-active'" : ''; ?> rel="external" data-theme="e">已上架</a></li>
-                <li><a href="../../../Controller/AuthUserDispatcher.php?c=myServices&sellerid=<?php echo $sellerid;?>&status=100" <?php echo $querystatus == 100 ? "class='ui-btn-active'" : ''; ?> rel="external" data-theme="e">已暂停</a></li>
-                <li><a href="../../../Controller/AuthUserDispatcher.php?c=myServices&sellerid=<?php echo $sellerid;?>&status=40" <?php echo $querystatus == 40 ? "class='ui-btn-active'" : ''; ?> rel="external" data-theme="e">已拒绝</a></li>
+                <li><a href="../../../Controller/AuthUserDispatcher.php?c=myServices&sellerid=<?php echo $sellerid;?>&status=20" <?php echo $querystatus == 20 ? "class='ui-btn-active'" : ''; ?> rel="external" data-theme="a">审核中</a></li>
+                <li><a href="../../../Controller/AuthUserDispatcher.php?c=myServices&sellerid=<?php echo $sellerid;?>&status=60" <?php echo $querystatus == 60 ? "class='ui-btn-active'" : ''; ?> rel="external" data-theme="a">已上架</a></li>
+                <li><a href="../../../Controller/AuthUserDispatcher.php?c=myServices&sellerid=<?php echo $sellerid;?>&status=100" <?php echo $querystatus == 100 ? "class='ui-btn-active'" : ''; ?> rel="external" data-theme="a">已暂停</a></li>
+                <li><a href="../../../Controller/AuthUserDispatcher.php?c=myServices&sellerid=<?php echo $sellerid;?>&status=40" <?php echo $querystatus == 40 ? "class='ui-btn-active'" : ''; ?> rel="external" data-theme="a">已拒绝</a></li>
             </ul>
         </div>
         <?php if (isset($myServices) && count($myServices) >0) { ?>

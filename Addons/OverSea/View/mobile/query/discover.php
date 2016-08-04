@@ -122,8 +122,8 @@ $isDiscover = 1;
 
         <div data-role="navbar" style="margin: -5px 0px 10px 0px ">
             <ul>
-                <li><a href="#" rel="external" class="ui-btn-active" data-theme="e" onclick="setServiceType(1)">旅游</a></li>
-                <li><a href="#" rel="external" data-theme="e" onclick="setServiceType(2)">留学</a></li>
+                <li><a href="#" rel="external" class="ui-btn-active" data-theme="a" onclick="setServiceType(1)">旅游</a></li>
+                <li><a href="#" rel="external" data-theme="a" onclick="setServiceType(2)">留学</a></li>
             </ul>
         </div><!-- /navbar -->
 
