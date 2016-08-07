@@ -31,16 +31,19 @@ $statusString = BusinessHelper::translateRealNameStatus($status);
     <link rel="stylesheet" href="../../resource/style/cropper/main.css" />
     <link rel="stylesheet" href="../../resource/style/validation/validation.css" />
     <style>
-        label{ color:#33c8ce; font-size:14px;}
+        label{ color:#33c8ce;}
         table{ table-layout : fixed; width:100% }
         hr{border:0;background-color:#2c2c2c;height:1px;}
+        div.headimage {
+            height: 75px;
+            width: 75px;
+        }
     </style>
     <script src="../../resource/js/jquery/jquery-1.11.1.min.js"></script>
     <script src="../../resource/js/jquery/jquery-ui-1.11.1.min.js"></script>
     <script src="../../resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
     <script src="../../resource/js/tag/tag-it.min.js"></script>
     <script src="../../resource/js/validation/jquery.validate.min.js"></script>
-    <script src="../../resource/js/validation/localization/messages_zh.min.js"></script>
 
     <script>
         $(function(){
@@ -65,9 +68,9 @@ $statusString = BusinessHelper::translateRealNameStatus($status);
         <h1>个人信息</h1>
     </div>
     <ul data-role="listview" data-inset="true" data-theme="f">
-        <li data-role="list-divider">用户状态: <span class="ui-li-count"><?php echo $statusString; ?></span></li>
+        <li data-role="list-divider">用户状态 <span class="ui-li-count"><?php echo $statusString; ?></span></li>
         <?php if ($status == 40) {?>
-            <li data-role="list-divider">拒绝原因: <span class="ui-li-count"><?php echo $existedUser['check_reason']; ?></span></li>
+            <li data-role="list-divider">拒绝原因 <span class="ui-li-count"><?php echo $existedUser['check_reason']; ?></span></li>
         <?php } ?>
     </ul>
     <div data-role="content">
@@ -75,11 +78,11 @@ $statusString = BusinessHelper::translateRealNameStatus($status);
         <table>
             <tr>
                 <td style="width:15%">
-                    <label >头像:</label >
+                    <label  style="font-size:12px;" >头像</label >
                 </td>
                 <td style="width:85%">
-                    <div class="container" id="crop-avatar" data-role="content">
-                        <div class="avatar-view" title="Change the avatar">
+                    <div class="container" id="crop-avatar" data-role="content" style="margin: -25px 0px -25px 0px" >
+                        <div class="avatar-view headimage" title="Change the avatar">
                             <img src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $userId;?>/head.png?t=<?php echo rand(10,100); ?>" id='myhead' alt="点击上传头像" onclick="chooseImages()">
                         </div>
                     </div>
@@ -92,10 +95,10 @@ $statusString = BusinessHelper::translateRealNameStatus($status);
         <form id="myinfoForm" data-ajax="false" method="post" action="../../../Controller/AuthUserDispatcher.php?c=updateMyinfo">
             <table>
                 <tr>
-                    <td style="width:25%">
-                        <label for="name" >昵称:</label >
+                    <td style="width:20%">
+                        <label for="name"  style="font-size:12px;" >昵称</label >
                     </td>
-                    <td style="width:75%">
+                    <td style="width:80%">
                         <input type="text" name="name" id="name" value="<?php echo isset($existedUser['name']) ? $existedUser['name']: ''; ?>">
                     </td>
                 </tr>
@@ -103,10 +106,10 @@ $statusString = BusinessHelper::translateRealNameStatus($status);
 
             <table>
                 <tr>
-                    <td style="width:25%">
-                        <label for="signature">个性签名:</label>
+                    <td style="width:20%">
+                        <label for="signature"  style="font-size:12px;" >个性签名</label>
                     </td>
-                    <td style="width:75%">
+                    <td style="width:80%">
                         <input type="text" name="signature" id="signature" value="<?php echo isset($existedUser['signature']) ? $existedUser['signature']: ''; ?>">
                     </td>
                 </tr>
@@ -114,10 +117,10 @@ $statusString = BusinessHelper::translateRealNameStatus($status);
 
             <table>
                 <tr>
-                    <td style="width:25%">
-                        <label for="weixin">微信号:</label>
+                    <td style="width:20%">
+                        <label for="weixin"  style="font-size:12px;" >微信号</label>
                     </td>
-                    <td style="width:75%">
+                    <td style="width:80%">
                         <input type="text" name="weixin" id="weixin" value="<?php echo isset($existedUser['weixin']) ? $existedUser['weixin']: ''; ?>">
                     </td>
                 </tr>
@@ -125,10 +128,10 @@ $statusString = BusinessHelper::translateRealNameStatus($status);
 
             <table>
                 <tr>
-                    <td style="width:25%">
-                        <label>我是:<label/>
+                    <td style="width:20%">
+                        <label  style="font-size:12px;" >我是<label/>
                     </td>
-                    <td style="width:75%">
+                    <td style="width:80%">
                         <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" data-theme="e">
                             <input name="gender" id="radio-choice-c" value="1" <?php if ($existedUser['gender'] == 1) {echo 'checked="true"'; } ?> type="radio">
                             <label for="radio-choice-c">男生</label>
@@ -141,10 +144,10 @@ $statusString = BusinessHelper::translateRealNameStatus($status);
 
             <table>
                 <tr>
-                    <td style="width:25%">
-                        <label for="name">电子邮箱:</label>
+                    <td style="width:20%">
+                        <label for="name"  style="font-size:12px;" >电子邮箱</label>
                     </td>
-                    <td style="width:75%">
+                    <td style="width:80%">
                         <input type="text" name="email" id="email" value="<?php echo isset($existedUser['email']) ? $existedUser['email']: ''; ?>">
                     </td>
                 </tr>
@@ -152,7 +155,7 @@ $statusString = BusinessHelper::translateRealNameStatus($status);
             <table>
                 <tr>
                     <td>
-                        <label for="description">自我介绍:</label>
+                        <label for="description" style="font-size:12px;" >自我介绍</label>
                     </td>
                 </tr>
             </table>
@@ -166,8 +169,8 @@ $statusString = BusinessHelper::translateRealNameStatus($status);
             <table>
                 <tr>
                     <td>
-                        <label for="methodTags" >
-                            <a href="#tagpopup" data-rel="popup" data-theme="f">选取或填写特长:</a>
+                        <label for="methodTags" style="font-size:12px;" >
+                            <a href="#tagpopup" data-rel="popup" data-theme="f">选取或填写特长</a>
                         </label>
                     </td>
                 </tr>

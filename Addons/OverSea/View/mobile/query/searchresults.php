@@ -54,6 +54,9 @@ $isDiscover = 1;
             height: 65px;
             width: 65px;
         }
+        h5{ color:#33c8ce}
+        p{ font-size:14px;}
+        table{ table-layout : fixed; width:100% }
     </style>
 </head>
 <body>
@@ -64,7 +67,7 @@ $isDiscover = 1;
         <a href="../../../Controller/AuthUserDispatcher.php?c=searchMainPage" rel="external" data-icon="search" data-shadow="false">搜索</a>
     </div>
 
-    <div id="discoverMain" role="main" class="ui-content jqm-content jqm-fullwidth" style="margin: 0px -10px 0px -10px">
+    <div id="discoverMain" role="main" class="ui-content jqm-content jqm-fullwidth" style="margin: 0px -5px 0px -5px">
     </div>
     <div data-role="content"class="endMsgString"></div>
 
@@ -135,13 +138,13 @@ $isDiscover = 1;
                             itemIdx++;
                             var newstr = '<div id="d'+itemIdx+'" style="margin: -5px 0px 0px 0px "> <ul data-role="listview" data-inset="true" data-theme="f">';
                             var servicetypeDesc = value.service_type ==1 ? '旅游' : '留学';
-                            newstr = newstr + '<li data-role="list-divider">【' + servicetypeDesc + ':' + value.service_area + '】' + value.service_name +' <span class="ui-li-count"><div class="rate' + itemIdx +'"></div></span></li>';
-                            newstr = newstr + '<li> <a href="../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id=' + value.service_id +'" rel="external">';
-                            newstr = newstr + '<table style="table-layout:fixed;width:260px;" border="0"><tr><td style="width:80px"><div class="headimage">';
-                            newstr = newstr + '<img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/' + value.seller_id + '/head.png" height="100%">';
-                            newstr = newstr + '</div></td> <td style="width:180px">';
-                            newstr = newstr + '<h4>卖家:'+ value.seller_name + '</h4>';
-                            newstr = newstr + '<p style="white-space:pre-wrap;">简介:' +value.service_brief+ '</p>' ;
+                            newstr = newstr + '<li data-role="list-divider"><p style="margin: -5px 0px -3px 0px;font-size:14px;" >【' + servicetypeDesc + ':' + value.service_area + '】' + value.service_name +'</p> <span class="ui-li-count"><div class="rate' + itemIdx +'"></div></span></li>';
+                            newstr = newstr + '<li style="margin: -5px 0px -5px 0px"> <a href="../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id=' + value.service_id +'" rel="external">';
+                            newstr = newstr + '<table style="margin: -8px 0px -8px 0px" border="0"><tr><td style="width:27%"><div class="headimage">';
+                            newstr = newstr + '<img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/pics/' + value.seller_id + '/' +value.service_id + '/main.png" height="100%">';
+                            newstr = newstr + '</div></td> <td style="width:73%">';
+                            newstr = newstr + '<p style="white-space:pre-wrap;word-break:break-all">卖家:'+ value.seller_name + '</p>';
+                            newstr = newstr + '<p style="white-space:pre-wrap;word-break:break-all">简介:' +value.service_brief+ '</p>' ;
                             newstr = newstr + '</td></tr></table>';
                             newstr = newstr + '<p class="ui-li-aside">￥' +value.service_price+ '/小时</p>' ;
                             newstr = newstr + '</a></li>';

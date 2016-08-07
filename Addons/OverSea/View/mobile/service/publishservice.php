@@ -24,14 +24,20 @@ $signature=$_SESSION['$signature'];
 //unset($_SESSION['serviceData'], $_SESSION['sellerData'], $_SESSION['$timestamp'], $_SESSION['$nonceStr'], $_SESSION['$signature']);
 
 $objArray;
-$objkey='objArray';
-if (isset($_SESSION[$objkey])){
-    $objArray = $_SESSION[$objkey] ;
+if (isset($_SESSION['objArray'])){
+    $objArray = $_SESSION['objArray'] ;
 }
 $maxcount = 5;
 $remainingcount = 5 - count($objArray);
 $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
 
+$mainPicUrl = "../../resource/images/addpic.png";
+if (isset($_SESSION['objMain'])) {
+    $mainPicUrl= $imageurl.$_SESSION['objMain']."?t=".rand(10,100);
+}
+//if (isset($serviceData)){
+//    $mainPicUrl= $imageurl."yzphoto/pics/".$serviceData['seller_id']."/".$serviceData['service_id']."/main.png?t=".rand(10,100);
+//}
 $isPublishService = 1;
 ?>
 
@@ -49,8 +55,6 @@ $isPublishService = 1;
     <script src="../../resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
     <script src="../../resource/js/tag/tag-it.min.js"></script>
     <script src="../../resource/js/validation/jquery.validate.min.js"></script>
-    <script src="../../resource/js/validation/localization/messages_zh.min.js"></script>
-
 
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
     <link rel="stylesheet" href="../../resource/style/tag/jquery.tagit.css"type="text/css" />
@@ -58,11 +62,17 @@ $isPublishService = 1;
     <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
     <link rel="stylesheet" href="../../resource/style/weiui/weui.css"/>
     <link rel="stylesheet" href="../../resource/style/weiui/example.css"/>
+    <link rel="stylesheet" href="../../resource/style/cropper/cropper.min.css" />
+    <link rel="stylesheet" href="../../resource/style/cropper/main.css" />
     <link rel="stylesheet" href="../../resource/style/validation/validation.css" />
     <style>
         label{ color:#33c8ce}
         table{ table-layout : fixed; width:100% }
         hr{border:0;background-color:#2c2c2c;height:1px;}
+        div.headimage {
+            height: 75px;
+            width: 75px;
+        }
     </style>
     <script>
         $(function(){
@@ -92,8 +102,18 @@ $isPublishService = 1;
             <li data-role="list-divider">拒绝原因 <span class="ui-li-count"><?php echo $serviceData['check_reason']; ?></span></li>
         <?php } ?>
     </ul>
+
     <div role="main" class="ui-content jqm-content jqm-fullwidth">
-        <label> 请点击图标上传图片, 最多上传<?=$maxcount?>张.<label>
+        <label style="font-size:12px;"> 请点击图标上传服务主图片, 主图片显示于求易知列表.</label>
+        <div class="container" id="crop-avatar" data-role="content" style="margin: -5px 0px -45px 0px" >
+            <div class="avatar-view headimage" title="Change the avatar">
+                <img src="<?php echo $mainPicUrl ?>" id='myhead' alt="主图片" onclick="chooseImages()">
+            </div>
+        </div>
+    </div>
+
+    <div role="main" class="ui-content jqm-content jqm-fullwidth">
+        <label style="font-size:12px;"> 请点击图标上传服务详情图片, 最多上传5张.<label>
                 <br>
         <input type="hidden" name="remainingCount" id="remainingCount" value="<?php echo $remainingcount; ?> ">
         <!--
@@ -110,7 +130,7 @@ $isPublishService = 1;
             <?php } ?>
         </ul>
 
-        <div data-role="popup" id="reviewpopup" class="reviewpopup" data-overlay-theme="a" data-corners="false" data-tolerance="30,15">
+        <div data-role="popup" id="reviewPicPopup" class="reviewPicPopup" data-overlay-theme="a" data-corners="false" data-tolerance="30,15">
             <!--<p>是否删除该图片?</p>-->
             <div><a id="deletebutton" href="" onclick="deletePic();" data-theme="c" data-role="button" rel="external">删除此图片</a></div>
             <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
@@ -124,7 +144,7 @@ $isPublishService = 1;
             <table>
                 <tr>
                     <td style="width:20%">
-                        <label style="font-size:14px;">服务类型<label/>
+                        <label style="font-size:12px;">服务类型<label/>
                     </td>
                     <td style="width:80%">
                         <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" data-theme="e">
@@ -139,7 +159,7 @@ $isPublishService = 1;
             <table>
                 <tr>
                     <td style="width:20%">
-                        <label style="font-size:14px;" for="service_area">服务地区</label>
+                        <label style="font-size:12px;" for="service_area">服务地区</label>
                     </td>
                     <td style="width:80%">
                         <select name="service_area" id="service_area" onchange="updateTagList()">
@@ -157,7 +177,7 @@ $isPublishService = 1;
             <table>
                 <tr>
                     <td style="width:20%">
-                        <label style="font-size:14px;" for="service_name">服务名称</label>
+                        <label style="font-size:12px;" for="service_name">服务名称</label>
                     </td>
                     <td style="width:80%">
                         <input type="text" name="service_name" id="service_name" value="<?php echo isset($serviceData['service_name']) ? $serviceData['service_name']: ''; ?>" >
@@ -167,7 +187,7 @@ $isPublishService = 1;
             <table>
                 <tr>
                     <td style="width:20%">
-                        <label style="font-size:14px;" for="service_brief">内容简介</label>
+                        <label style="font-size:12px;" for="service_brief">内容简介</label>
                     </td>
                     <td style="width:80%">
                         <input type="text" name="service_brief" id="service_brief" value="<?php echo isset($serviceData['service_brief']) ? $serviceData['service_brief']: ''; ?>" >
@@ -178,7 +198,7 @@ $isPublishService = 1;
             <table>
                 <tr>
                     <td style="width:20%">
-                        <label style="font-size:14px;" for="service_price">服务价格(￥/小时)</label>
+                        <label style="font-size:12px;" for="service_price">服务价格(￥/小时)</label>
                     </td>
                     <td style="width:80%">
                         <input type="number" name="service_price" id="service_price" value="<?php echo isset($serviceData['service_price']) ? $serviceData['service_price']: ''; ?>" >
@@ -189,7 +209,7 @@ $isPublishService = 1;
             <table>
                 <tr>
                     <td>
-                        <label style="font-size:14px;" for="description">服务内容详细介绍</label>
+                        <label style="font-size:12px;" for="description">服务内容详细介绍</label>
                     </td>
                 </tr>
             </table>
@@ -229,7 +249,7 @@ $isPublishService = 1;
                 <tr>
                     <td>
                         <input name="agree" id="agree" data-mini="true" type="checkbox" class="{required:true}" data-theme="e">
-                        <label style="font-size:14px;" for="agree">我同意上述服务声明</label>
+                        <label style="font-size:12px;" for="agree">我同意上述服务声明</label>
                     </td>
                 </tr>
             </table>
@@ -247,10 +267,69 @@ $isPublishService = 1;
         <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
         <iframe src="./seller_agreement.html" seamless="" height="320" width="480"></iframe>
     </div>
+
+    <div data-role="popup" id="reviewpopup" class="reviewpopup" data-overlay-theme="a"  data-theme="c" data-corners="false" data-tolerance="30,15">
+        <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+
+        <div class="modal fade" id="avatar-modal" aria-labelledby="avatar-modal-label" role="dialog" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <form class="avatar-form" action="../../../Controller/AuthUserDispatcher.php?c=submitServiceMainPic" enctype="multipart/form-data" method="post">
+                        <div class="modal-body">
+                            <div class="avatar-body">
+                                <div>
+                                    <h4 >请截取头像</h4>
+                                </div>
+
+                                <!-- Crop and preview -->
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <div class="avatar-wrapper"></div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="avatar-preview preview-md"></div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row avatar-btns">
+                                    <div class="col-md-3">
+                                        <button type="submit" class="btn btn-primary btn-block avatar-save">保存头像</button>
+                                    </div>
+                                </div>
+
+                                <!-- Upload image and data -->
+                                <div class="avatar-upload" >
+                                    <input type="hidden" class="avatar-src" name="avatar_src">
+                                    <input type="hidden" class="avatar-data" name="avatar_data">
+
+                                    <div style="opacity: 0;">
+                                        <input type="file" class="avatar-input" id="avatarInput" name="avatar_file" accept="image/*" >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div><!-- /.modal -->
+        <div class="loading" id="loading" aria-label="Loading" role="img" tabindex="-1"></div>
+    </div>
     <?php include '../common/footer.php';?>
 </div>
-<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+
 <script>
+    // this is for select service main image
+    function chooseImages(){
+        $('#reviewpopup').popup('open');
+        $('#avatarInput').click();
+    };
+</script>
+<script src="../../resource/js/weixin/jweixin-1.0.0.js"></script>
+<script src="../../resource/js/cropper/cropper.min.js"></script>
+<script src="../../resource/js/cropper/main.js"></script>
+<script>
+    // this is for select service pictures
     function selectImages(){
         // 5 图片接口
         // 5.1 拍照、本地选图
@@ -309,7 +388,7 @@ $isPublishService = 1;
                     }
                     $('#remainingCount').val(rcount);
                     if (rcount > 0) {
-                        htmlString = htmlString + '<li class="weui_uploader_file" id="uplaodImages" onclick="selectImages()" style="background-image:url(../../resource/images/add.jpg)"></li>';
+                        htmlString = htmlString + '<li class="weui_uploader_file" id="uplaodImages" onclick="selectImages()" style="background-image:url(../../resource/images/addpic.png)"></li>';
                     }
                     htmlString = htmlString + '</ul>';
                     $('.weui_uploader_files').html(htmlString);
@@ -342,10 +421,10 @@ $isPublishService = 1;
                     for(var i in result.objLists) {
                         htmlString = htmlString + '<li class="weui_uploader_file" onclick="changepopup(\'' + result.objLists[i] + '\')" style="background-image:url(<?php echo $imageurl; ?>' + result.objLists[i] + ')"></li>';
                     }
-                    htmlString = htmlString + '<li class="weui_uploader_file" id="uplaodImages" onclick="selectImages()" style="background-image:url(../../resource/images/add.jpg)"></li>';
+                    htmlString = htmlString + '<li class="weui_uploader_file" id="uplaodImages" onclick="selectImages()" style="background-image:url(../../resource/images/addpic.png)"></li>';
                     htmlString = htmlString + '</ul>';
                     $('.weui_uploader_files').html(htmlString);
-                    $('.reviewpopup').popup('close');
+                    $('.reviewPicPopup').popup('close');
                 } else {
                     $(".errmsgstring").html('Error:图片删除失败.' + result.msg);
                 }
@@ -374,7 +453,7 @@ $isPublishService = 1;
         $('#delobj').val(uri);
         //var link = "../../../Controller/AuthUserDispatcher.php?c=publishServicePics&objtodelete=" + uri;
         //$('#deletebutton').attr('href', link);
-        $('.reviewpopup').popup('open');
+        $('.reviewPicPopup').popup('open');
     }
 
     function tagwith(tag){

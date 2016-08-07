@@ -129,40 +129,34 @@ $isDiscover = 1;
         foreach($servicesData as $key => $serviceData)
         {
             $itemIndex++; ?>
-            <ul data-role="listview" data-inset="true" data-theme="f">
-                <li data-role="list-divider">
-                    <?php $servicetypeDesc = $serviceData['service_type'] ==1 ? '旅游' : '留学';
-                    echo $serviceData['service_area'].":".$servicetypeDesc?> <span class="ui-li-count"><div class="rate<?php echo $itemIndex; ?>"></span>
-                    <input type="hidden" id="ratevalue<?php echo $itemIndex; ?>" value="<?php echo $serviceData['stars'];?>"/>
-                </li>
-                <li>
-                    <a href="../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id=<?php echo $serviceData['service_id']; ?>" rel="external">
-                        <table style="width:80%" border="0">
-                            <tr>
-                                <td >
-                                    <p style="white-space:pre-wrap;"><?php echo $serviceData['service_name']?></p>
-                                    <p style="white-space:pre-wrap;"><?php echo $serviceData['service_brief']?></p>
-                                </td>
-                            </tr>
-                        </table>
-
-<!--                        <table border="0">-->
-<!--                            <tr>-->
-<!--                                <td style="width:30%">-->
-<!--                                    <div class="headimag">-->
-<!--                                        <img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/--><?php //echo $serviceData['seller_id']; ?><!--/head.png" height="100%">-->
-<!--                                    </div>-->
-<!--                                </td>-->
-<!--                                <td>-->
-<!--                                    <h6>--><?php //echo $serviceData['service_name']?><!--</h6>-->
-<!--                                    <p style="white-space:pre-wrap;">--><?php //echo $serviceData['service_brief']?><!--</p>-->
-<!--                                </td>-->
-<!--                            </tr>-->
-<!--                        </table>-->
-                        <p class="ui-li-aside">￥<?php echo $serviceData['service_price']?>/小时</p>
-                    </a>
-                </li>
-            </ul>
+            <div style="margin: -5px -9px 0px -9px ">
+                <ul data-role="listview" data-inset="true" data-theme="f">
+                    <li data-role="list-divider">
+                        <p style="margin: -5px 0px -3px 0px;font-size:14px;" ><?php $servicetypeDesc = $serviceData['service_type'] ==1 ? '旅游' : '留学';
+                        echo "【".$serviceData['service_area'].":".$servicetypeDesc."】".$serviceData['service_name']?> </p><span class="ui-li-count"><div class="rate<?php echo $itemIndex; ?>"></span>
+                        <input type="hidden" id="ratevalue<?php echo $itemIndex; ?>" value="<?php echo $serviceData['stars'];?>"/>
+                    </li>
+                    <li>
+                        <a href="../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id=<?php echo $serviceData['service_id']; ?>" rel="external">
+    
+                            <table style="margin: -8px 0px -8px 0px" border="0">
+                                <tr>
+                                    <td style="width:27%">
+                                        <div class="headimag">
+                                            <img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/pics/<?php echo $serviceData['seller_id']; ?>/<?php echo $serviceData['service_id']; ?>/main.png" height="100%">
+                                        </div>
+                                    </td>
+                                    <td style="width:73%">
+                                        <p style="white-space:pre-wrap;">卖家:<?php echo $serviceData['seller_name']?></p>
+                                        <p style="white-space:pre-wrap;">简介:<?php echo $serviceData['service_brief']?></p>
+                                    </td>
+                                </tr>
+                            </table>
+                            <p class="ui-li-aside">￥<?php echo $serviceData['service_price']?>/小时</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         <?php } ?>
     </div>
 

@@ -24,7 +24,9 @@
     this.$myhead = $('#myhead');
     this.$reviewpopup = $('#reviewpopup');
     this.$uid = $('#uid');
-
+    //this.$pageType = $('#pageType');
+    //this.$service_id = $('#service_id');
+   
     this.$avatarForm = this.$avatarModal.find('.avatar-form');
     this.$avatarUpload = this.$avatarForm.find('.avatar-upload');
     this.$avatarSrc = this.$avatarForm.find('.avatar-src');
@@ -258,7 +260,7 @@
           this.url = data.result;
           if (this.support.datauri || this.uploaded) {
             this.uploaded = false;
-            this.cropDone();
+            this.cropDone(data.result);
           } else {
             this.uploaded = true;
             this.$avatarSrc.val(this.url);
@@ -281,8 +283,10 @@
       this.$loading.fadeOut();
     },
 
-    cropDone: function () {
-      var link = "http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/" + this.$uid.attr("value") + "/head.png?t=" + Math.random();
+    cropDone: function (obj) {
+      //var link = "http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/" + this.$uid.attr("value") + "/head.png?t=" + Math.random();
+      var link = "http://clcentury.oss-cn-beijing.aliyuncs.com/"+ obj+"?t=" + Math.random();
+      //alert(link);
       this.$avatarForm.get(0).reset();
       this.$myhead.attr('src', link);
       this.stopCropper();

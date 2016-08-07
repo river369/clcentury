@@ -40,6 +40,7 @@ $method_routes = array(
 
     'publishService' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'getCurrentService', 
         'v'=>'../View/mobile/service/publishservice.php','d'=>'发易知服务信息'),
+    'submitServiceMainPic' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'publishServiceMainPic', 'd'=>'发个人头像'),
     'publishServicePics' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'publishServicePics','d'=>'发易知图片'),
     'publishServiceInfo' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'publishServiceInfo', 
         'v'=>'../View/mobile/common/message.php', 'd'=>'发易知服务信息'),

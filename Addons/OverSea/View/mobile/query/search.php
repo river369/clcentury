@@ -58,7 +58,7 @@ $isDiscover = 1;
 
         <ul data-role="listview" data-split-icon="delete"  data-inset="true">
         <?php foreach($queryHistories as $key => $queryHistory) {?>
-            <li data-theme="e"><a href="../../../Controller/AuthUserDispatcher.php?c=searchByKeyWord&keyWord=<?php echo $queryHistory['key_word'];?> " rel="external"><h5><?php echo $queryHistory['key_word'] ?></h5></a>
+            <li data-theme="e"><a href="../../../Controller/AuthUserDispatcher.php?c=searchByKeyWord&keyWord=<?php echo $queryHistory['key_word'];?> " rel="external"><p style="margin: 0px 0px 0px 0px"><?php echo $queryHistory['key_word'] ?></p></a>
                 <a href="../../../Controller/AuthUserDispatcher.php?c=deleteKeyWordById&query_id=<?php echo $queryHistory['id'] ?>');">干掉</a>
             </li>
         <?php } ?>

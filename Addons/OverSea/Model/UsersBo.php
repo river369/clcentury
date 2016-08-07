@@ -141,35 +141,35 @@ class UsersBo
      */
     public function handleHeads() {
         $userID = $_SESSION['signedUser'];
+        $object = "yzphoto/heads/".$userID."/head.png";
         Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",Userid=".$userID);
         $crop = new CropAvatar( $userID,
             isset($_POST['avatar_src']) ? $_POST['avatar_src'] : null,
             isset($_POST['avatar_data']) ? $_POST['avatar_data'] : null,
             isset($_FILES['avatar_file']) ? $_FILES['avatar_file'] : null
         );
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",msg=".$crop -> getMsg());
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",result=".$crop -> getResult());
         if (is_null($crop -> getMsg())
             && !is_null($crop -> getResult()) && file_exists($crop -> getResult())) {
-            Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",Uploading to OSS");
-            self::savePictureFromFile($crop -> getResult(), $userID);
+            Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",Uploading to OSS " . $object);
+            OSSHelper::uploadFile($object, $crop -> getResult(), array());
         }
 
         $response = array(
             'status'  => 200,
             'msg' => $crop -> getMsg(),
-            'result' => $crop -> getResult()
+            'result' => $object
         );
-        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",msg=".$crop -> getMsg());
-        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",result=".$crop -> getResult());
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",response=".json_encode($response));
         echo json_encode($response);
 
         exit;
 
     }
 
-    private function savePictureFromFile($path, $userID){
-        $object = "yzphoto/heads/".$userID."/head.png";
-        $options = array();
-        OSSHelper::uploadFile($object, $path, $options);
+    private function savePictureFromFile($path, $object){
+        
         return ;
     }
 

@@ -119,7 +119,7 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
 
     <?php include '../common/footer.php';?>
 </div>
-<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script src="../../resource/js/weixin/jweixin-1.0.0.js"></script>
 <script>
     function selectImages(){
         // 5 图片接口

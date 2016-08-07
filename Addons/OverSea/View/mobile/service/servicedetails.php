@@ -129,7 +129,7 @@ $isDiscover = 1;
                 <td style="width:10%"></td>
                 <td style="width:30%">
                     <div class="rounded-head-image" style="margin: 0px -20px 0px 0px">
-                        <img src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $seller_id;?>/head.png" height="100%" alt="">
+                        <img src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/pics/<?php echo $seller_id;?>/<?php echo $service_id;?>/main.png" height="100%" alt="">
                     </div>
                 </td>
                 <td style="width:60%">
@@ -144,9 +144,9 @@ $isDiscover = 1;
     <div role="main" class="ui-content">
         <div data-role="navbar">
             <ul>
-                <li><a href="#" onclick="showServices()" class="ui-btn-active" data-theme="e">服务信息</a></li>
-                <li><a href="#" onclick="showSellers()" data-theme="e">卖家信息</a></li>
-                <li><a href="#" onclick="showComments()" data-theme="e">服务评论</a></li>
+                <li><a href="#" onclick="showServices()" class="ui-btn-active">服务信息</a></li>
+                <li><a href="#" onclick="showSellers()" >卖家信息</a></li>
+                <li><a href="#" onclick="showComments()" >服务评论</a></li>
             </ul>
         </div><!-- /navbar -->
 
@@ -220,7 +220,7 @@ $isDiscover = 1;
             $tagsSellerArray = explode(',',$tagsSeller);
             if (count($tagsSellerArray) >0) {
                 ?>
-                <h5 style="margin: 0px 0px 3px 0px">卖家标签</h5>
+                <h5 style="margin: 0px 0px 5px 0px">卖家标签</h5>
                 <div class="ui-grid-b">
                     <?php
                     $loc = 'a';
@@ -237,7 +237,7 @@ $isDiscover = 1;
                     } ?>
                 </div>
             <?php }?>
-            <h5 style="margin: 3px 0px 3px 0px">卖家<?php echo $serviceData['seller_name'];?>的主页</h5>
+            <h5 style="margin: 10px 0px 5px 0px">卖家<?php echo $serviceData['seller_name'];?>的主页</h5>
             <div class="ui-grid-b">
                 <div style="font-size:10px;" class="ui-block-a"><a href="../users/user_profile.php?sellerid=<?php echo $seller_id;?>" rel="external" data-theme="d"  data-role="button">点击查看</a></div>
             </div>

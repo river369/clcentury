@@ -118,7 +118,7 @@ class ServicesBo
     * get picture info by seller id
     */
     private function getServicePictures($sellerid, $service_id) {
-        unset($_SESSION['objArray']);
+        unset($_SESSION['objMain'],$_SESSION['objArray']);
 
         // list data
         $object = "yzphoto/pics/".$sellerid."/".$service_id."/";
@@ -127,12 +127,50 @@ class ServicesBo
         $objArray = array();
         if (!empty($objectList)) {
             foreach ($objectList as $objectInfo) {
-                $objArray[] = $objectInfo->getKey();
+                if (strstr($objectInfo->getKey(), "main")){
+                    $_SESSION['objMain'] = $objectInfo->getKey();
+                } else {
+                    $objArray[] = $objectInfo->getKey();
+                }
             }
             $retObjArray =  json_encode(array('status'=> 0, 'msg'=> 'done', 'objLists' => $objArray));
             Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",ret=".$retObjArray);
             $_SESSION['objArray'] = $objArray;
         }
+    }
+    /**
+     * yz main picture 处理
+     */
+    public function publishServiceMainPic() {
+        $userID = $_SESSION['signedUser'];
+        if (!isset($_SESSION['serviceData'])){
+            self::createNewService();
+        }
+        $serviceId = $_SESSION['serviceData']['service_id'] ;
+        $userID = $_SESSION['signedUser'];
+        $object = "yzphoto/pics/".$userID."/".$serviceId."/main.png";
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",Userid=".$userID);
+        $crop = new CropAvatar( $userID,
+            isset($_POST['avatar_src']) ? $_POST['avatar_src'] : null,
+            isset($_POST['avatar_data']) ? $_POST['avatar_data'] : null,
+            isset($_FILES['avatar_file']) ? $_FILES['avatar_file'] : null
+        );
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",msg=".$crop -> getMsg());
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",result=".$crop -> getResult());
+        if (is_null($crop -> getMsg())
+            && !is_null($crop -> getResult()) && file_exists($crop -> getResult())) {
+            Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",Uploading to OSS");
+            OSSHelper::uploadFile($object, $crop -> getResult(), array());
+        }
+
+        $response = array(
+            'status'  => 200,
+            'msg' => $crop -> getMsg(),
+            'result' => $object
+        );
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",response=".json_encode($response));
+        echo json_encode($response);
+        exit;
     }
 
     /**
@@ -172,7 +210,10 @@ class ServicesBo
         $objArray = array();
         if (!empty($objectList)) {
             foreach ($objectList as $objectInfo) {
-                $objArray[] = $objectInfo->getKey();
+                if (strstr($objectInfo->getKey(), "main")){
+                } else {
+                    $objArray[] = $objectInfo->getKey();
+                }
             }
         }
         //$retJson =  json_encode(array('status'=> 0, 'msg'=> 'done', 'objLists' => $objArray));
@@ -270,7 +311,7 @@ class ServicesBo
         $sellerid = HttpHelper::getVale('sellerid');
         $serviceDao = new ServicesDao();
         $servicesData = $serviceDao->getSellerPublishedServices($sellerid);
-        $_SESSION['servicesData'] = $servicesData;
+        $_SESSION['servicesData'] = self::fixDataLength($servicesData);
     }
     
     /**
@@ -312,8 +353,6 @@ class ServicesBo
         $allServices = $serviceDao->getByStatus($status);
         $_SESSION['allServices'] = $allServices;
     }
-
-
 
     /**
      * Admin reject or approve service  (admin now)
@@ -358,26 +397,15 @@ class ServicesBo
         } else {
             $servicesData=$serviceDao->getServicesByServiceTypeWithPage($serviceType, $pageIndexRange);
         }
-        foreach($servicesData as $key => $serviceData)
-        {
-            if (mb_strlen($serviceData['service_name'])>30){
-                $servicesData[$key]['service_name'] = mb_substr($serviceData['service_name'],0, 10,"utf-8")."...";
-            }
-            if (mb_strlen($serviceData['service_brief'])>111){
-                $servicesData[$key]['service_brief'] = mb_substr($serviceData['service_brief'],0, 37,"utf-8")."...";
-            }
-            if (mb_strlen($serviceData['seller_name'])>30){
-                $servicesData[$key]['seller_name'] = mb_substr($serviceData['seller_name'],0, 10,"utf-8")."...";
-            }
-        }
+
         if ($pageIndex >= 0){
             //$retJson =  json_encode(array('status'=> 0, 'msg'=> 'done', 'serviceLists' => $servicesData));
             //Logs::writeClcLog(__CLASS__.",".__FUNCTION__." retJson=".$retJson);
-            echo json_encode(array('status'=> 0, 'msg'=> 'done', 'objLists' => $servicesData));
+            echo json_encode(array('status'=> 0, 'msg'=> 'done', 'objLists' => self::fixDataLength($servicesData)));
             exit;
         } else {
             $_SESSION['servicetype'] = $serviceType;
-            $_SESSION['servicesData']= $servicesData;
+            $_SESSION['servicesData']= self::fixDataLength($servicesData);
         }
     }
 
@@ -449,11 +477,11 @@ class ServicesBo
                 if ($pageIndex >= 0) {
                     //$retJson =  json_encode(array('status'=> 0, 'msg'=> 'done', 'serviceLists' => $servicesData));
                     //Logs::writeClcLog(__CLASS__.",".__FUNCTION__." retJson=".$retJson);
-                    echo json_encode(array('status' => 0, 'msg' => 'done', 'objLists' => $servicesData));
+                    echo json_encode(array('status' => 0, 'msg' => 'done', 'objLists' => self::fixDataLength($servicesData)));
                     exit;
                 } else {
                     // use less code now
-                    $_SESSION['servicesData'] = $servicesData;
+                    $_SESSION['servicesData'] = self::fixDataLength($servicesData);
                 }
 
             }
@@ -497,6 +525,22 @@ class ServicesBo
         echo $ret;
         Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",tags=".$ret);
         exit;
+    }
+
+    public function fixDataLength($servicesData){
+        foreach($servicesData as $key => $serviceData)
+        {
+            if (mb_strlen($serviceData['service_name'])>30){
+                $servicesData[$key]['service_name'] = mb_substr($serviceData['service_name'],0, 10,"utf-8")."...";
+            }
+            if (mb_strlen($serviceData['service_brief'])>117){
+                $servicesData[$key]['service_brief'] = mb_substr($serviceData['service_brief'],0, 39,"utf-8")."...";
+            }
+            if (mb_strlen($serviceData['seller_name'])>30){
+                $servicesData[$key]['seller_name'] = mb_substr($serviceData['seller_name'],0, 10,"utf-8")."...";
+            }
+        }
+        return $servicesData;
     }
 
     /*
