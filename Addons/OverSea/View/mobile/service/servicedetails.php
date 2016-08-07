@@ -95,7 +95,7 @@ $isDiscover = 1;
             overflow: hidden;
         }
         h5{ color:#33c8ce}
-        p{ font-size:14px;}
+        p{ font-size:14px; white-space:pre-wrap; word-break:break-all}
         label{ color:#33c8ce; font-size:14px;}
         table{ table-layout : fixed; width:100% }
     </style>
@@ -133,8 +133,8 @@ $isDiscover = 1;
                     </div>
                 </td>
                 <td style="width:60%">
-                    <h3>卖家:<?php echo $serviceData['seller_name'];?></h3>
                     <pre style="white-space:pre-wrap;">服务:<?php echo $serviceData['service_name']; ?></pre>
+                    <pre style="white-space:pre-wrap;">卖家:<?php echo $serviceData['seller_name'];?></pre>
                 </td>
 
             </tr>
@@ -247,15 +247,32 @@ $isDiscover = 1;
             <?php if (isset($commentsData) && count($commentsData) >0) {
                 foreach ($commentsData as $comment){ ?>
                     <div>
-                        <ul data-role="listview" data-inset="true" data-theme="f" style="margin: -5px 0px 2px 0px">
-                            <li data-role="list-divider">评论者:<?php echo $comment['customer_name'];?> <span class="ui-li-count"><?php echo BusinessHelper::translateOrderFeeling($comment['stars']); ?></span></li>
-                            <li style="margin: -10px 0px -10px 0px">
+                        <ul data-role="listview" data-inset="true" data-theme="f">
+                            <li style="margin: -5px 0px -5px 0px">
+                                <table border="0">
+                                    <tr>
+                                        <td style="width:17%">
+                                            <p style="color:#33c8ce;">评论者</p>
+                                        </td>
+                                        <td style="width:53%">
+                                            <p style="white-space:pre-wrap; color:#6f6f6f;"><?php echo $comment['customer_name'];?></p>
+                                        </td>
+                                        <td style="width:10%">
+                                            <p style="color:#33c8ce;">打分</p>
+                                        </td>
+                                        <td style="width:20%">
+                                            <p style="white-space:pre-wrap; color:#6f6f6f;"><?php echo BusinessHelper::translateOrderFeeling($comment['stars']); ?></p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </li>
+                            <li style="margin: -20px 0px -10px 0px">
                                 <p>意见:<?php echo $comment['comments'];?><p>
                                 <p>日期:<?php echo substr($comment['creation_date'], 0, 10 );?><p>
                             </li>
                         </ul>
                     </div>
-                    <hr>
+
                 <?php } ?>
             <?php } else {?>
                 <h5>暂无评论</h5>

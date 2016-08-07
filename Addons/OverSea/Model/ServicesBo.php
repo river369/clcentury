@@ -298,7 +298,7 @@ class ServicesBo
             $status = HttpHelper::getVale('status');
             $serviceDao = new ServicesDao();
             $myServices = $serviceDao->getServiceByUserStatus($sellerid, $status);
-            $_SESSION['myServices'] = $myServices;
+            $_SESSION['myServices'] = self::fixDataLength($myServices);
             $_SESSION['sellerId'] = $sellerid;
             $_SESSION['querystatus'] = $status;
         }

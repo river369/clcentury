@@ -39,16 +39,16 @@ $signInErrorMsg=$_SESSION['$signInErrorMsg'];
     <?php } ?>
     <div data-role="content">
         <form id="passform" data-ajax="false" method="post" action="../../../Controller/AuthUserDispatcher.php?c=changePassword">
-            <label for="password" >请输入<?php echo isset($_SESSION['tempCode'])? "临时登陆":"原" ?>密码:</label>
+            <label for="password" style="font-size:12px; color:#33c8ce">请输入<?php echo isset($_SESSION['tempCode'])? "临时登陆":"原" ?>密码:</label>
             <input type="password" name="orig" id="orig">
             </br>
-            <label for="new1" >请输入新密码:</label>
+            <label for="new1"  style="font-size:12px; color:#33c8ce">请输入新密码:</label>
             <input type="password" name="new1" id="new1">
             </br>
-            <label for="new2" >请再次输入新密码:</label>
+            <label for="new2"  style="font-size:12px; color:#33c8ce">请再次输入新密码:</label>
             <input type="password" name="new2" id="new2">
             </br>
-            <input type="submit" name="signinsubmit" id="signinsubmit" value="更改密码">
+            <input type="submit" name="signinsubmit" id="signinsubmit" data-theme="c" value="更改密码">
         </form>
     </div>
 

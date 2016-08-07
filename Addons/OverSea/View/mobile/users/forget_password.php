@@ -45,16 +45,16 @@ unset($_SESSION['existedUserPhoneReigon'], $_SESSION['existedUserPhoneNumber'], 
 
     <div id="page1" data-role="content">
         <form id="signForm" data-ajax="false" method="post" action="../../../Controller/FreelookDispatcher.php?c=sendTempPasswordToPhone">
-            <label for="phone_reigon" >请选择地区号:</label>
+            <label for="phone_reigon" style="font-size:12px; color:#33c8ce">请选择地区号:</label>
             <select name="phone_reigon" id="phone_reigon">
                 <option value="+86" <?php echo $existedUserPhoneReigon=='+86'? 'selected = "selected"' : ''; ?> >中国 +86</option>
                 <option value="+1" <?php echo $existedUserPhoneReigon=='+1'? 'selected = "selected"' : ''; ?>>美国 +1</option>
             </select>
             </br>
-            <label for="phone_number" >请输入手机号码:</label>
+            <label for="phone_number" style="font-size:12px; color:#33c8ce">请输入手机号码:</label>
             <input type="number" name="phone_number" id="phone_number" value="<?php echo $existedUserPhoneNumber; ?>">
             </br>
-            <input type="submit" name="signinsubmit" id="signinsubmit" value="发送临时密码到该手机">
+            <input type="submit" name="signinsubmit" id="signinsubmit" data-theme="c" value="发送临时密码到该手机">
         </form>
     </div>
 

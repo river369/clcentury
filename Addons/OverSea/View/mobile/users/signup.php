@@ -44,27 +44,27 @@ unset($_SESSION['$signInErrorMsg'] );
     <?php } ?>
     <div data-role="content">
         <form id="signupform" data-ajax="false" method="post" action="../../../Controller/SignUp.php">
-            <label for="phone_reigon" >请选择地区号:</label>
+            <label for="phone_reigon" style="font-size:12px; color:#33c8ce">请选择地区号:</label>
             <select name="phone_reigon" id="phone_reigon">
                 <option value="+86" <?php echo $existedUserPhoneReigon=='+86'? 'selected = "selected"' : ''; ?> >中国 +86</option>
                 <option value="+1" <?php echo $existedUserPhoneReigon=='+1'? 'selected = "selected"' : ''; ?>>美国 +1</option>
             </select>
             </br>
-            <label for="phone_number" >请输入手机号码:</label>
+            <label for="phone_number" style="font-size:12px; color:#33c8ce">请输入手机号码:</label>
             <input type="number" name="phone_number" id="phone_number" value="<?php echo $existedUserPhoneNumber; ?>">
             </br>
-            <label for="password" >请输入密码:</label>
+            <label for="password" style="font-size:12px; color:#33c8ce">请输入密码:</label>
             <input type="password" name="password" id="password" >
             </br>
-            <label for="new2" >请再次输入密码:</label>
+            <label for="new2" style="font-size:12px; color:#33c8ce">请再次输入密码:</label>
             <input type="password" name="new2" id="new2">
             </br>
-            <label for="verifycode" >请输入验证码:</label>
+            <label for="verifycode" style="font-size:12px; color:#33c8ce">请输入验证码:</label>
             <input type="number" name="verifycode" id="verifycode">
-            <button type="button" name="getvcode" id="getvcode" onclick="getSMS(this);"> 免费获取验证码</button>
+            <button type="button" name="getvcode" id="getvcode" onclick="getSMS(this);" data-theme="c"> 免费获取验证码</button>
             <div class="errmsgstring" style="color:red"></div>
             </br>
-            <input type="submit" name="signinsubmit" id="signinsubmit" value="注册">
+            <input type="submit" name="signinsubmit" id="signinsubmit" value="注册" data-theme="c">
         </form>
     </div>
 

@@ -29,7 +29,7 @@ $isMine = 1;
 <!DOCTYPE html>
 <html lang="zh-cmn-Hans">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-10">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
     <title>易知海外</title>
 
@@ -54,53 +54,162 @@ $isMine = 1;
         {
             color:orange;
         }
-        h5{ color:#33c8ce}
+        h5{ color:#33c8ce; font-size:10px;}
         p{ font-size:14px;}
         table{ table-layout : fixed; width:100%; }
+        label{ color:#33c8ce}
     </style>
 </head>
 <body>
-<div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
+<div data-url="panel-fixed-page1" data-role="page"  data-theme="a" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
     <div data-role="header" data-position="fixed" data-theme="c">
         <h1>订单详情</h1>
     </div>
     <div role="main" class="ui-content">
         <div data-role="navbar">
             <ul>
-                <li><a href="javascript:showOrderDetail()" class="ui-btn-active" data-theme="e">订单详情</a></li>
-                <li><a href="javascript:showStatus()" data-theme="e">订单状态(北京时间)</a></li>
+                <li><a href="#" onclick="showOrderDetail()" class="ui-btn-active">订单详情</a></li>
+                <li><a href="#" onclick="showStatus()">订单状态(北京时间)</a></li>
             </ul>
         </div><!-- /navbar -->
         <div data-role="content" id="orderstatus">
             <div id="timeline-container-basic" type="text"></div>
         </div>
 
-        <div data-role="content" id="orderdetail">
+        <div data-role="content" id="orderdetail" style="margin: -20px 0px -20px 0px">
             <h5>订单信息</h5>
             <ul data-role="listview" data-inset="true" data-theme="f" style="font-size:14px;">
-                <li>订单号: <span class="ui-li-count"><?php echo $order['order_id'];?></span></li>
-                <li>订单状态: <span class="ui-li-count"><?php echo $orderStatus;?></span></li>
-                <li>服务名称: <span class="ui-li-count"><?php echo $order['service_name'];?></span></li>
-                <li>卖家: <span class="ui-li-count"><?php echo $order['seller_name'];?></span></li>
-                <li>买家: <span class="ui-li-count"><?php echo $order['customer_name'];?></span></li>
-                <li>买家咨询话题: <span class="ui-li-count"><?php echo $order['request_message'];?></span></li>
-                <li>价格: <span class="ui-li-count">￥<?php echo $order['service_price'];?>/小时</span></li>
-                <li>已购买: <span class="ui-li-count"><?php echo $order['service_hours'];?>小时</span></li>
-                <li>总计: <span class="ui-li-count"><?php echo $order['service_total_fee'];?>元</span></li>
+                <li>
+                    <table style="margin: -10px 0px -10px 0px" border="0">
+                        <tr>
+                            <td style="width:17%">
+                                <p style="color:#33c8ce;">订单号</p>
+                            </td>
+                            <td style="width:83%">
+                                <p style="white-space:pre-wrap; color:#6f6f6f;"><?php echo $order['order_id'];?></p>
+                            </td>
+                        </tr>
+                    </table>
+                </li>
+                <li>
+                    <table style="margin: -10px 0px -10px 0px" border="0">
+                        <tr>
+                            <td style="width:17%">
+                                <p style="color:#33c8ce;">订单状态</p>
+                            </td>
+                            <td style="width:83%">
+                                <p style="white-space:pre-wrap; color:#6f6f6f;"><?php echo $orderStatus;?> </p>
+                            </td>
+                        </tr>
+                    </table>
+                </li>
+                <li>
+                    <table style="margin: -10px 0px -10px 0px" border="0">
+                        <tr>
+                            <td style="width:17%">
+                                <p style="color:#33c8ce;">服务名称</p>
+                            </td>
+                            <td style="width:83%">
+                                <p style="white-space:pre-wrap; color:#6f6f6f;"><?php echo $order['service_name'];?></p>
+                            </td>
+                        </tr>
+                    </table>
+                </li>
+                <li>
+                    <table style="margin: -10px 0px -10px 0px" border="0">
+                        <tr>
+                            <td style="width:17%">
+                                <p style="color:#33c8ce;">卖家</p>
+                            </td>
+                            <td style="width:83%">
+                                <p style="white-space:pre-wrap; color:#6f6f6f;"><?php echo $order['seller_name'];?> </p>
+                            </td>
+                        </tr>
+                    </table>
+                </li>
+                <li>
+                    <table style="margin: -10px 0px -10px 0px" border="0">
+                        <tr>
+                            <td style="width:17%">
+                                <p style="color:#33c8ce;">买家</p>
+                            </td>
+                            <td style="width:83%">
+                                <p style="white-space:pre-wrap; color:#6f6f6f;"><?php echo $order['customer_name'];?> </p>
+                            </td>
+                        </tr>
+                    </table>
+                </li>
+                <li>
+                    <table style="margin: -10px 0px -10px 0px" border="0">
+                        <tr>
+                            <td style="width:17%">
+                                <p style="white-space:pre-wrap; color:#33c8ce;">买家咨询话题</p>
+                            </td>
+                            <td style="width:83%">
+                                <p style="white-space:pre-wrap; color:#6f6f6f;"><?php echo $order['request_message'];?></p>
+                            </td>
+                        </tr>
+                    </table>
+                </li>
+                <li>
+                    <table style="margin: -10px 0px -10px 0px" border="0">
+                        <tr>
+                            <td style="width:17%">
+                                <p style="color:#33c8ce;">价格</p>
+                            </td>
+                            <td style="width:83%">
+                                <p style="white-space:pre-wrap; color:#6f6f6f;">￥<?php echo $order['service_price'];?>/小时 </p>
+                            </td>
+                        </tr>
+                    </table>
+                </li>
+                <li>
+                    <table style="margin: -10px 0px -10px 0px" border="0">
+                        <tr>
+                            <td style="width:17%">
+                                <p style="color:#33c8ce;">已购买</p>
+                            </td>
+                            <td style="width:83%">
+                                <p style="white-space:pre-wrap; color:#6f6f6f;"><?php echo $order['service_hours'];?>小时</p>
+                            </td>
+                        </tr>
+                    </table>
+                </li>
+                <li>
+                    <table style="margin: -10px 0px -10px 0px" border="0">
+                        <tr>
+                            <td style="width:17%">
+                                <p style="color:#33c8ce;">总计</p>
+                            </td>
+                            <td style="width:83%">
+                                <p style="white-space:pre-wrap; color:#6f6f6f;"><?php echo $order['service_total_fee'];?>元</p>
+                            </td>
+                        </tr>
+                    </table>
+                </li>
             </ul>
-            <br>
+
             <h5>卖家联系方式:</h5>
             <?php if (isset($sellerData)) {?>
                 <ul data-role="listview" data-inset="true" data-theme="f" style="font-size:14px;">
-                    <li>微信号: <span class="ui-li-count"><?php echo $sellerData['weixin'];?></span></li>
+                    <li>
+                        <table style="margin: -10px 0px -10px 0px" border="0">
+                            <tr>
+                                <td style="width:17%">
+                                    <p style="color:#33c8ce;">微信号</p>
+                                </td>
+                                <td style="width:83%">
+                                    <p style="white-space:pre-wrap; color:#6f6f6f;"><?php echo $sellerData['weixin'];?></p>
+                                </td>
+                            </tr>
+                        </table>
+                    </li>
                 </ul>
             <?php } else {?>
                 <ul data-role="listview" data-inset="true" data-theme="f" style="font-size:14px;">
-                    <li>买家付款,卖家接收后即可显示卖家联系方式</li>
+                    <li><p>买家付款,卖家接收后即可显示卖家联系方式</p></li>
                 </ul>
             <?php } ?>
-
-            <br>
 
             <?php if ($isOrderNormal == 0){?>
                 <h5>订单异常变更信息:</h5>
@@ -110,36 +219,61 @@ $isMine = 1;
                     if ($isException == 0 || ($condition == 40)) {?>
                         <div>
                             <ul data-role="listview" data-inset="true" data-theme="f" style="font-size:14px;">
-                                <li>变更内容: <span class="ui-li-count"><?php echo BusinessHelper::translateOrderStatus($condition)?></span></li>
                                 <li>
+                                    <table style="margin: -10px 0px -10px 0px" border="0">
+                                        <tr>
+                                            <td style="width:17%">
+                                                <p style="color:#33c8ce;">变更内容</p>
+                                            </td>
+                                            <td style="width:83%">
+                                                <p style="white-space:pre-wrap; color:#6f6f6f;"><?php echo BusinessHelper::translateOrderStatus($condition)?></p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </li>
+                                <li style="margin: -10px 0px -10px 0px" >
                                     <p>原因:<?php echo $orderAction['comments'];?><p>
                                     <p>日期:<?php echo substr($orderAction['creation_date'], 0, 10 );?><p>
                                 </li>
                             </ul>
                         </div>
-                        <hr>
                 <?php }
                     }
             } ?>
 
-            <br>
             <h5>客户评论:</h5>
             <?php if (isset($commentsData) && count($commentsData) >0) {?>
                 <?php
                 foreach ($commentsData as $comment){ ?>
                     <div>
                         <ul data-role="listview" data-inset="true" data-theme="f" style="font-size:14px;">
-                            <li>评论者:<?php echo $comment['customer_name'];?> <span class="ui-li-count"><?php echo BusinessHelper::translateOrderFeeling($comment['stars']); ?></span></li>
                             <li>
+                                <table style="margin: -10px 0px -10px 0px" border="0">
+                                    <tr>
+                                        <td style="width:17%">
+                                            <p style="color:#33c8ce;">评论者</p>
+                                        </td>
+                                        <td style="width:53%">
+                                            <p style="white-space:pre-wrap; color:#6f6f6f;"><?php echo $comment['customer_name'];?></p>
+                                        </td>
+                                        <td style="width:10%">
+                                            <p style="color:#33c8ce;">打分</p>
+                                        </td>
+                                        <td style="width:20%">
+                                            <p style="white-space:pre-wrap; color:#6f6f6f;"><?php echo BusinessHelper::translateOrderFeeling($comment['stars']); ?></p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </li>
+                            <li style="margin: -10px 0px -10px 0px">
                                 <p>意见:<?php echo $comment['comments'];?><p>
                                 <p>日期:<?php echo substr($comment['creation_date'], 0, 10 );?><p>
                             </li>
                         </ul>
                     </div>
-                    <hr>
                 <?php } ?>
             <?php } else { ?>
-                <h5>暂无评论</h5>
+                <p style = "font-size:10px;">暂无评论</p>
             <?php } ?>
         </div>
 
@@ -158,44 +292,44 @@ $isMine = 1;
             {
                 $lastAction = $orderAction['action'];
                 $actionString = BusinessHelper::translateOrderStatus($lastAction);
-                echo "{ type: 'smallItem', label: '".$actionString.
-                    "', shortContent: '".$orderAction['creation_date'] ."',},";
+                echo "{ type: 'smallItem', label: '<h5>".$actionString.
+                    "</h5>', shortContent: '<h5>".substr($orderAction['creation_date'], 0, 10 ) ."</h5>',},";
             ?>
             <?php } ?>
             <?php if ($lastAction < 10) {?>
             {
                 type: 'milestone',
-                label: '买家支付',
+                label: '<h5>买家支付</h5>',
             },
             <?php } ?>
             <?php if ($lastAction < 20) {?>
             {
                 type: 'milestone',
-                label: '卖家确认',
+                label: '<h5>卖家确认</h5>',
             },
             <?php } ?>
             <?php if ($lastAction < 40) {?>
             {
                 type: 'milestone',
-                label: '卖家完成任务',
+                label: '<h5>卖家完成任务</h5>',
             },
             <?php } ?>
             <?php if ($lastAction < 60) {?>
             {
                 type: 'milestone',
-                label: '买家确认完成',
+                label: '<h5>买家确认完成</h5>',
             },
             <?php } ?>
             <?php if ($lastAction < 80) {?>
             {
                 type: 'milestone',
-                label: '买家评论',
+                label: '<h5>买家评论</h5>',
             },
             <?php } ?>
             <?php if ($lastAction < 100) {?>
             {
                 type: 'milestone',
-                label: '易知付款',
+                label: '<h5>易知付款</h5>',
             },
             <?php } ?>
         ]

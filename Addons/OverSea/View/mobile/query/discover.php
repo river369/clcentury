@@ -106,8 +106,6 @@ $isDiscover = 1;
 
             });
         });
-
-
     </script>
 </head>
 <body>
@@ -263,4 +261,3 @@ $isDiscover = 1;
 </script>
 </body>
 </html>
-

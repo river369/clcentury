@@ -100,7 +100,7 @@ class OrdersBo
         $status= HttpHelper::getVale('status');
         $ordersDao = new OrdersDao();
         $orders = $ordersDao->getOrdersByCustomerAndStatus($customerid, $status);
-        $_SESSION['customerOrders'] = $orders;
+        $_SESSION['customerOrders'] = self::fixDataLength($orders);
         $_SESSION['customerId'] = $customerid;
         $_SESSION['customerOrdersStatus'] = $status;
     }
@@ -110,7 +110,7 @@ class OrdersBo
         $status= HttpHelper::getVale('status');
         $ordersDao = new OrdersDao();
         $orders = $ordersDao->getOrdersBySellerAndStatus($sellerid, $status);
-        $_SESSION['sellerOrders'] = $orders;
+        $_SESSION['sellerOrders'] = self::fixDataLength($orders);
         $_SESSION['sellerid'] = $sellerid;
         $_SESSION['sellerOrdersStatus'] = $status;
     }
@@ -344,5 +344,21 @@ class OrdersBo
             }
             WeixinHelper::sendOrderChangeMessage($order['external_id'], $data, $url, $topcolor = '#7B68EE');
         }
+    }
+
+    public function fixDataLength($ordersData){
+        foreach($ordersData as $key => $orderData)
+        {
+            if (mb_strlen($orderData['service_name'])>30){
+                $ordersData[$key]['service_name'] = mb_substr($orderData['service_name'],0, 10,"utf-8")."...";
+            }
+            if (mb_strlen($orderData['request_message'])>117){
+                $ordersData[$key]['request_message'] = mb_substr($orderData['request_message'],0, 39,"utf-8")."...";
+            }
+            if (mb_strlen($orderData['seller_name'])>30){
+                $ordersData[$key]['seller_name'] = mb_substr($orderData['seller_name'],0, 10,"utf-8")."...";
+            }
+        }
+        return $ordersData;
     }
 }

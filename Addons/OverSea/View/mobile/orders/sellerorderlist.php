@@ -67,54 +67,71 @@ $isMine = 1;
             {
                 $orderid = $order['order_id'];
             ?>
-            <ul data-role="listview" data-inset="true" data-theme="f">
-                <li data-role="list-divider" style="margin: -5px 0px -5px 0px">订单号: <?php echo $orderid;?>
-                    <span class="ui-li-count">购买:<?php echo $order['service_hours'];?>小时</span>
-                </li>
-                <li>
-                    <a href="../../../Controller/AuthUserDispatcher.php?c=queryOrderDetails&order_id=<?php echo $orderid; ?>" rel="external">
-                        <table border="0">
+            <div style="margin: -5px -9px 0px -9px ">
+                <ul data-role="listview" data-inset="true" data-theme="f">
+                    <li data-role="list-divider">
+                        <p style="margin: -5px 0px -3px 0px;font-size:14px;" ><?php $servicetypeDesc = $order['service_type'] ==1 ? '旅游' : '留学';
+                            echo "【".$order['service_area'].":".$servicetypeDesc."】".$order['service_name']?> </p>
+                        <span class="ui-li-count">购买:<?php echo $order['service_hours'];?>小时</span>
+                    </li>
+                    <li>
+                        <a href="../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id=<?php echo $order['service_id']; ?>" rel="external">
+                            <table style="margin: -8px 0px -8px 0px" border="0">
+                                <tr>
+                                    <td style="width:27%">
+                                        <div class="headimage">
+                                            <img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/pics/<?php echo $order['seller_id']; ?>/<?php echo $order['service_id']; ?>/main.png" height="100%">
+                                        </div>
+                                    </td>
+                                    <td style="width:73%">
+                                        <p style="white-space:pre-wrap; color:#6f6f6f;">买家:<?php echo $order['customer_name']?></p>
+                                        <p style="white-space:pre-wrap; color:#6f6f6f;">咨询:<?php echo $order['request_message']?></p>
+                                    </td>
+                                </tr>
+                            </table>
+                            <p class="ui-li-aside">￥<?php echo $order['service_price']?>/小时</p>
+                        </a>
+                    </li>
+                    <li>
+                        <table border="0" style="margin: -15px 0px -15px 0px">
                             <tr>
-                                <td style="width:30%">
-                                    <div class="headimage">
-                                        <img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $order['customer_id'];?>/head.png" height="100%">
-                                    </div>
+                                <td width="60%">
+                                    <p style="white-space:pre-wrap; color:#6f6f6f">订单号:<?php echo $orderid;?></p>
                                 </td>
-                                <td style="width:70%">
-                                    <h2> 买家:<?php echo $order['customer_name'];?> </h2>
-                                    <p style="white-space:pre-wrap;"><?php echo $order['request_message'];?> </p>
+                                <td width="40%">
+                                    <p style="white-space:pre-wrap;color:#6f6f6f;">创建日期:<?php echo substr($order['creation_date'], 0, 10 )?></p>
                                 </td>
                             </tr>
                         </table>
-                        <p class="ui-li-aside">￥<?php echo $order['service_price'];?>/小时</p>
-                    </a>
-                </li>
-                <li data-role="list-divider" style="margin: -5px 0px -5px 0px">
-                    <table border="0" style="margin: -10px 0px -10px 0px">
-                        <tr>
-                            <td width="50%">
-                                <h6>总计: <?php echo $order['service_total_fee'];?>元</h6>
-                            </td>
-                            <td width="25%">
-                                <?php if ($ordersStatus == 10) {?>
-                                    <a href="#rejectDialog" data-rel="popup" class="ui-mini" onclick="rejectPopup('<?php echo $orderid; ?>')">拒绝订单</a>
-                                <?php } ?>
-                                <?php if ($ordersStatus == 20 || $ordersStatus == 70) {?>
-                                    <a href="#acceptDialog" data-rel="popup" class="ui-mini" onclick="acceptPopup('<?php echo $orderid; ?>')">确认接单</a>
-                                <?php } ?>
-                            </td>
-                            <td width="25%">
-                                <?php if ($ordersStatus == 10) {?>
-                                    <a href="#cancelDialog" data-rel="popup" class="ui-mini" onclick="cancelPopup('<?php echo $orderid; ?>')">取消订单</a>
-                                <?php } ?>
-                                <?php if ($ordersStatus == 20 || $ordersStatus == 70) {?>
-                                    <a href="#finishDialog" data-rel="popup" class="ui-mini" onclick="finishPopup('<?php echo $orderid; ?>')">完成定单</a>
-                                <?php } ?>
-                            </td>
-                        </tr>
-                    </table>
-                </li>
-            </ul>
+                    </li>
+                    <li data-role="list-divider" style="margin: -5px 0px -5px 0px">
+                        <table border="0" style="margin: -10px 0px -10px 0px">
+                            <tr>
+                                <td width="40%">
+                                    <h6>总计: <?php echo $order['service_total_fee'];?>元</h6>
+                                </td>
+                                <td width="20%">
+                                    <a href="../../../Controller/AuthUserDispatcher.php?c=queryOrderDetails&order_id=<?php echo $orderid; ?>" rel="external" class="ui-mini">查看订单</a>
+                                </td>
+                                <td width="20%">
+
+                                    <?php if ($ordersStatus == 10) {?>
+                                        <a href="#acceptDialog" data-rel="popup" class="ui-mini" onclick="acceptPopup('<?php echo $orderid; ?>')">确认接单</a>
+                                    <?php } ?>
+                                </td>
+                                <td width="20%">
+                                    <?php if ($ordersStatus == 10) {?>
+                                        <a href="#rejectDialog" data-rel="popup" class="ui-mini" onclick="rejectPopup('<?php echo $orderid; ?>')">拒绝订单</a>
+                                    <?php } ?>
+                                    <?php if ($ordersStatus == 20 || $ordersStatus == 70) {?>
+                                        <a href="#finishDialog" data-rel="popup" class="ui-mini" onclick="finishPopup('<?php echo $orderid; ?>')">完成定单</a>
+                                    <?php } ?>
+                                </td>
+                            </tr>
+                        </table>
+                    </li>
+                </ul>
+            </div>
             <?php } 
         } else {?>
             <h5>没有处于该状态的订单</h5>

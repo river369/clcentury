@@ -47,7 +47,18 @@ $isMine = 1;
         {
             color:orange;
         }
+        div.headimag {
+            height: 65px;
+            width: 65px;
+        }
+        div.rounded-head-image {
+            height: 85px;
+            width: 85px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
         h5{ color:#33c8ce}
+        p{ font-size:14px; white-space:pre-wrap; word-break:break-all}
         table{ table-layout : fixed; width:100% }
     </style>
 </head>
@@ -74,7 +85,6 @@ $isMine = 1;
             {
                 $itemIndex++;
                 $serviceid= $service['service_id'];
-                $stars = $service['stars'];
                 $status = $service['status'];
                 $serviceType = $service['service_type'];
                 $serviceTypeDesc = '旅游';
@@ -82,39 +92,66 @@ $isMine = 1;
                     $serviceTypeDesc = '留学';
                 }
             ?>
-            <ul data-role="listview" data-inset="true" data-theme="f">
-                <li data-role="list-divider" style="margin: -5px 0px -5px 0px">服务编号:<?php echo $serviceid;?>
-                    <span class="ui-li-count"><div class="rate<?php echo $itemIndex; ?>"></span>
-                    <input type="hidden" id="ratevalue<?php echo $itemIndex; ?>" value="<?php echo $stars;?>"/>
-                </li>
-                <li>
-                    <a href="../../../Controller/AuthUserDispatcher.php?c=publishService&sellerid=<?php echo $sellerid; ?>&service_id=<?php echo $serviceid; ?>" rel="external">
-<!--                    <img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/--><?php //echo $sellerid;?><!--/head.png?t=--><?php //echo rand(0,10000); ?><!--" alt="">-->
-                        <p style="white-space:pre-wrap"><?php echo $service['service_area'];?>:<?php echo $serviceTypeDesc;?> </p>
-                        <p style="white-space:pre-wrap"><?php echo $service['service_name'];?> </p>
-                        <p class="ui-li-aside">￥<?php echo $service['service_price'];?>/小时</p>
-                    </a>
-                </li>
-                <li data-role="list-divider" style="margin: -5px 0px -5px 0px">
-                    <table border="0" style="margin: -10px 0px -10px 0px">
-                        <tr>
-                            <td width="50%">
-                                <p style="white-space:pre-wrap;">创建日期:<?php echo substr($service['creation_date'], 0, 10 )?></p>
-                            </td>
-                            <td width="25%">
-                                <?php if ($querystatus == 60) { ?>
-                                    <a href="#pauseDialog" data-rel="popup" onclick="pausePopup('<?php echo $serviceid; ?>')">暂停服务</a>
-                                <?php } else if ($querystatus == 100)  {?>
-                                    <a href="#recoverDialog" data-rel="popup" onclick="recoverPopup('<?php echo $serviceid; ?>')">恢复服务</a>
-                                <?php }  ?>
-                            </td>
-                            <td width="25%">
-                                <a href="#deleteDialog" data-rel="popup" onclick="deletePopup('<?php echo $serviceid; ?>')">删除服务</a>
-                            </td>
-                        </tr>
-                    </table>
-                </li>
-            </ul>
+            <div style="margin: -5px -9px 0px -9px ">
+                <ul data-role="listview" data-inset="true" data-theme="f">
+                    <li data-role="list-divider">
+                        <p style="margin: -5px 0px -3px 0px;font-size:14px;" ><?php $servicetypeDesc = $service['service_type'] ==1 ? '旅游' : '留学';
+                            echo "【".$service['service_area'].":".$servicetypeDesc."】".$service['service_name']?> </p><span class="ui-li-count"><div class="rate<?php echo $itemIndex; ?>"></span>
+                        <input type="hidden" id="ratevalue<?php echo $itemIndex; ?>" value="<?php echo $service['stars'];?>"/>
+                    </li>
+                    <li>
+                        <a href="../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id=<?php echo $service['service_id']; ?>" rel="external">
+                            <table style="margin: -8px 0px -8px 0px" border="0">
+                                <tr>
+                                    <td style="width:27%">
+                                        <div class="headimag">
+                                            <img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/pics/<?php echo $service['seller_id']; ?>/<?php echo $service['service_id']; ?>/main.png" height="100%">
+                                        </div>
+                                    </td>
+                                    <td style="width:73%">
+                                        <p style="white-space:pre-wrap;">卖家:<?php echo $service['seller_name']?></p>
+                                        <p style="white-space:pre-wrap;">简介:<?php echo $service['service_brief']?></p>
+                                    </td>
+                                </tr>
+                            </table>
+                            <p class="ui-li-aside">￥<?php echo $service['service_price']?>/小时</p>
+                        </a>
+                    </li>
+                    <li>
+                        <table border="0" style="margin: -15px 0px -15px 0px">
+                            <tr>
+                                <td width="60%">
+                                    <p style="white-space:pre-wrap; color:#6f6f6f;">服务编号:<?php echo $serviceid;?></p>
+                                </td>
+                                <td width="40%">
+                                    <p style="white-space:pre-wrap; color:#6f6f6f;">创建日期:<?php echo substr($service['creation_date'], 0, 10 )?></p>
+                                </td>
+                            </tr>
+                        </table>
+                    </li>
+                    <li>
+                        <table border="0" style="margin: -15px 0px -15px 0px">
+                            <tr>
+                                <td width="40%">
+                                </td>
+                                <td width="20%">
+                                    <?php if ($querystatus == 60) { ?>
+                                        <a href="#pauseDialog" data-rel="popup" onclick="pausePopup('<?php echo $serviceid; ?>')" class="ui-mini">暂停服务</a>
+                                    <?php } else if ($querystatus == 100)  {?>
+                                        <a href="#recoverDialog" data-rel="popup" onclick="recoverPopup('<?php echo $serviceid; ?>')" class="ui-mini">恢复服务</a>
+                                    <?php }  ?>
+                                </td>
+                                <td width="20%">
+                                    <a href="../../../Controller/AuthUserDispatcher.php?c=publishService&sellerid=<?php echo $sellerid; ?>&service_id=<?php echo $serviceid; ?>" rel="external" class="ui-mini">编辑服务</a>
+                                </td>
+                                <td width="20%">
+                                    <a href="#deleteDialog" data-rel="popup" onclick="deletePopup('<?php echo $serviceid; ?>')" class="ui-mini">删除服务</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </li>
+                </ul>
+            </div>
         <?php }
         } else {?>
             <h5>没有处于该状态的服务</h5>
@@ -203,6 +240,11 @@ $isMine = 1;
         $('#recoverServiceId').val(serviceId);
         $('#recoverDialog').popup('open');
     };
+    $(document).ready(function(){
+        $("img").error(function () {
+            $(this).attr("src", "../../resource/images/head_default.jpg");
+        });
+    });
     $(document).ready(function(){
         $("img").error(function () {
             $(this).attr("src", "../../resource/images/head_default.jpg");

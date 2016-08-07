@@ -138,7 +138,6 @@ $isDiscover = 1;
                     </li>
                     <li>
                         <a href="../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id=<?php echo $serviceData['service_id']; ?>" rel="external">
-    
                             <table style="margin: -8px 0px -8px 0px" border="0">
                                 <tr>
                                     <td style="width:27%">
