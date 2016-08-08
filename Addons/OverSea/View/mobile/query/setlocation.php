@@ -36,6 +36,11 @@ $isDiscover = 1;
     <link rel="stylesheet" href="../../resource/style/bootstrap/bootstrap.min.css">
     <link href="../../resource/style/sidebar/simple-sidebar.css" rel="stylesheet">
     <link href="../../resource/style/city/style.css" rel="stylesheet">
+    <style>
+        h5{ color:#33c8ce}
+        p{ font-size:14px; white-space:pre-wrap; word-break:break-all}
+        label{ color:#33c8ce; font-size:14px;}
+    </style>
 </head>
 
 <body>
@@ -50,7 +55,7 @@ $isDiscover = 1;
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav nav nav-tabs" id="sidebar-nav">
                 <li class="sidebar-brand">
-                    <h4 style="color:steelblue" onclick="setArea()">地球</h4>
+                    <h5 onclick="setArea()">地球</h5>
                 </li>
                 <?php
                 foreach($countries as $display_sequence => $country){?>
@@ -70,7 +75,7 @@ $isDiscover = 1;
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-lg-12">
-                                <h4 style="color:steelblue">城市</h4>
+                                <h5>城市</h5>
                                 <div class="container_cn" style="z-index: 9999; ">
                                     <div class="city">
                                         <?php
@@ -78,7 +83,7 @@ $isDiscover = 1;
                                             <div class="city-list"><span class="city-letter" id="<?php echo $pinyin; ?>1"><?php echo $pinyin; ?></span>
                                                 <?php
                                                 foreach($citites[$display_sequence][$pinyin] as $key => $cityname){?>
-                                                    <p><a href="../../../Controller/FreelookDispatcher.php?c=setLocation&servicearea=<?php echo $cityname;?>" rel="external"><?php echo $cityname;?></a></p>
+                                                    <p><a href="../../../Controller/FreelookDispatcher.php?c=setLocation&servicearea=<?php echo $cityname;?>" class="ui-mini" rel="external"><?php echo $cityname;?></a></p>
                                                 <?php }?>
                                             </div>
                                         <?php }?>

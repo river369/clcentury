@@ -147,7 +147,7 @@ $isPublishService = 1;
                         <label style="font-size:12px;">服务类型<label/>
                     </td>
                     <td style="width:80%">
-                        <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" data-theme="e">
+                        <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" data-theme="a">
                             <input name="service_type" id="radio-choice-c" value="1" <?php if (!isset($serviceData) ||$serviceData['service_type'] == 1) {echo 'checked="true"'; } ?> type="radio">
                             <label for="radio-choice-c">旅游</label>
                             <input name="service_type" id="radio-choice-d" value="2" <?php if ($serviceData['service_type'] == 2) {echo 'checked="true"'; } ?> type="radio">
