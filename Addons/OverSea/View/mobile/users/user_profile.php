@@ -146,8 +146,8 @@ $isDiscover = 1;
                                         </div>
                                     </td>
                                     <td style="width:73%">
-                                        <p style="white-space:pre-wrap;">卖家:<?php echo $serviceData['seller_name']?></p>
-                                        <p style="white-space:pre-wrap;">简介:<?php echo $serviceData['service_brief']?></p>
+                                        <p style="white-space:pre-wrap;word-break:break-all">卖家:<?php echo $serviceData['seller_name']?></p>
+                                        <p style="white-space:pre-wrap;word-break:break-all">简介:<?php echo $serviceData['service_brief']?></p>
                                     </td>
                                 </tr>
                             </table>

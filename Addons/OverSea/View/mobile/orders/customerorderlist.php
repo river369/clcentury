@@ -87,8 +87,8 @@ $isMine = 1;
                                         </div>
                                     </td>
                                     <td style="width:73%">
-                                        <p style="white-space:pre-wrap; color:#6f6f6f;">卖家:<?php echo $order['seller_name']?></p>
-                                        <p style="white-space:pre-wrap; color:#6f6f6f;">咨询:<?php echo $order['request_message']?></p>
+                                        <p style="white-space:pre-wrap; word-break:break-all; color:#6f6f6f;">卖家:<?php echo $order['seller_name']?></p>
+                                        <p style="white-space:pre-wrap; word-break:break-all; color:#6f6f6f;">咨询:<?php echo $order['request_message']?></p>
                                     </td>
                                 </tr>
                             </table>
@@ -99,7 +99,7 @@ $isMine = 1;
                         <table border="0" style="margin: -15px 0px -15px 0px">
                             <tr>
                                 <td width="60%">
-                                    <p style="white-space:pre-wrap; color:#6f6f6f">订单号:<?php echo $orderid;?></p>
+                                    <p style="white-space:pre-wrap;color:#6f6f6f">订单号:<?php echo $orderid;?></p>
                                 </td>
                                 <td width="40%">
                                     <p style="white-space:pre-wrap;color:#6f6f6f;">创建日期:<?php echo substr($order['creation_date'], 0, 10 )?></p>

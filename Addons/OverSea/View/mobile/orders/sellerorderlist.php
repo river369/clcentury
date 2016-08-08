@@ -84,8 +84,8 @@ $isMine = 1;
                                         </div>
                                     </td>
                                     <td style="width:73%">
-                                        <p style="white-space:pre-wrap; color:#6f6f6f;">买家:<?php echo $order['customer_name']?></p>
-                                        <p style="white-space:pre-wrap; color:#6f6f6f;">咨询:<?php echo $order['request_message']?></p>
+                                        <p style="white-space:pre-wrap; word-break:break-all; color:#6f6f6f;">买家:<?php echo $order['customer_name']?></p>
+                                        <p style="white-space:pre-wrap; word-break:break-all; color:#6f6f6f;">咨询:<?php echo $order['request_message']?></p>
                                     </td>
                                 </tr>
                             </table>
