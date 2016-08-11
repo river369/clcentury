@@ -51,6 +51,7 @@ $isDiscover = 1;
 
     <!-- wrapper -->
     <div id="wrapper">
+        <input type="hidden" name="display_sequence" id="display_sequence"  value="1"/>
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav nav nav-tabs" id="sidebar-nav">
@@ -80,10 +81,10 @@ $isDiscover = 1;
                                     <div class="city">
                                         <?php
                                         foreach($citites[$display_sequence] as $pinyin => $citynames){?>
-                                            <div class="city-list"><span class="city-letter" id="<?php echo $pinyin; ?>1"><?php echo $pinyin; ?></span>
+                                            <div class="city-list"><span class="city-letter" id="<?php echo $pinyin.$display_sequence; ?>"><?php echo $pinyin; ?></span>
                                                 <?php
                                                 foreach($citites[$display_sequence][$pinyin] as $key => $cityname){?>
-                                                    <p><a href="../../../Controller/FreelookDispatcher.php?c=setLocation&servicearea=<?php echo $cityname;?>" class="ui-mini" rel="external"><?php echo $cityname;?></a></p>
+                                                    <p style="margin: 0px 0px 0px 0px"><a href="../../../Controller/FreelookDispatcher.php?c=setLocation&servicearea=<?php echo $cityname;?>" class="ui-mini" rel="external"><?php echo $cityname;?></a></p>
                                                 <?php }?>
                                             </div>
                                         <?php }?>
@@ -144,13 +145,15 @@ $isDiscover = 1;
 
     $('#sidebar-nav a').click(function (e) {
         e.preventDefault();
+        //alert($(this))
         $(this).tab('show');
     });
     function setArea() {
         window.location.href="../../../Controller/FreelookDispatcher.php?c=setLocation&servicearea=地球";
     };
     $('body').on('click', '.letter a', function () {
-        var s = $(this).html();;
+        var s = $(this).html();
+        //alert(s);
         $(window).scrollTop($('#' + s + '1').offset().top - 100);
     });
 </script>

@@ -105,7 +105,7 @@ $isPublishService = 1;
 
     <div role="main" class="ui-content jqm-content jqm-fullwidth">
         <label style="font-size:12px;"> 请点击图标上传服务主图片, 主图片显示于求易知列表.</label>
-        <div class="container" id="crop-avatar" data-role="content" style="margin: -5px 0px -45px 0px" >
+        <div class="container" id="crop-avatar" data-role="content" style="margin: -5px 0px -25px -20px" >
             <div class="avatar-view headimage" title="Change the avatar">
                 <img src="<?php echo $mainPicUrl ?>" id='myhead' alt="主图片" onclick="chooseImages()">
             </div>
@@ -123,10 +123,10 @@ $isPublishService = 1;
         <div class="errmsgstring" style="color:red"></div>
         <ul class="weui_uploader_files">
             <?php foreach ($objArray as $obj) { ?>
-                <li class="weui_uploader_file" onclick="changepopup('<?php echo $obj; ?>')" style="background-image:url(<?php echo $imageurl.$obj; ?>)"></li>
+                <li class="weui_uploader_file" onclick="changepopup('<?php echo $obj; ?>')" style="background-image:url(<?php echo $imageurl.$obj; ?>); border: 3px solid #fff;border-radius: 5px;box-shadow: 0 0 5px rgba(0,0,0,.15);"></li>
             <?php }
             if ($remainingcount > 0) {?>
-                <li class="weui_uploader_file" id="uplaodImages" onclick="selectImages()" style="background-image:url(../../resource/images/addpic.png)"></li>
+                <li class="weui_uploader_file" id="uplaodImages" onclick="selectImages()" style="background-image:url(../../resource/images/addpic.png); border: 3px solid #fff;border-radius: 5px;box-shadow: 0 0 5px rgba(0,0,0,.15);"></li>
             <?php } ?>
         </ul>
 
@@ -383,7 +383,7 @@ $isPublishService = 1;
                     var rcount = $('#remainingCount').val();
                     var htmlString = '<ul class="weui_uploader_files">';
                     for(var i in result.objLists) {
-                        htmlString = htmlString + '<li class="weui_uploader_file" onclick="changepopup(\'' + result.objLists[i] + '\')" style="background-image:url(<?php echo $imageurl; ?>' + result.objLists[i] + ')"></li>';
+                        htmlString = htmlString + '<li class="weui_uploader_file" onclick="changepopup(\'' + result.objLists[i] + '\')" style="background-image:url(<?php echo $imageurl; ?>' + result.objLists[i] + '); border: 3px solid #fff;border-radius: 5px;box-shadow: 0 0 5px rgba(0,0,0,.15);"></li>';
                         rcount--;
                     }
                     $('#remainingCount').val(rcount);

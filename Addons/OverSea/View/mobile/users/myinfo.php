@@ -63,7 +63,7 @@ $statusString = BusinessHelper::translateRealNameStatus($status);
     </script>
 </head>
 <body>
-<div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
+<div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外" data-theme="a">
     <div data-role="header" data-position="fixed" data-theme="c">
         <h1>个人信息</h1>
     </div>
@@ -81,7 +81,7 @@ $statusString = BusinessHelper::translateRealNameStatus($status);
                     <label  style="font-size:12px;" >头像</label >
                 </td>
                 <td style="width:85%">
-                    <div class="container" id="crop-avatar" data-role="content" style="margin: -25px 0px -25px 0px" >
+                    <div class="container" id="crop-avatar" data-role="content" style="margin: -25px 0px -15px 0px" >
                         <div class="avatar-view headimage" title="Change the avatar">
                             <img src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $userId;?>/head.png?t=<?php echo rand(10,100); ?>" id='myhead' alt="点击上传头像" onclick="chooseImages()">
                         </div>
@@ -132,7 +132,7 @@ $statusString = BusinessHelper::translateRealNameStatus($status);
                         <label  style="font-size:12px;" >我是<label/>
                     </td>
                     <td style="width:80%">
-                        <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" data-theme="e">
+                        <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
                             <input name="gender" id="radio-choice-c" value="1" <?php if ($existedUser['gender'] == 1) {echo 'checked="true"'; } ?> type="radio">
                             <label for="radio-choice-c">男生</label>
                             <input name="gender" id="radio-choice-d" value="2" <?php if ($existedUser['gender'] == 2) {echo 'checked="true"'; } ?> type="radio">
