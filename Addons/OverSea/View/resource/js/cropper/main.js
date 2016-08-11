@@ -181,8 +181,11 @@
         this.$avatarWrapper.empty().html(this.$img);
         this.$img.cropper({
           aspectRatio: 1,
+          //checkOrientation: false,
+          //rotatable:false,
           preview: this.$avatarPreview.selector,
           crop: function (e) {
+            //alert(e.rotate );
             var json = [
               '{"x":' + e.x,
               '"y":' + e.y,
