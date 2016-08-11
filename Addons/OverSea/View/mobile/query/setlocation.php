@@ -61,7 +61,7 @@ $isDiscover = 1;
                 <?php
                 foreach($countries as $display_sequence => $country){?>
                     <li <?php echo $display_sequence == 1 ? 'class="active"' : '' ?>>
-                        <a href="#tab<?php echo $display_sequence?>"><?php echo $country?></a>
+                        <a href="#tab<?php echo $display_sequence?>" sequence="<?php echo $display_sequence?>"><?php echo $country?></a>
                     </li>
                 <?php }?>
             </ul>
@@ -145,7 +145,7 @@ $isDiscover = 1;
 
     $('#sidebar-nav a').click(function (e) {
         e.preventDefault();
-        //alert($(this))
+        $('#display_sequence').val($(this).attr('sequence'));
         $(this).tab('show');
     });
     function setArea() {
@@ -153,8 +153,8 @@ $isDiscover = 1;
     };
     $('body').on('click', '.letter a', function () {
         var s = $(this).html();
-        //alert(s);
-        $(window).scrollTop($('#' + s + '1').offset().top - 100);
+        var seq = $('#display_sequence').val();
+        $(window).scrollTop($('#' + s + seq).offset().top - 100);
     });
 </script>
 
