@@ -8,7 +8,16 @@
     <script src="../../resource/js/jquery/jquery-1.11.1.min.js"></script>
     <script src="../../resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
-
+    <style>
+        div.headimage {
+            height: 65px;
+            width: 65px;
+        }
+        h5{ color:#33c8ce}
+        h6{ color:#33c8ce}
+        p{ font-size:14px;}
+        table{ table-layout : fixed; width:100%; }
+    </style>
 
 </head>
 <body>
@@ -30,6 +39,21 @@
             <div id="div-slider">
                 <input type="range" name="servicehours" id="servicehours" value="1" min="0" max="100" data-highlight="true" />
             </div>
+            <h5>咨询时长:</h5>
+            <table style="margin: -8px 0px -8px 0px" border="0">
+                <tr>
+                    <td style="width:8%">
+                        <img id="add2" src="http://i.imgur.com/98cvZnj.png" width="25" height="25" class="add"/>
+                    </td>
+                    <td style="width:30%">
+                        <input id="qty2" type="number" value="1" class="qty"/>
+                    </td>
+
+                    <td style="width:38%">
+                        <img src="http://i.imgur.com/yOadS1c.png" id="minus2" width="25" height="25" class="minus"/>
+                    </td>
+                </tr>
+            </table>
 
             <h5>总计(￥):</h5>
             <div id="totalmoney">
@@ -60,6 +84,14 @@
         var slider_value = $("#servicehours").val();
         html = '<input type="text" name="servicetotalfee" id="servicetotalfee"  value="' + slider_value * 1000 +'"/>';
         $("#totalmoney").html(html);
+    });
+    $(function(){
+        $("#add2").click(function(){
+            $('#qty2').val(Number($('#qty2').val())+1);
+        });
+        $("#minus2").click(function(){
+            $('#qty2').val(Number($('#qty2').val())-1);
+        });
     });
 </script>
 

@@ -49,7 +49,7 @@ $signedUser = $_SESSION['signedUser'];
 
     <form id="submitorder" data-ajax="false" method="post" action="../../../Controller/AuthUserDispatcher.php?c=createOrder">
         <div data-role="content">
-            <h5>服务信息:</h5>
+            <h5>服务信息</h5>
             <ul data-role="listview" data-inset="true" data-theme="f" style="font-size:14px;">
                 <li>服务编号: <span class="ui-li-count"><?php echo $serviceId; ?></span></li>
                 <li>服务名称: <span class="ui-li-count"><?php echo $serviceName; ?></span></li>
@@ -57,22 +57,42 @@ $signedUser = $_SESSION['signedUser'];
                 <li>服务类型: <span class="ui-li-count"><?php echo $serviceTypeDesc; ?></span></li>
                 <li>服务价格: <span class="ui-li-count">￥<?php echo $price; ?>/小时</span></li>
             </ul>
-            <h5>咨询时长:</h5>
+            <h5>咨询时长</h5>
             <div id="div-slider">
                 <input type="range" name="service_hours" id="service_hours" value="1" min="1" max="100" data-highlight="true" />
             </div>
+            <h5>咨询时长</h5>
+            <table style="margin: -8px 0px -8px 0px" border="0">
+                <tr>
+                    <td style="width:8%">
+                        <a href="#" onclick="minus1();" data-theme="c" rel="external">
+                            <img id="minus" src="../../resource/images/minus.png"" width="25" height="25" class="add"/>
+                        </a>
+                    </td>
+                    <td style="width:30%">
+                        <input id="qty2" type="number" value="1" class="qty"/>
+                    </td>
 
-            <h5>总计(￥):</h5>
+                    <td style="width:38%">
+                        <a href="#" onclick="add1();" data-theme="c" rel="external">
+                         <img id="add" src="../../resource/images/inc.png" width="25" height="25" class="minus"/>
+                        </a>
+                    </td>
+
+                </tr>
+            </table>
+
+            <h5>总计(￥)</h5>
             <div id="totalmoney">
                 <input type="text" name="service_total_fee" id="service_total_fee" readonly="true" value="<?php echo $price; ?>"/>
             </div>
 
-            <h5>咨询话题:</h5>
+            <h5>咨询话题</h5>
             <div id="totalmoney">
                 <textarea cols="30" rows="8" name="request_message" id="request_message" data-mini="true"></textarea>
             </div>
 
-            <a href="#rulePopup" data-rel="popup" class="ui-controlgroup-label"><h5>点击阅读购买服务声明:</h5></a>
+            <a href="#rulePopup" data-rel="popup" class="ui-controlgroup-label"><h5>点击阅读购买服务声明</h5></a>
             <input name="agree" id="agree" data-mini="true" type="checkbox">
             <label for="agree">我同意上述服务声明</label>
 
@@ -104,11 +124,35 @@ $signedUser = $_SESSION['signedUser'];
         $("#totalmoney").html(html);
         $("#totalmoney").trigger('create')
     });
+    function add1() {
+        $('#qty2').val(Number($('#qty2').val())+1);
+    };
+    function minus1() {
+        var num = Number($('#qty2').val())-1;
+        if (num>0){
+            $('#qty2').val(Number($('#qty2').val())-1);
+        }
+    };
+//    $(function(){
+//        $("#add").click(function(){
+//            $('#qty2').val(Number($('#qty2').val())+1);
+//        });
+//        $("#minus").click(function(){
+//            var num = Number($('#qty2').val())-1;
+//            if (num>0){
+//                $('#qty2').val(Number($('#qty2').val())-1);
+//            }
+//        });
+//    });
 </script>
 <script>
     $( "#panel-fixed-page1" ).on( "pageinit", function() {
         $( "#submitorder" ).validate({
             rules: {
+                qty2:{
+                    required: true,
+                    number : true,
+                },
                 request_message: {
                     required: true,
                     minlength: 4
@@ -116,8 +160,12 @@ $signedUser = $_SESSION['signedUser'];
                 agree: "required"
             },
             messages: {
+                qty2:{
+                    required: "咨询不能为空",
+                    number : "必须输入合法的数字",
+                },
                 request_message: {
-                    required: "咨询话题不能为空",
+                    required: "咨询时长不能为空",
                     minlength: "咨询话题长度不能小于 4 个字"
                 },
                 agree: "请接受我们的声明"
