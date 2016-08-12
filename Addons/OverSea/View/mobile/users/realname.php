@@ -62,9 +62,9 @@ $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
     </div>
     
     <ul data-role="listview" data-inset="true" data-theme="f">
-        <li data-role="list-divider">用户状态 <span class="ui-li-count"><?php echo $statusString; ?></span></li>
+        <li data-role="list-divider"><p>用户状态:【<?php echo $statusString;?>】</p></li>
         <?php if ($status == 40) {?>
-            <li data-role="list-divider">拒绝原因 <span class="ui-li-count"><?php echo $existedUser['check_reason']; ?></span></li>
+            <li data-role="list-divider"><p>拒绝原因:<?php echo $existedUser['check_reason']; ?>】</p></li>
         <?php } ?>
     </ul>
     

@@ -55,11 +55,8 @@ $isMine = 1;
                 <li><a href="../../../Controller/AuthUserDispatcher.php?c=queryCustomerOrders&customerid=<?php echo $customerid;?>&status=0,10" <?php echo ($ordersStatus == 0 || $ordersStatus == 10) ? "class='ui-btn-active'" : ''; ?> rel="external">已下单</a></li>
                 <li><a href="../../../Controller/AuthUserDispatcher.php?c=queryCustomerOrders&customerid=<?php echo $customerid;?>&status=20" <?php echo $ordersStatus == 20 ? "class='ui-btn-active'" : '' ?> rel="external" >已接收</a></li>
                 <li><a href="../../../Controller/AuthUserDispatcher.php?c=queryCustomerOrders&customerid=<?php echo $customerid;?>&status=40" <?php echo $ordersStatus == 40 ? "class='ui-btn-active'" : '' ?> rel="external" >待确认</a></li>
-            </ul>
-            <ul>
-                <li><a href="../../../Controller/AuthUserDispatcher.php?c=queryCustomerOrders&customerid=<?php echo $customerid;?>&status=60,80,100" <?php echo ($ordersStatus == 60 || $ordersStatus == 80 || $ordersStatus == 100) ? "class='ui-btn-active'" : '' ?> rel="external" style="margin: -1px 0px 0px 0px">已完成</a></li>
-                <li><a href="../../../Controller/AuthUserDispatcher.php?c=queryCustomerOrders&customerid=<?php echo $customerid;?>&status=70" <?php echo $ordersStatus == 70 ? "class='ui-btn-active'" : '' ?> rel="external" style="margin: -1px 0px 0px 0px">有争议</a></li>
-                <li><a href="../../../Controller/AuthUserDispatcher.php?c=queryCustomerOrders&customerid=<?php echo $customerid;?>&status=1020,1040,1060" <?php echo ($ordersStatus == 1020 || $ordersStatus == 1040 || $ordersStatus == 1060) ? "class='ui-btn-active'" : '' ?> rel="external" style="margin: -1px 0px 0px 0px">已取消</a></li>
+                <li><a href="../../../Controller/AuthUserDispatcher.php?c=queryCustomerOrders&customerid=<?php echo $customerid;?>&status=60,80,100" <?php echo ($ordersStatus == 60 || $ordersStatus == 80 || $ordersStatus == 100) ? "class='ui-btn-active'" : '' ?> rel="external">已完成</a></li>
+                <li><a href="../../../Controller/AuthUserDispatcher.php?c=queryCustomerOrders&customerid=<?php echo $customerid;?>&status=1020,1040,1060" <?php echo ($ordersStatus == 1020 || $ordersStatus == 1040 || $ordersStatus == 1060) ? "class='ui-btn-active'" : '' ?> rel="external">已取消</a></li>
             </ul>
         </div><!-- /navbar -->
         <?php if (isset($orders) && count($orders) >0) { ?>
@@ -120,12 +117,12 @@ $isMine = 1;
                                     <?php if ($ordersStatus <= 20 && $orderStatus == 0) {?>
                                         <a href="../../../Controller/AuthUserDispatcher.php?c=repayOrder&order_id=<?php echo $orderid; ?>" rel="external" class="ui-mini">去付款</a>
                                     <?php } ?>
-                                    <?php if ($ordersStatus == 40) {?>
+                                    <?php if ($ordersStatus == -40) {?>
                                         <a href="#rejectDialog" data-rel="popup" class="ui-mini" onclick="rejectPopup('<?php echo $orderid; ?>')">提出异议</a>
                                     <?php } ?>
                                 </td>
                                 <td width="20%">
-                                    <?php if ($ordersStatus <= 20) {?>
+                                    <?php if ($ordersStatus < 20) {?>
                                         <a href="#cancelDialog" data-rel="popup" class="ui-mini" onclick="cancelPopup('<?php echo $orderid; ?>')">取消订单</a>
                                     <?php } ?>
                                     <?php if ($ordersStatus == 40) {?>

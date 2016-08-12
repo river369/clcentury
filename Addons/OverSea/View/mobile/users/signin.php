@@ -9,6 +9,7 @@ session_start();
 $existedUserPhoneReigon=$_SESSION['existedUserPhoneReigon'];
 $existedUserPhoneNumber=$_SESSION['existedUserPhoneNumber'];
 $signInErrorMsg=$_SESSION['$signInErrorMsg'];
+$existedUser = $_SESSION['existedUser'];
 unset($_SESSION['existedUser'], $_SESSION['existedUserPhoneReigon'], $_SESSION['existedUserPhoneNumber'], $_SESSION['$signInErrorMsg'] );
 $isFreeWeb=$_GET['free'];
 //$callbackurl = $_GET ['callbackurl'];
@@ -38,7 +39,7 @@ $isFreeWeb=$_GET['free'];
         <h1>登陆</h1>
     </div>
 
-    <?php if(isset($_SESSION['existedUser'])){ ?>
+    <?php if(isset($existedUser)){ ?>
         <div class="errmsgstring1" style="color:red" data-role="content">
             <?php echo $existedUserPhoneReigon.$existedUserPhoneNumber; ?>已经存在,请直接登陆.
         </div>

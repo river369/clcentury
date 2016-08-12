@@ -68,9 +68,9 @@ $statusString = BusinessHelper::translateRealNameStatus($status);
         <h1>个人信息</h1>
     </div>
     <ul data-role="listview" data-inset="true" data-theme="f">
-        <li data-role="list-divider">用户状态 <span class="ui-li-count"><?php echo $statusString; ?></span></li>
+        <li data-role="list-divider"><p>用户状态:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;【<?php echo $statusString;?>】</p></li>
         <?php if ($status == 40) {?>
-            <li data-role="list-divider">拒绝原因 <span class="ui-li-count"><?php echo $existedUser['check_reason']; ?></span></li>
+            <li data-role="list-divider"><p>拒绝原因:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;【<<?php echo $existedUser['check_reason'];?>】</p></li>
         <?php } ?>
     </ul>
     <div data-role="content">
@@ -78,7 +78,7 @@ $statusString = BusinessHelper::translateRealNameStatus($status);
         <table>
             <tr>
                 <td style="width:15%">
-                    <label  style="font-size:12px;" >头像</label >
+                    <label style="font-size:12px;" >头像</label >
                 </td>
                 <td style="width:85%">
                     <div class="container" id="crop-avatar" data-role="content" style="margin: -25px 0px -15px 0px" >
@@ -184,7 +184,7 @@ $statusString = BusinessHelper::translateRealNameStatus($status);
                 </tr>
             </table>
 
-            <input type="submit" name="yzsubmit" id="yzsubmit" value="发布" data-theme="c" >
+            <input type="submit" name="yzsubmit" id="yzsubmit" value="提交" data-theme="c" >
         </form>
     </div>
 

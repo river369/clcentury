@@ -51,7 +51,7 @@ $isDiscover = 1;
         {
             color:orange;
         }
-        .ui-btn { border: none !important; }
+        /*.ui-btn { border: none !important; }*/
         a {
             outline:0;
         }
