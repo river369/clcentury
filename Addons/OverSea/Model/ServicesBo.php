@@ -36,13 +36,9 @@ class ServicesBo
         if (is_null($sellerid) || strlen($sellerid) == 0 ){
             $sellerid = $userID;
         }
-        $service_id = HttpHelper::getVale('service_id');
-        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",userId=".$userID.",sellerId=".$sellerid.",service_id=".$service_id);
-
         $sellerData = self::getCurrentSellerInfo($sellerid);
         $sellerName = $sellerData['name'];
         $weixin = $sellerData['weixin'];
-
         if (!isset($sellerName) || strlen($sellerName) == 0 || !isset($weixin) || strlen($weixin) == 0){
             $_SESSION['status'] = 'f';
             $_SESSION['message'] = '用户信息不完善,请完善个人信息,确保微信号,昵称已填写完毕!';
@@ -51,7 +47,17 @@ class ServicesBo
             header('Location:../View/mobile/common/message.php');
             exit;
         }
-        self::getServiceInfo($service_id);
+
+        $service_id = HttpHelper::getVale('service_id');
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",userId=".$userID.",sellerId=".$sellerid.",service_id=".$service_id);
+        if (is_null($service_id) || strlen($service_id) == 0 ){
+            $service = self::getSellerNotPublishedService($sellerid);
+            if (!is_null($service)){
+                $service_id = $service['service_id'];
+            }
+        } else {
+            self::getServiceInfo($service_id);
+        }
         WeixinHelper::prepareWeixinPicsParameters("/weiphp/Addons/OverSea/View/mobile/service/publishservice.php");
         self::getServicePictures($sellerid, $service_id);
     }
@@ -92,7 +98,7 @@ class ServicesBo
     }
 
     /**
-     * Get a user by seller id
+     * Get a service by service id
      */
     private function getServiceInfo($service_id) {
         unset($_SESSION['serviceData']);
@@ -102,6 +108,20 @@ class ServicesBo
             $_SESSION['serviceData']= $serviceData;
             return $serviceData;
         }
+    }
+
+    private function getSellerNotPublishedService($sellerid) {
+        unset($_SESSION['serviceData']);
+        $serviceDao = new ServicesDao();
+        $myServices = $serviceDao->getServiceByUserStatus($sellerid, 0);
+        if (isset($myServices) && count($myServices) >0){
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",Got unPublishedService");
+            $serviceData = $myServices[0];
+            $_SESSION['serviceData']= $serviceData;
+            return $serviceData;
+        }
+        Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",Not get unPublishedService");
+        return null;
     }
 
     /**

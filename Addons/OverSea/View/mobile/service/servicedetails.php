@@ -296,6 +296,7 @@ function setRateSeller(star) {
         max_value: 5,
         step_size: 0.5,
         initial_value: star,
+        readonly:true,
     };
     $(".sellerrate").rate(options);
 };
@@ -304,6 +305,7 @@ function setRateService(star) {
         max_value: 5,
         step_size: 0.5,
         initial_value: star,
+        readonly:true,
     }
     $(".servicerate").rate(options);
 };

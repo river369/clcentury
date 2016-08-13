@@ -136,7 +136,7 @@ $isMine = 1;
 
 
         <div data-role="popup" id="acceptDialog" data-overlay-theme="a" data-theme="c" style="max-width:400px;">
-            <div data-role="header" data-theme="a">
+            <div data-role="header" data-theme="c">
                 <h1>确认接单</h1>
             </div>
             <div role="main" class="ui-content">
@@ -150,7 +150,7 @@ $isMine = 1;
         </div>
 
         <div data-role="popup" id="rejectDialog" data-overlay-theme="a" data-theme="c" style="max-width:400px;">
-            <div data-role="header" data-theme="a">
+            <div data-role="header" data-theme="c">
                 <h1>拒绝订单</h1>
             </div>
             <div role="main" class="ui-content">
@@ -168,7 +168,7 @@ $isMine = 1;
         </div>
 
         <div data-role="popup" id="finishDialog" data-overlay-theme="a" data-theme="c" style="max-width:400px;">
-            <div data-role="header" data-theme="a">
+            <div data-role="header" data-theme="c">
                 <h1>完成订单</h1>
             </div>
             <div role="main" class="ui-content">
@@ -186,7 +186,7 @@ $isMine = 1;
         </div>
 
         <div data-role="popup" id="cancelDialog" data-overlay-theme="a" data-theme="c" style="max-width:400px;">
-            <div data-role="header" data-theme="a">
+            <div data-role="header" data-theme="c">
                 <h1>取消订单</h1>
             </div>
             <div role="main" class="ui-content">

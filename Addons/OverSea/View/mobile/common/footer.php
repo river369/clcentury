@@ -1,4 +1,4 @@
-<div data-role="footer" data-position="fixed"  data-theme="d">
+<div data-role="footer" data-position="fixed"  data-theme="a">
     <div data-role="navbar" data-iconpos="left">
         <ul>
             <li><a href="../../../Controller/FreelookDispatcher.php?c=index" <?php echo $isDiscover == 1 ? "class='ui-btn-active'" : '' ?> data-icon="search" rel="external">求易知</a></li>

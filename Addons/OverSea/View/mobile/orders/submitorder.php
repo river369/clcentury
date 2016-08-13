@@ -21,6 +21,7 @@ if ($serviceType==1){
 }
 $price = $serviceData['service_price'];
 $signedUser = $_SESSION['signedUser'];
+$isMine = 1;
 ?>
 <html lang="zh-cmn-Hans">
 <head>
@@ -58,27 +59,22 @@ $signedUser = $_SESSION['signedUser'];
                 <li>服务价格: <span class="ui-li-count">￥<?php echo $price; ?>/小时</span></li>
             </ul>
             <h5>咨询时长</h5>
-            <div id="div-slider">
-                <input type="range" name="service_hours" id="service_hours" value="1" min="1" max="100" data-highlight="true" />
-            </div>
-            <h5>咨询时长</h5>
             <table style="margin: -8px 0px -8px 0px" border="0">
                 <tr>
-                    <td style="width:8%">
-                        <a href="#" onclick="minus1();" data-theme="c" rel="external">
-                            <img id="minus" src="../../resource/images/minus.png"" width="25" height="25" class="add"/>
+                    <td style="width:20%">
+                        <a href="#" onclick="minus1();" data-theme="b"  data-role="button" rel="external">
+                            <img id="minus" src="../../resource/images/minus.png" width="25" height="25" class="add"/>
                         </a>
                     </td>
-                    <td style="width:30%">
-                        <input id="qty2" type="number" value="1" class="qty"/>
+                    <td style="width:20%">
+                        <input id="service_hours" name="service_hours" type="number" value="1"/>
                     </td>
-
-                    <td style="width:38%">
-                        <a href="#" onclick="add1();" data-theme="c" rel="external">
+                    <td style="width:20%">
+                        <a href="#" onclick="add1();" data-theme="b"  data-role="button" rel="external">
                          <img id="add" src="../../resource/images/inc.png" width="25" height="25" class="minus"/>
                         </a>
                     </td>
-
+                    <td style="width:40%"></td>
                 </tr>
             </table>
 
@@ -93,7 +89,7 @@ $signedUser = $_SESSION['signedUser'];
             </div>
 
             <a href="#rulePopup" data-rel="popup" class="ui-controlgroup-label"><h5>点击阅读购买服务声明</h5></a>
-            <input name="agree" id="agree" data-mini="true" type="checkbox">
+            <input name="agree" id="agree" data-mini="true" type="checkbox" data-theme="e">
             <label for="agree">我同意上述服务声明</label>
 
             <input type="hidden" name="service_id" id="service_id"  value="<?php echo $serviceId;?>"/>
@@ -117,41 +113,33 @@ $signedUser = $_SESSION['signedUser'];
         </div>
 </div>
 <script type="text/javascript">
-    $("#div-slider").change(function() {
+    $("#service_hours").change(function() {
         var slider_value = $("#service_hours").val();
         var service_price = <?php echo $price;?>;
         html = '<input type="text" name="service_total_fee" id="service_total_fee" readonly="true"  value="' + slider_value * service_price +'"/>';
         $("#totalmoney").html(html);
         $("#totalmoney").trigger('create')
     });
+
     function add1() {
-        $('#qty2').val(Number($('#qty2').val())+1);
+        $('#service_hours').val(Number($('#service_hours').val())+1);
+        $('#service_hours').change();
     };
     function minus1() {
-        var num = Number($('#qty2').val())-1;
+        var num = Number($('#service_hours').val())-1;
         if (num>0){
-            $('#qty2').val(Number($('#qty2').val())-1);
+            $('#service_hours').val(Number($('#service_hours').val())-1);
+            $('#service_hours').change();
         }
     };
-//    $(function(){
-//        $("#add").click(function(){
-//            $('#qty2').val(Number($('#qty2').val())+1);
-//        });
-//        $("#minus").click(function(){
-//            var num = Number($('#qty2').val())-1;
-//            if (num>0){
-//                $('#qty2').val(Number($('#qty2').val())-1);
-//            }
-//        });
-//    });
 </script>
 <script>
     $( "#panel-fixed-page1" ).on( "pageinit", function() {
         $( "#submitorder" ).validate({
             rules: {
-                qty2:{
+                service_hours:{
                     required: true,
-                    number : true,
+                    number : true
                 },
                 request_message: {
                     required: true,
@@ -160,8 +148,8 @@ $signedUser = $_SESSION['signedUser'];
                 agree: "required"
             },
             messages: {
-                qty2:{
-                    required: "咨询不能为空",
+                service_hours:{
+                    required: "咨询时长不能为空",
                     number : "必须输入合法的数字",
                 },
                 request_message: {

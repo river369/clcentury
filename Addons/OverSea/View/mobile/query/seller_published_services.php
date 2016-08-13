@@ -91,6 +91,7 @@ $servicesData= $_SESSION['servicesData'];
             max_value: 5,
             step_size: 0.5,
             initial_value: star,
+            readonly:true,
         }
         $(".rate" + index).rate(options);
     };
