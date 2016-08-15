@@ -7,7 +7,7 @@
  */
 session_start();
 $signInErrorMsg=$_SESSION['$signInErrorMsg'];
-
+$isMine = 1;
 ?>
 <!DOCTYPE html>
 <html lang="zh-cmn-Hans">

@@ -5,6 +5,7 @@
  * Date: 16/5/1
  * Time: 17:05
  */
+$startTime = microtime(true)*1000;
 require dirname(__FILE__).'/../init.php';
 use Addons\OverSea\Common\HttpHelper;
 use Addons\OverSea\Common\Logs;
@@ -31,6 +32,9 @@ $command = $_GET['c'];
 //HttpHelper::saveServerQueryStringVales($_SERVER['QUERY_STRING']);
 //$command = HttpHelper::getVale('c');
 Logs::writeClcLog("command=".$command);
+$periodTime = microtime(true)*1000 - $startTime;
+Logs::writeClcLog(date('y-m-d h:i:s',time()).",rtt,FreelookDispatcher,prepare,".$periodTime);
+
 goToCommand($method_routes, $command);
 
 function goToCommand($method_routes, $command) {

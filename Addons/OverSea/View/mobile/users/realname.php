@@ -26,7 +26,7 @@ if (isset($_SESSION[$objkey])){
 $maxcount = 2;
 $remainingcount = 2 - count($objArray);
 $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
-
+$isMine = 1;
 ?>
 
 <!DOCTYPE html>
