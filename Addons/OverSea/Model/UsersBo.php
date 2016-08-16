@@ -27,15 +27,13 @@ class UsersBo
      * set user setting if user used to sign in
      */
     public function index(){
-        $startTime = microtime(true)*1000;
+        
         if (!isset($_SESSION['userSetting'])){
             $user_id = self::getUserIdFromSession();
             if (!empty($user_id) && !is_null($user_id)) {
                 self::setUserSettingInSessionById($user_id);
             }
         }
-        $periodTime = microtime(true)*1000 - $startTime;
-        Logs::writeClcLog(date('y-m-d h:i:s',time()).",rtt,".__CLASS__.",".__FUNCTION__.",".$periodTime);
     }
 
     /**

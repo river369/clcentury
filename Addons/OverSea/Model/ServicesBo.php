@@ -418,15 +418,25 @@ class ServicesBo
             $servicesData=$serviceDao->getServicesByServiceTypeWithPage($serviceType, $pageIndexRange);
         }
 
-        if ($pageIndex >= 0){
+        if ($pageIndex == 0 && $serviceType == 1){
+            $_SESSION['servicetype'] = $serviceType;
+            $_SESSION['servicesData']= self::fixDataLength($servicesData);
+        } else {
             //$retJson =  json_encode(array('status'=> 0, 'msg'=> 'done', 'serviceLists' => $servicesData));
             //Logs::writeClcLog(__CLASS__.",".__FUNCTION__." retJson=".$retJson);
             echo json_encode(array('status'=> 0, 'msg'=> 'done', 'objLists' => self::fixDataLength($servicesData)));
             exit;
-        } else {
-            $_SESSION['servicetype'] = $serviceType;
-            $_SESSION['servicesData']= self::fixDataLength($servicesData);
         }
+
+//        if ($pageIndex >= 0){
+//            //$retJson =  json_encode(array('status'=> 0, 'msg'=> 'done', 'serviceLists' => $servicesData));
+//            //Logs::writeClcLog(__CLASS__.",".__FUNCTION__." retJson=".$retJson);
+//            echo json_encode(array('status'=> 0, 'msg'=> 'done', 'objLists' => self::fixDataLength($servicesData)));
+//            exit;
+//        } else {
+//            $_SESSION['servicetype'] = $serviceType;
+//            $_SESSION['servicesData']= self::fixDataLength($servicesData);
+//        }
     }
 
 

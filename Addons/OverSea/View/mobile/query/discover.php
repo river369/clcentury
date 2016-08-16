@@ -5,7 +5,21 @@
  * Date: 16/5/9
  * Time: 21:54
  */
+$startTime = microtime(true)*1000;
 session_start();
+require dirname(__FILE__).'/../../../init.php';
+use Addons\OverSea\Model\ServicesBo;
+use Addons\OverSea\Model\UsersBo;
+use Addons\OverSea\Common\HttpHelper;
+use Addons\OverSea\Common\Logs;
+
+HttpHelper::saveServerQueryStringVales($_SERVER['QUERY_STRING']);
+$userBo = new UsersBo();
+$userBo -> index();
+$serviceBo = new ServicesBo();
+$serviceBo->getServices();
+$servicesData= $_SESSION['servicesData'];
+
 $servicearea = '地球';
 if (isset($_SESSION ['servicearea'])){
     $servicearea = $_SESSION ['servicearea'];
@@ -15,6 +29,8 @@ if (isset($_SESSION ['servicearea'])){
         $servicearea = $userSetting['selected_service_area'];
     }
 }
+$periodTime = microtime(true)*1000 - $startTime;
+Logs::writeClcLog("rtt,discover,".$periodTime);
 $isDiscover = 1;
 ?>
 
@@ -35,14 +51,6 @@ $isDiscover = 1;
         document.write("<scr"+"ipt src=\"../../resource/js/camera/jquery.mobile.customized.min.js\"></sc"+"ript>");
         document.write("<scr"+"ipt src=\"\"></sc"+"ript>");
     </script>
-<!--    <script src="../../resource/js/jquery/jquery-1.11.1.min.js"></script>-->
-<!--    <script src="../../resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>-->
-<!--    <script src="../../resource/js/rater/rater.min.js"></script>-->
-<!---->
-<!--    <script src="../../resource/js/camera/jquery.min.js"></script>-->
-<!--    <script src="../../resource/js/camera/jquery.easing.1.3.js"></script>-->
-<!--    <script src="../../resource/js/camera/camera.min.js"></script>-->
-<!--    <script src="../../resource/js/camera/jquery.mobile.customized.min.js"></script>-->
 
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
     <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
@@ -111,7 +119,6 @@ $isDiscover = 1;
                 loaderPadding: '10px',
                 onEndTransition: function(){
                     var ind = $('.camera_target .cameraSlide.cameracurrent').index();
-                    //alert(ind);
                 }
 
             });
@@ -144,7 +151,44 @@ $isDiscover = 1;
             </div><!-- #camera_wrap_1 -->
         </div><!-- .fluid_container -->
 
-        <div id="serviceType1"></div>
+        <div id="serviceType1">
+            <?php
+            $itemIndx = -1;
+            foreach($servicesData as $key => $serviceData)
+            {
+                $itemIndex++; ?>
+                <div style="margin: -5px 0px -5px 0px ">
+                    <ul data-role="listview" data-inset="true" data-theme="f">
+                        <li data-role="list-divider">
+                            <p style="margin: -5px 0px -3px 0px;font-size:14px;" >
+                                <?php echo "【".$serviceData['service_area']."】".$serviceData['service_name'];?>
+                            </p>
+                            <span class="ui-li-count"><div class="rate<?php echo $itemIndex; ?>"></div></span>
+                            <input type="hidden" id="ratevalue<?php echo $itemIndex; ?>" value="<?php echo $serviceData['stars'];?>"/>
+                        </li>
+                        <li style="margin: -5px 0px -5px 0px">
+                            <a href="../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id=<?php echo $serviceData['service_id']; ?>" rel="external">
+                                <table border="0" style="margin: -8px 0px -8px 0px">
+                                    <tr>
+                                        <td style="width:27%">
+                                            <div class="headimage">
+                                                <img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/pics/<?php echo $serviceData['seller_id']; ?>/<?php echo $serviceData['service_id']; ?>/main.png" height="100%">
+                                            </div>
+                                        </td>
+                                        <td style="73%">
+                                            <p style="white-space:pre-wrap;word-break:break-all">卖家:<?php echo $serviceData['seller_name']?></p>
+                                            <p style="white-space:pre-wrap;word-break:break-all">简介:<?php echo $serviceData['service_brief']?></p>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <p class="ui-li-aside">￥<?php echo $serviceData['service_price']?>/小时</p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            <?php } ?>
+
+        </div>
         <div id="serviceType2"></div>
     </div>
 
@@ -154,15 +198,20 @@ $isDiscover = 1;
 </div>
 
 <script>
-    var itemIdx = 0;
+    var itemIdx = 10;
     var pageIdx = new Array();
-    pageIdx[0]=-1;
+    pageIdx[0]=0;
     pageIdx[1]=-1;
     var serviceType = 1;
 
     $(document).ready(function(){
-        $('#serviceType1').show();
-        getServiceInNextPages(serviceType);
+        var i=1;
+        for (i = 1; i <= <?php echo count($servicesData);?>; i++) {
+            setRate(i, $('#ratevalue' + i).val());
+        }
+        $("img").error(function () {
+            $(this).attr("src", "../../resource/images/head_default.jpg");
+        });
     });
 
     function setServiceType(type) {
@@ -175,7 +224,7 @@ $isDiscover = 1;
             $('#serviceType1').hide();
         }
         if (pageIdx[serviceType - 1] == -1){
-            getServiceInNextPages(serviceType);
+            getServiceInNextPages();
         }
     };
 
@@ -184,7 +233,7 @@ $isDiscover = 1;
             if($(document).height() > $(window).height())
             {
                 if($(window).scrollTop() == $(document).height() - $(window).height()){
-                    getServiceInNextPages(serviceType);
+                    getServiceInNextPages();
                 }
             }
         });
@@ -200,7 +249,7 @@ $isDiscover = 1;
         $(".rate" + index).rate(options);
     };
 
-    function getServiceInNextPages(type) {
+    function getServiceInNextPages() {
         itemIdx++;
         pageIdx[serviceType-1]++;
         var link = '../../../Controller/FreelookDispatcher.php?c=getServices&servicetype=' + serviceType +  '&pageIndex=' + pageIdx[serviceType-1];
@@ -231,18 +280,9 @@ $isDiscover = 1;
                             newstr = newstr + '</td></tr></table>';
                             newstr = newstr + '<p class="ui-li-aside">￥' +value.service_price+ '/小时</p>' ;
                             newstr = newstr + '</a></li> ' ;
-                            /*
-                            newstr = newstr + '<li data-role="list-divider"> <p> ';
-                            var strs= new Array();
-                            strs=value.tag.split(",");
-                            for (i=0;i<strs.length ;i++ )
-                            {
-                                newstr = newstr + ' <a href="../../../Controller/AuthUserDispatcher.php?c=searchByKeyWord&keyWord=' + strs[i] + '" rel="external">'+ strs[i] +'</a>'  ;
-                            }
-                            newstr = newstr + '</p> </li> ' ;
-                            */
+
                             newstr=newstr+'</ul></div>';
-                            $('#serviceType'+type).append(newstr);
+                            $('#serviceType'+serviceType).append(newstr);
                             setRate(itemIdx, value.stars);
                             $('#d'+itemIdx).trigger('create');
                             $("img").error(function () {
@@ -264,11 +304,6 @@ $isDiscover = 1;
         return false;
     };
 
-    $(document).ready(function(){
-        $("img").error(function () {
-            $(this).attr("src", "../../resource/images/head_default.jpg");
-        });
-    });
 </script>
 </body>
 </html>
