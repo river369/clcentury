@@ -33,6 +33,7 @@ if (isset($userData['phone_number'])){
 echo "[".$_SESSION['signedUser']."]";
 //$userAccountDao->updateExternalUserId(-1, $_SESSION['signedUser']);
 setcookie("signedUser", "", time()-1000);
+setcookie("signedUser", NULL);
 
 unset($_SESSION['signedUser'],$_SESSION['userSetting']);
 unset($_SESSION['weixinOpenid']);

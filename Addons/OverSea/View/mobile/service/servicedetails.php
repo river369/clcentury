@@ -94,9 +94,9 @@ $isDiscover = 1;
             border-radius: 50%;
             overflow: hidden;
         }
-        h5{ color:#33c8ce}
+        h5{ color:#01A4B5}
         p{ font-size:14px; white-space:pre-wrap; word-break:break-all}
-        label{ color:#33c8ce; font-size:14px;}
+        label{ color:#01A4B5; font-size:14px;}
         table{ table-layout : fixed; width:100% }
     </style>
 

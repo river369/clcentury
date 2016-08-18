@@ -36,7 +36,7 @@ $isMine = 1;
     <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
     <link rel="stylesheet" href="../../resource/style/validation/validation.css" />
     <style>
-        h5{ color:#33c8ce}
+        h5{ color:#01A4B5}
         p{ font-size:14px;}
         table{ table-layout : fixed; width:100% }
     </style>
@@ -141,20 +141,12 @@ $isMine = 1;
                     required: true,
                     number : true
                 },
-                request_message: {
-                    required: true,
-                    minlength: 4
-                },
                 agree: "required"
             },
             messages: {
                 service_hours:{
                     required: "咨询时长不能为空",
                     number : "必须输入合法的数字",
-                },
-                request_message: {
-                    required: "咨询时长不能为空",
-                    minlength: "咨询话题长度不能小于 4 个字"
                 },
                 agree: "请接受我们的声明"
             },

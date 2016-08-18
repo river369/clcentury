@@ -57,7 +57,7 @@ $isMine = 1;
             border-radius: 50%;
             overflow: hidden;
         }
-        h5{ color:#33c8ce}
+        h5{ color:#01A4B5}
         p{ font-size:14px; white-space:pre-wrap; word-break:break-all}
         table{ table-layout : fixed; width:100% }
     </style>

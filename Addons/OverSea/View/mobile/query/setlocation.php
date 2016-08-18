@@ -37,9 +37,9 @@ $isDiscover = 1;
     <link href="../../resource/style/sidebar/simple-sidebar.css" rel="stylesheet">
     <link href="../../resource/style/city/style.css" rel="stylesheet">
     <style>
-        h5{ color:#33c8ce}
         p{ font-size:14px; white-space:pre-wrap; word-break:break-all}
-        label{ color:#33c8ce; font-size:14px;}
+        label{ color:#01A4B5; font-size:14px;}
+        h5{ color:#01A4B5;}
     </style>
 </head>
 
@@ -56,7 +56,7 @@ $isDiscover = 1;
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav nav nav-tabs" id="sidebar-nav">
                 <li class="sidebar-brand">
-                    <h5 onclick="setArea()">地球</h5>
+                    <h5>地区</h5>
                 </li>
                 <?php
                 foreach($countries as $display_sequence => $country){?>
@@ -64,6 +64,9 @@ $isDiscover = 1;
                         <a href="#tab<?php echo $display_sequence?>" sequence="<?php echo $display_sequence?>"><?php echo $country?></a>
                     </li>
                 <?php }?>
+                <li class=''>
+                    <a href="#tab" sequence="3" onclick="setArea()">地球</a>
+                </li>
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->

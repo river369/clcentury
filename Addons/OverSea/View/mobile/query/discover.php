@@ -56,7 +56,7 @@ $isDiscover = 1;
     <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
     <link rel="stylesheet" href="../../resource/style/camera/camera.css" type="text/css" media="all">
     <link rel="stylesheet" href="../../resource/style/business/discover.css" type="text/css" media="all">
-    
+
     <script>
         $(document).ready(function(){
             var i=1;

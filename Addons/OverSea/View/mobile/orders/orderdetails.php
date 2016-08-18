@@ -54,10 +54,10 @@ $isMine = 1;
         {
             color:orange;
         }
-        h5{ color:#33c8ce; font-size:10px;}
+        h5{ color:lightgrey; font-size:10px;}
         p{ font-size:14px;}
         table{ table-layout : fixed; width:100%; }
-        label{ color:#33c8ce}
+        label{ color:#01A4B5}
     </style>
 </head>
 <body>
@@ -80,108 +80,108 @@ $isMine = 1;
             <h5>订单信息</h5>
             <ul data-role="listview" data-inset="true" data-theme="f" style="font-size:14px;">
                 <li>
-                    <table style="margin: -10px 0px -10px 0px" border="0">
+                    <table style="margin: -12px 0px -12px 0px" border="0">
                         <tr>
-                            <td style="width:17%">
+                            <td style="width:19%">
                                 <p style="color:#33c8ce;">订单号</p>
                             </td>
-                            <td style="width:83%">
+                            <td style="width:81%">
                                 <p style="white-space:pre-wrap; color:#6f6f6f;"><?php echo $order['order_id'];?></p>
                             </td>
                         </tr>
                     </table>
                 </li>
                 <li>
-                    <table style="margin: -10px 0px -10px 0px" border="0">
+                    <table style="margin: -12px 0px -12px 0px" border="0">
                         <tr>
-                            <td style="width:17%">
+                            <td style="width:19%">
                                 <p style="color:#33c8ce;">订单状态</p>
                             </td>
-                            <td style="width:83%">
+                            <td style="width:81%">
                                 <p style="white-space:pre-wrap; color:#6f6f6f;"><?php echo $orderStatus;?> </p>
                             </td>
                         </tr>
                     </table>
                 </li>
                 <li>
-                    <table style="margin: -10px 0px -10px 0px" border="0">
+                    <table style="margin: -12px 0px -12px 0px" border="0">
                         <tr>
-                            <td style="width:17%">
+                            <td style="width:19%">
                                 <p style="color:#33c8ce;">服务名称</p>
                             </td>
-                            <td style="width:83%">
+                            <td style="width:81%">
                                 <p style="white-space:pre-wrap; color:#6f6f6f;"><?php echo $order['service_name'];?></p>
                             </td>
                         </tr>
                     </table>
                 </li>
                 <li>
-                    <table style="margin: -10px 0px -10px 0px" border="0">
+                    <table style="margin: -12px 0px -12px 0px" border="0">
                         <tr>
-                            <td style="width:17%">
+                            <td style="width:19%">
                                 <p style="color:#33c8ce;">卖家</p>
                             </td>
-                            <td style="width:83%">
+                            <td style="width:81%">
                                 <p style="white-space:pre-wrap; color:#6f6f6f;"><?php echo $order['seller_name'];?> </p>
                             </td>
                         </tr>
                     </table>
                 </li>
                 <li>
-                    <table style="margin: -10px 0px -10px 0px" border="0">
+                    <table style="margin: -12px 0px -12px 0px" border="0">
                         <tr>
-                            <td style="width:17%">
+                            <td style="width:19%">
                                 <p style="color:#33c8ce;">买家</p>
                             </td>
-                            <td style="width:83%">
+                            <td style="width:81%">
                                 <p style="white-space:pre-wrap; color:#6f6f6f;"><?php echo $order['customer_name'];?> </p>
                             </td>
                         </tr>
                     </table>
                 </li>
                 <li>
-                    <table style="margin: -10px 0px -10px 0px" border="0">
+                    <table style="margin: -12px 0px -12px 0px" border="0">
                         <tr>
-                            <td style="width:17%">
-                                <p style="white-space:pre-wrap; color:#33c8ce;">买家咨询话题</p>
+                            <td style="width:19%">
+                                <p style="white-space:pre-wrap; color:#33c8ce;">咨询话题</p>
                             </td>
-                            <td style="width:83%">
+                            <td style="width:81%">
                                 <p style="white-space:pre-wrap; color:#6f6f6f;"><?php echo $order['request_message'];?></p>
                             </td>
                         </tr>
                     </table>
                 </li>
                 <li>
-                    <table style="margin: -10px 0px -10px 0px" border="0">
+                    <table style="margin: -12px 0px -12px 0px" border="0">
                         <tr>
-                            <td style="width:17%">
+                            <td style="width:19%">
                                 <p style="color:#33c8ce;">价格</p>
                             </td>
-                            <td style="width:83%">
+                            <td style="width:81%">
                                 <p style="white-space:pre-wrap; color:#6f6f6f;">￥<?php echo $order['service_price'];?>/小时 </p>
                             </td>
                         </tr>
                     </table>
                 </li>
                 <li>
-                    <table style="margin: -10px 0px -10px 0px" border="0">
+                    <table style="margin: -12px 0px -12px 0px" border="0">
                         <tr>
-                            <td style="width:17%">
+                            <td style="width:19%">
                                 <p style="color:#33c8ce;">已购买</p>
                             </td>
-                            <td style="width:83%">
+                            <td style="width:81%">
                                 <p style="white-space:pre-wrap; color:#6f6f6f;"><?php echo $order['service_hours'];?>小时</p>
                             </td>
                         </tr>
                     </table>
                 </li>
                 <li>
-                    <table style="margin: -10px 0px -10px 0px" border="0">
+                    <table style="margin: -12px 0px -12px 0px" border="0">
                         <tr>
-                            <td style="width:17%">
+                            <td style="width:19%">
                                 <p style="color:#33c8ce;">总计</p>
                             </td>
-                            <td style="width:83%">
+                            <td style="width:81%">
                                 <p style="white-space:pre-wrap; color:#6f6f6f;"><?php echo $order['service_total_fee'];?>元</p>
                             </td>
                         </tr>
@@ -195,10 +195,10 @@ $isMine = 1;
                     <li>
                         <table style="margin: -10px 0px -10px 0px" border="0">
                             <tr>
-                                <td style="width:17%">
+                                <td style="width:19%">
                                     <p style="color:#33c8ce;">微信号</p>
                                 </td>
-                                <td style="width:83%">
+                                <td style="width:81%">
                                     <p style="white-space:pre-wrap; color:#6f6f6f;"><?php echo $sellerData['weixin'];?></p>
                                 </td>
                             </tr>
@@ -207,7 +207,7 @@ $isMine = 1;
                 </ul>
             <?php } else {?>
                 <ul data-role="listview" data-inset="true" data-theme="f" style="font-size:14px;">
-                    <li><p>买家付款,卖家接收后即可显示卖家联系方式</p></li>
+                    <li><p style="margin: -6px 0px -12px 0px">买家付款,卖家接收后即可显示卖家联系方式</p></li>
                 </ul>
             <?php } ?>
 
@@ -222,10 +222,10 @@ $isMine = 1;
                                 <li>
                                     <table style="margin: -10px 0px -10px 0px" border="0">
                                         <tr>
-                                            <td style="width:17%">
+                                            <td style="width:19%">
                                                 <p style="color:#33c8ce;">变更内容</p>
                                             </td>
-                                            <td style="width:83%">
+                                            <td style="width:81%">
                                                 <p style="white-space:pre-wrap; color:#6f6f6f;"><?php echo BusinessHelper::translateOrderStatus($condition)?></p>
                                             </td>
                                         </tr>
@@ -250,7 +250,7 @@ $isMine = 1;
                             <li>
                                 <table style="margin: -10px 0px -10px 0px" border="0">
                                     <tr>
-                                        <td style="width:17%">
+                                        <td style="width:19%">
                                             <p style="color:#33c8ce;">评论者</p>
                                         </td>
                                         <td style="width:53%">
@@ -292,8 +292,8 @@ $isMine = 1;
             {
                 $lastAction = $orderAction['action'];
                 $actionString = BusinessHelper::translateOrderStatus($lastAction);
-                echo "{ type: 'smallItem', label: '<h5>".$actionString.
-                    "</h5>', shortContent: '<h5>".substr($orderAction['creation_date'], 0, 10 ) ."</h5>',},";
+                echo "{ type: 'smallItem', label: '<h5 style=\"color:#01A4B5\">".$actionString.
+                    "</h5>', shortContent: '<h5 style=\"color:#01A4B5\">".substr($orderAction['creation_date'], 0, 10 ) ."</h5>',},";
             ?>
             <?php } ?>
             <?php if ($lastAction < 10) {?>
@@ -323,8 +323,7 @@ $isMine = 1;
             <?php if ($lastAction < 80) {?>
             {
                 type: 'milestone',
-                label: '<h5>买家评论</h5>',
-            },
+                label: '<h5>买家评论</h5>',},
             <?php } ?>
             <?php if ($lastAction < 100) {?>
             {

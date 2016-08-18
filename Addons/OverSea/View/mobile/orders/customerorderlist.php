@@ -37,8 +37,8 @@ $isMine = 1;
             height: 65px;
             width: 65px;
         }
-        h5{ color:#33c8ce}
-        h6{ color:#33c8ce}
+        h5{ color:#01A4B5}
+        h6{ color:#01A4B5}
         p{ font-size:14px;}
         table{ table-layout : fixed; width:100%; }
     </style>

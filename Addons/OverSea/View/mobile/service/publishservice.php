@@ -66,7 +66,7 @@ $isPublishService = 1;
     <link rel="stylesheet" href="../../resource/style/cropper/main.css" />
     <link rel="stylesheet" href="../../resource/style/validation/validation.css" />
     <style>
-        label{ color:#33c8ce}
+        label{ color:#01A4B5}
         table{ table-layout : fixed; width:100% }
         hr{border:0;background-color:#2c2c2c;height:1px;}
         div.headimage {
