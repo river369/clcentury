@@ -12,7 +12,9 @@ use Addons\OverSea\Model\ServicesBo;
 use Addons\OverSea\Model\UsersBo;
 use Addons\OverSea\Common\HttpHelper;
 use Addons\OverSea\Common\Logs;
-
+if (isset($_GET['islogoff'])){
+    unset($_COOKIE["signedUser"]);
+}
 HttpHelper::saveServerQueryStringVales($_SERVER['QUERY_STRING']);
 $userBo = new UsersBo();
 $userBo -> index();

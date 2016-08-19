@@ -7,7 +7,7 @@
  */
 use Addons\OverSea\Model\UserInfosDao;
 use Addons\OverSea\Model\UserAccountsDao;
-
+use Addons\OverSea\Common\Logs;
 require dirname(__FILE__).'/../init.php';
 
 session_start();
@@ -32,10 +32,13 @@ if (isset($userData['phone_number'])){
 }
 echo "[".$_SESSION['signedUser']."]";
 //$userAccountDao->updateExternalUserId(-1, $_SESSION['signedUser']);
-setcookie("signedUser", "", time()-1000);
-setcookie("signedUser", NULL);
+setcookie("signedUser", "", time()-100000);
 
-unset($_SESSION['signedUser'],$_SESSION['userSetting']);
+
+unset($_COOKIE["signedUser"]);
+unset($_SESSION['signedUser']);
+unset($_SESSION['userSetting']);
+unset($_SESSION['servicearea']);
 unset($_SESSION['weixinOpenid']);
 unset($_SESSION['weixinOpenidTried']);
 unset($_SESSION['$timestamp'], $_SESSION['$nonceStr'], $_SESSION['$signature']);
@@ -46,6 +49,9 @@ unset($_SESSION['objArray']);
 //$_SESSION['message'] = "成功退出!";
 //$_SESSION['goto'] = "../../../Controller/FreelookDispatcher.php?c=index";
 //header('Location:'."../View/mobile/common/message.php");
-header('Location:'."./FreelookDispatcher.php?c=index");
+//header('Location:'."./FreelookDispatcher.php?c=index");
+Logs::writeClcLog(__CLASS__.",".__FUNCTION__.", 1after clean, the signedUser is ".$_SESSION['signedUser']);
+Logs::writeClcLog(__CLASS__.",".__FUNCTION__.", 1after clean, the cookie signedUser is ".$_COOKIE["signedUser"]);
+header('Location:'."../View/mobile/query/discover.php?islogoff=yes");
 exit;
 ?>
