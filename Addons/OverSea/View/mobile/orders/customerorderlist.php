@@ -39,6 +39,7 @@ $isMine = 1;
         }
         h5{ color:#01A4B5}
         h6{ color:#01A4B5}
+        label{ color:#01A4B5}
         p{ font-size:14px;}
         table{ table-layout : fixed; width:100%; }
     </style>
@@ -144,12 +145,18 @@ $isMine = 1;
                 <h1>确认完成</h1>
             </div>
             <div role="main" class="ui-content">
-                <h3 class="ui-title" id="confirmOrderString">确认订单已履约完成? </h3>
+                <h5 class="ui-title" id="confirmOrderString">确认订单已履约完成? </h5>
                 <form id="confirmorder" data-ajax="false" method="post" action="../../../Controller/AuthUserDispatcher.php?c=customerConfirmOrder">
                     <input type="hidden" name="confirmorderid" id="confirmorderid" value="">
-                    <input type="submit" name="confirmsubmit" id="confirmsubmit" value="确定">
+                    <div class="ui-grid-a">
+                        <div class="ui-block-a">
+                            <input type="submit" name="confirmsubmit" id="confirmsubmit" value="确定">
+                        </div>
+                        <div class="ui-block-b">
+                            <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow">再想想</a>
+                        </div>
+                    </div>
                 </form>
-                <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
             </div>
         </div>
 
@@ -158,11 +165,11 @@ $isMine = 1;
                 <h1>提出异议</h1>
             </div>
             <div role="main" class="ui-content">
-                <h3 class="ui-title" id="rejectOrderString">对已完成订单提出异议? </h3>
+                <h5 class="ui-title" id="rejectOrderString">对已完成订单提出异议? </h5>
                 <form id="rejectorder" data-ajax="false" method="post" action="../../../Controller/AuthUserDispatcher.php?c=customerRejectOrder">
                     <input type="hidden" name="rejectorderid" id="rejectorderid" value="">
                     <div>
-                        <label for="cancelreason">提出异议的原因:</label>
+                        <label for="cancelreason"><p>提出异议的原因</p></label>
                         <textarea cols="30" rows="8" name="rejectreason" id="rejectreason" data-mini="true"></textarea>
                     </div>
                     <input type="submit" name="confirmsubmit" id="confirmsubmit" value="确定">
@@ -176,16 +183,24 @@ $isMine = 1;
                 <h1>取消订单</h1>
             </div>
             <div role="main" class="ui-content">
-                <h3 class="ui-title" id="cancelOrderString">确定取消订单? </h3>
+                <h5 class="ui-title" id="cancelOrderString">确定取消订单? </h5>
                 <form id="cancelOrder" data-ajax="false" method="post" action="../../../Controller/AuthUserDispatcher.php?c=customerCancelOrder">
                     <input type="hidden" name="cancelorderid" id="cancelorderid" value="">
                     <div>
-                        <label for="cancelreason">取消原因:</label>
+                        <p>订单取消后,易知海外将在72小时内将定金退回支付账号。</p>
+                        <label for="cancelreason"><p>取消原因</p></label>
                         <textarea cols="30" rows="8" name="cancelreason" id="cancelreason" data-mini="true"></textarea>
                     </div>
-                    <input type="submit" name="cancelsubmit" id="cancelsubmit" value="无奈取消">
+                    <div class="ui-grid-a">
+                        <div class="ui-block-a">
+                            <input type="submit" name="cancelsubmit" id="cancelsubmit" value="取消订单">
+                        </div>
+                        <div class="ui-block-b">
+                            <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow">再想想</a>
+                        </div>
+                    </div>
                 </form>
-                <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+
             </div>
         </div>
 
@@ -222,23 +237,6 @@ $isMine = 1;
 </script>
 <script>
     $( "#panel-fixed-page1" ).on( "pageinit", function() {
-        $( "#cancelOrder" ).validate({
-            rules: {
-                cancelreason: {
-                    required: true,
-                    minlength: 4
-                },
-            },
-            messages: {
-                cancelreason: {
-                    required: "取消原因不能为空",
-                    minlength: "取消原因长度不能小于 4 个字"
-                }
-            },
-            errorPlacement: function( error, element ) {
-                error.insertAfter( element.parent() );
-            }
-        });
         $( "#rejectorder" ).validate({
             rules: {
                 rejectreason: {

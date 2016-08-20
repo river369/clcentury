@@ -267,7 +267,7 @@ $isDiscover = 1;
                                 </table>
                             </li>
                             <li style="margin: -20px 0px -10px 0px">
-                                <p>意见:<?php echo $comment['comments'];?><p>
+                                <p>意见:<?php echo (isset($comment['comments']) && !is_null($comment['comments']) && $comment['comments'] !='')? $comment['comments']: "我很懒,没有留下评论。";?><p>
                                 <p>日期:<?php echo substr($comment['creation_date'], 0, 10 );?><p>
                             </li>
                         </ul>
@@ -276,6 +276,7 @@ $isDiscover = 1;
                 <?php } ?>
             <?php } else {?>
                 <h5>暂无评论</h5>
+                <br><br><br><br><br><br><br><br><br>
             <?php } ?>
         </div>
         <div>

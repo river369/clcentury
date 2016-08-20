@@ -24,8 +24,6 @@ pageIdx[0]=0;
 pageIdx[1]=-1;
 var serviceType = 1;
 
-
-
 function setServiceType(type) {
     serviceType = type;
     if (type == 1){
@@ -72,7 +70,6 @@ function getServiceInNextPages() {
         async:false,
         cache: false,
         success:function(result) {
-
             if (result.status == 0){
                 //alert(result.status);
                 if (result.objLists.length > 0) {
@@ -88,11 +85,11 @@ function getServiceInNextPages() {
                         newstr = newstr + '<img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/pics/' + value.seller_id + '/' + value.service_id + '/main.png" height="100%">';
                         newstr = newstr + '</div></td> <td style="73%">';
                         newstr = newstr + '<p style="white-space:pre-wrap;word-break:break-all">卖家:'+ value.seller_name + '</p>';
-                        newstr = newstr + '<p style="white-space:pre-wrap;word-break:break-all">简介:' +value.service_brief+ '</p>' ;
+                        var brief = (value.service_brief==null)?'':value.service_brief;
+                        newstr = newstr + '<p style="white-space:pre-wrap;word-break:break-all">简介:' +brief+ '</p>' ;
                         newstr = newstr + '</td></tr></table>';
                         newstr = newstr + '<p class="ui-li-aside">￥' +value.service_price+ '/小时</p>' ;
-                        newstr = newstr + '</a></li> ' ;
-
+                        newstr = newstr + '</a></li>';
                         newstr=newstr+'</ul></div>';
                         $('#serviceType'+serviceType).append(newstr);
                         setRate(itemIdx, value.stars);

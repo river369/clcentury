@@ -87,6 +87,8 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`yz_services` (
 `update_date` datetime  DEFAULT NULL COMMENT 'update datetime',
 PRIMARY KEY (`id`),
 UNIQUE KEY (`service_id`),
+KEY `service_name` (`service_name`),
+KEY `service_brief` (`service_brief`),
 KEY `seller_id` (`seller_id`),
 KEY `service_area` (`service_area`),
 KEY `service_type` (`service_type`)
@@ -108,6 +110,8 @@ alter table yz_services add column `stars` decimal(5,1) DEFAULT 3  COMMENT '服�
 
 alter table yz_services add column `service_brief` varchar(255)  DEFAULT NULL  COMMENT 'service 简介';
 
+alter table yz_services add index `service_name` (`service_name`);
+alter table yz_services add index `service_brief` (`service_brief`);
 --Orders
 CREATE TABLE IF NOT EXISTS `clctravel`.`yz_orders` (
 `id` bigint(12) NOT NULL AUTO_INCREMENT COMMENT '主键',

@@ -257,15 +257,16 @@ $isPublishService = 1;
         </form>
     </div>
 
-    <div data-role="popup" id="tagpopup" data-overlay-theme="a" data-corners="false" data-tolerance="60,30" style="max-width:300px;width:275px;">
+    <div data-role="popup" id="tagpopup" data-overlay-theme="f" data-corners="false" data-tolerance="60,30" style="max-width:300px;width:275px;">
         <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
         <h3>选取我的特长项:</h3>
         <div class="ui-grid-a" id="tagList">
         </div>
     </div>
-    <div data-role="popup" id="rulePopup" data-overlay-theme="a" data-corners="false" data-tolerance="60,30" style="max-width:300px;width:275px;">
+    <div data-role="popup" id="rulePopup" data-theme="c" data-corners="false" data-tolerance="30,15">
         <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
-        <iframe src="./seller_agreement.html" seamless="" height="320" width="480"></iframe>
+        <iframe src="./seller_agreement.html"></iframe>
+<!--        <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow">关闭</a>-->
     </div>
 
     <div data-role="popup" id="reviewpopup" class="reviewpopup" data-overlay-theme="a"  data-theme="c" data-corners="false" data-tolerance="30,15">

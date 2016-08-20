@@ -223,10 +223,15 @@ class OrdersBo
 
         $customer_id = $_SESSION['signedUser'];
         if($customer_id == $comments['customer_id']){
+            $orderid = $comments['order_id'];
             $commentsDao = new CommentsDao();
+            $existedComment = $commentsDao->getCommentsByOrderId($orderid);
+            if (count($existedComment)>0) {
+                return;
+            }
             $commentsDao->insert($comments);
             $status = 80;
-            $orderid = $comments['order_id'];
+
             $ordersDao = new OrdersDao();
             $ordersDao->updateCustomerOrderStatus($orderid, $status, $customer_id);
             self::storeOrderActions($orderid, $status, 1);

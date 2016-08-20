@@ -162,15 +162,21 @@ $isMine = 1;
                 <h1>删除服务</h1>
             </div>
             <div role="main" class="ui-content">
-                <h3 class="ui-title" id="deleteServiceString"></h3>
+                <h5 class="ui-title" id="deleteServiceString"></h5>
                 <form id="deleteService" data-ajax="false" method="post" action="../../../Controller/AuthUserDispatcher.php?c=deleteService&sellerid=<?php echo $sellerid;?>&status=<?php echo $querystatus;?>">
                     <input type="hidden" name="deleteServiceId" id="deleteServiceId" value="">
-                    <label for="deletereason">删除原因:</label>
+                    <label for="deletereason"><p>删除原因</p></label>
                     <textarea cols="30" rows="8" name="deletereason" id="deletereason" data-mini="true"></textarea>
-                    <input type="submit" name="cancelsubmit" id="cancelsubmit" value="删除">
+                    <div class="ui-grid-a">
+                        <div class="ui-block-a">
+                            <input type="submit" name="cancelsubmit" id="cancelsubmit" value="删除">
+                        </div>
+                        <div class="ui-block-b">
+                            <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow">再想想</a>
+                        </div>
+                    </div>
                 </form>
-                <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
-            </div>
+             </div>
         </div>
 
         <div data-role="popup" id="pauseDialog" data-overlay-theme="a" data-theme="c" style="max-width:400px;">
@@ -178,14 +184,20 @@ $isMine = 1;
                 <h1>暂停服务</h1>
             </div>
             <div role="main" class="ui-content">
-                <h3 class="ui-title" id="pauseServiceString"></h3>
+                <h5 class="ui-title" id="pauseServiceString"></h5>
                 <form id="pauseService" data-ajax="false" method="post" action="../../../Controller/AuthUserDispatcher.php?c=pauseService&sellerid=<?php echo $sellerid;?>&status=100">
                     <input type="hidden" name="pauseServiceId" id="pauseServiceId" value="">
-                    <label for="deletereason">暂停原因:</label>
+                    <label for="deletereason"><p>暂停原因</p></label>
                     <textarea cols="30" rows="8" name="pausereason" id="pausereason" data-mini="true"></textarea>
-                    <input type="submit" name="cancelsubmit" id="cancelsubmit" value="暂停">
+                    <div class="ui-grid-a">
+                        <div class="ui-block-a">
+                            <input type="submit" name="cancelsubmit" id="cancelsubmit" value="暂停">
+                        </div>
+                        <div class="ui-block-b">
+                            <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow">再想想</a>
+                        </div>
+                    </div>
                 </form>
-                <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
             </div>
         </div>
         
@@ -194,12 +206,18 @@ $isMine = 1;
                 <h1>恢复服务</h1>
             </div>
             <div role="main" class="ui-content">
-                <h3 class="ui-title" id="recoverServiceString"></h3>
+                <h5 class="ui-title" id="recoverServiceString"></h5>
                 <form id="recoverService" data-ajax="false" method="post" action="../../../Controller/AuthUserDispatcher.php?c=recoverService&sellerid=<?php echo $sellerid;?>&status=60">
                     <input type="hidden" name="recoverServiceId" id="recoverServiceId" value="">
-                    <input type="submit" name="cancelsubmit" id="cancelsubmit" value="恢复">
+                    <div class="ui-grid-a">
+                        <div class="ui-block-a">
+                            <input type="submit" name="cancelsubmit" id="cancelsubmit" value="恢复">
+                        </div>
+                        <div class="ui-block-b">
+                            <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow">关闭</a>
+                        </div>
+                    </div>
                 </form>
-                <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
             </div>
         </div>
     </div>

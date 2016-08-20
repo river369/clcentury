@@ -123,7 +123,7 @@ $isDiscover = 1;
                                         </td>
                                         <td style="73%">
                                             <p style="white-space:pre-wrap;word-break:break-all">卖家:<?php echo $serviceData['seller_name']?></p>
-                                            <p style="white-space:pre-wrap;word-break:break-all">简介:<?php echo $serviceData['service_brief']?></p>
+                                            <p style="white-space:pre-wrap;word-break:break-all">简介:<?php echo (isset($serviceData['service_brief']) && !is_null($serviceData['service_brief']))? $serviceData['service_brief']: "";?></p>
                                         </td>
                                     </tr>
                                 </table>

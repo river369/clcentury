@@ -140,12 +140,18 @@ $isMine = 1;
                 <h1>确认接单</h1>
             </div>
             <div role="main" class="ui-content">
-                <h3 class="ui-title" id="acceptOrderString">确定接收订单? </h3>
+                <h5 class="ui-title" id="acceptOrderString">确定接收订单? </h5>
                 <form id="acceptorder" data-ajax="false" method="post" action="../../../Controller/AuthUserDispatcher.php?c=sellerAcceptOrder">
                     <input type="hidden" name="acceptorderid" id="acceptorderid" value="">
-                    <input type="submit" name="acceptsubmit" id="acceptsubmit" value="果断接单">
+                    <div class="ui-grid-a">
+                        <div class="ui-block-a">
+                            <input type="submit" name="acceptsubmit" id="acceptsubmit" value="确定接单">
+                        </div>
+                        <div class="ui-block-b">
+                            <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow">再想想</a>
+                        </div>
+                    </div>
                 </form>
-                <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
             </div>
         </div>
 
@@ -154,16 +160,22 @@ $isMine = 1;
                 <h1>拒绝订单</h1>
             </div>
             <div role="main" class="ui-content">
-                <h3 class="ui-title" id="rejectOrderString">确定拒绝订单? </h3>
+                <h5 class="ui-title" id="rejectOrderString">确定拒绝订单? </h5>
                 <form id="rejectorder" data-ajax="false" method="post" action="../../../Controller/AuthUserDispatcher.php?c=sellerRejectOrder">
                     <input type="hidden" name="rejectorderid" id="rejectorderid" value="">
                     <div>
-                        <label for="rejectreason">拒绝原因:</label>
+                        <label for="rejectreason"><p>拒绝原因</p></label>
                         <textarea cols="30" rows="8" name="rejectreason" id="rejectreason" data-mini="true"></textarea>
                     </div>
-                    <input type="submit" name="rejectsubmit" id="rejectsubmit" value="坚决拒掉">
+                    <div class="ui-grid-a">
+                        <div class="ui-block-a">
+                            <input type="submit" name="rejectsubmit" id="rejectsubmit" value="拒绝订单">
+                        </div>
+                        <div class="ui-block-b">
+                            <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow">再想想</a>
+                        </div>
+                    </div>
                 </form>
-                <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
             </div>
         </div>
 
@@ -172,16 +184,22 @@ $isMine = 1;
                 <h1>完成订单</h1>
             </div>
             <div role="main" class="ui-content">
-                <h3 class="ui-title" id="finishOrderString">确定完成订单? </h3>
+                <h5 class="ui-title" id="finishOrderString">确定完成订单? </h5>
                 <form id="finishOrder" data-ajax="false" method="post" action="../../../Controller/AuthUserDispatcher.php?c=sellerFinishOrder">
                     <input type="hidden" name="finishorderid" id="finishorderid" value="">
                     <div>
-                        <label for="finishreason">反馈信息:</label>
+                        <label for="finishreason"><p>反馈信息</p></label>
                         <textarea cols="30" rows="8" name="finishreason" id="finishreason" data-mini="true"></textarea>
                     </div>
-                    <input type="submit" name="finishsubmit" id="finishsubmit" value="圆满完成">
+                    <div class="ui-grid-a">
+                        <div class="ui-block-a">
+                            <input type="submit" name="finishsubmit" id="finishsubmit" value="确认完成">
+                        </div>
+                        <div class="ui-block-b">
+                            <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow">再想想</a>
+                        </div>
+                    </div>
                 </form>
-                <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
             </div>
         </div>
 
@@ -197,9 +215,15 @@ $isMine = 1;
                         <label for="cancelreason">取消原因:</label>
                         <textarea cols="30" rows="8" name="cancelreason" id="cancelreason" data-mini="true"></textarea>
                     </div>
-                    <input type="submit" name="cancelsubmit" id="cancelsubmit" value="无奈取消">
+                    <div class="ui-grid-a">
+                        <div class="ui-block-a">
+                            <input type="submit" name="cancelsubmit" id="cancelsubmit" value="取消订单">
+                        </div>
+                        <div class="ui-block-b">
+                            <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow">再想想</a>
+                        </div>
+                    </div>
                 </form>
-                <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
             </div>
         </div>
     </div>

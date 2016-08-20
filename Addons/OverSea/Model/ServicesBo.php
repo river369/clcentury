@@ -73,8 +73,9 @@ class ServicesBo
         $seller_id = $service['seller_id'];
         Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",$seller_id=".$seller_id);
         self::getCurrentSellerInfo($seller_id);
-        self::getServicePictures($seller_id, $service_id);
         self::getCommentForService($service_id);
+        self::getServicePictures($seller_id, $service_id);
+
     }
 
     /**
