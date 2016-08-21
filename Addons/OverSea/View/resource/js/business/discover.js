@@ -1,22 +1,4 @@
 
-jQuery(function(){
-    jQuery('#camera_wrap_1').camera({
-        thumbnails: false,
-        loader: 'none',
-        portrait :false,
-        pagination : false,
-        height: '120px',
-        navigation : false,
-        playPause : false,
-        transPeriod: 1000,
-        fx:'scrollHorz',
-        loaderPadding: '10px',
-        onEndTransition: function(){
-            var ind = $('.camera_target .cameraSlide.cameracurrent').index();
-        }
-
-    });
-});
 
 var itemIdx = 10;
 var pageIdx = new Array();

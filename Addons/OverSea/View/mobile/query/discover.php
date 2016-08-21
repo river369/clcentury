@@ -69,6 +69,30 @@ $isDiscover = 1;
                 $(this).attr("src", "../../resource/images/head_default.jpg");
             });
         });
+        var ind;
+        jQuery(function(){
+            jQuery('#camera_wrap_1').camera({
+                thumbnails: false,
+                loader: 'none',
+                portrait :false,
+                pagination : false,
+                height: '120px',
+                navigation : false,
+                playPause : false,
+                transPeriod: 1000,
+                fx:'scrollHorz',
+                loaderPadding: '10px',
+                onEndTransition: function(){
+                    ind = $('.camera_target .cameraSlide.cameracurrent').index();
+                    //alert($('.camera_target .cameraSlide.cameracurrent').data-src);
+                    //alert(ind);
+                }
+
+            });
+        });
+        function goToService() {
+            alert(ind);
+        }
     </script>
 </head>
 <body>
@@ -88,9 +112,9 @@ $isDiscover = 1;
             </ul>
         </div><!-- /navbar -->
 
-        <div class="fluid_container" onclick="alert();">
+        <div class="fluid_container" onclick="goToService();">
             <div class="camera_wrap camera_azure_skin" id="camera_wrap_1" style="margin: 0px 0px 5px 0px" >
-                <div data-src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/pics/57790fb728713607/578d004e91059576/20160719001406_1.jpg" data-fx='mosaicReverse' onclick="alert(1);">
+                <div data-src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/pics/57790fb728713607/578d004e91059576/20160719001406_1.jpg" data-fx='mosaicReverse'">
                 </div>
                 <div data-src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/pics/57790fb728713607/578d004e91059576/20160719001407_2.jpg" data-fx='mosaicReverse'>
                 </div>
