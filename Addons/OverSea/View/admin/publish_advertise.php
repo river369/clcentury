@@ -45,22 +45,38 @@ $isMine = 1;
     <div data-role="header" data-position="fixed" data-theme="c">
         <h1>发布易知广告</h1>
     </div>
+    <div data-role="content">
+        <table>
+            <tr>
+                <td style="width:20%">
+                    <label style="font-size:12px;">广告范围<label/>
+                </td>
+                <td style="width:80%">
+                    <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" data-theme="a">
+                        <input name="ad_area_type" id="radio-choice-c" value="1" <?php if (!isset($city) || $city != '地球') {echo 'checked="true"'; } ?> type="radio">
+                        <label for="radio-choice-c">地区</label>
+                        <input name="ad_area_type" id="radio-choice-d" value="2" <?php if ($city == '地球') {echo 'checked="true"'; } ?> type="radio">
+                        <label for="radio-choice-d">地球</label>
+                    </fieldset>
+                </td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td style="width:20%">
+                    <label style="font-size:12px;" for="service_id">服务编号</label>
+                </td>
+                <td style="width:80%">
+                    <input type="text" name="service_id" id="service_id" value="<?php echo isset($service_id) ? $service_id: ''; ?>" >
+                </td>
+            </tr>
+        </table>
+
+    </div>
 
     <div role="main" class="ui-content jqm-content jqm-fullwidth">
-        <div data-role="content">
-            <table>
-                <tr>
-                    <td style="width:20%">
-                        <label style="font-size:12px;" for="service_id">服务编号</label>
-                    </td>
-                    <td style="width:80%">
-                        <input type="text" name="service_id" id="service_id" value="<?php echo isset($service_id) ? $service_id: ''; ?>" >
-                    </td>
-                </tr>
-            </table>
-        </div>
-        
-        <label style="font-size:12px;"> 请点击图标上传服务详情图片, 最多上传1张.<label>
+
+        <label style="font-size:12px;"> 请点击图标上传服务详情图片, 最多上传1张.</label>
 
         <div class="errmsgstring" style="color:red"></div>
         <ul class="weui_uploader_files">
@@ -83,7 +99,7 @@ $isMine = 1;
 <script>
     // this is for select service pictures
     function selectImages(){
-        if ($('#service_name').val()==''){
+        if ($('#service_id').val()==''){
             alert("服务编号不能为空");
         } else {
             // 5 图片接口
@@ -131,7 +147,7 @@ $isMine = 1;
         $.ajax({
             url:'../../Controller/AuthUserDispatcher.php?c=publishAdvertise&serverids=' + serverIds,
             type:'POST',
-            data : $('#service_id').serialize(),
+            data : "service_id=" + $('#service_id').val() + "&ad_area_type="+$("input:radio[name=ad_area_type]:checked").val(),
             dataType:'json',
             async:false,
             success:function(result) {
@@ -139,7 +155,7 @@ $isMine = 1;
                 if (result.status == 0){
                     var htmlString = '';
                     for(var i in result.objLists) {
-                        htmlString = htmlString + "<img src='<?php echo $imageurl.$obj; ?>" +"?t=" + Math.random()+ "' height='80' width='100%'>";
+                        htmlString = htmlString + "<img src='<?php echo $imageurl;?>" + result.objLists[i] + "?t=" + Math.random()+ "' height='80' width='100%'>";
                         //htmlString = htmlString + '<li class="weui_uploader_file" onclick="changepopup(\'' + result.objLists[i] + '\')" style="background-image:url(<?php echo $imageurl; ?>' + result.objLists[i] + '); border: 3px solid #fff;border-radius: 5px;box-shadow: 0 0 5px rgba(0,0,0,.15);"></li>';
                     }
                     $('#preview_image').html(htmlString);

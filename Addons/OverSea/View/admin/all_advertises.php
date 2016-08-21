@@ -39,13 +39,13 @@ $isMine = 1;
             $type = $ad['service_type'];
             $service_id = $ad['service_id'];
             $id =  $ad['id'];
-            $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/'.$city.'/'.$type.'/'.$service_id.'.jpg';
+            $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/advertise/'.$city.'/'.$type.'/'.$service_id.'.jpg';
             ?>
         <ul data-role="listview" data-inset="true">
             <li data-role="list-divider"><?php echo $city . ":" . ($type==1? '旅游' : '留学');?></span></li>
             <li>
                 <a href="../../Controller/AuthUserDispatcher.php?c=prepareAdvertise&service_id=<?php echo $service_id; ?>&city=<?php echo $city;?>&type=<?php echo $type;?>" rel="external">
-                    <img class="weui_media_appmsg_thumb" src="<?php echo $imageurl;?>" alt="">
+                    <img class="weui_media_appmsg_thumb" src="<?php echo $imageurl;?>" alt="" height="100%">
                     <h2> <?php echo $ad['service_id'];?> </h2>
                 </a>
             </li>

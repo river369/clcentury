@@ -607,13 +607,16 @@ class ServicesBo
 
         // Get the infos
         $service_id = isset($_POST ['service_id']) ? $_POST ['service_id'] : '';
+        $ad_area_type = isset($_POST ['ad_area_type']) ? $_POST ['ad_area_type'] : '';
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",service_id=".$service_id);
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",ad_area_type=".$ad_area_type);
         $serviceDao = new ServicesDao();
         $service = $serviceDao -> getByKv('service_id', $service_id);
-        $city = $service['service_area'];
+        $city = $ad_area_type==2 ? '地球' : $service['service_area'];
         $service_type = $service['service_type'];
-        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",service_area=".isset($city));
-        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",service_type=".isset($service_type));
-        if (!isset($city))  {
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",service_area=".$city);
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",service_type=".$service_type);
+        if (!isset($service['id']))  {
             Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",service_id ".$service_id." is invalid");
             echo json_encode(array('status'=> -1, 'msg'=> '服务编号不存在:'.$service_id, 'objLists' => ''));
             exit;
