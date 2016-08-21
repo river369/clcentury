@@ -27,7 +27,6 @@ class UsersBo
      * set user setting if user used to sign in
      */
     public function index(){
-        
         if (!isset($_SESSION['userSetting'])){
             $user_id = self::getUserIdFromSession();
             if (!empty($user_id) && !is_null($user_id)) {

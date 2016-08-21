@@ -65,7 +65,8 @@ $isMine = 1;
                 </li>
             </ul>
         </div>
-        <h5>个人:</h5>
+
+        <h5>个人</h5>
         <div style="margin: -20px 0px -20px 0px">
             <ul data-role="listview" data-inset="true" data-theme="e">
                 <li>
@@ -73,7 +74,6 @@ $isMine = 1;
                         <p style="margin: 0px 0px 0px 0px">申请实名认证</p>
                     </a>
                 </li>
-<!--                <hr width="90%">-->
                 <li>
                     <a href="./change_password.php" rel="external">
                         <p style="margin: 0px 0px 0px 0px">修改密码</p>
@@ -86,6 +86,34 @@ $isMine = 1;
                 </li>
             </ul>
         </div>
+
+        <?php if ($existedUser['user_type'] == 1) {?>
+        <h5>Admin</h5>
+        <div style="margin: -20px 0px -20px 0px">
+            <ul data-role="listview" data-inset="true" data-theme="e">
+                <li>
+                    <a href="../../../Controller/AuthUserDispatcher.php?c=getUsers&status=20" rel="external">
+                        <p style="margin: 0px 0px 0px 0px">审核实名认证</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="../../../Controller/AuthUserDispatcher.php?c=getServices&status=20" rel="external">
+                        <p style="margin: 0px 0px 0px 0px">审核新发布的服务</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="../../../Controller/AuthUserDispatcher.php?c=prepareAdvertise" rel="external">
+                        <p style="margin: 0px 0px 0px 0px">发布广告</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="../../../Controller/AuthUserDispatcher.php?c=getAdvertiseList" rel="external">
+                        <p style="margin: 0px 0px 0px 0px">广告列表</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <?php } ?>
     </div>
 
     <?php include '../common/footer.php';?>

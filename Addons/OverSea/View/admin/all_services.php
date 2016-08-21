@@ -7,7 +7,7 @@
  */
 session_start();
 $allServices= $_SESSION['allServices'];
-
+$isMine = 1;
 ?>
 
 <!DOCTYPE html>

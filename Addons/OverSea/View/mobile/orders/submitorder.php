@@ -107,9 +107,9 @@ $isMine = 1;
         </div>
 
         <?php include '../common/footer.php';?>
-        <div data-role="popup" id="rulePopup" data-overlay-theme="a" data-corners="false" data-tolerance="60,30">
+        <div data-role="popup" id="rulePopup" data-overlay-theme="a" data-corners="false" data-tolerance="30,15">
             <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
-            <iframe src="./customer_agreement.html" seamless="" height="320" width="480"></iframe>
+            <iframe src="./customer_agreement.html" seamless=""></iframe>
         </div>
 </div>
 <script type="text/javascript">

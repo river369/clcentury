@@ -19,6 +19,7 @@ use Addons\OverSea\Model\ServicesDao;
 use Addons\OverSea\Model\CommentsDao;
 use Addons\OverSea\Model\CitiesDao;
 use Addons\OverSea\Model\CitiesTagDao;
+use Addons\OverSea\Model\AdvertiseDao;
 
 require dirname(__FILE__).'/PicCrop.php';
 
@@ -211,7 +212,8 @@ class ServicesBo
             $serveridsArray = explode(',',$serverids);
             $i=1;
             foreach ($serveridsArray as $serverid){
-                self::savePictureFromWeixin($serverid, $userID, $serviceId, $i);
+                $object = "yzphoto/pics/".$userID."/".$serviceId."/".date('YmdHis')."_".$i.".jpg";
+                self::savePictureFromWeixin($serverid,$object);
                 $i++;
             }
         }
@@ -243,12 +245,11 @@ class ServicesBo
         exit;
     }
     
-    // 获yz取图片地址
-    private function savePictureFromWeixin($media_id, $userID, $yzId, $i){
+    // Copy file from weixin to oss
+    private function savePictureFromWeixin($media_id, $object){
         // access_token 应该全局存储与更新，以下代码以写入到文件中做示例
         $access_token = WeixinHelper::getAccessTokenWithLocalFile();
         $url = "http://file.api.weixin.qq.com/cgi-bin/media/get?access_token=".$access_token."&media_id=".$media_id;
-        $object = "yzphoto/pics/".$userID."/".$yzId."/".date('YmdHis')."_".$i.".jpg";
         $options = array();
         OSSHelper::putObject($object, file_get_contents($url), $options);
         return ;
@@ -572,6 +573,82 @@ class ServicesBo
             }
         }
         return $servicesData;
+    }
+
+    //=============Advertise=================//
+    public function getAdvertiseList(){
+        $adDao = new AdvertiseDao();
+        $adsData = $adDao->getAllAdvertisesByStatus(0);
+        $_SESSION['adsData'] = $adsData;
+    }
+    public function deleteAdvertiseOfService(){
+        $adDao = new AdvertiseDao();
+        $id = $_POST['id'];
+        $adData = $adDao->getById($id);
+        if (isset($adData['status']) && $adData['status']==0){
+            $adData['status'] = 1;
+            $adDao ->update($adData, $id);
+
+            $service_id =  $_POST['service_id'] ;
+            Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",service_id=".$service_id);
+            $object = "yzphoto/advertise/".$adData['city_name']."/".$adData['service_type']."/".$adData['service_id'].".jpg";
+            OSSHelper::deleteObject($object);
+        }
+        self::getAdvertiseList();
+    }
+    public function prepareAdvertise() {
+        $_SESSION ['service_id'] = $_GET['service_id'] ;
+        $_SESSION ['city'] = $_GET['city'] ;
+        $_SESSION ['type'] = $_GET['type'] ;
+        WeixinHelper::prepareWeixinPicsParameters("/weiphp/Addons/OverSea/View/admin/publish_advertise.php");
+    }
+
+    public function publishAdvertise() {
+
+        // Get the infos
+        $service_id = isset($_POST ['service_id']) ? $_POST ['service_id'] : '';
+        $serviceDao = new ServicesDao();
+        $service = $serviceDao -> getByKv('service_id', $service_id);
+        $city = $service['service_area'];
+        $service_type = $service['service_type'];
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",service_area=".isset($city));
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",service_type=".isset($service_type));
+        if (!isset($city))  {
+            Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",service_id ".$service_id." is invalid");
+            echo json_encode(array('status'=> -1, 'msg'=> '服务编号不存在:'.$service_id, 'objLists' => ''));
+            exit;
+        }
+
+        //Check existed or not
+        $adDao = new AdvertiseDao();
+        $existedAd = $adDao ->getByKv('service_id', $service_id);
+        if (!isset($existedAd['service_id'])) {
+            $advertiseData = array();
+            $advertiseData['service_id'] = $service_id;
+            $advertiseData['city_name'] = $city;
+            $advertiseData['service_type'] = $service_type;
+            $adDao ->insert($advertiseData);
+        }
+
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",service_id=".$service_id);
+        $object = "yzphoto/advertise/".$city."/".$service_type."/".$service_id.".jpg";
+        // upload image if need to
+        if (isset($_GET ['serverids'])){
+            $serverids = $_GET ['serverids'];
+            //echo $serverids;
+            $serveridsArray = explode(',',$serverids);
+            $i=1;
+            foreach ($serveridsArray as $serverid){
+                self::savePictureFromWeixin($serverid, $object);
+                $i++;
+            }
+        }
+
+        // list data
+        $objArray = array();
+        $objArray[] = $object;
+        echo json_encode(array('status'=> 0, 'msg'=> 'done', 'objLists' => $objArray));
+        exit;
     }
 
     /*

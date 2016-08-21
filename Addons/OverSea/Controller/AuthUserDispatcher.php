@@ -94,6 +94,11 @@ $method_routes = array(
     'deleteKeyWordById' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'deleteKeyWordById','v'=>'../View/mobile/query/search.php','d'=>'搜索主页'),
     //'sellerPublishedServices' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'getSellerPublishedServices',
       //  'v'=>'../View/mobile/query/seller_published_services.php','d'=>'查看卖家的主页'),
+
+    'getAdvertiseList' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'getAdvertiseList','v'=>'../View/admin/all_advertises.php','d'=>'广告列表'),
+    'prepareAdvertise' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'prepareAdvertise','v'=>'../View/admin/publish_advertise.php','d'=>'广告图片'),
+    'publishAdvertise' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'publishAdvertise','d'=>'发广告'),
+    'deleteAdvertiseOfService' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'deleteAdvertiseOfService','v'=>'../View/admin/all_advertises.php','d'=>'广告列表'),
     
 );
 

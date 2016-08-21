@@ -6,7 +6,7 @@
  * Time: 21:54
  */
 session_start();
-$allUsers= $_SESSION['allUsers'];
+$adsData= $_SESSION['adsData'];
 $isMine = 1;
 ?>
 
@@ -28,29 +28,30 @@ $isMine = 1;
 <body>
 <div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
     <div data-role="header" data-position="fixed" data-theme="c">
-        <h1>审核实名认证</h1>
+        <h1>广告位列表</h1>
     </div>
 
     <div role="main" class="ui-content jqm-content jqm-fullwidth">
         <?php
-        foreach($allUsers as $key => $user)
+        foreach($adsData as $key => $ad)
         {
-            $userid= $user['user_id'];
-            $status = $user['status'];
-        ?>
+            $city= $ad['city_name'];
+            $type = $ad['service_type'];
+            $service_id = $ad['service_id'];
+            $id =  $ad['id'];
+            $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/'.$city.'/'.$type.'/'.$service_id.'.jpg';
+            ?>
         <ul data-role="listview" data-inset="true">
-            <li data-role="list-divider">用户编号: <span class="ui-li-count"><?php echo $userid;?></span></li>
+            <li data-role="list-divider"><?php echo $city . ":" . ($type==1? '旅游' : '留学');?></span></li>
             <li>
-                <a href="../../Controller/AuthUserDispatcher.php?c=publishRealName&userid=<?php echo $userid; ?>" rel="external">
-                    <img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $userid;?>/head.png" alt="">
-                    <h2> <?php echo $user['real_name'];?> </h2>
-                    <p style="white-space:pre-wrap;"><?php echo $user['certificate_no'];?> </p>
+                <a href="../../Controller/AuthUserDispatcher.php?c=prepareAdvertise&service_id=<?php echo $service_id; ?>&city=<?php echo $city;?>&type=<?php echo $type;?>" rel="external">
+                    <img class="weui_media_appmsg_thumb" src="<?php echo $imageurl;?>" alt="">
+                    <h2> <?php echo $ad['service_id'];?> </h2>
                 </a>
             </li>
             <li data-theme="c">
                 <div class="ui-grid-a">
-                    <div class="ui-block-a"><a href="#checkDialog" data-rel="popup" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="checkPopup('<?php echo $userid; ?>', 0)">批准认证</a></div>
-                    <div class="ui-block-b"><a href="#checkDialog" data-rel="popup" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="checkPopup('<?php echo $userid; ?>', 1)">拒绝认证</a></div>
+                    <div class="ui-block-a"><a href="#checkDialog" data-rel="popup" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="checkPopup('<?php echo $service_id; ?>', '<?php echo $id; ?>', 0)">删除广告</a></div>
                 </div>
             </li>
         </ul>
@@ -58,15 +59,12 @@ $isMine = 1;
 
         <div data-role="popup" id="checkDialog" data-overlay-theme="a" data-theme="a" style="max-width:400px;">
             <div data-role="header" data-theme="a">
-                <h1>检查认证</h1>
+                <h1>检查广告</h1>
             </div>
             <div role="main" class="ui-content">
                 <h3 class="ui-title" id="checkString">.</h3>
-                <form id="checkService" data-ajax="false" method="post" action="../../Controller/AuthUserDispatcher.php?c=checkUser&status=20">
-                    <input type="hidden" name="userId" id="userId" value="">
-                    <input type="hidden" name="checkaction" id="checkaction" value="">
-                    <label for="reason">原因:</label>
-                    <textarea cols="30" rows="8" name="checkreason" id="checkreason" data-mini="true"></textarea>
+                <form id="checkService" data-ajax="false" method="post" action="../../Controller/AuthUserDispatcher.php?c=deleteAdvertiseOfService">
+                    <input type="hidden" name="id" id="id" value="">
                     <input type="submit" name="cancelsubmit" id="cancelsubmit" value="确定">
                 </form>
                 <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
@@ -74,24 +72,23 @@ $isMine = 1;
         </div>
 
     </div>
-    
+
     <div data-role="footer" data-position="fixed" data-theme="c">
-        <h4>Copyright (c) 2016 .</h4>
+               <h4>Copyright (c) 2016 .</h4>
     </div>
 </div>
 <script>
-    function checkPopup(userId, type) {
+    function checkPopup(service_id, id, type) {
         var messages = "确定";
         if (type == 0){
-            messages = messages + "批准";
+            messages = messages + "删除";
         } else {
-            messages = messages + "拒绝";
+            messages = messages + "";
         }
-        messages = messages + "认证" + userId + "?";
+        messages = messages + "服务" + service_id + "的广告?";
         //alert(messages);
         $('#checkString').html(messages);
-        $('#userId').val(userId);
-        $('#checkaction').val(type);
+        $('#id').val(id);
         $('#checkDialog').popup('open');
     };
     $(document).ready(function(){

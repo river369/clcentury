@@ -1,6 +1,7 @@
 <?php
 session_start();
 $customerid = $_SESSION['signedUser'];
+$isMine = 1;
 ?>
 <!DOCTYPE html>
 <html lang="zh-cmn-Hans">

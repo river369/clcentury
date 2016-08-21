@@ -37,6 +37,7 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`yz_user_infos` (
 `certificate_type` int(5) DEFAULT 1  COMMENT 'User类型 1 身份证, 2 Passport',
 `certificate_no` varchar(25)  DEFAULT NULL  COMMENT '身份号码',
 `check_reason` varchar(255)  DEFAULT NULL  COMMENT 'approve or reject reason',
+`user_type` int(1)  DEFAULT 0 COMMENT 'user type, 0 common user, 1 admin',
 `creation_date` datetime  DEFAULT NULL COMMENT 'creation datetime',
 `update_date` datetime  DEFAULT NULL COMMENT 'update datetime',
 PRIMARY KEY (`id`),
@@ -52,7 +53,7 @@ alter table yz_users add column serve_count int(5) DEFAULT 0  COMMENT '用户提
 alter table yz_user_infos drop column stars;
 alter table yz_user_infos add column `stars` decimal(5,1) DEFAULT 3  COMMENT '服务价格';
 alter table yz_user_infos add column `signature` varchar(255)  DEFAULT NULL  COMMENT '个性签名';
-
+alter table yz_user_infos add column `user_type` int(1)  DEFAULT 0 COMMENT 'user type, 0 common user, 1 admin';
 --Users Settings
 CREATE TABLE IF NOT EXISTS `clctravel`.`yz_user_settings` (
 `id` bigint(12) NOT NULL AUTO_INCREMENT COMMENT '主键',
@@ -299,6 +300,21 @@ insert into  `clctravel`.`yz_city_tags` (city_name, service_type,tag) values('�
 insert into  `clctravel`.`yz_city_tags` (city_name, service_type,tag) values('北京', 1, '颐和园');
 insert into  `clctravel`.`yz_city_tags` (city_name, service_type,tag) values('上海', 1, '东方明珠');
 insert into  `clctravel`.`yz_city_tags` (city_name, service_type,tag) values('西雅图', 1, 'Space Needle');
+
+CREATE TABLE IF NOT EXISTS `clctravel`.`yz_advertises` (
+`id` bigint(12) NOT NULL AUTO_INCREMENT COMMENT '主键',
+`city_name` varchar(50) DEFAULT NULL  COMMENT '城市名称',
+`service_type` int(10) DEFAULT 1  COMMENT '服务类型 1 旅游, 2 留学, 99999 all, -1 nothing',
+`service_id` varchar(50) DEFAULT NULL  COMMENT 'service id',
+`status` int(2) DEFAULT 0  COMMENT 'active 0, deleted 1' ,
+`creation_date` datetime  DEFAULT NULL COMMENT 'creation datetime',
+`update_date` datetime  DEFAULT NULL COMMENT 'update datetime',
+PRIMARY KEY (`id`),
+KEY `city_name` (`city_name`),
+KEY `service_type` (`service_type`),
+KEY `status` (`status`),
+KEY `service_id` (`service_id`)
+) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
 
 ------------------------Deprecated V3(1 user 1 service)-------------------------
 --Users
