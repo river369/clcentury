@@ -17,6 +17,22 @@ class AdvertiseDao extends BaseDao
         parent::__construct("yz_advertises");
     }
 
+    public function getAdvertiseByCity($city_name)
+    {
+        try {
+            $sql = 'SELECT * FROM ' . parent::getTableName(). ' WHERE city_name= :city_name';
+            $parameter = array(':city_name' => $city_name);
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",sql=".$sql);
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",parameters=".json_encode($parameter));
+            $ret = MySqlHelper::fetchAll($sql, $parameter);
+            return $ret;
+        } catch (\Exception $e){
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . $e);
+            exit;
+        }
+
+    }
+    
     public function getAdvertiseByCityBusinessType($city_name, $service_type)
     {
         try {

@@ -423,6 +423,11 @@ class ServicesBo
         if ($pageIndex == 0 && $serviceType == 1){
             $_SESSION['servicetype'] = $serviceType;
             $_SESSION['servicesData']= self::fixDataLength($servicesData);
+
+            $adDao = new AdvertiseDao();
+            $ads = $adDao->getAdvertiseByCity($servicearea);
+            $_SESSION['ads'] = $ads;
+
         } else {
             //$retJson =  json_encode(array('status'=> 0, 'msg'=> 'done', 'serviceLists' => $servicesData));
             //Logs::writeClcLog(__CLASS__.",".__FUNCTION__." retJson=".$retJson);

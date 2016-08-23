@@ -5,13 +5,11 @@
  * Date: 16/5/9
  * Time: 21:54
  */
-$startTime = microtime(true)*1000;
 session_start();
 require dirname(__FILE__).'/../../../init.php';
 use Addons\OverSea\Model\ServicesBo;
 use Addons\OverSea\Model\UsersBo;
 use Addons\OverSea\Common\HttpHelper;
-use Addons\OverSea\Common\Logs;
 if (isset($_GET['islogoff'])){
     unset($_COOKIE["signedUser"]);
 }
@@ -22,6 +20,18 @@ $serviceBo = new ServicesBo();
 $serviceBo->getServices();
 $servicesData= $_SESSION['servicesData'];
 
+$ads = $_SESSION['ads'];
+unset($_SESSION['ads']);
+$service_type_1_ad = 0;
+$service_type_2_ad = 0;
+foreach($ads as $key => $ad){
+    if ($ad['service_type']==1){
+        $service_type_1_ad = 1;
+    } else {
+        $service_type_2_ad = 1;
+    }
+}
+
 $servicearea = '地球';
 if (isset($_SESSION ['servicearea'])){
     $servicearea = $_SESSION ['servicearea'];
@@ -31,8 +41,8 @@ if (isset($_SESSION ['servicearea'])){
         $servicearea = $userSetting['selected_service_area'];
     }
 }
-$periodTime = microtime(true)*1000 - $startTime;
-Logs::writeClcLog("rtt,discover,".$periodTime);
+$imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/advertise/'.$servicearea.'/';
+
 $isDiscover = 1;
 ?>
 
@@ -69,7 +79,6 @@ $isDiscover = 1;
                 $(this).attr("src", "../../resource/images/head_default.jpg");
             });
         });
-        var ind;
         jQuery(function(){
             jQuery('#camera_wrap_1').camera({
                 thumbnails: false,
@@ -83,15 +92,54 @@ $isDiscover = 1;
                 fx:'scrollHorz',
                 loaderPadding: '10px',
                 onEndTransition: function(){
-                    ind = $('.camera_target .cameraSlide.cameracurrent').index();
-                    //alert($('.camera_target .cameraSlide.cameracurrent').data-src);
-                    //alert(ind);
+                    lyindex = $('.camera_target .cameraSlide.cameracurrent').index();
+                }
+            });
+            jQuery('#camera_wrap_2').camera({
+                thumbnails: false,
+                loader: 'none',
+                portrait :false,
+                pagination : false,
+                height: '120px',
+                navigation : false,
+                playPause : false,
+                transPeriod: 1000,
+                fx:'scrollHorz',
+                loaderPadding: '10px',
+                onEndTransition: function(){
+                    lxindex = $('.camera_target .cameraSlide.cameracurrent').index();
                 }
 
             });
         });
-        function goToService() {
-            alert(ind);
+        var lyindex;
+        var lxindex;
+        var lyArray=new Array();
+        var lxArray=new Array();
+        <?php
+        $i=0;
+        foreach($ads as $key => $ad){
+            if ($ad['service_type']==1){
+                echo "lyArray[".$i."]='".$ad['service_id']."';";
+                $i++;
+            }
+        }?>
+        <?php
+        $i=0;
+        foreach($ads as $key => $ad){
+            if ($ad['service_type']==2){
+                echo "lxArray[".$i."]='".$ad['service_id']."';";
+                $i++;
+            }
+        }?>
+        function goToLYService() {
+            var sid=lyArray[lyindex];
+            window.location.href='../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id='+sid;
+        }
+        function goToLXService() {
+            var sid=lxArray[lxindex];
+            window.location.href='../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id='+sid;
+//            window.location.href='<?php //echo $imageurl.'2/'?>//'+sid+'.jpg';
         }
     </script>
 </head>
@@ -112,22 +160,25 @@ $isDiscover = 1;
             </ul>
         </div><!-- /navbar -->
 
-        <div class="fluid_container" onclick="goToService();">
-            <div class="camera_wrap camera_azure_skin" id="camera_wrap_1" style="margin: 0px 0px 5px 0px" >
-                <div data-src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/pics/57790fb728713607/578d004e91059576/20160719001406_1.jpg" data-fx='mosaicReverse'">
-                </div>
-                <div data-src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/pics/57790fb728713607/578d004e91059576/20160719001407_2.jpg" data-fx='mosaicReverse'>
-                </div>
-            </div><!-- #camera_wrap_1 -->
-        </div><!-- .fluid_container -->
-
         <div id="serviceType1">
+            <?php if ($service_type_1_ad) {?>
+                <div class="fluid_container" onclick="goToLYService();">
+                    <div class="camera_wrap camera_azure_skin" id="camera_wrap_1" style="margin: 0px 0px 5px 0px" >
+                        <?php foreach($ads as $key => $ad){
+                            if ($ad['service_type']==1){
+                                echo "<div data-src='".$imageurl.$ad['service_type'].'/'.$ad['service_id'].".jpg' data-fx='mosaicReverse'></div>";
+                            }
+                        }?>
+                    </div><!-- #camera_wrap_1 -->
+                </div><!-- .fluid_container -->
+            <?php } ?>
+
             <?php
             $itemIndx = -1;
             foreach($servicesData as $key => $serviceData)
             {
                 $itemIndex++; ?>
-                <div style="margin: -5px 0px -5px 0px ">
+                <div style="margin: -5px 0px -5px 0px">
                     <ul data-role="listview" data-inset="true" data-theme="f">
                         <li data-role="list-divider">
                             <p style="margin: -5px 0px -3px 0px;font-size:14px;" >
@@ -157,9 +208,20 @@ $isDiscover = 1;
                     </ul>
                 </div>
             <?php } ?>
-
         </div>
-        <div id="serviceType2"></div>
+        <div id="serviceType2">
+            <?php if ($service_type_2_ad) {?>
+                <div class="fluid_container" onclick="goToLXService();">
+                    <div class="camera_wrap camera_azure_skin" id="camera_wrap_2" style="margin: 0px 0px 5px 0px" >
+                        <?php foreach($ads as $key => $ad){
+                            if ($ad['service_type']==2){
+                                echo "<div data-src='".$imageurl.$ad['service_type'].'/'.$ad['service_id'].".jpg' data-fx='mosaicReverse'></div>";
+                            }
+                        }?>
+                    </div>
+                </div>
+            <?php } ?>
+        </div>
     </div>
 
     <div data-role="content"class="endMsgString"></div>
