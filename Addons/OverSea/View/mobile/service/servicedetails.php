@@ -225,7 +225,7 @@ $isDiscover = 1;
                     <?php
                     $loc = 'a';
                     foreach ($tagsSellerArray as $tagSeller){ ?>
-                        <div style="font-size:10px;" class="ui-block-<?php echo $loc;?>"><a href="../../../Controller/AuthUserDispatcher.php?c=searchByKeyWord&keyWord=<?php echo $tagSeller;?>" rel="external" data-theme="d"  data-role="button"><?php echo $tagSeller;?></a></div>
+                        <div style="font-size:10px;" class="ui-block-<?php echo $loc;?>"><p><?php echo $tagSeller;?></p></div>
                         <?php
                         if ($loc=='a') {
                             $loc = 'b';
@@ -276,7 +276,7 @@ $isDiscover = 1;
                 <?php } ?>
             <?php } else {?>
                 <h5>暂无评论</h5>
-                <br><br><br><br><br><br><br><br><br>
+                <br><br><br><br><br><br><br><br><br><br>
             <?php } ?>
         </div>
         <div>

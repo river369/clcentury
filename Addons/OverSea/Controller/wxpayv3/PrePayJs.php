@@ -104,7 +104,7 @@ $jsApiParameters = $tools->GetJsApiParameters($order);
 	</div>
     <br/>
 	<div align="center" data-role="content" data-theme="c">
-		<font color="#01A4B5"><b>该笔订单支付金额为<span style="color:orange;font-size:50px"><?php echo $orderData['service_total_fee'];?></span>元</b></font><br/><br/>
+		<font color="#01A4B5"><b>该笔订单支付金额为&nbsp;<span style="color:orange;font-size:50px"><?php echo $orderData['service_total_fee'];?></span>&nbsp;元</b></font><br/><br/>
 		<p>收款方为:易知海外 </p>
 		<input data-mini="true" value="立即支付" type="button" onclick="callpay()">
 	</div>

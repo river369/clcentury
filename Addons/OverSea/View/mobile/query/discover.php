@@ -79,43 +79,7 @@ $isDiscover = 1;
                 $(this).attr("src", "../../resource/images/head_default.jpg");
             });
         });
-        jQuery(function(){
-            jQuery('#camera_wrap_1').camera({
-                thumbnails: false,
-                loader: 'none',
-                portrait :false,
-                pagination : false,
-                height: '120px',
-                navigation : false,
-                playPause : false,
-                transPeriod: 1000,
-                fx:'scrollHorz',
-                loaderPadding: '10px',
-                onEndTransition: function(){
-                    lyindex = $('.camera_target .cameraSlide.cameracurrent').index();
-                }
-            });
-            jQuery('#camera_wrap_2').camera({
-                thumbnails: false,
-                loader: 'none',
-                portrait :false,
-                pagination : false,
-                height: '120px',
-                navigation : false,
-                playPause : false,
-                transPeriod: 1000,
-                fx:'scrollHorz',
-                loaderPadding: '10px',
-                onEndTransition: function(){
-                    lxindex = $('.camera_target .cameraSlide.cameracurrent').index();
-                }
-
-            });
-        });
-        var lyindex;
-        var lxindex;
-        var lyArray=new Array();
-        var lxArray=new Array();
+        
         <?php
         $i=0;
         foreach($ads as $key => $ad){
@@ -132,15 +96,7 @@ $isDiscover = 1;
                 $i++;
             }
         }?>
-        function goToLYService() {
-            var sid=lyArray[lyindex];
-            window.location.href='../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id='+sid;
-        }
-        function goToLXService() {
-            var sid=lxArray[lxindex];
-            window.location.href='../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id='+sid;
-//            window.location.href='<?php //echo $imageurl.'2/'?>//'+sid+'.jpg';
-        }
+
     </script>
 </head>
 <body>
@@ -211,7 +167,7 @@ $isDiscover = 1;
         </div>
         <div id="serviceType2">
             <?php if ($service_type_2_ad) {?>
-                <div class="fluid_container" onclick="goToLXService();">
+                <div class="fluid_container" id=fc2 onclick="goToLXService();">
                     <div class="camera_wrap camera_azure_skin" id="camera_wrap_2" style="margin: 0px 0px 5px 0px" >
                         <?php foreach($ads as $key => $ad){
                             if ($ad['service_type']==2){

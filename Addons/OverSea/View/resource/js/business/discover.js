@@ -1,21 +1,66 @@
-
-
 var itemIdx = 10;
 var pageIdx = new Array();
 pageIdx[0]=0;
 pageIdx[1]=-1;
 var serviceType = 1;
+var lyindex;
+var lxindex;
+var lyArray=new Array();
+var lxArray=new Array();
 
+jQuery(function(){
+    jQuery('#camera_wrap_1').camera({
+        thumbnails: false,
+        loader: 'none',
+        portrait :false,
+        pagination : false,
+        height: '120px',
+        navigation : false,
+        playPause : false,
+        transPeriod: 1000,
+        fx:'scrollHorz',
+        loaderPadding: '10px',
+        onEndTransition: function(){
+            lyindex = $('.camera_target .cameraSlide.cameracurrent').index();
+        }
+    });
+});
+$('#serviceType2').hide();
+
+function goToLYService() {
+    var sid=lyArray[lyindex];
+    window.location.href='../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id='+sid;
+}
+function goToLXService() {
+    var sid=lxArray[lxindex];
+    window.location.href='../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id='+sid;
+}
 function setServiceType(type) {
     serviceType = type;
     if (type == 1){
-        $('#serviceType1').show()
+        $('#serviceType1').show();
         $('#serviceType2').hide();
     } else {
-        $('#serviceType2').show()
+        $('#serviceType2').show();
+        jQuery('#camera_wrap_2').cameraResume();
         $('#serviceType1').hide();
     }
     if (pageIdx[serviceType - 1] == -1){
+        jQuery('#camera_wrap_2').camera({
+            thumbnails: false,
+            loader: 'none',
+            portrait :false,
+            pagination : false,
+            height: '120px',
+            navigation : false,
+            playPause : false,
+            transPeriod: 1000,
+            fx:'scrollHorz',
+            loaderPadding: '10px',
+            onEndTransition: function(){
+                lxindex = $('.camera_target .cameraSlide.cameracurrent').index();
+            }
+        });
         getServiceInNextPages();
     }
 };

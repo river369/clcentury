@@ -66,6 +66,7 @@ $isPublishService = 1;
     <link rel="stylesheet" href="../../resource/style/cropper/main.css" />
     <link rel="stylesheet" href="../../resource/style/validation/validation.css" />
     <style>
+        h5{ color:#01A4B5}
         label{ color:#01A4B5}
         table{ table-layout : fixed; width:100% }
         hr{border:0;background-color:#2c2c2c;height:1px;}
@@ -223,7 +224,7 @@ $isPublishService = 1;
             <table>
                 <tr>
                     <td>
-                        <a href="#tagpopup" data-rel="popup" class="ui-mini"  data-theme="f">点击选取或填写标签</a>
+                        <a href="#tagpopup" data-rel="popup" class="ui-controlgroup-label"><label style="font-size:12px;">点击选取或填写标签</label></a>
                     </td>
                 </tr>
             </table>
@@ -238,7 +239,7 @@ $isPublishService = 1;
             <table>
                 <tr>
                     <td>
-                        <a href="#rulePopup" data-rel="popup" class="ui-mini" data-theme="f">点击阅读服务发布声明</a>
+                        <a href="#rulePopup" data-rel="popup" class="ui-controlgroup-label"><label style="font-size:12px;">点击阅读服务发布声明</label></a>
                     </td>
                     <td style="width:50%">
 
