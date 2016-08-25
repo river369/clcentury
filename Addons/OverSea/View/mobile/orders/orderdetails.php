@@ -292,8 +292,7 @@ $isMine = 1;
             {
                 $lastAction = $orderAction['action'];
                 $actionString = BusinessHelper::translateOrderStatus($lastAction);
-                echo "{ type: 'smallItem', label: '<h5 style=\"color:#01A4B5\">".$actionString.
-                    "</h5>', shortContent: '<h5 style=\"color:#01A4B5\">".substr($orderAction['creation_date'], 0, 10 ) ."</h5>',},";
+                echo "{ type: 'smallItem', label: '<h5 style=\"color:#01A4B5\">".$actionString."</h5>', shortContent: '<h5 style=\"color:#01A4B5\">".$orderAction['creation_date']."</h5>',},";
             ?>
             <?php } ?>
             <?php if ($lastAction < 10) {?>
