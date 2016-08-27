@@ -59,7 +59,6 @@ class UsersBo
             $userSettingsDao->insertOrUpdateUserSetting($userSetting);
         }
     }
-
    
     // set user setting if user existed and user settting existed
     private function getUserIdFromSession() {
@@ -75,6 +74,7 @@ class UsersBo
             return null;
         }
     }
+
     private function setUserSettingInSessionById($id) {
         $userSettingsDao = new UserSettingsDao();
         $userSetting=$userSettingsDao->getUserSettingByUserId($id);
@@ -167,11 +167,6 @@ class UsersBo
 
         exit;
 
-    }
-
-    private function savePictureFromFile($path, $object){
-        
-        return ;
     }
 
     /**

@@ -58,15 +58,15 @@ $isDiscover = 1;
                 <li class="sidebar-brand">
                     <h5>地区</h5>
                 </li>
+                <li class=''>
+                    <a href="#tab" sequence="0" onclick="setArea()">地球</a>
+                </li>
                 <?php
                 foreach($countries as $display_sequence => $country){?>
                     <li <?php echo $display_sequence == 1 ? 'class="active"' : '' ?>>
                         <a href="#tab<?php echo $display_sequence?>" sequence="<?php echo $display_sequence?>"><?php echo $country?></a>
                     </li>
                 <?php }?>
-                <li class=''>
-                    <a href="#tab" sequence="3" onclick="setArea()">地球</a>
-                </li>
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->
@@ -87,7 +87,7 @@ $isDiscover = 1;
                                             <div class="city-list"><span class="city-letter" id="<?php echo $pinyin.$display_sequence; ?>"><?php echo $pinyin; ?></span>
                                                 <?php
                                                 foreach($citites[$display_sequence][$pinyin] as $key => $cityname){?>
-                                                    <p style="margin: 0px 0px 0px 0px"><a href="../../../Controller/FreelookDispatcher.php?c=setLocation&servicearea=<?php echo $cityname;?>" class="ui-mini" rel="external"><?php echo $cityname;?></a></p>
+                                                    <p style="margin: -3px 0px 0px 0px"><a href="../../../Controller/FreelookDispatcher.php?c=setLocation&servicearea=<?php echo $cityname;?>" class="ui-mini" rel="external"><?php echo $cityname;?></a></p>
                                                 <?php }?>
                                             </div>
                                         <?php }?>
@@ -139,7 +139,7 @@ $isDiscover = 1;
 <script>
     $(document).ready(function(){
         $('#sidebar-nav a:last').tab('show');
-        $('#sidebar-nav li:eq(1) a').tab('show');
+        $('#sidebar-nav li:eq(2) a').tab('show');
     });
     $("#menu-toggle").click(function(e) {
         e.preventDefault();

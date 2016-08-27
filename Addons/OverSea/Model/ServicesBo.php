@@ -446,8 +446,6 @@ class ServicesBo
 //        }
     }
 
-
-
     public function getQueryHistory() {
         if (isset($_SESSION['signedUser'])){
             unset($_SESSION['queryHistories']);
@@ -609,7 +607,6 @@ class ServicesBo
     }
 
     public function publishAdvertise() {
-
         // Get the infos
         $service_id = isset($_POST ['service_id']) ? $_POST ['service_id'] : '';
         $ad_area_type = isset($_POST ['ad_area_type']) ? $_POST ['ad_area_type'] : '';
@@ -678,5 +675,4 @@ class ServicesBo
         return $j;
     }
     */
-
 }
