@@ -41,7 +41,7 @@ if (isset($_SESSION ['servicearea'])){
         $servicearea = $userSetting['selected_service_area'];
     }
 }
-$imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/advertise/'.$servicearea.'/';
+$imageurl='http://oss.clcentury.com/yzphoto/advertise/'.$servicearea.'/';
 
 $isDiscover = 1;
 ?>
@@ -53,21 +53,19 @@ $isDiscover = 1;
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
     <title>易知海外</title>
 
-    <script type="text/javascript">
-        document.write("<scr"+"ipt src=\"../../resource/js/jquery/jquery-1.11.1.min.js\"></sc"+"ript>");
-        document.write("<scr"+"ipt src=\"../../resource/js/jquery/jquery.mobile-1.4.5.min.js\"></sc"+"ript>");
-        document.write("<scr"+"ipt src=\"../../resource/js/rater/rater.min.js\"></sc"+"ript>");
-        document.write("<scr"+"ipt src=\"../../resource/js/camera/jquery.min.js\"></sc"+"ript>");
-        document.write("<scr"+"ipt src=\"../../resource/js/camera/jquery.easing.1.3.js\"></sc"+"ript>");
-        document.write("<scr"+"ipt src=\"../../resource/js/camera/camera.min.js\"></sc"+"ript>");
-        document.write("<scr"+"ipt src=\"../../resource/js/camera/jquery.mobile.customized.min.js\"></sc"+"ript>");
-        document.write("<scr"+"ipt src=\"../../resource/js/business/discover.js\"></sc"+"ript>");
-    </script>
+    <script src="http://oss.clcentury.com/resource/js/jquery/jquery-1.11.1.min.js"></script>
+    <script src="http://oss.clcentury.com/resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
+    <script src="http://oss.clcentury.com/resource/js/rater/rater.min.js"></script>
+    <script src="http://oss.clcentury.com/resource/js/camera/jquery.min.js"></script>
+    <script src="http://oss.clcentury.com/resource/js/camera/jquery.easing.1.3.js"></script>
+    <script src="http://oss.clcentury.com/resource/js/camera/camera.min.js"></script>
+    <script src="http://oss.clcentury.com/resource/js/camera/jquery.mobile.customized.min.js"></script>
+    <script src="http://oss.clcentury.com/resource/js/business/discover.js"></script>
 
-    <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
-    <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
-    <link rel="stylesheet" href="../../resource/style/camera/camera.css" type="text/css" media="all">
-    <link rel="stylesheet" href="../../resource/style/business/discover.css" type="text/css" media="all">
+    <link rel="stylesheet" href="http://oss.clcentury.com/resource/style/jquery/jquery.mobile-1.4.5.min.css" />
+    <link rel="stylesheet" href="http://oss.clcentury.com/resource/style/themes/my-theme.min.css" />
+    <link rel="stylesheet" href="http://oss.clcentury.com/resource/style/camera/camera.css" type="text/css" media="all">
+    <link rel="stylesheet" href="http://oss.clcentury.com/resource/style/business/discover.css" type="text/css" media="all">
 
     <script>
         $(document).ready(function(){
@@ -76,7 +74,7 @@ $isDiscover = 1;
                 setRate(i, $('#ratevalue' + i).val());
             }
             $("img").error(function () {
-                $(this).attr("src", "../../resource/images/head_default.jpg");
+                $(this).attr("src", "http://oss.clcentury.com/resource/images/head_default.jpg");
             });
         });
         
@@ -149,7 +147,7 @@ $isDiscover = 1;
                                     <tr>
                                         <td style="width:27%">
                                             <div class="headimage">
-                                                <img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/pics/<?php echo $serviceData['seller_id']; ?>/<?php echo $serviceData['service_id']; ?>/main.png" height="100%">
+                                                <img class="weui_media_appmsg_thumb" src="http://oss.clcentury.com/yzphoto/pics/<?php echo $serviceData['seller_id']; ?>/<?php echo $serviceData['service_id']; ?>/main.png" height="100%">
                                             </div>
                                         </td>
                                         <td style="73%">
