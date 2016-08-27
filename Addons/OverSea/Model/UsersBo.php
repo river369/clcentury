@@ -115,22 +115,17 @@ class UsersBo
         }
         $userDao = new UserInfosDao();
         $userid = $_SESSION['signedUser'];
-        $ret = 0;
-        $exist = $userDao -> isExistByUid('user_id', $userid);
-        if ($exist){
-            $ret = $userDao -> updateByKv($userData, 'user_id', $userid);
-        } else {
-            $userData['user_id'] = $userid;
-            $ret = $userDao -> insert($userData);
-        }
-
-        if ($ret >= 0) {
-            //$_SESSION['status'] = 's';
-            //$_SESSION['message'] = $userData['name'].'提交个人信息成功,谢谢!';
-            //$_SESSION['goto'] = "../../../Controller/AuthUserDispatcher.php?c=mine";
+        try{
+            $exist = $userDao -> isExistByUid('user_id', $userid);
+            if ($exist){
+               $userDao -> updateByKv($userData, 'user_id', $userid);
+            } else {
+                $userData['user_id'] = $userid;
+                $userDao -> insert($userData);
+            }
             header('Location:../Controller/AuthUserDispatcher.php?c=mine');
             exit;
-        } else {
+        }  catch (\Exception $e){
             $_SESSION['status'] = 'f';
             $_SESSION['message'] = $userData['name'].'提交个人信息失败!';
             $_SESSION['goto'] = "../../../Controller/AuthUserDispatcher.php?c=mine";
@@ -269,16 +264,12 @@ class UsersBo
         $realNameData['certificate_type'] = $_POST ['certificate_type'];
         $realNameData['certificate_no'] = isset($_POST ['certificate_no']) ? $_POST ['certificate_no'] : '';
 
-        $usersDao = new UserInfosDao();
-        $userid = $usersDao ->updateByKv($realNameData, 'user_id', $userID);
-
-        if ($userid==0) {
-            //$_SESSION['status'] = 's';
-            //$_SESSION['message'] = '实名认证信息发布成功,谢谢!';
-            //$_SESSION['goto'] = "../../../Controller/AuthUserDispatcher.php?c=mine";
+        try{
+            $usersDao = new UserInfosDao();
+            $userid = $usersDao ->updateByKv($realNameData, 'user_id', $userID);
             header('Location:../Controller/AuthUserDispatcher.php?c=mine');
             exit;
-        } else {
+        } catch (\Exception $e){
             $_SESSION['status'] = 'f';
             $_SESSION['message'] = '实名认证信息发布失败!';
             $_SESSION['goto'] = "../../../Controller/AuthUserDispatcher.php?c=mine";

@@ -271,17 +271,12 @@ class ServicesBo
         $serviceData['service_type'] = $_POST ['service_type'];
         $serviceData['service_price'] = isset($_POST ['service_price']) ? $_POST ['service_price'] : '';
         $serviceData['tag'] = isset($_POST ['mytags']) ? $_POST ['mytags'] : '';
-
-        $serviceDao = new ServicesDao();
-        $serviceid = $serviceDao ->update($serviceData, $serviceData['id']);
-
-        if ($serviceid==0) {
-            //$_SESSION['status'] = 's';
-            //$_SESSION['message'] = '提交易知服务信息成功,谢谢!';
-            //$_SESSION['goto'] = "../../../Controller/FreelookDispatcher.php?c=getServices";
+        try{
+            $serviceDao = new ServicesDao();
+            $serviceDao ->update($serviceData, $serviceData['id']);
             header('Location:../Controller/AuthUserDispatcher.php?c=myServices&sellerid='.$serviceData['seller_id'].'&status=20');
             exit;
-        } else {
+        } catch (\Exception $e){
             $_SESSION['status'] = 's';
             $_SESSION['message'] = '提交易知服务信息失败!';
             $_SESSION['goto'] = "../../../Controller/AuthUserDispatcher.php?c=mine";

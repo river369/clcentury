@@ -31,8 +31,9 @@ class OrdersDao extends BaseDao
             return 0;
         } catch (\Exception $e){
             Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . $e);
-            return -1;
-            echo $e;
+            //return -1;
+            //echo $e;
+            throw $e;
         }
     }
 
@@ -47,8 +48,9 @@ class OrdersDao extends BaseDao
             return 0;
         } catch (\Exception $e){
             Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . $e);
-            return -1;
-            echo $e;
+            //return -1;
+            //echo $e;
+            throw $e;
         }
     }
 
@@ -63,8 +65,9 @@ class OrdersDao extends BaseDao
             return 0;
         } catch (\Exception $e){
             Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . $e);
-            return -1;
-            echo $e;
+            //return -1;
+            //echo $e;
+            throw $e;
         }
     }
 

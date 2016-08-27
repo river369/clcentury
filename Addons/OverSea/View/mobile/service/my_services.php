@@ -12,9 +12,9 @@ $querystatus = $_SESSION['querystatus'];
 
 $querystatusString = "感谢您发布易知服务,易知海外将在24小时内完成审核。";
 if ($querystatus == 60) {
-    $querystatusString = "已上架的易知服务。请注意,重新编辑易知服务后服务进入审核状态,将不能被买家搜索到。";
+    $querystatusString = "已上架的易知服务。重新编辑易知服务后服务进入审核状态,将不能被买家搜索到。";
 } else if ($querystatus == 40) {
-    $querystatusString = "点击服务查看拒绝原因";
+    $querystatusString = "已被易知海外拒绝的服务。点击'编辑服务'查看拒绝原因。修改服务信息后可以重新提交";
 } else if ($querystatus == 100) {
     $querystatusString = "已经被您暂停的易知服务。未购买的买家不能查询到该服务。";
 }

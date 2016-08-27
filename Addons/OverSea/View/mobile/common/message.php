@@ -41,7 +41,9 @@ if (isset($_GET['goto_type'])){
     <link rel="stylesheet" href="../../resource/style/cropper/cropper.min.css" />
     <link rel="stylesheet" href="../../resource/style/cropper/main.css" />
     <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
-
+    <style>
+        h5{ color:#33c8ce}
+    </style>
 </head>
 <body>
 
@@ -59,8 +61,8 @@ if (isset($_GET['goto_type'])){
 
     <br>
     <div data-role="content" style="text-align:center">
-        <h3><?php echo $message; ?></h3>
-        <a href="<?php echo $goto; ?>" rel="external" data-icon="home"><h3><?php echo isset($link_name)? $link_name : '返回'; ?></h3></a>
+        <h5><?php echo $message; ?></h5>
+        <a href="<?php echo $goto; ?>" rel="external" data-theme="d"  data-role="button"><?php echo isset($link_name)? $link_name : '返回'; ?></a>
     </div>
 
     <?php include '../common/footer.php';?>

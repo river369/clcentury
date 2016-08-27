@@ -18,6 +18,7 @@ use Addons\OverSea\Common\BusinessHelper;
 use Addons\OverSea\Common\Logs;
 use Addons\OverSea\Common\HttpHelper;
 use Addons\OverSea\Common\MNSHelper;
+use Addons\OverSea\Common\MySqlHelper;
 
 class OrdersBo
 {
@@ -65,21 +66,29 @@ class OrdersBo
         $customerName = (isset($userData['name']) && !is_null($userData['name']))? $userData['name']: "匿名用户";
         $orderData['customer_name'] = $customerName;
 
-        $ordersDao = new OrdersDao();
-        $id = $ordersDao->insert($orderData);
-        $orderData['id'] = $id;
-        $_SESSION['orderData']= $orderData;
-        if ($id) {
-            self::storeOrderActions($orderId, 0, 1);
-            $_SESSION['createOrderStatus'] = '成功';
-            header('Location:'."../Controller/wxpayv3/PrePayJs.php");
-            exit;
-        } else {
-            $_SESSION['status'] = 'f';
-            $_SESSION['message'] = '创建订单失败!';
-            $_SESSION['goto'] = "../../../Controller/AuthUserDispatcher.php?c=mine";
+        MySqlHelper::beginTransaction();
+        try {
+            $ordersDao = new OrdersDao();
+            $id = $ordersDao->insert($orderData);
+            $orderData['id'] = $id;
+            $_SESSION['orderData']= $orderData;
+            if ($id) {
+                self::storeOrderActions($orderId, 0, 1);
+                MySqlHelper::commit();
+                $_SESSION['createOrderStatus'] = '成功';
+                header('Location:'."../Controller/wxpayv3/PrePayJs.php");
+                exit;
+            } else {
+                MySqlHelper::rollBack();
+                $_SESSION['status'] = 'f';
+                $_SESSION['message'] = '创建订单失败!';
+                $_SESSION['goto'] = "../../../Controller/AuthUserDispatcher.php?c=mine";
+            }
+        }  catch (\Exception $e){
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . $e);
+            MySqlHelper::rollBack();
+            self::go2ErrorPage("创建订单出现错误:". $e);
         }
-
     }
 
     //For the case order are created but pay is delayed by user
@@ -161,9 +170,17 @@ class OrdersBo
         $reason = $_POST ['rejectreason'];
         $status = 1020;
         $sellerid = $_SESSION['signedUser'];
-        $ordersDao = new OrdersDao();
-        $ordersDao->updateSellerOrderStatus($orderid, $status, $sellerid);
-        self::storeOrderActions($orderid, $status, 2, $reason);
+        MySqlHelper::beginTransaction();
+        try {
+            $ordersDao = new OrdersDao();
+            $ordersDao->updateSellerOrderStatus($orderid, $status, $sellerid);
+            self::storeOrderActions($orderid, $status, 2, $reason);
+            MySqlHelper::commit();
+        }  catch (\Exception $e){
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . $e);
+            MySqlHelper::rollBack();
+            self::go2ErrorPage("拒绝订单出现错误:". $e);
+        }
         self::sendMessagesThroughWeixin($orderid, $status);
     }
 
@@ -171,9 +188,17 @@ class OrdersBo
         $orderid  = $_POST ['acceptorderid'];
         $status = 20;
         $sellerid = $_SESSION['signedUser'];
-        $ordersDao = new OrdersDao();
-        $ordersDao->updateSellerOrderStatus($orderid, $status, $sellerid);
-        self::storeOrderActions($orderid, $status, 2);
+        MySqlHelper::beginTransaction();
+        try {
+            $ordersDao = new OrdersDao();
+            $ordersDao->updateSellerOrderStatus($orderid, $status, $sellerid);
+            self::storeOrderActions($orderid, $status, 2);
+            MySqlHelper::commit();
+        }  catch (\Exception $e){
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . $e);
+            MySqlHelper::rollBack();
+            self::go2ErrorPage("接受订单出现错误:". $e);
+        }
         self::sendMessagesThroughWeixin($orderid, $status);
     }
 
@@ -182,9 +207,17 @@ class OrdersBo
         $reason = $_POST ['cancelreason'];
         $status = 1040;
         $sellerid = $_SESSION['signedUser'];
-        $ordersDao = new OrdersDao();
-        $ordersDao->updateSellerOrderStatus($orderid, $status, $sellerid);
-        self::storeOrderActions($orderid, $status, 2, $reason);
+        MySqlHelper::beginTransaction();
+        try {
+            $ordersDao = new OrdersDao();
+            $ordersDao->updateSellerOrderStatus($orderid, $status, $sellerid);
+            self::storeOrderActions($orderid, $status, 2, $reason);
+            MySqlHelper::commit();
+        }  catch (\Exception $e){
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . $e);
+            MySqlHelper::rollBack();
+            self::go2ErrorPage("卖家取消订单出现错误:". $e);
+        }
         selef::sendMessagesThroughWeixin($orderid, $status);
     }
 
@@ -193,9 +226,17 @@ class OrdersBo
         $reason = $_POST ['finishreason'];
         $status = 40;
         $sellerid = $_SESSION['signedUser'];
-        $ordersDao = new OrdersDao();
-        $ordersDao->updateSellerOrderStatus($orderid, $status, $sellerid);
-        self::storeOrderActions($orderid, $status, 2, $reason);
+        MySqlHelper::beginTransaction();
+        try {
+            $ordersDao = new OrdersDao();
+            $ordersDao->updateSellerOrderStatus($orderid, $status, $sellerid);
+            self::storeOrderActions($orderid, $status, 2, $reason);
+            MySqlHelper::commit();
+        }  catch (\Exception $e){
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . $e);
+            MySqlHelper::rollBack();
+            self::go2ErrorPage("卖家完成订单出现错误:". $e);
+        }
         self::sendMessagesThroughWeixin($orderid, $status);
     }
 
@@ -203,9 +244,17 @@ class OrdersBo
         $orderid  = $_POST ['confirmorderid'];
         $status = 60;
         $customerid = $_SESSION['signedUser'];
-        $ordersDao = new OrdersDao();
-        $ordersDao->updateCustomerOrderStatus($orderid, $status, $customerid);
-        self::storeOrderActions($orderid, $status, 1);
+        MySqlHelper::beginTransaction();
+        try {
+            $ordersDao = new OrdersDao();
+            $ordersDao->updateCustomerOrderStatus($orderid, $status, $customerid);
+            self::storeOrderActions($orderid, $status, 1);
+            MySqlHelper::commit();
+        }  catch (\Exception $e){
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . $e);
+            MySqlHelper::rollBack();
+            self::go2ErrorPage("买家确认订单出现错误:". $e);
+        }
         self::getOrderById($orderid);
         self::sendMessagesThroughWeixin($orderid, $status);
     }
@@ -229,30 +278,37 @@ class OrdersBo
             if (count($existedComment)>0) {
                 return;
             }
-            $commentsDao->insert($comments);
-            $status = 80;
+            MySqlHelper::beginTransaction();
+            try {
+                $commentsDao->insert($comments);
+                $status = 80;
 
-            $ordersDao = new OrdersDao();
-            $ordersDao->updateCustomerOrderStatus($orderid, $status, $customer_id);
-            self::storeOrderActions($orderid, $status, 1);
+                $ordersDao = new OrdersDao();
+                $ordersDao->updateCustomerOrderStatus($orderid, $status, $customer_id);
+                self::storeOrderActions($orderid, $status, 1);
 
-            $userStar = $commentsDao->getAverageStarById('seller_id', $comments['seller_id']);
-            if (isset($userStar['star'])) {
-                $userData = array();
-                $userData['stars'] = $userStar['star'];
-                $usersDao = new UserInfosDao();
-                $usersDao ->updateByKv($userData, 'user_id', $comments['seller_id']);
+                $userStar = $commentsDao->getAverageStarById('seller_id', $comments['seller_id']);
+                if (isset($userStar['star'])) {
+                    $userData = array();
+                    $userData['stars'] = $userStar['star'];
+                    $usersDao = new UserInfosDao();
+                    $usersDao ->updateByKv($userData, 'user_id', $comments['seller_id']);
+                }
+
+                $serviceStar = $commentsDao->getAverageStarById('service_id', $comments['service_id']);
+                if (isset($serviceStar['star'])) {
+                    $serviceData = array();
+                    $serviceData['stars'] = $serviceStar['star'];
+                    $servicesDao = new ServicesDao();
+                    $servicesDao ->updateByKv($serviceData, 'service_id', $comments['service_id']);
+                }
+                MySqlHelper::commit();
+                //self::sendMessagesThroughWeixin($orderid, $status); //don't need now
+            }  catch (\Exception $e){
+                Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . $e);
+                MySqlHelper::rollBack();
+                self::go2ErrorPage("买家评论订单出现错误:". $e);
             }
-
-            $serviceStar = $commentsDao->getAverageStarById('service_id', $comments['service_id']);
-            if (isset($serviceStar['star'])) {
-                $serviceData = array();
-                $serviceData['stars'] = $serviceStar['star'];
-                $servicesDao = new ServicesDao();
-                $servicesDao ->updateByKv($serviceData, 'service_id', $comments['service_id']);
-            }
-
-            //self::sendMessagesThroughWeixin($orderid, $status); //don't need now
         }
     }
     
@@ -261,9 +317,17 @@ class OrdersBo
         $reason = $_POST ['cancelreason'];
         $status = 1060;
         $customerid = $_SESSION['signedUser'];
-        $ordersDao = new OrdersDao();
-        $ordersDao->updateCustomerOrderStatus($orderid, $status, $customerid);
-        self::storeOrderActions($orderid, $status, 1, $reason);
+        MySqlHelper::beginTransaction();
+        try{
+            $ordersDao = new OrdersDao();
+            $ordersDao->updateCustomerOrderStatus($orderid, $status, $customerid);
+            self::storeOrderActions($orderid, $status, 1, $reason);
+            MySqlHelper::commit();
+        }  catch (\Exception $e){
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . $e);
+            MySqlHelper::rollBack();
+            self::go2ErrorPage("买家取消订单出现错误:". $e);
+        }
         self::sendMessagesThroughWeixin($orderid, $status);
     }
 
@@ -272,9 +336,17 @@ class OrdersBo
         $reason = $_POST ['rejectreason'];
         $status = 70;
         $customerid = $_SESSION['signedUser'];
-        $ordersDao = new OrdersDao();
-        $ordersDao->updateCustomerOrderStatus($orderid, $status, $customerid);
-        self::storeOrderActions($orderid, $status, 1, $reason);
+        MySqlHelper::beginTransaction();
+        try{
+            $ordersDao = new OrdersDao();
+            $ordersDao->updateCustomerOrderStatus($orderid, $status, $customerid);
+            self::storeOrderActions($orderid, $status, 1, $reason);
+            MySqlHelper::commit();
+        }  catch (\Exception $e){
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . $e);
+            MySqlHelper::rollBack();
+            self::go2ErrorPage("买家拒绝订单出现错误:". $e);
+        }
         self::sendMessagesThroughWeixin($orderid, $status);
     }
 
@@ -286,11 +358,19 @@ class OrdersBo
         Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",paymentData=".json_encode($paymentData));
         $orderid  = $paymentData ['order_id'];
         $status = 10;
-        $ordersDao = new OrdersDao();
-        $ordersDao->updateOrderStatus($orderid, $status);
-        self::storeOrderActions($orderid, $status, 0);
-        $paymentDao = new PaymentsDao();
-        $paymentDao->insert($paymentData);
+        MySqlHelper::beginTransaction();
+        try{
+            $ordersDao = new OrdersDao();
+            $ordersDao->updateOrderStatus($orderid, $status);
+            self::storeOrderActions($orderid, $status, 0);
+            $paymentDao = new PaymentsDao();
+            $paymentDao->insert($paymentData);
+            MySqlHelper::commit();
+        }  catch (\Exception $e){
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . $e);
+            MySqlHelper::rollBack();
+            exit;
+        }
         self::sendMessagesThroughWeixin($orderid, $status);
     }
 
@@ -365,5 +445,13 @@ class OrdersBo
             }
         }
         return $ordersData;
+    }
+
+    public function go2ErrorPage($errorMessage, $errorPage='../View/mobile/common/message.php', $returnUrl='../../../Controller/AuthUserDispatcher.php?c=mine'){
+        $_SESSION['status'] = 'f';
+        $_SESSION['message'] = $errorMessage;
+        $_SESSION['goto'] = $returnUrl;
+        header('Location:'.$errorPage);
+        exit;
     }
 }

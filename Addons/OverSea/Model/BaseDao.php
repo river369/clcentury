@@ -41,6 +41,7 @@ class BaseDao
             MySqlHelper::query($sql, $tmpData);
         } catch (\Exception $e) {
             Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . $e);
+            throw $e;
         }
         return MySqlHelper::getLastInsertId();
     }
@@ -64,8 +65,9 @@ class BaseDao
             MySqlHelper::query($sql, array(':id' => $id));
             return 0;
         } catch (\Exception $e) {
-            return -1;
+            //return -1;
             Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . $e);
+            throw $e;
         }
     }
 
@@ -89,8 +91,9 @@ class BaseDao
             MySqlHelper::query($sql, $parameter);
             return 0;
         } catch (\Exception $e) {
-            return -1;
+            //return -1;
             Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . $e);
+            throw $e;
         }
     }
 
@@ -163,8 +166,9 @@ class BaseDao
             MySqlHelper::query($sql,$parameter);
             return 0;
         } catch (\Exception $e){
-            return -1;
+            //return -1;
             echo $e;
+            throw $e;
         }
     }
     // To be deprecated??????check(..)???
@@ -179,8 +183,9 @@ class BaseDao
             MySqlHelper::query($sql,$parameter);
             return 0;
         } catch (\Exception $e){
-            return -1;
+            //return -1;
             echo $e;
+            throw $e;
         }
     }
 }

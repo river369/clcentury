@@ -234,28 +234,28 @@ $isMine = 1;
 
 <script>
     function acceptPopup(orderid) {
-        var messages = "确定接收订单" + orderid + "?";
+        var messages = "确定接收订单:" + orderid + "?&nbsp&nbsp&nbsp&nbsp&nbsp";
         $('#acceptOrderString').html(messages);
         $('#acceptorderid').val(orderid);
         $('#acceptDialog').popup('open');
     };
 
     function rejectPopup(orderid) {
-        var messages = "确定拒绝订单" + orderid + "?";
+        var messages = "确定拒绝订单:" + orderid + "?";
         $('#rejectOrderString').html(messages);
         $('#rejectorderid').val(orderid);
         $('#rejectDialog').popup('open');
     };
 
     function finishPopup(orderid) {
-        var messages = "确定完成订单" + orderid + "?";
+        var messages = "确定完成订单:" + orderid + "?";
         $('#finishOrderString').html(messages);
         $('#finishorderid').val(orderid);
         $('#finishDialog').popup('open');
     };
 
     function cancelPopup(orderid) {
-        var messages = "确定取消订单" + orderid + "?";
+        var messages = "确定取消订单:" + orderid + "?";
         $('#cancelOrderString').html(messages);
         $('#cancelorderid').val(orderid);
         $('#cancelDialog').popup('open');

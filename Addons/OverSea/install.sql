@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`yz_user_accounts` (
 PRIMARY KEY (`id`),
 UNIQUE KEY (`user_id`),
 KEY `phone` (`phone_reigon`, `phone_number`)
-) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
+) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
 
 update yz_user_accounts set external_id = 'om0h_wdY-532dGj__zVFKJVj9wJ0';
 alter table yz_user_accounts add column `external_id_type` int(5) DEFAULT 1 COMMENT '1微信,openid 2 ...';
@@ -44,7 +44,7 @@ PRIMARY KEY (`id`),
 UNIQUE KEY (`name`),
 UNIQUE KEY (`user_id`),
 KEY (`status`)
-) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
+) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
 
 user状态 0 created, 20 个人信息不完整, 40 已经实名, 60 已发布过服务, 80 完成一次服务, 100 多次服务, 120 封号 ,
 user状态 0 created已经注册, 20 已经提交实名, 40, rejected 60 approved, 120 封号 ,
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`yz_user_settings` (
 `update_date` datetime  DEFAULT NULL COMMENT 'update datetime',
 PRIMARY KEY (`id`),
 KEY `user_id` (`user_id`)
-) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
+) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
 
 --Services
 CREATE TABLE IF NOT EXISTS `clctravel`.`yz_services` (
@@ -93,7 +93,7 @@ KEY `service_brief` (`service_brief`),
 KEY `seller_id` (`seller_id`),
 KEY `service_area` (`service_area`),
 KEY `service_type` (`service_type`)
-) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
+) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
 
 service status:
 0 created,
@@ -138,7 +138,7 @@ KEY `order_id` (`order_id`),
 KEY `service_id` (`service_id`),
 KEY `seller_id` (`seller_id`),
 KEY `customer_id` (`customer_id`)
-) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
+) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
 
 订单状态 :
  0 customer created, seller 待接收
@@ -169,7 +169,7 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`yz_order_actions` (
 `comments` text DEFAULT NULL  COMMENT 'action description',
 PRIMARY KEY (`id`),
 KEY `order_id` (`order_id`)
-) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
+) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
 
 ----pay
 CREATE TABLE IF NOT EXISTS `clctravel`.`yz_payments` (
@@ -191,7 +191,7 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`yz_payments` (
 `update_date` datetime  DEFAULT NULL COMMENT 'update datetime',
 PRIMARY KEY (`id`),
 KEY `order_id` (`order_id`)
-) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
+) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
 
 --query history
 CREATE TABLE IF NOT EXISTS `clctravel`.`yz_query_history` (
@@ -203,7 +203,7 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`yz_query_history` (
 `update_date` datetime  DEFAULT NULL COMMENT 'update datetime',
 PRIMARY KEY (`id`),
 KEY `user_id` (`user_id`)
-) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
+) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
 
 --Comments
 CREATE TABLE IF NOT EXISTS `clctravel`.`yz_comments` (
@@ -223,7 +223,7 @@ KEY `service_id` (`service_id`),
 KEY `order_id` (`order_id`),
 KEY `customer_id` (`customer_id`),
 KEY `seller_id` (`seller_id`)
-) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
+) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
 
 --Countries
 CREATE TABLE IF NOT EXISTS `clctravel`.`yz_countries` (
@@ -233,7 +233,7 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`yz_countries` (
 `creation_date` datetime  DEFAULT NULL COMMENT 'creation datetime',
 `update_date` datetime  DEFAULT NULL COMMENT 'update datetime',
 PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
+) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
 
 insert into  `clctravel`.`yz_countries` (country_name, display_sequence) values ('中国',1);
 insert into  `clctravel`.`yz_countries` (country_name, display_sequence) values ('美国',2);
@@ -248,7 +248,7 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`yz_cities` (
 `update_date` datetime  DEFAULT NULL COMMENT 'update datetime',
 PRIMARY KEY (`id`),
 KEY `country_id` (`country_id`)
-) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
+) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
 
 insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (1, '北京', 'B');
 insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (1, '上海', 'S');
@@ -293,7 +293,7 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`yz_city_tags` (
 `creation_date` datetime  DEFAULT NULL COMMENT 'creation datetime',
 `update_date` datetime  DEFAULT NULL COMMENT 'update datetime',
 PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
+) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
 
 insert into  `clctravel`.`yz_city_tags` (city_name, service_type,tag) values('北京', 1, '故宫');
 insert into  `clctravel`.`yz_city_tags` (city_name, service_type,tag) values('北京', 1, '长城');
@@ -314,7 +314,7 @@ KEY `city_name` (`city_name`),
 KEY `service_type` (`service_type`),
 KEY `status` (`status`),
 KEY `service_id` (`service_id`)
-) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
+) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
 
 ------------------------Deprecated V3(1 user 1 service)-------------------------
 --Users
@@ -336,7 +336,7 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`clc_users` (
 `stars` int(3) DEFAULT 3  COMMENT '星',
 `tag` varchar(100) DEFAULT "" COMMENT 'user tags',
 PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
+) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
 
 insert into `clctravel`.`clc_users`(id,phonereigon,phonenumber,password,openid,name,gender,weixin,email,description,servicearea,servicetype,
 serviceprice,servicepriceunit,stars) select id,phonereigon,phonenumber,password,openid,name,gender,weixin,email,description,servicearea,servicetype,
@@ -358,7 +358,7 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`clc_orders` (
 `servicetotalfee` int(10) DEFAULT 50  COMMENT '支付金额',
 `requestmessage` text DEFAULT NULL  COMMENT '留言',
 PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
+) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
 
 订单状态 :
  0 customer created, seller 待接收
@@ -381,7 +381,7 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`clc_order_actions` (
 `comments` text DEFAULT NULL  COMMENT 'action description',
 PRIMARY KEY (`id`),
 KEY `order_id` (`order_id`)
-) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
+) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
 
 ----pay
 CREATE TABLE IF NOT EXISTS `clctravel`.`clc_payments` (
@@ -401,7 +401,7 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`clc_payments` (
 `end_date` datetime  DEFAULT NULL COMMENT 'time_end',
 PRIMARY KEY (`id`),
 KEY `order_id` (`order_id`)
-) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
+) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
 
 
 
@@ -425,7 +425,7 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`clc_users` (
 `servicepriceunit` varchar(10)  DEFAULT "人民币"  COMMENT '服务价格单位',
 `stars` int(3) DEFAULT 3  COMMENT '星',
 PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
+) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
 
 --Users tags
 CREATE TABLE IF NOT EXISTS `clctravel`.`clc_users_tags` (
@@ -433,7 +433,7 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`clc_users_tags` (
 `userid` bigint(12)  NOT NULL COMMENT 'User Id',
 `tag` varchar(100) NOT NULL COMMENT 'user tags',
 PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
+) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
 
 ------------------------Deprecated V1-------------------------
 CREATE TABLE IF NOT EXISTS `clctravel`.`clc_users` (
@@ -451,7 +451,27 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`clc_users` (
 `servicepriceunit` varchar(10)  DEFAULT "人民币"  COMMENT '服务价格单位',
 `stars` int(3) DEFAULT 3  COMMENT '星',
 PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
+) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
 
 
 INSERT INTO clc_users (name,weixin,servicearea,description,servicetype,serviceprice) VALUES ('River','112','西雅图','爱玩,不知疲倦','1','100');
+
+// DB table engines
+show table status from clctravel where name ='yz_orders';
+alter table yz_orders ENGINE=InnoDB;
+alter table yz_advertises ENGINE=InnoDB;
+alter table yz_cities ENGINE=InnoDB;
+alter table yz_city_tags ENGINE=InnoDB;
+alter table yz_comments ENGINE=InnoDB;
+alter table yz_countries ENGINE=InnoDB;
+alter table yz_order_actions ENGINE=InnoDB;
+alter table yz_payments ENGINE=InnoDB;
+alter table yz_query_history ENGINE=InnoDB;
+alter table yz_services ENGINE=InnoDB;
+alter table yz_user_accounts ENGINE=InnoDB;
+alter table yz_user_infos ENGINE=InnoDB;
+alter table yz_user_settings ENGINE=InnoDB;
+
+// dump tables
+mysqldump -uroot -pFreelook2 clctravel yz_orders yz_services yz_user_accounts yz_user_infos yz_user_settings yz_advertises yz_cities yz_city_tags yz_comments yz_countries yz_order_actions yz_payments yz_query_history > /home/www/dbbak/20160827.bak;
+
