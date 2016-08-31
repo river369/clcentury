@@ -18,6 +18,22 @@ KEY `phone` (`phone_reigon`, `phone_number`)
 update yz_user_accounts set external_id = 'om0h_wdY-532dGj__zVFKJVj9wJ0';
 alter table yz_user_accounts add column `external_id_type` int(5) DEFAULT 1 COMMENT '1微信,openid 2 ...';
 
+CREATE TABLE IF NOT EXISTS `clctravel`.`yz_seller_pay_accounts` (
+`id` bigint(12) NOT NULL AUTO_INCREMENT COMMENT '主键',
+`user_id` varchar(36) NOT NULL COMMENT 'User Id to show in the internal system',
+`nick_name` varchar(36) DEFAULT NULL COMMENT 'User nick name to show on select page',
+`account_type` int(5) DEFAULT 2  COMMENT '支付类型 1 weixin,',
+`account_id` varchar(100) DEFAULT NULL COMMENT '1微信,openid 2 ...',
+`status` decimal(5,1) DEFAULT 0  COMMENT 'account状态 0 not use, 1 using...' ,
+`creation_date` datetime  DEFAULT NULL COMMENT 'creation datetime',
+`update_date` datetime  DEFAULT NULL COMMENT 'update datetime',
+PRIMARY KEY (`id`),
+KEY (`user_id`),
+KEY (`account_type`),
+KEY (`account_id`),
+KEY (`status`)
+) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
+
 
 --Users Info
 CREATE TABLE IF NOT EXISTS `clctravel`.`yz_user_infos` (

@@ -22,6 +22,7 @@ function initLoad()
     include_once dirname(__FILE__).'/Model/UserAccountsDao.php';
     include_once dirname(__FILE__).'/Model/UserInfosDao.php';
     include_once dirname(__FILE__).'/Model/UserSettingsDao.php';
+    include_once dirname(__FILE__).'/Model/SellerPayAccountsDao.php';
     include_once dirname(__FILE__).'/Model/ServicesBo.php';
     include_once dirname(__FILE__).'/Model/ServicesDao.php';
     include_once dirname(__FILE__).'/Model/QueryHistoryDao.php';
