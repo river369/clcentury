@@ -38,7 +38,7 @@ $isMine = 1;
             $userid= $user['user_id'];
             $status = $user['status'];
         ?>
-        <ul data-role="listview" data-inset="true">
+        <ul data-role="listview" data-inset="true" data-theme="f">
             <li data-role="list-divider">用户编号: <span class="ui-li-count"><?php echo $userid;?></span></li>
             <li>
                 <a href="../../Controller/AuthUserDispatcher.php?c=publishRealName&userid=<?php echo $userid; ?>" rel="external">
@@ -47,7 +47,7 @@ $isMine = 1;
                     <p style="white-space:pre-wrap;"><?php echo $user['certificate_no'];?> </p>
                 </a>
             </li>
-            <li data-theme="c">
+            <li>
                 <div class="ui-grid-a">
                     <div class="ui-block-a"><a href="#checkDialog" data-rel="popup" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="checkPopup('<?php echo $userid; ?>', 0)">批准认证</a></div>
                     <div class="ui-block-b"><a href="#checkDialog" data-rel="popup" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="checkPopup('<?php echo $userid; ?>', 1)">拒绝认证</a></div>

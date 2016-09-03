@@ -2,6 +2,8 @@
 session_start();
 $customerid = $_SESSION['signedUser'];
 $isMine = 1;
+$existedUser = $_SESSION['signedUserInfo'] ;
+$nocheck = isset($GET['nocheck']);
 ?>
 <!DOCTYPE html>
 <html lang="zh-cmn-Hans">
@@ -24,30 +26,39 @@ $isMine = 1;
     </div>
 
     <div class="container" data-role="content">
-        <h3>服务信息:</h3>
-        <ul data-role="listview" data-inset="true">
-            <li>
-                <a href="../mobile/users/signin.php" rel="external">
-                    登录
-                </a>
-            </li>
-            <li>
-                <a href="../../Controller/AuthUserDispatcher.php?c=getUsers&status=20" rel="external">
-                    审核实名认证
-                </a>
-            </li>
-            <li>
-                <a href="../../Controller/AuthUserDispatcher.php?c=getServices&status=20" rel="external">
-                    审核新发布的服务
-                </a>
-            </li>
-            <li>
-                <a href="../../Controller/ClearSessions.php" rel="external">
-                    退出登录
-                </a>
-            </li>
-        </ul>
-        
+        <?php if ($existedUser['user_type'] == 1 || $nocheck ) {?>
+            <h5>Admin</h5>
+            <div style="margin: -20px 0px -20px 0px">
+                <ul data-role="listview" data-inset="true" data-theme="e">
+                    <li>
+                        <a href="../../Controller/AuthUserDispatcher.php?c=getUsers&status=20" rel="external">
+                            <p style="margin: 0px 0px 0px 0px">审核实名认证</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../Controller/AuthUserDispatcher.php?c=getServices&status=20" rel="external">
+                            <p style="margin: 0px 0px 0px 0px">审核新发布的服务</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../Controller/AuthUserDispatcher.php?c=prepareAdvertise" rel="external">
+                            <p style="margin: 0px 0px 0px 0px">发布广告</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../Controller/AuthUserDispatcher.php?c=getAdvertiseList" rel="external">
+                            <p style="margin: 0px 0px 0px 0px">广告列表</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../mobile/users/signin.php" rel="external"><p style="margin: 0px 0px 0px 0px">登录</p></a>
+                    </li>
+                    <li>
+                         <a href="../../Controller/ClearSessions.php" rel="external"><p style="margin: 0px 0px 0px 0px">退出登录</p></a>
+                     </li>
+                </ul>
+            </div>
+        <?php } ?>
     </div>
 
     <div data-role="footer" data-position="fixed" data-theme="c">

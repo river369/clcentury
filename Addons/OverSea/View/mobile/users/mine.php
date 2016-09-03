@@ -116,6 +116,11 @@ $isMine = 1;
                         <p style="margin: 0px 0px 0px 0px">广告列表</p>
                     </a>
                 </li>
+                <li>
+                    <a href="../../admin/index.php" rel="external">
+                        <p style="margin: 0px 0px 0px 0px">进入</p>
+                    </a>
+                </li>
             </ul>
         </div>
         <?php } ?>

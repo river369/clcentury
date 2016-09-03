@@ -43,7 +43,7 @@ $isMine = 1;
                 $serviceTypeDesc = '留学';
             }
         ?>
-        <ul data-role="listview" data-inset="true">
+        <ul data-role="listview" data-inset="true" data-theme="f">
             <li data-role="list-divider">服务编号: <span class="ui-li-count"><?php echo $serviceid;?></span></li>
             <li>
                 <a href="../../Controller/AuthUserDispatcher.php?c=publishService&sellerid=<?php echo $service['seller_id'];?>&service_id=<?php echo $serviceid; ?>" rel="external">
@@ -54,7 +54,7 @@ $isMine = 1;
                 </a>
             </li>
             <li data-role="list-divider">创建日期: <span class="ui-li-count"><?php echo $service['creation_date'];?></span></li>
-            <li data-theme="c">
+            <li>
                 <div class="ui-grid-a">
                     <div class="ui-block-a"><a href="#checkDialog" data-rel="popup" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="checkPopup('<?php echo $serviceid; ?>', 0)">批准服务</a></div>
                     <div class="ui-block-b"><a href="#checkDialog" data-rel="popup" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="checkPopup('<?php echo $serviceid; ?>', 1)">拒绝服务</a></div>
