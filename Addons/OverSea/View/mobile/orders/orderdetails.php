@@ -327,7 +327,13 @@ $isMine = 1;
             <?php if ($lastAction < 100) {?>
             {
                 type: 'milestone',
-                label: '<h5>易知付款</h5>',
+                label: '<h5>易知海外向卖家付款</h5>',
+            },
+            <?php } ?>
+            <?php if (BusinessHelper::isCanceledOrder($lastAction)) {?>
+            {
+                type: 'milestone',
+                label: '<h5>易知海外向买家退款</h5>',
             },
             <?php } ?>
         ]
@@ -352,4 +358,3 @@ $isMine = 1;
 </script>
 </body>
 </html>
-

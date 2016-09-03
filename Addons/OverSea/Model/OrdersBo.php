@@ -124,6 +124,14 @@ class OrdersBo
         $_SESSION['sellerOrdersStatus'] = $status;
     }
 
+    public function getOrdersByStatusForAdmin() {
+        $status= HttpHelper::getVale('status');
+        $ordersDao = new OrdersDao();
+        $orders = $ordersDao->getInStatus($status);
+        $_SESSION['customerOrders'] = self::fixDataLength($orders);
+        $_SESSION['customerOrdersStatus'] = $status;
+    }
+
     // Get order details
     public function getOrderDetailsById(){
         $orderId = $_GET['order_id'];
@@ -370,6 +378,40 @@ class OrdersBo
             Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . $e);
             MySqlHelper::rollBack();
             exit;
+        }
+        self::sendMessagesThroughWeixin($orderid, $status);
+    }
+
+    public function returnMoneyToCustomer() {
+        $orderid  = $_POST ['returnorderid'];
+        $status = 1080;
+        MySqlHelper::beginTransaction();
+        try {
+            $ordersDao = new OrdersDao();
+            $ordersDao->updateOrderStatus($orderid, $status);
+            self::storeOrderActions($orderid, $status, 0);
+            MySqlHelper::commit();
+        }  catch (\Exception $e){
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . $e);
+            MySqlHelper::rollBack();
+            self::go2ErrorPage("向买家退款错误:". $e);
+        }
+        self::sendMessagesThroughWeixin($orderid, $status);
+    }
+
+    public function payMoneyToSeller() {
+        $orderid  = $_POST ['payorderid'];
+        $status = 100;
+        MySqlHelper::beginTransaction();
+        try {
+            $ordersDao = new OrdersDao();
+            $ordersDao->updateOrderStatus($orderid, $status);
+            self::storeOrderActions($orderid, $status, 0);
+            MySqlHelper::commit();
+        }  catch (\Exception $e){
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . $e);
+            MySqlHelper::rollBack();
+            self::go2ErrorPage("向卖家支付现误:". $e);
         }
         self::sendMessagesThroughWeixin($orderid, $status);
     }

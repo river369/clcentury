@@ -88,9 +88,7 @@ $isMine = 1;
         </div>
     </div>
 
-    <div data-role="footer" data-position="fixed" data-theme="c">
-        <h4>Copyright (c) 2016 .</h4>
-    </div>
+    <?php include './footer.php';?>
 </div>
 
 <script src="../resource/js/weixin/jweixin-1.0.0.js"></script>

@@ -164,6 +164,7 @@ KEY `customer_id` (`customer_id`)
  40 seller 已完成, customer 待确认
  1040 seller 已取消
  1060 customer 已取消
+ 1080 customer 已退款
  60 customer 已确认完成
  70 customer有争议
  80 评论完成

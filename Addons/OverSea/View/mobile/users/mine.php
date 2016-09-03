@@ -97,6 +97,11 @@ $isMine = 1;
         <div style="margin: -20px 0px -20px 0px">
             <ul data-role="listview" data-inset="true" data-theme="e">
                 <li>
+                    <a href="../../../Controller/AuthUserDispatcher.php?c=queryAdminOrders&status=1020,1040,1060" rel="external">
+                        <p style="margin: 0px 0px 0px 0px">查看待处理订单</p>
+                    </a>
+                </li>
+                <li>
                     <a href="../../../Controller/AuthUserDispatcher.php?c=getUsers&status=20" rel="external">
                         <p style="margin: 0px 0px 0px 0px">审核实名认证</p>
                     </a>

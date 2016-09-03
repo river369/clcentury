@@ -141,7 +141,15 @@ class BaseDao
         }
     }
 
-
+    public function getInStatus($status)
+    {
+        $sql = 'SELECT * FROM '. $this->talbeName .' WHERE status in (' . $status . ') order by creation_date desc';
+        $parameter = array(':status' => $status);
+        Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",sql=".$sql);
+        Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",parameters=".json_encode($parameter));
+        $services = MySqlHelper::fetchAll($sql, $parameter);
+        return $services;
+    }
     //The following 2 functions is fit for the table with satus and check_reason, not so common, still need a new class above base.
 
     public function getByStatus($status)

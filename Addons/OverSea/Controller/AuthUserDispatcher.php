@@ -73,6 +73,8 @@ $method_routes = array(
         'v'=>'../View/mobile/orders/customerorderlist.php', 'd'=>'查看买家订单'),
     'querySellerOrders' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'getOrdersBySellerAndStatus', 
         'v'=>'../View/mobile/orders/sellerorderlist.php', 'd'=>'查看卖家订单'),
+    'queryAdminOrders' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'getOrdersByStatusForAdmin',
+        'v'=>'../View/admin/admin_orderlist.php', 'd'=>'查看Admin订单'),
     
     'sellerRejectOrder' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'sellerRejectOrder', 
         'v'=>'./AuthUserDispatcher.php?c=querySellerOrders&status=1020,1040,1060', 'd'=>'卖家拒绝订单'),
@@ -90,7 +92,10 @@ $method_routes = array(
         'v'=>'./AuthUserDispatcher.php?c=queryCustomerOrders&status=1020,1040,1060', 'd'=>'买家取消订单'),
     'customerRejectOrder' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'customerRejectOrder',
         'v'=>'./AuthUserDispatcher.php?c=queryCustomerOrders&status=70', 'd'=>'买家提出争议'),
-    
+    'returnMoneyToCustomer' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'returnMoneyToCustomer',
+        'v'=>'./AuthUserDispatcher.php?c=queryAdminOrders&status=1020,1040,1060', 'd'=>'向买家退款'),
+    'payMoneyToSeller' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'payMoneyToSeller',
+        'v'=>'./AuthUserDispatcher.php?c=queryAdminOrders&status=80,60', 'd'=>'向卖家付款'),
 
     'queryOrderDetails' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'getOrderDetailsById',
         'v'=>'../View/mobile/orders/orderdetails.php', 'd'=>'查看订单详情'),

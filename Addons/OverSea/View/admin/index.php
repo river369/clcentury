@@ -61,9 +61,7 @@ $nocheck = isset($GET['nocheck']);
         <?php } ?>
     </div>
 
-    <div data-role="footer" data-position="fixed" data-theme="c">
-        <h4>Copyright (c) 2016 .</h4>
-    </div>
+    <?php include './footer.php';?>
 </div>
 </body>
 </html>

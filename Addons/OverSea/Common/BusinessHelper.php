@@ -78,6 +78,9 @@ class BusinessHelper {
             case 1060:
                 $orderStatus = "买家取消了该订单";
                 break;
+            case 1080:
+                $orderStatus = "易知海外已完成退款,订单结束";
+                break;
             case 60:
                 $orderStatus = "买家已将订单置为完成,等待易知海外付款";
                 break;
@@ -88,7 +91,7 @@ class BusinessHelper {
                 $orderStatus = "买家完成评论";
                 break;
             case 100:
-                $orderStatus = "易知海外已经完成付款,订单结束";
+                $orderStatus = "易知海外已完成付款,订单结束";
                 break;
 
         }
@@ -112,6 +115,7 @@ class BusinessHelper {
                 $ret = "您好,".$order['seller_name']."。买家'".$order['customer_name']."'已经确认服务'".$order['service_name']."'履约完成。" ;
                 break;
             case 100:
+                $ret = "您好,".$order['seller_name']."。易知海外已经对服务".$order['service_name']."退款完成。请尽快查收!" ;
                 break;
             case 1040:
                 $ret = "您好,".$order['customer_name']."。卖家'".$order['seller_name']."'取消了您的订单。" ;
@@ -125,6 +129,9 @@ class BusinessHelper {
             case 40:
                 $ret = "您好,".$order['customer_name']."。卖家'".$order['seller_name']."'已将订单置为完成,等待买家确认。如果您在48小时内未处理, 易知海外将自动确认完成。多谢!" ;
                 break;
+            case 1080:
+                $ret = "您好,".$order['customer_name']."。易知海外已经对服务".$order['service_name']."退款完成。请尽快查收!" ;
+                break;
         }
         return $ret;
     }
@@ -135,6 +142,7 @@ class BusinessHelper {
         {
             case 10:
             case 1060:
+            case 1080:
             case 70:
             case 60:
             case 100:
@@ -160,7 +168,7 @@ class BusinessHelper {
         } else if ($ordersStatus == 70) {
             $querystatusString = "买家认为有争议的订单,请及时处理。";
         } else if ($ordersStatus == 100 ) {
-            $querystatusString = "易知海外已经完成支付的订单。";
+            $querystatusString = "易知海外已完成支付的订单。";
         } else if ($ordersStatus == 1020 || $ordersStatus == 1040 || $ordersStatus == 1060){
             $querystatusString = "已取消的订单。";
         }
@@ -190,6 +198,13 @@ class BusinessHelper {
            return 0;
         } 
         return 1;
+    }
+    public static function isCanceledOrder($condition)
+    {
+        if ($condition == 1020 || $condition == 1040 || $condition == 1060) {
+            return 1;
+        }
+        return 0;
     }
     // ===========  评论 ============= //
     public static function translateOrderFeeling($feel)
