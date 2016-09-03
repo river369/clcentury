@@ -19,7 +19,7 @@ class WeixinAddonModel extends WeixinModel {
 			add_credit ( 'subscribe' );
 			
 			// 关注公众号获取会员卡号
-			D ( 'Addons://Card/Card' )->init_card_member ( $dataArr ['FromUserName'] );
+			//D ( 'Addons://Card/Card' )->init_card_member ( $dataArr ['FromUserName'] );
 			
 			$has_return = false;
 			if (! empty ( $dataArr ['EventKey'] )) {
