@@ -15,7 +15,7 @@ if (isset($_SESSION ['servicearea'])){
         $servicearea = $userSetting['selected_service_area'];
     }
 }
-$citites = $_SESSION['citites'];
+$cities = $_SESSION['cities'];
 $countries = $_SESSION['countries'];
 $isDiscover = 1;
 ?>
@@ -83,10 +83,10 @@ $isDiscover = 1;
                                 <div class="container_cn" style="z-index: 9999; ">
                                     <div class="city">
                                         <?php
-                                        foreach($citites[$display_sequence] as $pinyin => $citynames){?>
+                                        foreach($cities[$display_sequence] as $pinyin => $citynames){?>
                                             <div class="city-list"><span class="city-letter" id="<?php echo $pinyin.$display_sequence; ?>"><?php echo $pinyin; ?></span>
                                                 <?php
-                                                foreach($citites[$display_sequence][$pinyin] as $key => $cityname){?>
+                                                foreach($cities[$display_sequence][$pinyin] as $key => $cityname){?>
                                                     <p style="margin: -3px 0px 0px 0px"><a href="../../../Controller/FreelookDispatcher.php?c=setLocation&servicearea=<?php echo $cityname;?>" class="ui-mini" rel="external"><?php echo $cityname;?></a></p>
                                                 <?php }?>
                                             </div>

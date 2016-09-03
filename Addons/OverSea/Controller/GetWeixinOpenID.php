@@ -49,8 +49,8 @@ try {
     $sellerPayAccount['nick_name'] = $nickname;
     $sellerPayAccount['account_type'] = 1;
     $sellerPayAccount['account_id'] = $openid;
-    $sellerPayAccount['creation_date'] = date('y-m-d H:i:s', time());;
-    $sellerPayAccount['update_date'] = date('y-m-d H:i:s', time());;
+    $sellerPayAccount['creation_date'] = date('y-m-d H:i:s', time());
+    $sellerPayAccount['update_date'] = date('y-m-d H:i:s', time());
     $sellerPayAccountsDao->insertOrUpdateSellerPayAccount($sellerPayAccount);
     MySqlHelper::commit();
 }  catch (\Exception $e){

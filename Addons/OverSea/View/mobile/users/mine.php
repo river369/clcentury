@@ -70,6 +70,11 @@ $isMine = 1;
         <div style="margin: -20px 0px -20px 0px">
             <ul data-role="listview" data-inset="true" data-theme="e">
                 <li>
+                    <a href="../../../Controller/AuthUserDispatcher.php?c=getSellerPayInfo&userid=<?php echo $customerid;?>" rel="external">
+                        <p style="margin: 0px 0px 0px 0px">卖家收款方式</p>
+                    </a>
+                </li>
+                <li>
                     <a href="../../../Controller/AuthUserDispatcher.php?c=publishRealName&userid=<?php echo $customerid;?>" rel="external">
                         <p style="margin: 0px 0px 0px 0px">申请实名认证</p>
                     </a>

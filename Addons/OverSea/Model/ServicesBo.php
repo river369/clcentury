@@ -48,6 +48,16 @@ class ServicesBo
             header('Location:../View/mobile/common/message.php');
             exit;
         }
+        $sellerPayAccountsDao = new SellerPayAccountsDao();
+        $activeAccount = $sellerPayAccountsDao -> getPayAccountsByUserIdStatus($sellerid, 1);
+        if (!isset($activeAccount['id'])) {
+            $_SESSION['status'] = 'f';
+            $_SESSION['message'] = '用户信息不完善, 请选择卖家收款账号!';
+            $_SESSION['link_name'] = '去填写个人信息';
+            $_SESSION['goto'] = "../../../Controller/AuthUserDispatcher.php?c=getSellerPayInfo&userid=" . $sellerid;
+            header('Location:../View/mobile/common/message.php');
+            exit;
+        }
 
         $service_id = HttpHelper::getVale('service_id');
         Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",userId=".$userID.",sellerId=".$sellerid.",service_id=".$service_id);
@@ -61,6 +71,7 @@ class ServicesBo
         }
         WeixinHelper::prepareWeixinPicsParameters("/weiphp/Addons/OverSea/View/mobile/service/publishservice.php");
         self::getServicePictures($sellerid, $service_id);
+        self::getAllCities();
     }
 
 
@@ -98,6 +109,7 @@ class ServicesBo
         $_SESSION['sellerData']= $sellerData;
         return $sellerData;
     }
+
 
     /**
      * Get a service by service id
@@ -518,30 +530,52 @@ class ServicesBo
         }
     }
 
-    public function getAllCities(){
+    public function getAllCitiesWithPinyin(){
         $citiesDao = new CitiesDao();
         $allCities = $citiesDao->getAllCities();
         $countries = array();
-        $citites = array();
+        $cities = array();
         foreach($allCities as $key => $city)
         {
             $cid = $city['display_sequence'];
             $countries[$cid] = $city['country_name'];
             
             $pinyin = $city['first_char_pinyin'];
-            if (!isset($citites[$cid])){
+            if (!isset($cities[$cid])){
                 $cityList = array();
-                $citites[$cid] = $cityList;
+                $cities[$cid] = $cityList;
             }
-            if (!isset($citites[$cid][$pinyin])){
+            if (!isset($cities[$cid][$pinyin])){
                 $firstCharPinyin = array();
-                $citites[$cid][$pinyin] = $firstCharPinyin;
+                $cities[$cid][$pinyin] = $firstCharPinyin;
             }
-            $citites[$cid][$pinyin][] = $city['city_name'];
+            $cities[$cid][$pinyin][] = $city['city_name'];
         }
-        $_SESSION['citites'] = $citites;
+        $_SESSION['cities'] = $cities;
         $_SESSION['countries'] = $countries;
-        //Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",citites=".json_encode($citites));
+        //Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",cities=".json_encode($cities));
+        Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",countries=".json_encode($countries));
+    }
+
+    public function getAllCities(){
+        $citiesDao = new CitiesDao();
+        $allCities = $citiesDao->getAllCities();
+        $countries = array();
+        $cities = array();
+        foreach($allCities as $key => $city)
+        {
+            $cid = $city['display_sequence'];
+            $countries[$cid] = $city['country_name'];
+
+            if (!isset($cities[$cid])){
+                $cityList = array();
+                $cities[$cid] = $cityList;
+            }
+            $cities[$cid][] = $city['city_name'];
+        }
+        $_SESSION['cities'] = $cities;
+        $_SESSION['countries'] = $countries;
+        //Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",cities=".json_encode($cities));
         Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",countries=".json_encode($countries));
     }
 

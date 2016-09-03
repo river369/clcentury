@@ -37,6 +37,12 @@ $method_routes = array(
         'v'=>'../View/admin/all_users.php', 'd'=>'admin查看用户信息'),
     'checkUser' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'checkUser', 
         'v'=>'../View/admin/all_users.php', 'd'=>'admin查看用户信息'),
+    
+    'getSellerPayInfo' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'getSellerPayInfo',
+        'v'=>'../View/mobile/users/select_pay_account.php', 'd'=>'查看卖家收款账号'),
+    'updateSellerPayInfo' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'updateSellerPayInfo',
+        'v'=>'../View/mobile/common/message.php', 'd'=>'更新卖家收款账号'),
+    
 
     'publishService' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'getCurrentService', 
         'v'=>'../View/mobile/service/publishservice.php','d'=>'发易知服务信息'),
@@ -88,6 +94,7 @@ $method_routes = array(
 
     'queryOrderDetails' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'getOrderDetailsById',
         'v'=>'../View/mobile/orders/orderdetails.php', 'd'=>'查看订单详情'),
+    
 
     'searchMainPage' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'getQueryHistory','v'=>'../View/mobile/query/search.php','d'=>'搜索主页'),
     'searchByKeyWord' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'getServicesByKey','v'=>'../View/mobile/query/searchresults.php','d'=>'搜索结果列表'),

@@ -11,12 +11,14 @@ namespace Addons\OverSea\Model;
 use Addons\OverSea\Model\UserInfosDao;
 use Addons\OverSea\Model\UserAccountsDao;
 use Addons\OverSea\Model\UserSettingsDao;
+use Addons\OverSea\Model\SellerPayAccountsDao;
 use Addons\OverSea\Common\OSSHelper;
 use Addons\OverSea\Common\HttpHelper;
 use Addons\OverSea\Common\WeixinHelper;
 use Addons\OverSea\Common\Logs;
 use Addons\OverSea\Common\EncryptHelper;
 use Addons\OverSea\Common\YunpianSMSHelper;
+use Addons\OverSea\Common\MySqlHelper;
 
 class UsersBo
 {
@@ -406,4 +408,42 @@ class UsersBo
         }
     }
 
+    public function getSellerPayInfo(){
+        $userId = HttpHelper::getVale('userid');
+        $signedUserID = $_SESSION['signedUser'];
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",signedUserId=".$signedUserID.",userid=".$userId);
+
+        $sellerPayAccountsDao = new SellerPayAccountsDao();
+        $sellerPayAccounts = $sellerPayAccountsDao->getPayAccountsByUserId($userId);
+        $_SESSION['sellerPayAccounts'] = $sellerPayAccounts;
+    }
+
+    public function updateSellerPayInfo() {
+        $seller_pay_account_id = $_POST['seller_pay_account'];
+        $userId = $_SESSION['signedUser'];
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",userId=".$userId.",seller_pay_account_id=".$seller_pay_account_id);
+
+        MySqlHelper::beginTransaction();
+        $sellerPayAccountsDao = new SellerPayAccountsDao();
+        try{
+            $activeAccount = $sellerPayAccountsDao -> getPayAccountsByUserIdStatus($userId, 1);
+            if (isset($activeAccount['id'])){
+                if ($activeAccount['account_id'] != $seller_pay_account_id){
+                    $activeAccount['status'] = 0;
+                    $sellerPayAccountsDao -> setPayAccountStatusByUserIdAccountId($userId, $activeAccount['account_id'], 0);
+                    $sellerPayAccountsDao -> setPayAccountStatusByUserIdAccountId($userId, $seller_pay_account_id, 1);
+                }
+            } else {
+                $sellerPayAccountsDao -> setPayAccountStatusByUserIdAccountId($userId, $seller_pay_account_id, 1);
+            }
+            MySqlHelper::commit();
+            header('Location:../Controller/AuthUserDispatcher.php?c=mine');
+            exit;
+        }  catch (\Exception $e){
+            MySqlHelper::rollBack();
+            $_SESSION['status'] = 'f';
+            $_SESSION['message'] = '更新卖家收款账号失败!';
+            $_SESSION['goto'] = "../../../Controller/AuthUserDispatcher.php?c=mine";
+        }
+    }
 }

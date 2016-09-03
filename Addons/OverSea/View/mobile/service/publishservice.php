@@ -5,7 +5,6 @@
  * Date: 16/5/9
  * Time: 07:52
  */
-require("../common/locations.php");
 require dirname(__FILE__).'/../../../init.php';
 use Addons\OverSea\Common\BusinessHelper;
 
@@ -38,6 +37,10 @@ if (isset($_SESSION['objMain'])) {
 //if (isset($serviceData)){
 //    $mainPicUrl= $imageurl."yzphoto/pics/".$serviceData['seller_id']."/".$serviceData['service_id']."/main.png?t=".rand(10,100);
 //}
+
+$cities = $_SESSION['cities'];
+$countries = $_SESSION['countries'];
+
 $isPublishService = 1;
 ?>
 
@@ -164,10 +167,10 @@ $isPublishService = 1;
                     </td>
                     <td style="width:80%">
                         <select name="service_area" id="service_area" onchange="updateTagList()">
-                            <?php foreach ($country_city as $key => $value) {?>
-                                <optgroup label="<?php echo $key; ?>">
-                                    <?php foreach ($value as $city) {?>
-                                        <option value="<?php echo $city; ?>" <?php echo $serviceData['service_area']==$city ? 'selected = "selected"' : ''; ?> ><?php echo $city; ?></option>
+                            <?php foreach($countries as $display_sequence => $country){?>
+                                <optgroup label="<?php echo $country; ?>">
+                                    <?php foreach($cities[$display_sequence] as $key => $cityname){?>
+                                        <option value="<?php echo $cityname; ?>" <?php echo $serviceData['service_area']==$cityname ? 'selected = "selected"' : ''; ?> ><?php echo $cityname; ?></option>
                                     <?php } ?>
                                 </optgroup>
                             <?php } ?>
