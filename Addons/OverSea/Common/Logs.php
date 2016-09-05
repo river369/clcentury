@@ -44,4 +44,19 @@ class Logs
 
         }
     }
+    public static function writeReturnLog($content)
+    {
+        try {
+            $directory = LOG_DIR;
+            $date = date('Y-m-d');
+            $filename = sprintf("%s/return_" . $date . ".log", $directory);
+            $fp = fopen($filename, 'a+');
+            $filecontent = json_encode(date('y-m-d H:i:s',time())."," .$content);
+            fwrite($fp, $filecontent . "\r\n");
+            fclose($fp);
+        } catch (Exception $e) {
+            echo $e;
+
+        }
+    }
 }

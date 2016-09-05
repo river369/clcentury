@@ -383,13 +383,14 @@ class OrdersBo
     }
 
     public function returnMoneyToCustomer() {
-        $orderid  = $_POST ['returnorderid'];
+        $orderid  = $_REQUEST ['returnorderid'];
+        $returnReason = $_REQUEST ['returnreason'];
         $status = 1080;
         MySqlHelper::beginTransaction();
         try {
             $ordersDao = new OrdersDao();
             $ordersDao->updateOrderStatus($orderid, $status);
-            self::storeOrderActions($orderid, $status, 0);
+            self::storeOrderActions($orderid, $status, 0,  $returnReason);
             MySqlHelper::commit();
         }  catch (\Exception $e){
             Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . $e);
@@ -400,13 +401,14 @@ class OrdersBo
     }
 
     public function payMoneyToSeller() {
-        $orderid  = $_POST ['payorderid'];
+        $orderid  = $_REQUEST ['payorderid'];
+        $payReason = $_REQUEST ['payreason'];
         $status = 100;
         MySqlHelper::beginTransaction();
         try {
             $ordersDao = new OrdersDao();
             $ordersDao->updateOrderStatus($orderid, $status);
-            self::storeOrderActions($orderid, $status, 0);
+            self::storeOrderActions($orderid, $status, 0, $payReason);
             MySqlHelper::commit();
         }  catch (\Exception $e){
             Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . $e);

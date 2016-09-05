@@ -29,7 +29,7 @@ $input->SetOut_trade_no(date("YmdHis")."_".$orderData['order_id']);
 $input->SetTotal_fee($orderData['service_total_fee']*100);
 $input->SetTime_start(date("YmdHis"));
 $input->SetTime_expire(date("YmdHis", time() + 600));
-$input->SetGoods_tag("test");
+$input->SetGoods_tag("yzOrder");
 $input->SetNotify_url("http://www.clcentury.com/weiphp/Addons/OverSea/Controller/wxpayv3/notify.php");
 $input->SetTrade_type("JSAPI");
 $input->SetOpenid($openId);

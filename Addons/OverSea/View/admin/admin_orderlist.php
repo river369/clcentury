@@ -137,7 +137,8 @@ $isMine = 1;
             </div>
             <div role="main" class="ui-content">
                 <h5 class="ui-title" id="returnOrderString"> </h5>
-                <form id="returnorder" data-ajax="false" method="post" action="../../Controller/AuthUserDispatcher.php?c=returnMoneyToCustomer">
+<!--                <form id="returnorder" data-ajax="false" method="post" action="../../Controller/AuthUserDispatcher.php?c=returnMoneyToCustomer">-->
+                <form id="returnorder" data-ajax="false" method="post" action="../../Controller/wxpayv3/returnToCustomer.php">
                     <input type="hidden" name="returnorderid" id="returnorderid" value="">
                     <div>
                         <label for="returnreason"><p>退款备注</p></label>
