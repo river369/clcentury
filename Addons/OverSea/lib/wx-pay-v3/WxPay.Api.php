@@ -422,7 +422,36 @@ class WxPayApi
 		
 		return call_user_func($callback, $result);
 	}
-	
+
+	public static function paySeller($inputObj, $timeOut = 6)
+	{
+		$url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers";
+		//检测必填参数
+		if(!$inputObj->IsPartner_trade_noSet()) {
+			throw new WxPayException("企业支付接口中，缺少必填参数partner_trade_no！");
+		}else if(!$inputObj->IsAmountSet()){
+			throw new WxPayException("企业支付接口中，缺少必填参数amount！");
+		}else if(!$inputObj->IsOpenidSet()){
+			throw new WxPayException("企业支付接口中，缺少必填参数openid！");
+		}else if(!$inputObj->IsCheck_nameSet()){
+			throw new WxPayException("企业支付接口中，缺少必填参数check_name！");
+		}else if(!$inputObj->IsDescSet()){
+			throw new WxPayException("企业支付接口中，缺少必填参数desc！");
+		}
+		$inputObj->SetMch_appid(WxPayConfig::APPID);//公众账号ID
+		$inputObj->SetMchid(WxPayConfig::MCHID);//商户号
+		$inputObj->SetNonce_str(self::getNonceStr());//随机字符串
+		$inputObj->SetSign();//签名
+		$xml = $inputObj->ToXml();
+		//$startTimeStamp = self::getMillisecond();//请求开始时间
+		$response = self::postXmlCurl($xml, $url, true, $timeOut);
+		echo $response;
+		$result = WxPayResults::Init($response);
+		//self::reportCostTime($url, $startTimeStamp, $result);//上报请求花费时间
+
+		return $result;
+	}
+
 	/**
 	 * 
 	 * 产生随机字符串，不长于32位

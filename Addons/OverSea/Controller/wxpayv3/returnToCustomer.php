@@ -20,7 +20,7 @@ if(isset($paymentData["transaction_id"]) && $paymentData["transaction_id"] != ""
 	$input->SetTransaction_id($transaction_id);
 	$input->SetTotal_fee($total_fee);
 	$input->SetRefund_fee($refund_fee);
-    $input->SetOut_refund_no(WxPayConfig::MCHID.date("YmdHis"));
+    $input->SetOut_refund_no("R_".WxPayConfig::MCHID."_".$order_id);
     $input->SetOp_user_id(WxPayConfig::MCHID);
 	Logs::writeReturnLog("ReturnToCustomerRequestPartial=".$input->ToXml());
 	$data=WxPayApi::refund($input);
