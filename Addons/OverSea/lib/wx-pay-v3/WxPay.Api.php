@@ -203,7 +203,41 @@ class WxPayApi
 		
 		return $result;
 	}
-	
+
+	/**
+	 * @param  WxPaySeller $inputObj
+	 * @param int $timeOut
+	 * @return array
+	 * @throws WxPayException
+	 */
+	public static function paySeller($inputObj, $timeOut = 6)
+	{
+		$url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers";
+		//检测必填参数
+		if(!$inputObj->IsPartner_trade_noSet()) {
+			throw new WxPayException("企业支付接口中，缺少必填参数partner_trade_no！");
+		}else if(!$inputObj->IsAmountSet()){
+			throw new WxPayException("企业支付接口中，缺少必填参数amount！");
+		}else if(!$inputObj->IsOpenidSet()){
+			throw new WxPayException("企业支付接口中，缺少必填参数openid！");
+		}else if(!$inputObj->IsCheck_nameSet()){
+			throw new WxPayException("企业支付接口中，缺少必填参数check_name！");
+		}else if(!$inputObj->IsDescSet()){
+			throw new WxPayException("企业支付接口中，缺少必填参数desc！");
+		}
+		$inputObj->SetMch_appid(WxPayConfig::APPID);//公众账号ID
+		$inputObj->SetMchid(WxPayConfig::MCHID);//商户号
+		$inputObj->SetNonce_str(self::getNonceStr());//随机字符串
+		$inputObj->SetSign();//签名
+		$xml = $inputObj->ToXml();
+		//echo $xml;
+		$response = self::postXmlCurl($xml, $url, true, $timeOut);
+		echo $response;
+		$result=json_decode(json_encode(simplexml_load_string($response, 'SimpleXMLElement', LIBXML_NOCDATA)), true);
+		//echo "[".$result['return_code'] ."]";
+		return $result;
+	}
+
 	/**
 	 * 下载对账单，WxPayDownloadBill中bill_date为必填参数
 	 * appid、mchid、spbill_create_ip、nonce_str不需要填入
@@ -423,34 +457,6 @@ class WxPayApi
 		return call_user_func($callback, $result);
 	}
 
-	public static function paySeller($inputObj, $timeOut = 6)
-	{
-		$url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers";
-		//检测必填参数
-		if(!$inputObj->IsPartner_trade_noSet()) {
-			throw new WxPayException("企业支付接口中，缺少必填参数partner_trade_no！");
-		}else if(!$inputObj->IsAmountSet()){
-			throw new WxPayException("企业支付接口中，缺少必填参数amount！");
-		}else if(!$inputObj->IsOpenidSet()){
-			throw new WxPayException("企业支付接口中，缺少必填参数openid！");
-		}else if(!$inputObj->IsCheck_nameSet()){
-			throw new WxPayException("企业支付接口中，缺少必填参数check_name！");
-		}else if(!$inputObj->IsDescSet()){
-			throw new WxPayException("企业支付接口中，缺少必填参数desc！");
-		}
-		$inputObj->SetMch_appid(WxPayConfig::APPID);//公众账号ID
-		$inputObj->SetMchid(WxPayConfig::MCHID);//商户号
-		$inputObj->SetNonce_str(self::getNonceStr());//随机字符串
-		$inputObj->SetSign();//签名
-		$xml = $inputObj->ToXml();
-		//$startTimeStamp = self::getMillisecond();//请求开始时间
-		$response = self::postXmlCurl($xml, $url, true, $timeOut);
-		echo $response;
-		$result = WxPayResults::Init($response);
-		//self::reportCostTime($url, $startTimeStamp, $result);//上报请求花费时间
-
-		return $result;
-	}
 
 	/**
 	 * 
@@ -573,6 +579,7 @@ class WxPayApi
 		if($useCert == true){
 			//设置证书
 			//使用证书：cert 与 key 分别属于两个.pem文件
+			curl_setopt($ch,CURLOPT_CAINFO, WxPayConfig::CA_PATH);
 			curl_setopt($ch,CURLOPT_SSLCERTTYPE,'PEM');
 			curl_setopt($ch,CURLOPT_SSLCERT, WxPayConfig::SSLCERT_PATH);
 			curl_setopt($ch,CURLOPT_SSLKEYTYPE,'PEM');

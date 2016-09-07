@@ -8,6 +8,20 @@ use Addons\OverSea\Common\Logs;
 use Addons\OverSea\Model\OrdersDao;
 use Addons\OverSea\Model\SellerPayAccountsDao;
 
+function get_server_ip() {
+	if (isset($_SERVER)) {
+		if($_SERVER['SERVER_ADDR']) {
+			$server_ip = $_SERVER['SERVER_ADDR'];
+		} else {
+			$server_ip = $_SERVER['LOCAL_ADDR'];
+		}
+	} else {
+		$server_ip = getenv('SERVER_ADDR');
+		//$server_ip = "101.201.49.153";
+	}
+	return $server_ip;
+}
+
 $order_id  = $_REQUEST ['payorderid'];
 $payReason = $_REQUEST ['payreason'];
 
@@ -26,7 +40,7 @@ if(isset($orderData["seller_id"])){
 		$input->SetOpenid($activeAccount['account_id']);
 		$input->SetCheck_name("NO_CHECK");
 		$input->SetDesc("卖家履约完毕,易知海外支付款。");
-		$input->SetSpbill_create_ip("www.clcentury.com");
+		$input->SetSpbill_create_ip(get_server_ip());
 		Logs::writeSellerPayLog("ReturnToCustomerRequestPartial=".$input->ToXml());
 		$data=WxPayApi::paySeller($input);
 		Logs::writeSellerPayLog("PayToSellerResponse=".json_encode($data));
