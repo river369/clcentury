@@ -52,7 +52,7 @@ if(isset($orderData["seller_id"])){
 			echo $data['return_msg'] ;
 			exit();
 		}
-		//header("Location:../AuthUserDispatcher.php?c=returnMoneyToCustomer&returnorderid=".$order_id."&returnreason=".$returnReason);
+		header("Location:../AuthUserDispatcher.php?c=payMoneyToSeller&payorderid=".$order_id."&payreason=".$payReason);
 		exit();
 	} {
 		echo "Invalid seller pay account data";

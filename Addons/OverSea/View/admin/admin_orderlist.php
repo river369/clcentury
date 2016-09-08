@@ -162,11 +162,12 @@ $isMine = 1;
             </div>
             <div role="main" class="ui-content">
                 <h5 class="ui-title" id="payOrderString"> </h5>
-                <form id="payorder" data-ajax="false" method="post" action="../../Controller/AuthUserDispatcher.php?c=payMoneyToSeller">
+<!--                <form id="payorder" data-ajax="false" method="post" action="../../Controller/AuthUserDispatcher.php?c=payMoneyToSeller">-->
+                <form id="payorder" data-ajax="false" method="post" action="../../Controller/wxpayv3/paySeller.php">
                     <input type="hidden" name="payorderid" id="payorderid" value="">
                     <div>
                         <label for="payreason"><p>支付备注</p></label>
-                        <textarea cols="30" rows="8" name="reason" id="reason" data-mini="true"></textarea>
+                        <textarea cols="30" rows="8" name="payreason" id="reason" data-mini="true"></textarea>
                     </div>
                     <div class="ui-grid-a">
                         <div class="ui-block-a">
