@@ -16,4 +16,20 @@ class PaymentsDao extends BaseDao
         parent::__construct("yz_payments");
     }
 }
+
+class PaymentsRefundDao extends BaseDao
+{
+    public function __construct()
+    {
+        parent::__construct("yz_payments_refund");
+    }
+}
+
+class PaymentsSellerDao extends BaseDao
+{
+    public function __construct()
+    {
+        parent::__construct("yz_payments_seller");
+    }
+}
 ?>

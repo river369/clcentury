@@ -38,6 +38,8 @@ class PayNotifyCallBack extends WxPayNotify
 			$paymentData['return_code'] = $result["return_code"];
 			$paymentData['trade_type'] = $result["trade_type"];
 			$paymentData['end_date'] = $result["time_end"];
+			$paymentData['err_code_des'] = $result["err_code_des"];
+			$paymentData['return_msg'] = $result["return_msg"];
 			OrdersBo::paymentConfirmOrder($paymentData);
 			return true;
 		}

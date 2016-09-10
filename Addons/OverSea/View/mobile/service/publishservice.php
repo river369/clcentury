@@ -515,7 +515,8 @@ $isPublishService = 1;
                 },
                 service_price: {
                     required: true,
-                    number:true
+                    number:true,
+                    min:10
                 },
                 description: {
                     required: true,
@@ -535,7 +536,8 @@ $isPublishService = 1;
                 },
                 service_price: {
                     required: "服务价格不能为空",
-                    number:"服务价格必须为数字"
+                    number:"服务价格必须为数字",
+                    min:"服务单价最少为10元"
                 },
                 description: {
                     required: "服务内容详情不能为空",
