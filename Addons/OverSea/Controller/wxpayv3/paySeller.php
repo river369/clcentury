@@ -29,15 +29,16 @@ function savePaymentSeller($orderData,$activeAccount, $payData) {
 
 	$paymentSellerData = array();
 	$paymentSellerData['order_id'] = $orderData['order_id'];
-	$paymentRefundData['pattern_trade_no'] = "P_".WxPayConfig::MCHID."_".$orderData['order_id'];
-	$paymentRefundData['openid'] = $activeAccount['account_id'];
-	$paymentRefundData['amount'] = $orderData['service_total_fee']*100;
-	$paymentRefundData['return_code'] = $payData['return_code'];
-	$paymentRefundData['return_msg'] = $payData['return_msg'];
-	$paymentRefundData['result_code'] = $payData['result_code'];
-	$paymentRefundData['err_code_des'] = $payData['err_code_des'];
+	$paymentSellerData['pattern_trade_no'] = "P_".WxPayConfig::MCHID."_".$orderData['order_id'];
+	$paymentSellerData['openid'] = $activeAccount['account_id'];
+	$paymentSellerData['amount'] = $orderData['service_total_fee']*100;
+	$paymentSellerData['return_code'] = $payData['return_code'];
+	$paymentSellerData['return_msg'] = $payData['return_msg'];
+	$paymentSellerData['result_code'] = $payData['result_code'];
+	$paymentSellerData['err_code_des'] = $payData['err_code_des'];
+	$paymentSellerData['action_user_id'] = isset($_SESSION['signedUser']) ? $_SESSION['signedUser'] : "unknown";
 
-	$paymentsSellerDao->insert($paymentRefundData);
+	$paymentsSellerDao->insert($paymentSellerData);
 }
 
 $existedUser = $_SESSION['signedUserInfo'];

@@ -224,6 +224,7 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`yz_payments_refund` (
 `return_msg` varchar(128)  DEFAULT NULL  COMMENT 'return_msg',
 `result_code` varchar(25)  DEFAULT NULL  COMMENT 'result_code',
 `err_code_des` varchar(128)  DEFAULT NULL  COMMENT 'err_code_des',
+`action_user_id` varchar(36) DEFAULT NULL COMMENT 'User Id to take this action',
 `update_date` datetime  DEFAULT NULL COMMENT 'update_date',
 `creation_date` datetime  DEFAULT NULL COMMENT 'creation_date',
 PRIMARY KEY (`id`),
@@ -242,18 +243,13 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`yz_payments_seller` (
 `return_msg` varchar(128)  DEFAULT NULL  COMMENT 'return_msg',
 `result_code` varchar(25)  DEFAULT NULL  COMMENT 'result_code',
 `err_code_des` varchar(128)  DEFAULT NULL  COMMENT 'err_code_des',
+`action_user_id` varchar(36) DEFAULT NULL COMMENT 'User Id to take this action',
 `update_date` datetime  DEFAULT NULL COMMENT 'update_date',
 `creation_date` datetime  DEFAULT NULL COMMENT 'creation_date',
 PRIMARY KEY (`id`),
 KEY `order_id` (`order_id`),
 KEY `pattern_trade_no` (`pattern_trade_no`)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
-
-
-$input->SetPartner_trade_no("P_".WxPayConfig::MCHID."_".$orderData['order_id']);
-			$input->SetAmount($orderData['service_total_fee']*100);
-			$input->SetOpenid($activeAccount['account_id']);
-			$input->SetCheck_name("NO_CHECK");
 
 --query history
 CREATE TABLE IF NOT EXISTS `clctravel`.`yz_query_history` (

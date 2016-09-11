@@ -22,7 +22,8 @@ function saveRefund($paymentData, $refundData) {
 	$paymentRefundData['return_msg'] = $refundData['return_msg'];
 	$paymentRefundData['result_code'] = $refundData['result_code'];
 	$paymentRefundData['err_code_des'] = $refundData['err_code_des'];
-
+	$paymentRefundData['action_user_id'] = isset($_SESSION['signedUser']) ? $_SESSION['signedUser'] : "unknown";
+	
 	$paymentsRefundDao->insert($paymentRefundData);
 }
 
