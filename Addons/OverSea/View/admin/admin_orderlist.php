@@ -51,8 +51,9 @@ $isMine = 1;
     <div role="main" class="ui-content jqm-content jqm-fullwidth">
         <div data-role="navbar">
             <ul>
-                <li><a href="../../Controller/AuthUserDispatcher.php?c=queryAdminOrders&status=1020,1040,1060" <?php echo ($ordersStatus == 1020 || $ordersStatus == 1040 || $ordersStatus == 1060) ? "class='ui-btn-active'" : ''; ?> rel="external">等待给买家退款</a></li>
-                <li><a href="../../Controller/AuthUserDispatcher.php?c=queryAdminOrders&status=80,60" <?php echo ($ordersStatus == 60 || $ordersStatus == 80 ) ? "class='ui-btn-active'" : ''; ?> rel="external">等待给卖家付款</a></li>
+                <li><a href="../../Controller/AuthUserDispatcher.php?c=queryAdminOrders&status=1020,1040,1060" <?php echo ($ordersStatus == 1020 || $ordersStatus == 1040 || $ordersStatus == 1060) ? "class='ui-btn-active'" : ''; ?> rel="external">给买家退款</a></li>
+                <li><a href="../../Controller/AuthUserDispatcher.php?c=queryAdminOrders&status=80,60" <?php echo ($ordersStatus == 60 || $ordersStatus == 80 ) ? "class='ui-btn-active'" : ''; ?> rel="external">给卖家付款</a></li>
+                <li><a href="../../Controller/AuthUserDispatcher.php?c=getDealyOrdersByStatusForAdmin&status=40" <?php echo ($ordersStatus == 40) ? "class='ui-btn-active'" : ''; ?> rel="external">买家确认超时</a></li>
             </ul>
         </div><!-- /navbar -->
         <?php if (isset($orders) && count($orders) >0) { ?>
@@ -118,6 +119,9 @@ $isMine = 1;
                                         <a href="#returnDialog" data-rel="popup" class="ui-mini" onclick="returnPopup('<?php echo $orderid; ?>')">退款</a>
                                     <?php } ?>
                                     <?php if ($ordersStatus == 60 ||$ordersStatus == 80) {?>
+                                        <a href="#payDialog" data-rel="popup" class="ui-mini" onclick="payPopup('<?php echo $orderid; ?>')">付款</a>
+                                    <?php } ?>
+                                    <?php if ($ordersStatus == 40) {?>
                                         <a href="#payDialog" data-rel="popup" class="ui-mini" onclick="payPopup('<?php echo $orderid; ?>')">付款</a>
                                     <?php } ?>
                                 </td>

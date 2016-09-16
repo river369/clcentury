@@ -132,6 +132,14 @@ class OrdersBo
         $_SESSION['customerOrdersStatus'] = $status;
     }
 
+    public function getDealyOrdersByStatusForAdmin() {
+        $status= HttpHelper::getVale('status');
+        $ordersDao = new OrdersDao();
+        $orders = $ordersDao->getDelayOrdersByStatus($status, 4);
+        $_SESSION['customerOrders'] = self::fixDataLength($orders);
+        $_SESSION['customerOrdersStatus'] = $status;
+    }
+
     // Get order details
     public function getOrderDetailsById(){
         $orderId = $_GET['order_id'];

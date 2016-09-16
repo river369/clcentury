@@ -23,8 +23,9 @@ class OrdersDao extends BaseDao
     public function updateSellerOrderStatus($order_id, $status, $seller_id)
     {
         try {
-            $sql = "update " . parent::getTableName(). " set status = :status where order_id =:order_id and seller_id=:seller_id";
-            $parameter = array(':status' => $status, ':order_id' => $order_id, ':seller_id' => $seller_id );
+            $sql = "update " . parent::getTableName(). " set status = :status , update_date = :update_date where order_id =:order_id and seller_id=:seller_id";
+            date_default_timezone_set('PRC');
+            $parameter = array(':status' => $status, ':order_id' => $order_id, ':seller_id' => $seller_id , ':update_date' => date('y-m-d H:i:s',time()));
             Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",sql=".$sql);
             Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",parameters=".json_encode($parameter));
             MySqlHelper::query($sql, $parameter);
@@ -40,8 +41,9 @@ class OrdersDao extends BaseDao
     public function updateCustomerOrderStatus($order_id, $status, $customer_id)
     {
         try {
-            $sql = "update " . parent::getTableName(). " set status = :status where order_id =:order_id and customer_id=:customer_id";
-            $parameter = array(':status' => $status, ':order_id' => $order_id, ':customer_id' => $customer_id );
+            $sql = "update " . parent::getTableName(). " set status = :status , update_date = :update_date where order_id =:order_id and customer_id=:customer_id";
+            date_default_timezone_set('PRC');
+            $parameter = array(':status' => $status, ':order_id' => $order_id, ':customer_id' => $customer_id , ':update_date' => date('y-m-d H:i:s',time()));
             Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",sql=".$sql);
             Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",parameters=".json_encode($parameter));
             MySqlHelper::query($sql, $parameter);
@@ -57,8 +59,9 @@ class OrdersDao extends BaseDao
     public function updateOrderStatus($order_id, $status)
     {
         try {
-            $sql = "update " . parent::getTableName(). " set status = :status where order_id =:order_id";
-            $parameter = array(':status' => $status, ':order_id' => $order_id);
+            $sql = "update " . parent::getTableName(). " set status = :status , update_date = :update_date  where order_id =:order_id";
+            date_default_timezone_set('PRC');
+            $parameter = array(':status' => $status, ':order_id' => $order_id, ':update_date' => date('y-m-d H:i:s',time()));
             Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",sql=".$sql);
             Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",parameters=".json_encode($parameter));
             MySqlHelper::query($sql, $parameter);
@@ -122,5 +125,25 @@ class OrdersDao extends BaseDao
             exit;
         }
     }
+
+    public function getDelayOrdersByStatus($status, $days)
+    {
+        try {
+            $sql = 'SELECT * FROM ' . parent::getTableName(). ' WHERE status in (' . $status . ') and update_date < date_sub(now(),interval '.$days.' day) order by creation_date desc';
+            //$sql = "SELECT * FROM " . parent::getTableName(). " WHERE customer_id= :customer_id and status in ( :status )";
+            $parameter = array();
+            //$parameter = array(':customer_id' => $customer_id, ':status' => $status);
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",sql=".$sql);
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",parameters=".json_encode($parameter));
+            $orders = MySqlHelper::fetchAll($sql, $parameter);
+            return $orders;
+        } catch (\Exception $e){
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . $e);
+            echo $e;
+            exit;
+        }
+    }
+
+
 }
 ?>

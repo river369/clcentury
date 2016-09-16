@@ -75,6 +75,8 @@ $method_routes = array(
         'v'=>'../View/mobile/orders/sellerorderlist.php', 'd'=>'查看卖家订单'),
     'queryAdminOrders' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'getOrdersByStatusForAdmin',
         'v'=>'../View/admin/admin_orderlist.php', 'd'=>'查看Admin订单'),
+    'getDealyOrdersByStatusForAdmin'  => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'getDealyOrdersByStatusForAdmin',
+        'v'=>'../View/admin/admin_orderlist.php', 'd'=>'查看Admin订单'),
     
     'sellerRejectOrder' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'sellerRejectOrder', 
         'v'=>'./AuthUserDispatcher.php?c=querySellerOrders&status=1020,1040,1060', 'd'=>'卖家拒绝订单'),
