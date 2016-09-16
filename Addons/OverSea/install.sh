@@ -30,12 +30,24 @@ killall php-fpm
 /usr/sbin/php-fpm &
 
 [Menus]
-http://www.clcentury.com/weiphp/Addons/OverSea/Controller/FreelookDispatcher.php?c=index
+《进入易知》
+http://www.clcentury.com/weiphp/Addons/OverSea/View/mobile/query/discover.php
+//http://www.clcentury.com/weiphp/Addons/OverSea/Controller/FreelookDispatcher.php?c=index
 //http://www.clcentury.com/weiphp/Addons/OverSea/View/mobile/query/discover.php
 //http://www.clcentury.com/weiphp/Addons/OverSea/Controller/FreelookDispatcher.php?c=getServices
 //http://www.clcentury.com/weiphp/Addons/OverSea/Controller/AuthUserDispatcher.php?c=submityz
 //http://www.clcentury.com/weiphp/Addons/OverSea/Controller/AuthUserDispatcher.php?c=submityzpic
-http://www.clcentury.com/weiphp/Addons/OverSea/Controller/AuthUserDispatcher.php?c=mine
+//http://www.clcentury.com/weiphp/Addons/OverSea/Controller/AuthUserDispatcher.php?c=mine
+
+《联系方式》
+易知海外商务拓展联系方式
+
+联系电话 ：
+
+邮箱：
+
+《意见反馈》
+http://www.clcentury.com/weiphp/Addons/OverSea/View/mobile/users/suggestion.php
 
 [Admins]
 http://www.clcentury.com/weiphp/Addons/OverSea/View/admin/index.php

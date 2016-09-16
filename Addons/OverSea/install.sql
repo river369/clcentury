@@ -423,6 +423,7 @@ insert into  `clctravel`.`yz_city_tags` (city_name, service_type,tag) values('�
 insert into  `clctravel`.`yz_city_tags` (city_name, service_type,tag) values('上海', 1, '东方明珠');
 insert into  `clctravel`.`yz_city_tags` (city_name, service_type,tag) values('西雅图', 1, 'Space Needle');
 
+--advertise
 CREATE TABLE IF NOT EXISTS `clctravel`.`yz_advertises` (
 `id` bigint(12) NOT NULL AUTO_INCREMENT COMMENT '主键',
 `city_name` varchar(50) DEFAULT NULL  COMMENT '城市名称',
@@ -438,6 +439,17 @@ KEY `status` (`status`),
 KEY `service_id` (`service_id`)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
 
+--suggestion
+CREATE TABLE IF NOT EXISTS `clctravel`.`yz_suggestions` (
+`id` bigint(12) NOT NULL AUTO_INCREMENT COMMENT '主键',
+`user_id` varchar(36) DEFAULT NULL COMMENT 'The people to sell',
+`suggestion` text DEFAULT NULL  COMMENT '意见',
+`response` text DEFAULT NULL  COMMENT '意见反馈',
+`creation_date` datetime  DEFAULT NULL COMMENT 'creation datetime',
+`update_date` datetime  DEFAULT NULL COMMENT 'update datetime',
+PRIMARY KEY (`id`),
+KEY (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
 
 
 // DB table engines

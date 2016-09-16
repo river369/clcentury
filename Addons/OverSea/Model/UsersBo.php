@@ -12,6 +12,7 @@ use Addons\OverSea\Model\UserInfosDao;
 use Addons\OverSea\Model\UserAccountsDao;
 use Addons\OverSea\Model\UserSettingsDao;
 use Addons\OverSea\Model\SellerPayAccountsDao;
+use Addons\OverSea\Model\SuggestionsDao;
 use Addons\OverSea\Common\OSSHelper;
 use Addons\OverSea\Common\HttpHelper;
 use Addons\OverSea\Common\WeixinHelper;
@@ -445,5 +446,16 @@ class UsersBo
             $_SESSION['message'] = '更新卖家收款账号失败!';
             $_SESSION['goto'] = "../../../Controller/AuthUserDispatcher.php?c=mine";
         }
+    }
+    public function submitUserSuggestion(){
+        $userid = $_SESSION['signedUser'];
+        $suggestion = array();
+        $suggestion['user_id'] = $userid;
+        $suggestion['suggestion'] = $_POST['suggestion'];
+        $suggestionsDao = new SuggestionsDao();
+        $suggestionsDao -> insert($suggestion);
+        $_SESSION['status'] = 's';
+        $_SESSION['message'] = '反馈意见提交完毕。感谢您的支持!';
+        $_SESSION['goto'] = "../../../View/mobile/query/discover.php";
     }
 }

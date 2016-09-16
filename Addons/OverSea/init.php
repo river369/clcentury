@@ -35,6 +35,7 @@ function initLoad()
     include_once dirname(__FILE__).'/Model/CitiesDao.php';
     include_once dirname(__FILE__).'/Model/CityTagsDao.php';
     include_once dirname(__FILE__).'/Model/AdvertiseDao.php';
+    include_once dirname(__FILE__).'/Model/SuggestionsDao.php';
     include_once dirname(__FILE__).'/Common/MNSHelper.php';
     return true;
 }

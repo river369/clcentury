@@ -24,6 +24,9 @@ $method_routes = array(
     'sendTempPasswordToPhone' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'sendTempPasswordToPhone',
         'v'=>'../View/mobile/common/message.php','d'=>'获取临时密码'),
 
+    'submitUserSuggestion' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'submitUserSuggestion',
+        'v'=>'../View/mobile/common/message.php','d'=>'用户反馈意见'),
+
     
 );
 
