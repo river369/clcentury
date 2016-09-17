@@ -452,7 +452,7 @@ class OrdersBo
             'order_id'=>$order_id,
             'status'=>$status
         );
-        MNSHelper::publishMessage('clcOrderTopic', json_encode($data));
+        MNSHelper::publishMessage('yzOrderTopic', json_encode($data));
     }
 
     /**

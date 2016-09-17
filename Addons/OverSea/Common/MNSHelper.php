@@ -18,7 +18,7 @@ class MNSHelper
     private static $accessKey;
     private static $endPoint;
     //private static $client;
-    //http://1686661312870509.mns.cn-beijing-internal.aliyuncs.com/topics/clcOrderTopic/subscriptions/test2
+    //http://1686661312870509.mns.cn-beijing-internal.aliyuncs.com/topics/yzOrderTopic/subscriptions/test2
     //http://1686661312870509.mns.cn-beijing-internal.aliyuncs.com/
     
     public static function initData($accessId, $accessKey, $endPoint)

@@ -29,6 +29,23 @@ class Logs
 
         }
     }
+
+    public static function writeMessageLog($content)
+    {
+        try {
+            $directory = LOG_DIR;
+            $date = date('Y-m-d');
+            $filename = sprintf("%s/message_" . $date . ".log", $directory);
+            $fp = fopen($filename, 'a+');
+            $filecontent = json_encode(date('y-m-d H:i:s',time())."," .$content);
+            fwrite($fp, $filecontent . "\r\n");
+            fclose($fp);
+        } catch (Exception $e) {
+            echo $e;
+
+        }
+    }
+    
     public static function writePayLog($content)
     {
         try {
