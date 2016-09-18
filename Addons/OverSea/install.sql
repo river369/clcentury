@@ -299,7 +299,8 @@ insert into  `clctravel`.`yz_countries` (country_name, display_sequence) values 
 insert into  `clctravel`.`yz_countries` (country_name, display_sequence) values ('亚洲',4);
 insert into  `clctravel`.`yz_countries` (country_name, display_sequence) values ('大洋洲',5);
 insert into  `clctravel`.`yz_countries` (country_name, display_sequence) values ('非洲',6);
-insert into  `clctravel`.`yz_countries` (country_name, display_sequence) values ('两极',7);
+insert into  `clctravel`.`yz_countries` (country_name, display_sequence) values ('两极',8);
+insert into  `clctravel`.`yz_countries` (country_name, display_sequence) values ('美洲',7);
 
 --Citys
 CREATE TABLE IF NOT EXISTS `clctravel`.`yz_cities` (
@@ -345,7 +346,8 @@ insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) 
 insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (2, '华盛顿', 'H');
 insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (2, '奥兰多', 'A');
 insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (2, '波士顿', 'B');
-insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (2, '圣保罗', 'S');
+-- insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (2, '圣保罗', 'S');
+insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (2, '圣路易斯', 'S');
 
 insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (3, '俄罗斯', 'E');
 insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (3, '德国', 'D');
@@ -382,13 +384,13 @@ insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) 
 insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (4, '文莱', 'W');
 insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (4, '柬埔寨', 'J');
 insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (4, '台湾', 'T');
-insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (4, '香港', 'X');
+insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (4, '香港特别行政区', 'X');
 insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (4, '印度', 'Y');
 insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (4, '印尼', 'Y');
 insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (4, '以色列', 'Y');
 insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (4, '日本', 'R');
 insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (4, '韩国', 'H');
-insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (4, '澳门', 'S');
+insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (4, '澳门特别行政区', 'S');
 insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (4, '马来西亚', 'M');
 insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (4, '马尔代夫', 'M');
 insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (4, '菲律宾', 'F');
@@ -402,9 +404,14 @@ insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) 
 insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (5, '新西兰', 'X');
 
 insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (6, '埃及', 'A');
+insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (6, '塞舌尔', 'A');
 
 insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (7, '南极', 'N');
 insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (7, '北极', 'B');
+
+insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (8, '巴西', 'B');
+insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (8, '墨西哥', 'M');
+insert into  `clctravel`.`yz_cities` (country_id, city_name, first_char_pinyin) values (8, '加拿大', 'J');
 
 --city tags
 CREATE TABLE IF NOT EXISTS `clctravel`.`yz_city_tags` (

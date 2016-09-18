@@ -42,9 +42,9 @@ http://www.clcentury.com/weiphp/Addons/OverSea/View/mobile/query/discover.php
 《联系方式》
 易知海外商务拓展联系方式
 
-联系电话 ：
+邮箱: contact@clcentury.com
 
-邮箱：
+官方微信: 
 
 《意见反馈》
 http://www.clcentury.com/weiphp/Addons/OverSea/View/mobile/users/suggestion.php
