@@ -112,10 +112,8 @@ class UsersBo
         $userData['gender'] = $_POST ['gender'];
         $userData['email'] = isset($_POST ['email']) ? trim($_POST ['email']) : '';
         $userData['description'] = isset($_POST ['description']) ? trim($_POST ['description']) : '';
+        $userData['tag'] = (isset($_POST ['mytags']) && $_POST ['mytags']!='') ? trim($_POST ['mytags']) : ' ';
 
-        if (isset( $_POST ['mytags'])){
-            $userData['tag'] = $_POST ['mytags'];
-        }
         $userDao = new UserInfosDao();
         $userid = $_SESSION['signedUser'];
         try{

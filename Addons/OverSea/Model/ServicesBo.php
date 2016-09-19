@@ -282,7 +282,8 @@ class ServicesBo
         $serviceData['description'] = isset($_POST ['description']) ? trim($_POST ['description']) : '';
         $serviceData['service_type'] = $_POST ['service_type'];
         $serviceData['service_price'] = isset($_POST ['service_price']) ? $_POST ['service_price'] : '';
-        $serviceData['tag'] = isset($_POST ['mytags']) ? $_POST ['mytags'] : '';
+        $serviceData['tag'] = (isset($_POST ['mytags']) && $_POST ['mytags']!='') ? trim($_POST ['mytags']) : ' ';
+
         try{
             $serviceDao = new ServicesDao();
             $serviceDao ->update($serviceData, $serviceData['id']);

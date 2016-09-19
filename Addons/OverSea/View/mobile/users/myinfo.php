@@ -23,15 +23,25 @@ $statusString = BusinessHelper::translateRealNameStatus($status);
     <meta content="application/xhtml+xml;charset=UTF-8" http-equiv="Content-Type">
     <title>易知海外</title>
 
+    <script src="../../resource/js/jquery/jquery-1.11.1.min.js"></script>
+    <script src="../../resource/js/jquery/jquery-ui-1.11.1.min.js"></script>
+    <script src="../../resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
+    <script src="../../resource/js/tag/tag-it.min.js"></script>
+    <script src="../../resource/js/validation/jquery.validate.min.js"></script>
+
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
     <link rel="stylesheet" href="../../resource/style/tag/jquery.tagit.css"type="text/css" />
     <link rel="stylesheet" href="../../resource/style/tag/tagit.ui-zendesk.css"type="text/css" />
     <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
+    <link rel="stylesheet" href="../../resource/style/weiui/weui.css"/>
+    <link rel="stylesheet" href="../../resource/style/weiui/example.css"/>
     <link rel="stylesheet" href="../../resource/style/cropper/cropper.min.css" />
     <link rel="stylesheet" href="../../resource/style/cropper/main.css" />
     <link rel="stylesheet" href="../../resource/style/validation/validation.css" />
+
     <style>
-        label{ color:#33c8ce;}
+        h5{ color:#01A4B5}
+        label{ color:#01A4B5;}
         table{ table-layout : fixed; width:100% }
         hr{border:0;background-color:#2c2c2c;height:1px;}
         div.headimage {
@@ -39,11 +49,6 @@ $statusString = BusinessHelper::translateRealNameStatus($status);
             width: 75px;
         }
     </style>
-    <script src="../../resource/js/jquery/jquery-1.11.1.min.js"></script>
-    <script src="../../resource/js/jquery/jquery-ui-1.11.1.min.js"></script>
-    <script src="../../resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
-    <script src="../../resource/js/tag/tag-it.min.js"></script>
-    <script src="../../resource/js/validation/jquery.validate.min.js"></script>
 
     <script>
         $(function(){
@@ -187,23 +192,15 @@ $statusString = BusinessHelper::translateRealNameStatus($status);
             <input type="submit" name="yzsubmit" id="yzsubmit" value="提交" data-theme="c" >
         </form>
     </div>
-
-    <div data-role="popup" id="tagpopup" data-overlay-theme="a" data-corners="false" data-tolerance="30,15">
-        <!--<p>是否删除该图片?</p>-->
+    <div data-role="popup" id="tagpopup" data-overlay-theme="f" data-corners="false" data-tolerance="60,30" style="max-width:300px;width:275px;">
         <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
         <h3>特长:</h3>
         <div class="ui-grid-a">
-            <div class="ui-block-a"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="tagwith('经验丰富1')">经验丰富1</a></div>
-            <div class="ui-block-b"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="tagwith('长的帅长的帅长的')">长的长的帅</a></div>
-            <div class="ui-block-a"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="tagwith('长的帅1')">长的帅1</a></div>
-            <div class="ui-block-b"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="tagwith('长的帅2')">长的帅2</a></div>
-            <div class="ui-block-a"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="tagwith('长的帅3')">长的帅3</a></div>
-            <div class="ui-block-b"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="tagwith('听话,乖')">听话,乖</a></div>
-            <div class="ui-block-a"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="tagwith('经验丰富验丰富')">经验丰富</a></div>
-            <div class="ui-block-b"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="tagwith('长的帅9')">长的帅9</a></div>
+            <div class="ui-block-a"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="tagwith('导游资质')"><h5>导游资质</h5></a></div>
+            <div class="ui-block-b"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="tagwith('户外运动专家')"><h5>户外运动专家</h5></a></div>
         </div>
     </div>
-
+    
     <div data-role="popup" id="reviewpopup" class="reviewpopup" data-overlay-theme="a"  data-theme="c" data-corners="false" data-tolerance="30,15">
         <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
 
