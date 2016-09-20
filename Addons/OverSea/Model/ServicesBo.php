@@ -42,7 +42,7 @@ class ServicesBo
         $weixin = $sellerData['weixin'];
         if (!isset($sellerName) || strlen($sellerName) == 0 || !isset($weixin) || strlen($weixin) == 0){
             $_SESSION['status'] = 'f';
-            $_SESSION['message'] = '用户信息不完善,请完善个人信息,确保微信号,昵称已填写完毕!';
+            $_SESSION['message'] = '用户信息不完善,请确保微信号、昵称已填写完毕!';
             $_SESSION['link_name'] = '去填写个人信息';
             $_SESSION['goto'] = "../../../Controller/AuthUserDispatcher.php?c=myinfo&customerid=".$sellerid;
             header('Location:../View/mobile/common/message.php');

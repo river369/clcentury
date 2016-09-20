@@ -34,7 +34,7 @@ $statusString = BusinessHelper::translateRealNameStatus($status);
     <link rel="stylesheet" href="../../resource/style/tag/tagit.ui-zendesk.css"type="text/css" />
     <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
     <link rel="stylesheet" href="../../resource/style/weiui/weui.css"/>
-    <link rel="stylesheet" href="../../resource/style/weiui/example.css"/>
+
     <link rel="stylesheet" href="../../resource/style/cropper/cropper.min.css" />
     <link rel="stylesheet" href="../../resource/style/cropper/main.css" />
     <link rel="stylesheet" href="../../resource/style/validation/validation.css" />
@@ -123,7 +123,7 @@ $statusString = BusinessHelper::translateRealNameStatus($status);
             <table>
                 <tr>
                     <td style="width:20%">
-                        <label for="weixin"  style="font-size:12px;" >微信号</label>
+                        <label for="weixin"  style="font-size:12px;" >微信号(如需发易知,必填此项)</label>
                     </td>
                     <td style="width:80%">
                         <input type="text" name="weixin" id="weixin" value="<?php echo isset($existedUser['weixin']) ? $existedUser['weixin']: ''; ?>">

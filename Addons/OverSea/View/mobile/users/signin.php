@@ -141,8 +141,18 @@ $isFreeWeb=$_GET['free'];
     </div>
 
     <div data-role="content">
-        <a href="./forget_password.php" rel="external"  data-icon="home">忘记密码</a>
-        <a href="./signup.php" rel="external" data-icon="home">立即注册</a>
+        <div class="ui-grid-c">
+            <div class="ui-block-a">
+                <a href="./forget_password.php" class="ui-mini" rel="external"  data-icon="home">忘记密码</a>
+            </div>
+            <div class="ui-block-b">
+            </div>
+            <div class="ui-block-c">
+            </div>
+            <div class="ui-block-d">
+                <a href="./signup.php" class="ui-mini" rel="external" data-icon="home">立即注册</a>
+            </div>
+        </div>
     </div>
 
     <?php include '../common/footer.php';?>

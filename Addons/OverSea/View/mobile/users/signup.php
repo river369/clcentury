@@ -42,7 +42,10 @@ unset($_SESSION['$signInErrorMsg'] );
             <?php echo $signInErrorMsg; ?>
         </div>
     <?php } ?>
+
     <div data-role="content">
+        <label for="phone_reigon" style="font-size:12px; color:#33c8ce">提示:易知海外郑重承诺不泄漏或丢失用户账户信息,请放心注册!</label>
+        <br/>
         <form id="signupform" data-ajax="false" method="post" action="../../../Controller/SignUp.php">
             <label for="phone_reigon" style="font-size:12px; color:#33c8ce">请选择地区号:</label>
             <select name="phone_reigon" id="phone_reigon">
