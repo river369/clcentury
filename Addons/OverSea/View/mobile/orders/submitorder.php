@@ -88,7 +88,9 @@ $isMine = 1;
                 <textarea cols="30" rows="8" name="request_message" id="request_message" data-mini="true"></textarea>
             </div>
 
-            <a href="#rulePopup" data-rel="popup" class="ui-controlgroup-label"><h5>点击阅读购买服务声明</h5></a>
+            <a href="./customer_agreement.html" class="ui-controlgroup-label" data-transition="slip"><h5>点击阅读购买服务声明</h5></a>
+
+            <a href="#rulePopup" data-rel="popup" class="ui-controlgroup-label"></a>
             <input name="agree" id="agree" data-mini="true" type="checkbox" data-theme="e">
             <label for="agree">我同意上述服务声明</label>
 
@@ -107,10 +109,6 @@ $isMine = 1;
         </div>
 
         <?php include '../common/footer.php';?>
-        <div data-role="popup" id="rulePopup" data-overlay-theme="a" data-corners="false" data-tolerance="30,15">
-            <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
-            <iframe src="./customer_agreement.html" seamless=""></iframe>
-        </div>
 </div>
 <script type="text/javascript">
     $("#service_hours").change(function() {

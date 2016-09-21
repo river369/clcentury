@@ -242,7 +242,8 @@ $isPublishService = 1;
             <table>
                 <tr>
                     <td>
-                        <a href="#rulePopup" data-rel="popup" class="ui-controlgroup-label"><label style="font-size:12px;">点击阅读服务发布声明</label></a>
+                        <a href="./seller_agreement.html" class="ui-controlgroup-label" data-transition="slip"><label style="font-size:12px;">点击阅读服务发布声明</label></a>
+<!--                        <a href="#rulePopup" data-rel="popup" class="ui-controlgroup-label"><label style="font-size:12px;">点击阅读服务发布声明</label></a>-->
                     </td>
                     <td style="width:50%">
 
@@ -266,11 +267,6 @@ $isPublishService = 1;
         <h3>选取我的特长项:</h3>
         <div class="ui-grid-a" id="tagList">
         </div>
-    </div>
-    <div data-role="popup" id="rulePopup" data-theme="c" data-corners="false" data-tolerance="30,15">
-        <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
-        <iframe src="./seller_agreement.html"></iframe>
-<!--        <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow">关闭</a>-->
     </div>
 
     <div data-role="popup" id="reviewpopup" class="reviewpopup" data-overlay-theme="a"  data-theme="c" data-corners="false" data-tolerance="30,15">

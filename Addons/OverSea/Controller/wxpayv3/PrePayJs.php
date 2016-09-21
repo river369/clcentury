@@ -109,7 +109,7 @@ $jsApiParameters = $tools->GetJsApiParameters($order);
 		<input data-mini="true" value="立即支付" type="button" onclick="callpay()">
 		<br>
 		<p style="font-size:12px">提示: </p>
-      	<p style="font-size:12px">1.易知海外郑重承诺不泄漏或丢失用户支付信息。</p>
+      	<p style="font-size:12px">1.保护您个人信息的隐私和安全是易知海外的头等大事。在未经您书面授权的情况下，我们不会将您的支付记录透露给第三方。</p>
 		<p style="font-size:12px">2.支付行为是微信和易知海外之间的交易,易知海外不可能获得用户绑定在微信的银行账户信息。</p>
         <p style="font-size:12px">3.买家或卖家取消订单后,易知海外会在48小时内全额退款。 </p>
 	</div>
