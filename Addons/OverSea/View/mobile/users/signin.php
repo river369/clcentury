@@ -53,6 +53,8 @@ $isFreeWeb=$_GET['free'];
 
 
     <div id="page1" data-role="content">
+        <label for="phone_reigon" style="font-size:12px; color:#01A4B5">提示:保护您个人信息的隐私和安全是易知海外的头等大事。我们加密存储、传输您的个人信息。在未经您书面授权的情况下，我们不会将您的个人资料透露给第三方。</label>
+        <br/>
         <form id="signForm" data-ajax="false" method="post" action="../../../Controller/SignIn.php?free=<?php echo $isFreeWeb;?>">
             <label for="phone_reigon" style="font-size:12px; color:#33c8ce">请选择地区号:</label>
             <select name="phone_reigon" id="phone_reigon">

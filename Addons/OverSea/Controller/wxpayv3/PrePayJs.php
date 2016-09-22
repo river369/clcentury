@@ -104,14 +104,13 @@ $jsApiParameters = $tools->GetJsApiParameters($order);
 	</div>
     <br/>
 	<div align="center" data-role="content" data-theme="c">
-		<font color="#01A4B5"><b>该笔订单支付金额为&nbsp;<span style="color:orange;font-size:50px"><?php echo $orderData['service_total_fee'];?></span>&nbsp;元</b></font><br/><br/>
-		<p>收款方为:易知海外 </p>
+		<font color="#01A4B5"><b>该笔订单支付金额&nbsp;<span style="color:orange;font-size:50px"><?php echo $orderData['service_total_fee'];?></span>&nbsp;元</b></font><br/><br/>
+		<p>收款方:易知海外 </p>
 		<input data-mini="true" value="立即支付" type="button" onclick="callpay()">
 		<br>
 		<p style="font-size:12px">提示: </p>
       	<p style="font-size:12px">1.保护您个人信息的隐私和安全是易知海外的头等大事。在未经您书面授权的情况下，我们不会将您的支付记录透露给第三方。</p>
-		<p style="font-size:12px">2.支付行为是微信和易知海外之间的交易,易知海外不可能获得用户绑定在微信的银行账户信息。</p>
-        <p style="font-size:12px">3.买家或卖家取消订单后,易知海外会在48小时内全额退款。 </p>
+        <p style="font-size:12px">2.买家或卖家取消订单后,易知海外会在48小时内全额退款。   </p>
 	</div>
 	<div id="failDom" style="display:none">
 		<div class="failMsg">
@@ -128,9 +127,9 @@ $jsApiParameters = $tools->GetJsApiParameters($order);
 		<span>您已支付成功，页面正在跳转...</span>
 	</div>
 
-	<div data-role="footer" data-position="fixed" data-theme="c">
-		<h4>Copyright (c) 2016 .</h4>
-	</div>
+<!--	<div data-role="footer" data-position="fixed" data-theme="c">-->
+<!--		<h4>Copyright (c) 2016 .</h4>-->
+<!--	</div>-->
 </div>
 </body>
 </html>

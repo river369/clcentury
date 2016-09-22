@@ -224,7 +224,7 @@ $isPublishService = 1;
                     </td>
                 </tr>
             </table>
-            <table>
+            <table style="margin: 10px 0px 0px 0px" >
                 <tr>
                     <td>
                         <a href="#tagpopup" data-rel="popup" class="ui-controlgroup-label"><label style="font-size:12px;">点击选取或填写标签</label></a>
@@ -239,7 +239,7 @@ $isPublishService = 1;
                     </td>
                 </tr>
             </table>
-            <table>
+            <table style="margin: 15px 0px 0px 0px" >
                 <tr>
                     <td>
                         <a href="./seller_agreement.html" class="ui-controlgroup-label" data-transition="slip"><label style="font-size:12px;">点击阅读服务发布声明</label></a>
