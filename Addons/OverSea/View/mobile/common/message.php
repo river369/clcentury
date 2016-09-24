@@ -43,6 +43,7 @@ if (isset($_GET['goto_type'])){
     <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
     <style>
         h5{ color:#33c8ce}
+        h4{ color:#33c8ce}
     </style>
 </head>
 <body>
@@ -61,7 +62,7 @@ if (isset($_GET['goto_type'])){
 
     <br>
     <div data-role="content" style="text-align:center">
-        <h5><?php echo $message; ?></h5>
+        <h4><?php echo $message; ?></h4>
         <a href="<?php echo $goto; ?>" rel="external" data-theme="d"  data-role="button"><?php echo isset($link_name)? $link_name : '返回'; ?></a>
     </div>
 

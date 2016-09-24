@@ -116,15 +116,23 @@ class UsersBo
 
         $userDao = new UserInfosDao();
         $userid = $_SESSION['signedUser'];
-        try{
-            $exist = $userDao -> isExistByUid('user_id', $userid);
-            if ($exist){
-               $userDao -> updateByKv($userData, 'user_id', $userid);
+        try {
+            $exist = $userDao->isExistByUid('user_id', $userid);
+            if ($exist) {
+                $userDao->updateByKv($userData, 'user_id', $userid);
             } else {
                 $userData['user_id'] = $userid;
-                $userDao -> insert($userData);
+                $userDao->insert($userData);
             }
-            header('Location:../Controller/AuthUserDispatcher.php?c=mine');
+            // need to check account, go to next link
+            if (isset($_SESSION['nextGotoLink'])) {
+                $sellerid = $_SESSION['nextGotoLink'];
+                unset($_SESSION['nextGotoLink']);
+
+                header('Location:../Controller/AuthUserDispatcher.php?c=getSellerPayInfo&userid=' . $sellerid);
+            } else {
+                header('Location:../Controller/AuthUserDispatcher.php?c=mine');
+            }
             exit;
         }  catch (\Exception $e){
             $_SESSION['status'] = 'f';

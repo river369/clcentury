@@ -38,23 +38,46 @@ class ServicesBo
             $sellerid = $userID;
         }
         $sellerData = self::getCurrentSellerInfo($sellerid);
+        $sellerPayAccountsDao = new SellerPayAccountsDao();
+        $activeAccount = $sellerPayAccountsDao -> getPayAccountsByUserIdStatus($sellerid, 1);
+
+        $ready = 1;
+        $errMsg = "用户信息不完善,无法创建易知。";
+        $errLinkName = null;
+        $gotoLink = null;
         $sellerName = $sellerData['name'];
         $weixin = $sellerData['weixin'];
         if (!isset($sellerName) || strlen($sellerName) == 0 || !isset($weixin) || strlen($weixin) == 0){
-            $_SESSION['status'] = 'f';
-            $_SESSION['message'] = '用户信息不完善,请确保微信号、昵称已填写完毕!';
-            $_SESSION['link_name'] = '去填写个人信息';
-            $_SESSION['goto'] = "../../../Controller/AuthUserDispatcher.php?c=myinfo&customerid=".$sellerid;
-            header('Location:../View/mobile/common/message.php');
-            exit;
+            $ready = 0;
+            $missedMyInfoMessage = "请前往'个人信息'页面填写";
+            if(!isset($sellerName) || strlen($sellerName) == 0) {
+                $missedMyInfoMessage = $missedMyInfoMessage . "昵称";
+            }
+            if(!isset($weixin) || strlen($weixin) == 0) {
+                if(!isset($sellerName) || strlen($sellerName) == 0) {
+                    $missedMyInfoMessage = $missedMyInfoMessage . "、";
+                }
+                $missedMyInfoMessage = $missedMyInfoMessage . "微信号";
+            }
+            $errMsg = $errMsg . $missedMyInfoMessage . "。";
+            $gotoLink = "../../../Controller/AuthUserDispatcher.php?c=myinfo&customerid=".$sellerid;
+            $errLinkName =  '去填写个人信息';
         }
-        $sellerPayAccountsDao = new SellerPayAccountsDao();
-        $activeAccount = $sellerPayAccountsDao -> getPayAccountsByUserIdStatus($sellerid, 1);
         if (!isset($activeAccount['id'])) {
+            $ready = 0;
+            $errMsg = $errMsg .  "请前往'确认账号'页面选择卖家收款账号。";
+            if (is_null($gotoLink)) {
+                $gotoLink = "../../../Controller/AuthUserDispatcher.php?c=getSellerPayInfo&userid=" . $sellerid;
+                $errLinkName =  '去选择卖家收款账号';
+            } else {
+                $_SESSION['nextGotoLink'] = $sellerid;
+            }
+        }
+        if ($ready == 0) {
             $_SESSION['status'] = 'f';
-            $_SESSION['message'] = '用户信息不完善, 请选择卖家收款账号!';
-            $_SESSION['link_name'] = '去填写个人信息';
-            $_SESSION['goto'] = "../../../Controller/AuthUserDispatcher.php?c=getSellerPayInfo&userid=" . $sellerid;
+            $_SESSION['message'] = $errMsg;
+            $_SESSION['link_name'] = $errLinkName;
+            $_SESSION['goto'] = $gotoLink;
             header('Location:../View/mobile/common/message.php');
             exit;
         }
