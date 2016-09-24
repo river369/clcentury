@@ -179,9 +179,9 @@ $isDiscover = 1;
             </ul>
 
             <?php
-            $tags = $serviceData['tag'];
+            $tags = trim($serviceData['tag']);
             $tagsArray = explode(',',$tags);
-            if (strlen($tags) >0 && count($tagsArray) >0) {
+            if (strlen($tags) >0 && $tags!='' && count($tagsArray) >0) {
             ?>
             <h5  style="margin: 0px 0px 3px 0px">服务标签</h5>
             <div class="ui-grid-b">

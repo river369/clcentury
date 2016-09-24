@@ -101,9 +101,9 @@ $isDiscover = 1;
         </ul>
 
         <?php
-        $tagsSeller = $sellerData['tag'];
+        $tagsSeller = trim($sellerData['tag']);
         $tagsSellerArray = explode(',',$tagsSeller);
-        if (count($tagsSellerArray) >0) {
+        if (strlen($tagsSeller) >0 && count($tagsSellerArray) >0) {
             ?>
             <h5>卖家标签</h5>
             <div class="ui-grid-b">

@@ -7,6 +7,7 @@
  */
 //session_start();
 //$userId = $_SESSION['signedUser'];
+$isMine = 1;
 ?>
 
 <!DOCTYPE html>

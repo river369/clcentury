@@ -153,6 +153,9 @@ $isMine = 1;
             }
         });
     });
+    $(document).ready(function(){
+        $('#service_hours').change();
+    });
 </script>
 
 </body>

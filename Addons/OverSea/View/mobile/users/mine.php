@@ -92,6 +92,15 @@ $isMine = 1;
             </ul>
         </div>
 
+        <h5>帮助</h5>
+        <div style="margin: -20px 0px -20px 0px">
+            <ul data-role="listview" data-inset="true" data-theme="e">
+                <li>
+                    <a href="./help.php"><p style="margin: 0px 0px 0px 0px">联系易知</p></a>
+                </li>
+            </ul>
+        </div>
+
         <?php if ($existedUser['user_type'] == 1) {?>
         <h5>Admin</h5>
         <div style="margin: -20px 0px -20px 0px">
