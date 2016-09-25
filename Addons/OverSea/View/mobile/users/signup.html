@@ -21,8 +21,6 @@
             height: 65px;
             width: 65px;
         }
-        h5{ color:#01A4B5}
-        h6{ color:#01A4B5}
         label{ color:#01A4B5}
         p{ font-size:14px;}
         table{ table-layout : fixed; width:100%; }
@@ -49,18 +47,12 @@
 
     <div id="page1" data-role="content">
         <form id="signForm" data-ajax="false" method="post" action="../../../Controller/SignIn.php?free=<?php echo $isFreeWeb;?>">
-            <table border="0">
-                <tr>
-                    <td>
-                        <h5>请选择地区号:</h5>
-                    </td>
-                    <td>
-                        <a href="../service/seller_agreement.html" class="ui-shadow ui-btn ui-corner-all ui-mini" data-transition="slip"><h5>选择地区号</h5></a>
-                    </td>
-                </tr>
-            </table>
             <label for="phone_reigon" style="font-size:12px; color:#33c8ce">请选择地区号:</label>
-            <a href="../service/seller_agreement.html" class="ui-shadow ui-btn ui-corner-all ui-mini" data-transition="slip"><h5>选择地区号</h5></a>
+            <div data-theme="d">
+                <a href="#nav-panel" class="ui-btn ui-shadow  ui-corner-all ui-btn-mini"><h5 id="regionDesc">中国大陆 +86</h5></a>
+            </div>
+            <a href="#nav-popup" data-rel="popup" class="ui-btn ui-corner-all ui-shadow ui-btn-mini" data-transition="pop"><h5 id="regionDesc">中国大陆 +86</h5></a>
+            <a href="#nav-page" class="ui-btn ui-corner-all ui-shadow ui-btn-mini" data-transition="pop"><h5 id="regionDesc">中国大陆 +86</h5></a>
 
             <input type="hidden" name="phone_reigon" id="phone_reigon" value="">
             </br>
@@ -88,10 +80,84 @@
             </div>
         </div>
     </div>
+    <div data-role="panel" data-position="left" data-display="reveal" id="nav-panel">
+        <ul data-role="listview">
+            <li data-role="list-divider" data-icon="delete"><a href="#" data-rel="close">返回</a></li>
+            <li><a onclick="setRegion('中国大陆 +86', '+86');" data-rel="close"><label style="font-size:12px;">中国大陆 +86</label></a></li>
+            <li><a onclick="setRegion('美国 +1', '+1');" data-rel="close"><label style="font-size:12px;">美国 +1</label></a></li>
+            <li data-role="list-divider">欧洲</li>
+            <li><a><label style="font-size:12px;">爱尔兰 +353</label></a></li>
+            <li data-role="list-divider">亚洲</li>
+            <li><a><label style="font-size:12px;">阿联酋 +971</label></a></li>
+            <li><a><label style="font-size:12px;">阿联酋 +971</label></a></li>
+            <li><a><label style="font-size:12px;">阿联酋 +971</label></a></li>
+            <li><a><label style="font-size:12px;">阿联酋 +971</label></a></li>
+            <li><a><label style="font-size:12px;">阿联酋 +971</label></a></li>
+            <li><a><label style="font-size:12px;">阿联酋 +971</label></a></li>
+            <li><a><label style="font-size:12px;">阿联酋 +971</label></a></li>
+            <li><a><label style="font-size:12px;">阿联酋 +971</label></a></li>
+            <li><a><label style="font-size:12px;">阿联酋 +971</label></a></li>
+            <li><a><label style="font-size:12px;">阿联酋 +971</label></a></li>
+            <li><a><label style="font-size:12px;">阿联酋 +971</label></a></li>
+            <li><a><label style="font-size:12px;">阿联酋 +971</label></a></li>
+            <li><a><label style="font-size:12px;">阿联酋 +971</label></a></li>
+            <li><a><label style="font-size:12px;">阿联酋 +971</label></a></li>
+            <li><a><label style="font-size:12px;">阿联酋 +971</label></a></li>
+        </ul>
+    </div><!-- /panel -->
+    <div data-role="popup" data-display="overlay" id="nav-popup">
+        <ul data-role="listview">
+            <li data-role="list-divider" data-icon="delete"><a href="#" data-rel="close">返回</a></li>
+            <li><a onclick="setRegion('中国大陆 +86', '+86');" data-rel="close"><label style="font-size:12px;">中国大陆 +86</label></a></li>
+            <li><a onclick="setRegion('美国 +1', '+1');" data-rel="close"><label style="font-size:12px;">美国 +1</label></a></li>
+            <li data-role="list-divider">欧洲</li>
+            <li><a><label style="font-size:12px;">爱尔兰 +353</label></a></li>
+            <li data-role="list-divider">亚洲</li>
+            <li><a><label style="font-size:12px;">阿联酋 +971</label></a></li>
+            <li><a><label style="font-size:12px;">阿联酋 +971</label></a></li>
+            <li><a><label style="font-size:12px;">阿联酋 +971</label></a></li>
+            <li><a><label style="font-size:12px;">阿联酋 +971</label></a></li>
+            <li><a><label style="font-size:12px;">阿联酋 +971</label></a></li>
+            <li><a><label style="font-size:12px;">阿联酋 +971</label></a></li>
+            <li><a><label style="font-size:12px;">阿联酋 +971</label></a></li>
+            <li><a><label style="font-size:12px;">阿联酋 +971</label></a></li>
+            <li><a><label style="font-size:12px;">阿联酋 +971</label></a></li>
+            <li><a><label style="font-size:12px;">阿联酋 +971</label></a></li>
+            <li><a><label style="font-size:12px;">阿联酋 +971</label></a></li>
+            <li><a><label style="font-size:12px;">阿联酋 +971</label></a></li>
+            <li><a><label style="font-size:12px;">阿联酋 +971</label></a></li>
+            <li><a><label style="font-size:12px;">阿联酋 +971</label></a></li>
+        </ul>
+    </div><!-- /panel -->
+
 
     <?php include '../common/footer.php';?>
 </div>
-
+<div data-role="page" id="nav-page">
+    <ul data-role="listview">
+        <li data-role="list-divider" data-icon="delete"><a href="#" data-rel="close">返回</a></li>
+        <li><a onclick="setRegion('中国大陆 +86', '+86');" data-rel="back"><label style="font-size:12px;">中国大陆 +86</label></a></li>
+        <li><a onclick="setRegion('美国 +1', '+1');" data-rel="back"><label style="font-size:12px;">美国 +1</label></a></li>
+        <li data-role="list-divider">欧洲</li>
+        <li><a><label style="font-size:12px;">爱尔兰 +353</label></a></li>
+        <li data-role="list-divider">亚洲</li>
+        <li><a><label style="font-size:12px;">阿联酋 +971</label></a></li>
+        <li><a><label style="font-size:12px;">阿联酋 +971</label></a></li>
+        <li><a><label style="font-size:12px;">阿联酋 +971</label></a></li>
+        <li><a><label style="font-size:12px;">阿联酋 +971</label></a></li>
+        <li><a><label style="font-size:12px;">阿联酋 +971</label></a></li>
+        <li><a><label style="font-size:12px;">阿联酋 +971</label></a></li>
+        <li><a><label style="font-size:12px;">阿联酋 +971</label></a></li>
+        <li><a><label style="font-size:12px;">阿联酋 +971</label></a></li>
+        <li><a><label style="font-size:12px;">阿联酋 +971</label></a></li>
+        <li><a><label style="font-size:12px;">阿联酋 +971</label></a></li>
+        <li><a><label style="font-size:12px;">阿联酋 +971</label></a></li>
+        <li><a><label style="font-size:12px;">阿联酋 +971</label></a></li>
+        <li><a><label style="font-size:12px;">阿联酋 +971</label></a></li>
+        <li><a><label style="font-size:12px;">阿联酋 +971</label></a></li>
+        <li><a><label style="font-size:12px;">阿联酋 +971</label></a></li>
+    </ul>
+</div>
 <script>
     $( "#panel-fixed-page1" ).on( "pageinit", function() {
         $( "#signForm" ).validate({
@@ -118,6 +184,10 @@
             }
         });
     });
+    function setRegion(regionDesc, gegionId) {
+        $('#regionDesc').html(regionDesc);
+        $('#phone_reigon').val(gegionId);
+    };
 </script>
 </body>
 </html>
