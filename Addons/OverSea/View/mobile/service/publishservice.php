@@ -166,15 +166,8 @@ $isPublishService = 1;
                         <label style="font-size:12px;" for="service_area">服务地区</label>
                     </td>
                     <td style="width:80%">
-                        <select name="service_area" id="service_area" onchange="updateTagList()">
-                            <?php foreach($countries as $display_sequence => $country){?>
-                                <optgroup label="<?php echo $country; ?>">
-                                    <?php foreach($cities[$display_sequence] as $key => $cityname){?>
-                                        <option value="<?php echo $cityname; ?>" <?php echo $serviceData['service_area']==$cityname ? 'selected = "selected"' : ''; ?> ><?php echo $cityname; ?></option>
-                                    <?php } ?>
-                                </optgroup>
-                            <?php } ?>
-                        </select>
+                        <a href="#nav-page" class="ui-btn ui-corner-all ui-shadow ui-btn-mini" data-transition="pop"><h5 id="regionDesc"><?php echo isset($serviceData['service_area']) ?$serviceData['service_area'] : "北京"; ?></h5></a>
+                        <input type="hidden" name="service_area" id="service_area" value="<?php echo isset($serviceData['service_area']) ?$serviceData['service_area'] : "北京";?>">
                     </td>
                 </tr>
             </table>
@@ -318,6 +311,22 @@ $isPublishService = 1;
     </div>
     <?php include '../common/footer.php';?>
 </div>
+
+<div data-role="page" id="nav-page">
+    <ul data-role="listview">
+        <li data-role="list-divider" data-icon="back"><a href="#" data-rel="back">返回</a></li>
+        <?php
+        foreach ($countries as $display_sequence => $country) {
+            ?>
+            <li data-role="list-divider"><?php echo $country; ?></li>
+            <?php
+            foreach($cities[$display_sequence] as $key => $cityname){?>
+                <li><a onclick="setCity('<?php echo $cityname; ?>');" data-rel="back"><label style="font-size:12px;"><?php echo $cityname?></label></a></li>
+            <?php } ?>
+        <?php } ?>
+    </ul>
+</div><!-- page -->
+
 
 <script>
     // this is for select service main image
@@ -546,6 +555,10 @@ $isPublishService = 1;
             }
         });
     });
+    function setCity(city) {
+        $('#regionDesc').html(city);
+        $('#service_area').val(city);
+    };
 </script>
 </body>
 </html>

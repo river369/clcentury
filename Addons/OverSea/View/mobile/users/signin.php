@@ -94,8 +94,7 @@ $isFreeWeb=$_GET['free'];
 
 <div data-role="page" id="nav-page">
     <ul data-role="listview">
-        <li data-role="list-divider" data-icon="delete"><a href="#" data-rel="close">返回</a></li>
-        <li><a href="../../../Controller/FreelookDispatcher.php?c=getServices&servicearea=地球" rel="external" data-rel="close"> 地球</a></li>
+        <li data-role="list-divider" data-icon="delete"><a href="#" data-rel="back">返回</a></li>
         <?php
         foreach ($region_phone_country as $region => $phone_country) {
             ?>
@@ -134,9 +133,9 @@ $isFreeWeb=$_GET['free'];
             }
         });
     });
-    function setRegion(regionDesc, gegionId) {
+    function setRegion(regionDesc, regionId) {
         $('#regionDesc').html(regionDesc);
-        $('#phone_reigon').val(gegionId);
+        $('#phone_reigon').val(regionId);
     };
 </script>
 </body>
