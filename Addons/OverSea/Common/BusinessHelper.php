@@ -142,7 +142,6 @@ class BusinessHelper {
         {
             case 10:
             case 1060:
-            case 1080:
             case 70:
             case 60:
             case 100:
@@ -150,6 +149,7 @@ class BusinessHelper {
                 break;
             case 1040:
             case 1020:
+            case 1080:
             case 20:
             case 40:
                 $ret = "customer";
