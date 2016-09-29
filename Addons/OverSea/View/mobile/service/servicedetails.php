@@ -107,7 +107,7 @@ $isDiscover = 1;
                 loader: 'none',
                 portrait :false,
                 pagination : true,
-                height: '450px',
+                height: '350px',
                 navigation : false,
                 playPause : false,
                 transPeriod: 500
@@ -150,7 +150,7 @@ $isDiscover = 1;
             </ul>
         </div><!-- /navbar -->
 
-        <div data-role="content" id="serviceInfo">
+        <div data-role="content" id="serviceInfo" style="margin: 0px -25px 0px -25px">
             <?php if (sizeof($objArray) > 0) { ?>
                 <div class="fluid_container">
                     <div class="camera_wrap camera_azure_skin" id="camera_wrap_1">
