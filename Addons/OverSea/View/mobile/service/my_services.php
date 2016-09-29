@@ -114,7 +114,8 @@ $isMine = 1;
                                     </td>
                                 </tr>
                             </table>
-                            <p class="ui-li-aside">￥<?php echo $service['service_price']?>/小时</p>
+                            <p class="ui-li-aside">￥<?php echo $service['service_price'];
+                            echo  $service['service_price_type'] == 1 ? "/小时":"/次";?></p>
                         </a>
                     </li>
                     <li>

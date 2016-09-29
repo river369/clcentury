@@ -69,7 +69,8 @@ $isMine = 1;
                     <li data-role="list-divider">
                         <p style="margin: -5px 0px -3px 0px;font-size:14px;" ><?php $servicetypeDesc = $order['service_type'] ==1 ? '旅游' : '留学';
                             echo "【".$order['service_area'].":".$servicetypeDesc."】".$order['service_name']?> </p>
-                        <span class="ui-li-count">购买:<?php echo $order['service_hours'];?>小时</span>
+                        <span class="ui-li-count">购买:<?php echo $order['service_hours'];
+                            echo  $order['service_price_type'] == 1 ? "小时":"次";?></span>
                     </li>
                     <li>
                         <a href="../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id=<?php echo $order['service_id']; ?>" rel="external">
@@ -86,7 +87,8 @@ $isMine = 1;
                                     </td>
                                 </tr>
                             </table>
-                            <p class="ui-li-aside">￥<?php echo $order['service_price']?>/小时</p>
+                            <p class="ui-li-aside">￥<?php echo $order['service_price'];
+                                echo  $order['service_price_type'] == 1 ? "/小时":"/次";?></p>
                         </a>
                     </li>
                     <li>

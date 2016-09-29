@@ -158,7 +158,8 @@ $isMine = 1;
                                 <p style="color:#33c8ce;">价格</p>
                             </td>
                             <td style="width:81%">
-                                <p style="white-space:pre-wrap; color:#6f6f6f;">￥<?php echo $order['service_price'];?>/小时 </p>
+                                <p style="white-space:pre-wrap; color:#6f6f6f;">￥<?php echo $order['service_price'];
+                                    echo  $order['service_price_type'] == 1 ? "/小时":"/次";?> </p>
                             </td>
                         </tr>
                     </table>
@@ -170,7 +171,8 @@ $isMine = 1;
                                 <p style="color:#33c8ce;">已购买</p>
                             </td>
                             <td style="width:81%">
-                                <p style="white-space:pre-wrap; color:#6f6f6f;"><?php echo $order['service_hours'];?>小时</p>
+                                <p style="white-space:pre-wrap; color:#6f6f6f;"><?php echo $order['service_hours'];
+                                    echo  $order['service_price_type'] == 1 ? "小时":"次";?></p>
                             </td>
                         </tr>
                     </table>

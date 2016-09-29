@@ -39,6 +39,7 @@ class OrdersBo
         $orderData['status'] = 0;
         $orderData['service_area']  = isset($_POST ['service_area']) ? $_POST ['service_area'] : "";
         $orderData['service_type']  = isset($_POST ['service_type']) ? $_POST ['service_type'] : "";
+        $orderData['service_price_type']  = isset($_POST ['service_price_type']) ? $_POST ['service_price_type'] : "";
         $orderData['service_price']  = isset($_POST ['service_price']) ?$_POST ['service_price'] : "";
         $orderData['service_price_unit']  = isset($_POST ['service_price_unit']) ? $_POST ['service_price_unit'] : "";
         $orderData['service_hours']  = isset($_POST ['service_hours']) ? $_POST ['service_hours'] : "";

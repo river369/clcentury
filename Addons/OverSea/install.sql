@@ -93,6 +93,7 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`yz_services` (
 `description` text DEFAULT NULL  COMMENT 'service详细介绍',
 `service_area` varchar(50) DEFAULT NULL  COMMENT '服务区域',
 `service_type` int(10) DEFAULT 1  COMMENT '服务类型 1 旅游, 2 留学, 99999 all, -1 nothing',
+`service_price_type` int(10) DEFAULT 1  COMMENT 'service fee type 1 hourly, 2 each time',
 `service_price` decimal(10,2) DEFAULT 50  COMMENT '服务价格',
 `service_price_unit` varchar(10)  DEFAULT "人民币"  COMMENT '服务价格单位',
 `stars` decimal(5,1) DEFAULT 3  COMMENT '服务评级',
@@ -117,6 +118,8 @@ service status:
 40 rejected
 60 approved,
 80 deleted
+alter table yz_services add column `service_price_type` int(10) DEFAULT 1  COMMENT 'service fee type 1 hourly, 2 each time';
+
 alter table yz_services add column serve_count int(5) DEFAULT 0  COMMENT '用户提供服务次数';
 
 alter table yz_services drop column service_price;
@@ -142,9 +145,10 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`yz_orders` (
 `status` int(5) DEFAULT 0  COMMENT '订单状态 0 created...' ,
 `service_area` varchar(50) DEFAULT NULL  COMMENT '服务区域',
 `service_type` int(10) DEFAULT -1  COMMENT '服务类型 1 旅游, 2 留学, 99999 all, -1 nothing',
+`service_price_type` int(10) DEFAULT 1  COMMENT 'service fee type 1 hourly, 2 each time',
 `service_price` decimal(10,2) DEFAULT 50  COMMENT '服务价格',
 `service_price_unit` varchar(10)  DEFAULT "人民币"  COMMENT '服务价格单位',
-`service_hours` int(10) DEFAULT 1  COMMENT '服务小时数',
+`service_hours` int(10) DEFAULT 1  COMMENT '服务小时数', -- infact it means service length with a price type
 `service_total_fee` decimal(10,2) DEFAULT 50  COMMENT '支付金额',
 `request_message` text DEFAULT NULL  COMMENT '留言',
 `creation_date` datetime  DEFAULT NULL COMMENT 'creation datetime',
@@ -174,6 +178,7 @@ alter table yz_orders drop column service_price;
 alter table yz_orders add column `service_price` decimal(10,2) DEFAULT 50  COMMENT '服务价格';
 alter table yz_orders drop column service_total_fee;
 alter table yz_orders add column `service_total_fee` decimal(10,2) DEFAULT 50  COMMENT '服务价格';
+alter table yz_orders add column `service_price_type` int(10) DEFAULT 1  COMMENT 'service fee type 1 hourly, 2 each time';
 
 --order actions
 CREATE TABLE IF NOT EXISTS `clctravel`.`yz_order_actions` (

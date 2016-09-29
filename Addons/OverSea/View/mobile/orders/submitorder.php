@@ -19,6 +19,7 @@ if ($serviceType==1){
 } else if ($serviceType==2){
     $serviceTypeDesc = '留学';
 }
+$servicePriceType=$serviceData['service_price_type'];
 $price = $serviceData['service_price'];
 $signedUser = $_SESSION['signedUser'];
 $isMine = 1;
@@ -56,28 +57,34 @@ $isMine = 1;
                 <li>服务名称: <span class="ui-li-count"><?php echo $serviceName; ?></span></li>
                 <li>服务地点: <span class="ui-li-count"><?php echo $serviceArea; ?></span></li>
                 <li>服务类型: <span class="ui-li-count"><?php echo $serviceTypeDesc; ?></span></li>
-                <li>服务价格: <span class="ui-li-count">￥<?php echo $price; ?>/小时</span></li>
+                <li>服务价格: <span class="ui-li-count">￥<?php echo $price;
+                        echo  $servicePriceType == 1 ? "/小时":"/次";?></span></li>
             </ul>
-            <h5>咨询时长</h5>
-            <table style="margin: -8px 0px -8px 0px" border="0">
-                <tr>
-                    <td style="width:20%">
-                        <a href="#" onclick="minus1();" data-theme="b"  data-role="button" rel="external">
-                            <img id="minus" src="../../resource/images/minus.png" width="25" height="25" class="add"/>
-                        </a>
-                    </td>
-                    <td style="width:20%">
-                        <input id="service_hours" name="service_hours" type="number" value="1"/>
-                    </td>
-                    <td style="width:20%">
-                        <a href="#" onclick="add1();" data-theme="b"  data-role="button" rel="external">
-                         <img id="add" src="../../resource/images/inc.png" width="25" height="25" class="minus"/>
-                        </a>
-                    </td>
-                    <td style="width:40%"></td>
-                </tr>
-            </table>
-
+            <input id="service_price_type" name="service_price_type" type="hidden" value="<?php echo $servicePriceType?>"/>
+            <?php if ( $servicePriceType == 1){ ?>
+                <h5>咨询时长</h5>
+                <table style="margin: -8px 0px -8px 0px" border="0">
+                    <tr>
+                        <td style="width:20%">
+                            <a href="#" onclick="minus1();" data-theme="b"  data-role="button" rel="external">
+                                <img id="minus" src="../../resource/images/minus.png" width="25" height="25" class="add"/>
+                            </a>
+                        </td>
+                        <td style="width:20%">
+                            <input id="service_hours" name="service_hours" type="number" value="1"/>
+                        </td>
+                        <td style="width:20%">
+                            <a href="#" onclick="add1();" data-theme="b"  data-role="button" rel="external">
+                             <img id="add" src="../../resource/images/inc.png" width="25" height="25" class="minus"/>
+                            </a>
+                        </td>
+                        <td style="width:40%"></td>
+                    </tr>
+                </table>
+            <?php } else {?>
+                <input id="service_hours" name="service_hours" type="hidden" value="1"/>
+            <?php } ?>
+            
             <h5>总计(￥)</h5>
             <div id="totalmoney">
                 <input type="text" name="service_total_fee" id="service_total_fee" readonly="true" value="<?php echo $price; ?>"/>

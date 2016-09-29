@@ -151,7 +151,8 @@ $isDiscover = 1;
                                     </td>
                                 </tr>
                             </table>
-                            <p class="ui-li-aside">￥<?php echo $serviceData['service_price']?>/小时</p>
+                            <p class="ui-li-aside">￥<?php echo $serviceData['service_price'];
+                                echo  $serviceData['service_price_type'] == 1 ? "/小时":"/次";?></p>
                         </a>
                     </li>
                 </ul>

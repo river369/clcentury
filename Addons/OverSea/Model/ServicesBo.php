@@ -304,6 +304,7 @@ class ServicesBo
         $serviceData['service_brief'] = isset($_POST ['service_brief']) ? $_POST ['service_brief'] : '';
         $serviceData['description'] = isset($_POST ['description']) ? trim($_POST ['description']) : '';
         $serviceData['service_type'] = $_POST ['service_type'];
+        $serviceData['service_price_type'] = $_POST ['service_price_type'];
         $serviceData['service_price'] = isset($_POST ['service_price']) ? $_POST ['service_price'] : '';
         $serviceData['tag'] = (isset($_POST ['mytags']) && $_POST ['mytags']!='') ? trim($_POST ['mytags']) : ' ';
 

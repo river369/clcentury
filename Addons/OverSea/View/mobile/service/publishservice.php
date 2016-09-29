@@ -191,11 +191,25 @@ $isPublishService = 1;
                     </td>
                 </tr>
             </table>
-
             <table>
                 <tr>
                     <td style="width:20%">
-                        <label style="font-size:12px;" for="service_price">服务价格(￥/小时)</label>
+                        <label style="font-size:12px;">收费类型<label/>
+                    </td>
+                    <td style="width:80%">
+                        <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" data-theme="a">
+                            <input name="service_price_type" id="radio-choice-g" value="1" <?php if (!isset($serviceData) ||$serviceData['service_price_type'] == 1) {echo 'checked="true"'; } ?> type="radio">
+                            <label for="radio-choice-g">按小时(￥/小时)</label>
+                            <input name="service_price_type" id="radio-choice-h" value="2" <?php if ($serviceData['service_price_type'] == 2) {echo 'checked="true"'; } ?> type="radio">
+                            <label for="radio-choice-h">按次数(￥/次)</label>
+                        </fieldset>
+                    </td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <td style="width:20%">
+                        <label style="font-size:12px;" for="service_price">费用单价</label>
                     </td>
                     <td style="width:80%">
                         <input type="number" name="service_price" id="service_price" value="<?php echo isset($serviceData['service_price']) ? $serviceData['service_price']: ''; ?>" >
