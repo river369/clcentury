@@ -61,6 +61,8 @@ $isDiscover = 1;
     <script src="http://oss.clcentury.com/resource/js/camera/camera.min.js"></script>
     <script src="http://oss.clcentury.com/resource/js/camera/jquery.mobile.customized.min.js"></script>
     <script src="http://oss.clcentury.com/resource/js/business/discover.js"></script>
+<!--    <script src="../../resource/js/business/discover.js"></script>-->
+
 
     <link rel="stylesheet" href="http://oss.clcentury.com/resource/style/jquery/jquery.mobile-1.4.5.min.css" />
     <link rel="stylesheet" href="http://oss.clcentury.com/resource/style/themes/my-theme.min.css" />
@@ -156,7 +158,8 @@ $isDiscover = 1;
                                         </td>
                                     </tr>
                                 </table>
-                                <p class="ui-li-aside">￥<?php echo $serviceData['service_price']?>/小时</p>
+                                <p class="ui-li-aside">￥<?php echo $serviceData['service_price'];
+                                    echo  $serviceData['service_price_type'] == 1 ? "/小时":"/次";?></p>
                             </a>
                         </li>
                     </ul>

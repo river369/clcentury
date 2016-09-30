@@ -116,7 +116,7 @@ function getServiceInNextPages() {
                         newstr = newstr + '<p style="white-space:pre-wrap;word-break:break-all">简介:' +brief+ '</p>' ;
                         newstr = newstr + '</td></tr></table>';
                         var servicePriceTypeDesc = value.service_price_type ==1 ? '/小时' : '/次';
-                        newstr = newstr + '<p class="ui-li-aside">￥' +value.service_price+ '/小时</p>' ;
+                        newstr = newstr + '<p class="ui-li-aside">￥' +value.service_price+servicePriceTypeDesc+ '</p>' ;
                         newstr = newstr + '</a></li>';
                         newstr=newstr+'</ul></div>';
                         $('#serviceType'+serviceType).append(newstr);

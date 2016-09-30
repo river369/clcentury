@@ -50,7 +50,8 @@ $isMine = 1;
                     <img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $service['seller_id'];?>/head.png" alt="">
                     <h2> <?php echo $service['service_area'];?>:<?php echo $serviceTypeDesc;?> </h2>
                     <p style="white-space:pre-wrap;"><?php echo $service['service_name'];?> </p>
-                    <p class="ui-li-aside">￥<?php echo $service['service_price'];?>/小时</p>
+                    <p class="ui-li-aside">￥<?php echo $service['service_price'];
+                        echo  $service['service_price_type'] == 1 ? "/小时":"/次";?></p>
                 </a>
             </li>
             <li data-role="list-divider">创建日期: <span class="ui-li-count"><?php echo $service['creation_date'];?></span></li>
