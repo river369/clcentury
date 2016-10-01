@@ -134,12 +134,18 @@ $isPublishService = 1;
             <?php } ?>
         </ul>
 
-        <div data-role="popup" id="reviewPicPopup" class="reviewPicPopup" data-overlay-theme="a" data-corners="false" data-tolerance="30,15">
+        <div data-role="popup" id="reviewPicPopup" class="reviewPicPopup" data-theme="c" data-corners="false" data-tolerance="30,15">
             <!--<p>是否删除该图片?</p>-->
-            <div><a id="deletebutton" href="" onclick="deletePic();" data-theme="c" data-role="button" rel="external">删除此图片</a></div>
-            <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
             <img src="" alt="review" class="reviewimage">
             <input type="hidden" name="delobj" id="delobj" value="">
+            <div class="ui-grid-a">
+                <div class="ui-block-a">
+                    <a id="deletebutton" href="" onclick="deletePic();" data-role="button" rel="external">删除此图片</a>
+                </div>
+                <div class="ui-block-b">
+                    <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow" >关闭</a>
+                </div>
+            </div>
         </div>
     </div>
 

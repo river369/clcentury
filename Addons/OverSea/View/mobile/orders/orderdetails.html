@@ -70,30 +70,26 @@
     </div>
     <div class="swiper-container">
         <div class="swiper-wrapper">
-            <div class="swiper-slide">
-                <img src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/pics/579eacbd3447a903/57ed1cd444237515/20160929135403_1.jpg"/>
-            </div>
-            <div class="swiper-slide">
-                <img src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/pics/579eacbd3447a903/57ed1cd444237515/20160929135407_5.jpg"/>
-            </div>
-            <div class="swiper-slide">
-                <img src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/pics/579eacbd3447a903/57ed1cd444237515/20160929135523_1.jpg"/>
-            </div>
-            <div class="swiper-slide">
-                <img src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/pics/579eacbd3447a903/57ed1cd444237515/20160929135525_3.jpg"/>
-            </div>
-            <div class="swiper-slide">
-                <img src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/pics/579eacbd3447a903/57ed1cd444237515/20160929135524_2.jpg"/>
-            </div>
-            <div class="swiper-slide">
-                <img src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/pics/57790fb728713607/57df6dac2595d858/20160919161123_1.jpg"/>
-            </div>
-            <div class="swiper-slide">
-                <img src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/pics/57790fb728713607/57e791b998144791/20160929150729_1.jpg"/>
-            </div>
-            <div class="swiper-slide">
-                <img src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/pics/57790fb728713607/57e791b998144791/20160929143803_2.jpg"/>
-            </div>
+            <!--<div class="swiper-slide">-->
+                <!--<img id="img1" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/pics/579eacbd3447a903/57ed1cd444237515/20160929135403_1.jpg"/>-->
+            <!--</div>-->
+            <!--<div class="swiper-slide">-->
+                <!--<img id="img2" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/pics/579eacbd3447a903/57ed1cd444237515/20160929135407_5.jpg"/>-->
+            <!--</div>-->
+            <!--<div class="swiper-slide">-->
+                <!--<img d="img3" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/pics/579eacbd3447a903/57ed1cd444237515/20160929135523_1.jpg"/>-->
+            <!--</div>-->
+            <!--<div class="swiper-slide">-->
+                <!--<img src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/pics/579eacbd3447a903/57ed1cd444237515/20160929135525_3.jpg"/>-->
+            <!--</div>-->
+            <!--<div class="swiper-slide">-->
+                <!--<img src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/pics/579eacbd3447a903/57ed1cd444237515/20160929135524_2.jpg"/>-->
+            <!--</div>-->
+            <!--<div class="swiper-slide">-->
+                <!--<img src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/pics/57790fb728713607/57df6dac2595d858/20160919161123_1.jpg"/>-->
+            <!--</div>-->
+            <div class="swiper-slide"><img src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/pics/57790fb728713607/57e791b998144791/20160929150729_1.jpg"/></div>
+            <div class="swiper-slide"><img src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/pics/57790fb728713607/57e791b998144791/20160929143803_2.jpg"/></div>
         </div>
         <!-- Add Pagination -->
         <div class="swiper-pagination"></div>
@@ -156,10 +152,39 @@
             autoplayDisableOnInteraction: false
         })
 
-        $('img').each(function() {
+
+//        var i=1
+//        for (i = 1; i <= 3; i++) {
+//            $obj = $('#img' + i);
+//            var width = $obj.width();    // 图片实际宽度
+//            var height = $obj.height();  // 图片实际高度
+//            alert(width+ "  " + height);
+//            // 检查图片是否超宽
+//            if( height >= 2.5 * width){
+//                $obj.css("width", '50%');
+//            } else {
+//                $obj.css("width", '100%');
+//            }
+//        }
+
+//        $('.swiper-slide img').each(function() {
+//            var width = $(this).width();    // 图片实际宽度
+//            var height = $(this).height();  // 图片实际高度
+//            alert(width+ "  " + height);
+//            // 检查图片是否超宽
+//            if( height >= 2.5 * width){
+//                $(this).css("width", '50%');
+//            } else {
+//                $(this).css("width", '100%');
+//            }
+//        });
+    });
+
+    jQuery(window).load(function () {
+        $('.swiper-slide img').each(function() {
             var width = $(this).width();    // 图片实际宽度
             var height = $(this).height();  // 图片实际高度
-            //alert(width+ "  " + height);
+            alert(width+ "  " + height);
             // 检查图片是否超宽
             if( height >= 2.5 * width){
                 $(this).css("width", '50%');

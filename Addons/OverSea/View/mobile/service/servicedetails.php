@@ -34,20 +34,23 @@ $isDiscover = 1;
 <html lang="zh-cmn-Hans">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+<!--    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">-->
     <title>易知海外</title>
 
     <script src="../../resource/js/jquery/jquery-1.11.1.min.js"></script>
     <script src="../../resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
     <script src="../../resource/js/rater/rater.min.js"></script>
     <script src="../../resource/js/camera/jquery.min.js"></script>
-    <script src="../../resource/js/camera/jquery.easing.1.3.js"></script>
-    <script src="../../resource/js/camera/camera.min.js"></script>
+<!--    <script src="../../resource/js/camera/jquery.easing.1.3.js"></script>-->
+<!--    <script src="../../resource/js/camera/camera.min.js"></script>-->
     <script src="../../resource/js/camera/jquery.mobile.customized.min.js"></script>
+    <script src="../../resource/js/swiper/swiper.min.js"></script>
 
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
     <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
-    <link rel="stylesheet" href="../../resource/style/camera/camera.css" type="text/css" media="all">
+<!--    <link rel="stylesheet" href="../../resource/style/camera/camera.css" type="text/css" media="all">-->
+    <link rel="stylesheet" href="../../resource/style/swiper/swiper.min.css">
 
     <style>
         .rate-base-layer
@@ -84,9 +87,28 @@ $isDiscover = 1;
             /*max-width: 350px;*/
             /*width: 100%;*/
         /*}*/
-        div.headimage {
-            height: 65px;
-            width: 65px;
+        .swiper-container {
+            width: 100%;
+            height: 225px;
+        }
+        .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            background: #fff;
+
+            /* Center slide text vertically */
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
         }
         div.rounded-head-image {
             height: 85px;
@@ -151,20 +173,29 @@ $isDiscover = 1;
             </ul>
         </div><!-- /navbar -->
 
-        <div data-role="content" id="serviceInfo" style="margin: 0px -28px 0px -28px">
+            <div data-role="content" id="serviceInfo" style="margin: -10px -32px 0px -32px">
             <?php if (sizeof($objArray) > 0) { ?>
-<!--                <div class="fluid_container">-->
-                    <div class="camera_wrap camera_azure_skin" id="camera_wrap_1">
-                        <?php foreach ($objArray as $obj) { ?>
-                        <div data-src="<?php echo $imageurl.$obj; ?>" data-fx='mosaicReverse'></div>
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        <?php foreach ($objArray as $obj) {?>
+                            <div class="swiper-slide"><img src="<?php echo $imageurl.$obj; ?>"/></div>
                         <?php } ?>
-                    </div><!-- #camera_wrap_1 -->
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+
+<!--                <div class="fluid_container">-->
+<!--                    <div class="camera_wrap camera_azure_skin" id="camera_wrap_1">-->
+<!--                        --><?php //foreach ($objArray as $obj) { ?>
+<!--                        <div data-src="--><?php //echo $imageurl.$obj; ?><!--" data-fx='mosaicReverse'></div>-->
+<!--                        --><?php //} ?>
+<!--                    </div>-->
 <!--                </div>-->
             <?php } else { ?>
                 <p>未上传图片</p>
             <?php } ?>
 
-            <div style="margin: 0px 20px 0px 20px">
+            <div style="margin: 15px 20px 0px 20px">
                 <h5 style="margin: 0px 0px -5px 0px">服务内容简介</h5>
                 <p><?php echo $serviceData['service_brief']; ?></p>
 
@@ -210,9 +241,9 @@ $isDiscover = 1;
 
         <div data-role="content" id="sellerInfo">
             <h5 style="margin: 0px 0px -5px 0px">个性签名</h5>
-            <p>&emsp;&emsp;<?php echo $sellerData['signature']; ?></p>
+            <p><?php echo $sellerData['signature']; ?></p>
             <h5 style="margin: 0px 0px -5px 0px">卖家介绍</h5>
-            <p>&emsp;&emsp;<?php echo $sellerData['description']; ?></p>
+            <p><?php echo $sellerData['description']; ?></p>
             <h5 style="margin: 0px 0px -5px 0px">卖家信息</h5>
             <ul data-role="listview" data-inset="true" data-theme="f" style="font-size:14px;">
                 <li>卖家等级 <span class="ui-li-count"><div class="sellerrate"/></span></li>
@@ -300,7 +331,18 @@ $isDiscover = 1;
 $(document).ready(function(){
     setRateSeller($('#sellerratevalue').val());
     setRateService($('#serviceratevalue').val());
+
+    //initialize swiper when document ready
+    var mySwiper = new Swiper ('.swiper-container', {
+        pagination: '.swiper-pagination',
+        paginationClickable: true,
+        spaceBetween: 30,
+        centeredSlides: true,
+        autoplay: 6000,
+        autoplayDisableOnInteraction: false
+    })
 });
+
 function setRateSeller(star) {
     var options = {
         max_value: 5,
@@ -341,6 +383,20 @@ function showComments() {
     $('#sellerInfo').hide();
     $('#commentsInfo').show();
 }
+jQuery(window).load(function () {
+    $('.swiper-slide img').each(function() {
+        var width = $(this).width();    // 图片实际宽度
+        var height = $(this).height();  // 图片实际高度
+        // 检查图片是否超宽
+        //alert(width+ "  " + height);
+        if( height >= 2.5 * width){
+        //if( height > width){
+            $(this).css("width", '50%');
+        } else {
+            $(this).css("width", '100%');
+        }
+    });
+});
 </script>
 </body>
 </html>
