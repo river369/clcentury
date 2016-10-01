@@ -32,15 +32,21 @@ $isMine = 1;
     <script src="../../resource/js/jquery/jquery-1.11.1.min.js"></script>
     <script src="../../resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
     <script src="../../resource/js/validation/jquery.validate.min.js"></script>
+    <script src="../../resource/js/datepicker/datepicker.js"></script>
+    <script src="../../resource/js/datepicker/jquery.mobile.datepicker.js"></script>
+
     <script src="../../resource/js/validation/localization/messages_zh.min.js"></script>
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
     <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
     <link rel="stylesheet" href="../../resource/style/validation/validation.css" />
+    <link rel="stylesheet" href="../../resource/style/datepicker/jquery.mobile.datepicker.css">
+    <link rel="stylesheet" href="../../resource/style/datepicker/jquery.mobile.datepicker.theme.css">
     <style>
         h5{ color:#01A4B5}
         p{ font-size:14px;}
         table{ table-layout : fixed; width:100% }
     </style>
+
 </head>
 <body>
 
@@ -94,6 +100,11 @@ $isMine = 1;
             <div id="totalmoney">
                 <textarea cols="30" rows="8" name="request_message" id="request_message" data-mini="true"></textarea>
             </div>
+
+<!--            <h5>预计消费日期</h5>-->
+<!--            <div >-->
+<!--                <input type="text" class="date-input" data-inline="true" data-role="date">-->
+<!--            </div>-->
 
             <a href="./customer_agreement.html" class="ui-controlgroup-label" data-transition="slip"><h5>点击阅读购买服务声明</h5></a>
 
@@ -163,6 +174,9 @@ $isMine = 1;
     $(document).ready(function(){
         $('#service_hours').change();
     });
+</script>
+<script>
+    $( ".selector" ).datepicker({ altFormat: "yy-mm-dd" });
 </script>
 
 </body>

@@ -131,12 +131,7 @@ $isMine = 1;
                     </a>
                 </li>
                 <li>
-                    <a href="../../admin/index.php" rel="external">
-                        <p style="margin: 0px 0px 0px 0px">more</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="./signup.html" rel="external">
+                    <a href="../orders/orderdetails.html" rel="external">
                         <p style="margin: 0px 0px 0px 0px">test</p>
                     </a>
                 </li>

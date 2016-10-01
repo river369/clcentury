@@ -72,18 +72,18 @@ $isDiscover = 1;
         a:hover {
             text-decoration: none;
         }
-        #back_to_camera {
-            clear: both;
-            display: block;
-            height: 80px;
-            line-height: 40px;
-            padding: 20px;
-        }
-        .fluid_container {
-            margin: 0 auto;
-            max-width: 350px;
-            width: 100%;
-        }
+        /*#back_to_camera {*/
+            /*clear: both;*/
+            /*display: block;*/
+            /*height: 80px;*/
+            /*line-height: 40px;*/
+            /*padding: 20px;*/
+        /*}*/
+        /*.fluid_container {*/
+            /*margin: 0 auto;*/
+            /*max-width: 350px;*/
+            /*width: 100%;*/
+        /*}*/
         div.headimage {
             height: 65px;
             width: 65px;
@@ -107,7 +107,8 @@ $isDiscover = 1;
                 loader: 'none',
                 portrait :false,
                 pagination : true,
-                height: '300px',
+               // height: 'auto',
+//                height: '300px',
                 navigation : false,
                 playPause : false,
                 transPeriod: 500
@@ -152,13 +153,13 @@ $isDiscover = 1;
 
         <div data-role="content" id="serviceInfo" style="margin: 0px -28px 0px -28px">
             <?php if (sizeof($objArray) > 0) { ?>
-                <div class="fluid_container">
+<!--                <div class="fluid_container">-->
                     <div class="camera_wrap camera_azure_skin" id="camera_wrap_1">
                         <?php foreach ($objArray as $obj) { ?>
                         <div data-src="<?php echo $imageurl.$obj; ?>" data-fx='mosaicReverse'></div>
                         <?php } ?>
                     </div><!-- #camera_wrap_1 -->
-                </div><!-- .fluid_container -->
+<!--                </div>-->
             <?php } else { ?>
                 <p>未上传图片</p>
             <?php } ?>
@@ -271,14 +272,18 @@ $isDiscover = 1;
                                 </table>
                             </li>
                             <li style="margin: -20px 0px -10px 0px">
-                                <p>意见:<?php echo (isset($comment['comments']) && !is_null($comment['comments']) && $comment['comments'] !='')? $comment['comments']: "我很懒,没有留下评论。";?><p>
+                                <p style="white-space:pre-wrap;" >意见:<?php echo (isset($comment['comments']) && !is_null($comment['comments']) && $comment['comments'] !='')? $comment['comments']: "我很懒,没有留下评论。";?><p>
                                 <p>日期:<?php echo substr($comment['creation_date'], 0, 10 );?><p>
                             </li>
                         </ul>
                     </div>
 
                 <?php } ?>
-            <?php } else {?>
+            <?php
+                    if (count($commentsData) == 1) {
+                        echo "<br><br><br><br><br>";
+                    }
+                } else {?>
                 <h5>暂无评论</h5>
                 <br><br><br><br><br><br><br><br><br><br>
             <?php } ?>
