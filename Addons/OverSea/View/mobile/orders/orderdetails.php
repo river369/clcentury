@@ -82,10 +82,10 @@ $isMine = 1;
                 <li>
                     <table style="margin: -12px 0px -12px 0px" border="0">
                         <tr>
-                            <td style="width:19%">
+                            <td style="width:30%">
                                 <p style="color:#33c8ce;">订单号</p>
                             </td>
-                            <td style="width:81%">
+                            <td style="width:70%">
                                 <p style="white-space:pre-wrap; color:#6f6f6f;"><?php echo $order['order_id'];?></p>
                             </td>
                         </tr>
@@ -94,10 +94,10 @@ $isMine = 1;
                 <li>
                     <table style="margin: -12px 0px -12px 0px" border="0">
                         <tr>
-                            <td style="width:19%">
+                            <td style="width:30%">
                                 <p style="color:#33c8ce;">订单状态</p>
                             </td>
-                            <td style="width:81%">
+                            <td style="width:70%">
                                 <p style="white-space:pre-wrap; color:#6f6f6f;"><?php echo $orderStatus;?> </p>
                             </td>
                         </tr>
@@ -106,10 +106,10 @@ $isMine = 1;
                 <li>
                     <table style="margin: -12px 0px -12px 0px" border="0">
                         <tr>
-                            <td style="width:19%">
+                            <td style="width:30%">
                                 <p style="color:#33c8ce;">服务名称</p>
                             </td>
-                            <td style="width:81%">
+                            <td style="width:70%">
                                 <p style="white-space:pre-wrap; color:#6f6f6f;"><?php echo $order['service_name'];?></p>
                             </td>
                         </tr>
@@ -118,10 +118,10 @@ $isMine = 1;
                 <li>
                     <table style="margin: -12px 0px -12px 0px" border="0">
                         <tr>
-                            <td style="width:19%">
+                            <td style="width:30%">
                                 <p style="color:#33c8ce;">卖家</p>
                             </td>
-                            <td style="width:81%">
+                            <td style="width:70%">
                                 <p style="white-space:pre-wrap; color:#6f6f6f;"><?php echo $order['seller_name'];?> </p>
                             </td>
                         </tr>
@@ -130,10 +130,10 @@ $isMine = 1;
                 <li>
                     <table style="margin: -12px 0px -12px 0px" border="0">
                         <tr>
-                            <td style="width:19%">
+                            <td style="width:30%">
                                 <p style="color:#33c8ce;">买家</p>
                             </td>
-                            <td style="width:81%">
+                            <td style="width:70%">
                                 <p style="white-space:pre-wrap; color:#6f6f6f;"><?php echo $order['customer_name'];?> </p>
                             </td>
                         </tr>
@@ -142,10 +142,10 @@ $isMine = 1;
                 <li>
                     <table style="margin: -12px 0px -12px 0px" border="0">
                         <tr>
-                            <td style="width:19%">
+                            <td style="width:30%">
                                 <p style="white-space:pre-wrap; color:#33c8ce;">咨询话题</p>
                             </td>
-                            <td style="width:81%">
+                            <td style="width:70%">
                                 <p style="white-space:pre-wrap; color:#6f6f6f;"><?php echo $order['request_message'];?></p>
                             </td>
                         </tr>
@@ -154,10 +154,10 @@ $isMine = 1;
                 <li>
                     <table style="margin: -12px 0px -12px 0px" border="0">
                         <tr>
-                            <td style="width:19%">
+                            <td style="width:30%">
                                 <p style="color:#33c8ce;">价格</p>
                             </td>
-                            <td style="width:81%">
+                            <td style="width:70%">
                                 <p style="white-space:pre-wrap; color:#6f6f6f;">￥<?php echo $order['service_price'];
                                     echo  $order['service_price_type'] == 1 ? "/小时":"/次";?> </p>
                             </td>
@@ -167,10 +167,10 @@ $isMine = 1;
                 <li>
                     <table style="margin: -12px 0px -12px 0px" border="0">
                         <tr>
-                            <td style="width:19%">
+                            <td style="width:30%">
                                 <p style="color:#33c8ce;">已购买</p>
                             </td>
-                            <td style="width:81%">
+                            <td style="width:70%">
                                 <p style="white-space:pre-wrap; color:#6f6f6f;"><?php echo $order['service_hours'];
                                     echo  $order['service_price_type'] == 1 ? "小时":"次";?></p>
                             </td>
@@ -180,11 +180,35 @@ $isMine = 1;
                 <li>
                     <table style="margin: -12px 0px -12px 0px" border="0">
                         <tr>
-                            <td style="width:19%">
+                            <td style="width:30%">
                                 <p style="color:#33c8ce;">总计</p>
                             </td>
-                            <td style="width:81%">
+                            <td style="width:70%">
                                 <p style="white-space:pre-wrap; color:#6f6f6f;"><?php echo $order['service_total_fee'];?>元</p>
+                            </td>
+                        </tr>
+                    </table>
+                </li>
+                <li>
+                    <table style="margin: -12px 0px -12px 0px" border="0">
+                        <tr>
+                            <td style="width:30%">
+                                <p style="color:#33c8ce;">预计消费日期</p>
+                            </td>
+                            <td style="width:70%">
+                                <p style="white-space:pre-wrap; color:#6f6f6f;"><?php echo isset($order['service_start_date'])? substr($order['service_start_date'], 0, 10 ):"";?></p>
+                            </td>
+                        </tr>
+                    </table>
+                </li>
+                <li>
+                    <table style="margin: -12px 0px -12px 0px" border="0">
+                        <tr>
+                            <td style="width:30%">
+                                <p style="color:#33c8ce;">预计消费人数</p>
+                            </td>
+                            <td style="width:70%">
+                                <p style="white-space:pre-wrap; color:#6f6f6f;"><?php echo $order['service_people_count'];?></p>
                             </td>
                         </tr>
                     </table>

@@ -29,24 +29,27 @@ $isMine = 1;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
     <title>易知海外</title>
-    <script src="../../resource/js/jquery/jquery-1.11.1.min.js"></script>
+
+    <link rel="stylesheet" href="../../resource/style/jqueryui/jquery-ui.min.css">
+    <link rel="stylesheet" href="../../resource/style/jqueryui/jquery-ui.theme.min.css">
+    <script src="../../resource/js/jqueryui/jquery.js"></script>
+    <script src="../../resource/js/jqueryui/jquery-ui.min.js"></script>
+    <script src="../../resource/js/jqueryui/datepicker_cn.js"></script>
+
+<!--    <script src="../../resource/js/jquery/jquery-1.11.1.min.js"></script>-->
     <script src="../../resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
     <script src="../../resource/js/validation/jquery.validate.min.js"></script>
-    <script src="../../resource/js/datepicker/datepicker.js"></script>
-    <script src="../../resource/js/datepicker/jquery.mobile.datepicker.js"></script>
-
     <script src="../../resource/js/validation/localization/messages_zh.min.js"></script>
+
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
     <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
     <link rel="stylesheet" href="../../resource/style/validation/validation.css" />
-    <link rel="stylesheet" href="../../resource/style/datepicker/jquery.mobile.datepicker.css">
-    <link rel="stylesheet" href="../../resource/style/datepicker/jquery.mobile.datepicker.theme.css">
+
     <style>
         h5{ color:#01A4B5}
         p{ font-size:14px;}
         table{ table-layout : fixed; width:100% }
     </style>
-
 </head>
 <body>
 
@@ -101,10 +104,28 @@ $isMine = 1;
                 <textarea cols="30" rows="8" name="request_message" id="request_message" data-mini="true"></textarea>
             </div>
 
-<!--            <h5>预计消费日期</h5>-->
-<!--            <div >-->
-<!--                <input type="text" class="date-input" data-inline="true" data-role="date">-->
-<!--            </div>-->
+            <h5>预计消费日期</h5>
+            <input type="text" name="service_start_date" id="service_start_date" readonly="true">
+
+            <h5>预计消费人数</h5>
+            <table style="margin: -8px 0px -8px 0px" border="0">
+                <tr>
+                    <td style="width:20%">
+                        <a href="#" onclick="minus2();" data-theme="b"  data-role="button" rel="external">
+                            <img id="minus" src="../../resource/images/minus.png" width="25" height="25" class="add"/>
+                        </a>
+                    </td>
+                    <td style="width:20%">
+                        <input id="service_people_count" name="service_people_count" type="number" value="1"/>
+                    </td>
+                    <td style="width:20%">
+                        <a href="#" onclick="add2();" data-theme="b"  data-role="button" rel="external">
+                            <img id="add" src="../../resource/images/inc.png" width="25" height="25" class="minus"/>
+                        </a>
+                    </td>
+                    <td style="width:40%"></td>
+                </tr>
+            </table>
 
             <a href="./customer_agreement.html" class="ui-controlgroup-label" data-transition="slip"><h5>点击阅读购买服务声明</h5></a>
 
@@ -148,6 +169,16 @@ $isMine = 1;
             $('#service_hours').change();
         }
     };
+
+    function add2() {
+        $('#service_people_count').val(Number($('#service_people_count').val())+1);
+    };
+    function minus2() {
+        var num = Number($('#service_people_count').val())-1;
+        if (num>0){
+            $('#service_people_count').val(Number($('#service_people_count').val())-1);
+        }
+    };
 </script>
 <script>
     $( "#panel-fixed-page1" ).on( "pageinit", function() {
@@ -155,7 +186,13 @@ $isMine = 1;
             rules: {
                 service_hours:{
                     required: true,
-                    number : true
+                    number : true,
+                    min:1
+                },
+                service_people_count:{
+                    required: true,
+                    number : true,
+                    min:1
                 },
                 agree: "required"
             },
@@ -163,6 +200,12 @@ $isMine = 1;
                 service_hours:{
                     required: "咨询时长不能为空",
                     number : "必须输入合法的数字",
+                    min:"咨询时长必须大于0"
+                },
+                service_people_count:{
+                    required: "消费人数不能为空",
+                    number : "必须输入合法的数字",
+                    min:"消费人数必须大于0"
                 },
                 agree: "请接受我们的声明"
             },
@@ -176,7 +219,12 @@ $isMine = 1;
     });
 </script>
 <script>
-    $( ".selector" ).datepicker({ altFormat: "yy-mm-dd" });
+    $( function() {
+//        alert( $( "#date" ));
+        initdatepicker_cn();
+        $( "#service_start_date" ).datepicker({ minDate: -0, maxDate: "+3M", showButtonPanel: true});
+        $( "#service_start_date" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+    } );
 </script>
 
 </body>

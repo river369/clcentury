@@ -45,7 +45,9 @@ class OrdersBo
         $orderData['service_hours']  = isset($_POST ['service_hours']) ? $_POST ['service_hours'] : "";
         $orderData['service_total_fee']  = isset($_POST ['service_total_fee']) ? $_POST ['service_total_fee'] : "";
         $orderData['request_message']  = isset($_POST ['request_message']) ? $_POST ['request_message'] : "";
-        
+        $orderData['service_start_date']  = isset($_POST ['service_start_date']) ? date("Y-m-d",strtotime($_POST ['service_start_date'])) : null;
+        $orderData['service_people_count']  = isset($_POST ['service_people_count']) ? $_POST ['service_people_count'] : "";
+
         $serviceDao = new ServicesDao();
         $serviceData = $serviceDao ->getByKv('service_id',  $orderData['service_id']);
 

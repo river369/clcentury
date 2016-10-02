@@ -151,6 +151,8 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`yz_orders` (
 `service_hours` int(10) DEFAULT 1  COMMENT '服务小时数', -- infact it means service length with a price type
 `service_total_fee` decimal(10,2) DEFAULT 50  COMMENT '支付金额',
 `request_message` text DEFAULT NULL  COMMENT '留言',
+`service_start_date` datetime  DEFAULT NULL COMMENT 'the date to start service',
+`service_people_count` int(10) DEFAULT 1  COMMENT '服务人数',
 `creation_date` datetime  DEFAULT NULL COMMENT 'creation datetime',
 `update_date` datetime  DEFAULT NULL COMMENT 'update datetime',
 PRIMARY KEY (`id`),
@@ -179,6 +181,8 @@ alter table yz_orders add column `service_price` decimal(10,2) DEFAULT 50  COMME
 alter table yz_orders drop column service_total_fee;
 alter table yz_orders add column `service_total_fee` decimal(10,2) DEFAULT 50  COMMENT '服务价格';
 alter table yz_orders add column `service_price_type` int(10) DEFAULT 1  COMMENT 'service fee type 1 hourly, 2 each time';
+alter table yz_orders add column `service_start_date` datetime  DEFAULT NULL COMMENT 'the date to start service';
+alter table yz_orders add column `service_people_count` int(10) DEFAULT 1  COMMENT '服务人数';
 
 --order actions
 CREATE TABLE IF NOT EXISTS `clctravel`.`yz_order_actions` (

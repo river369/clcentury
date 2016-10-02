@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>易知海外</title>
+
+    <link rel="stylesheet" href="../../resource/style/jqueryui/jquery-ui.min.css">
+    <link rel="stylesheet" href="../../resource/style/jqueryui/jquery-ui.theme.min.css">
+    <script src="../../resource/js/jqueryui/jquery.js"></script>
+    <script src="../../resource/js/jqueryui/jquery-ui.min.js"></script>
+    <script src="../../resource/js/jqueryui/datepicker_cn.js"></script>
+
+</head>
+<body>
+
+<div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
+    <div data-role="header" data-position="fixed">
+        <h1>购买River的服务</h1>
+    </div>
+    <input type="text" name="date" id="date" readonly="true">
+
+    <input id="spinner" name="value">
+</div>
+<script>
+    $( function() {
+        initdatepicker_cn();
+        $( "#date" ).datepicker({ minDate: -0, maxDate: "+3M", showButtonPanel: true});
+        $( "#date" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+        var spinner = $( "#spinner" ).spinner();
+    } );
+
+</script>
+</body>
+</html>
+

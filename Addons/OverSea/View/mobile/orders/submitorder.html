@@ -5,9 +5,22 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
     <title>易知海外</title>
 
-    <script src="../../resource/js/jquery/jquery-1.11.1.min.js"></script>
+
+    <!--<script src="../../resource/js/jquery/jquery-1.11.1.min.js"></script>-->
+    <!--<script src="../../resource/js/datepicker/jquery.plugin.js"></script>-->
+    <!--<script src="../../resource/js/datepicker/jquery.datepick.js"></script>-->
+
+    <!--<link href="../../resource/style/datepicker/jquery.datepick.css" rel="stylesheet">-->
+
+    <link rel="stylesheet" href="../../resource/style/jqueryui/jquery-ui.min.css">
+    <link rel="stylesheet" href="../../resource/style/jqueryui/jquery-ui.theme.min.css">
+    <script src="../../resource/js/jqueryui/jquery.js"></script>
+    <script src="../../resource/js/jqueryui/jquery-ui.min.js"></script>
+    <!---->
+    <!--<script src="../../resource/js/jquery/jquery-1.11.1.min.js"></script>-->
     <script src="../../resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
+
     <style>
         div.headimage {
             height: 65px;
@@ -18,7 +31,11 @@
         p{ font-size:14px;}
         table{ table-layout : fixed; width:100%; }
     </style>
-
+    <script>
+        $(function() {
+            $('#popupDatepicker').datepicker({dateFormat: 'yyyy-mm-dd'});
+        });
+    </script>
 </head>
 <body>
 
@@ -63,6 +80,8 @@
             <h5>咨询话题:</h5>
             <textarea cols="30" rows="8" name="requestmessage" id="requestmessage" data-mini="true"></textarea>
 
+            <input type="text" name="date" id="date">
+
             <input type="hidden" name="customerid" id="customerid"  value=""/>
             <input type="hidden" name="sellerid" id="sellerid"  value=""/>
             <input type="hidden" name="servicearea" id="servicearea"  value=""/>
@@ -70,6 +89,7 @@
             <input type="hidden" name="serviceprice" id="serviceprice"  value=""/>
             <input type="hidden" name="servicepriceunit" id="servicepriceunit"  value=""/>
         </div>
+        </form>
 
     <div data-role="footer" data-position="fixed">
         <div data-role="navbar">
@@ -93,7 +113,14 @@
             $('#qty2').val(Number($('#qty2').val())-1);
         });
     });
+    $( function() {
+
+        $( "#date" ).datepicker({ minDate: -100});
+        $( "#date" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+
+    } );
 </script>
 
 </body>
 </html>
+
