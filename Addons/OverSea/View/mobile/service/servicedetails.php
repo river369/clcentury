@@ -389,7 +389,7 @@ jQuery(window).load(function () {
         var height = $(this).height();  // 图片实际高度
         // 检查图片是否超宽
         //alert(width+ "  " + height);
-        if( height >= 2.5 * width){
+        if( height >= 3 * width){
         //if( height > width){
             $(this).css("width", '50%');
         } else {
