@@ -17,11 +17,11 @@ class AdvertiseDao extends BaseDao
         parent::__construct("yz_advertises");
     }
 
-    public function getAdvertiseByCity($city_name)
+    public function getAdvertiseByCity($city_name, $status)
     {
         try {
-            $sql = 'SELECT * FROM ' . parent::getTableName(). ' WHERE city_name= :city_name';
-            $parameter = array(':city_name' => $city_name);
+            $sql = 'SELECT * FROM ' . parent::getTableName(). ' WHERE city_name= :city_name and status = :status ';
+            $parameter = array(':city_name' => $city_name, ':status' => $status);
             Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",sql=".$sql);
             Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",parameters=".json_encode($parameter));
             $ret = MySqlHelper::fetchAll($sql, $parameter);
@@ -32,7 +32,14 @@ class AdvertiseDao extends BaseDao
         }
 
     }
-    
+
+    /**
+     * To be deprecated!!
+     * 
+     * @param $city_name
+     * @param $service_type
+     * @return mixed
+     */
     public function getAdvertiseByCityBusinessType($city_name, $service_type)
     {
         try {

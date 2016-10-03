@@ -457,7 +457,7 @@ class ServicesBo
             $_SESSION['servicesData']= self::fixDataLength($servicesData);
 
             $adDao = new AdvertiseDao();
-            $ads = $adDao->getAdvertiseByCity($servicearea);
+            $ads = $adDao->getAdvertiseByCity($servicearea, 0);
             $_SESSION['ads'] = $ads;
 
         } else {
