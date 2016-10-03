@@ -50,22 +50,54 @@ $isDiscover = 1;
 <html lang="zh-cmn-Hans">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
     <title>易知海外</title>
 
     <script src="http://oss.clcentury.com/resource/js/jquery/jquery-1.11.1.min.js"></script>
     <script src="http://oss.clcentury.com/resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
     <script src="http://oss.clcentury.com/resource/js/rater/rater.min.js"></script>
-    <!--    <script src="http://oss.clcentury.com/resource/js/business/discover.js"></script>-->
-    <script src="../../resource/js/business/discover.js"></script>
-    <script src="../../resource/js/swiper/swiper.min.js"></script>
+    <script src="http://oss.clcentury.com/resource/js/camera/jquery.min.js"></script>
+    <script src="http://oss.clcentury.com/resource/js/camera/jquery.easing.1.3.js"></script>
+    <script src="http://oss.clcentury.com/resource/js/camera/camera.min.js"></script>
+    <script src="http://oss.clcentury.com/resource/js/camera/jquery.mobile.customized.min.js"></script>
+    <script src="http://oss.clcentury.com/resource/js/business/discover.js"></script>
+<!--    <script src="../../resource/js/business/discover.js"></script>-->
+
 
     <link rel="stylesheet" href="http://oss.clcentury.com/resource/style/jquery/jquery.mobile-1.4.5.min.css" />
     <link rel="stylesheet" href="http://oss.clcentury.com/resource/style/themes/my-theme.min.css" />
-    <!--    <link rel="stylesheet" href="http://oss.clcentury.com/resource/style/business/discover.css" type="text/css" media="all">-->
-    <link rel="stylesheet" href="../../resource/style/swiper/swiper.min.css">
-    <link rel="stylesheet" href="../../resource/style/business/discover.css" type="text/css" media="all">
+    <link rel="stylesheet" href="http://oss.clcentury.com/resource/style/camera/camera.css" type="text/css" media="all">
+    <link rel="stylesheet" href="http://oss.clcentury.com/resource/style/business/discover.css" type="text/css" media="all">
 
+    <script>
+        $(document).ready(function(){
+            var i=1;
+            for (i = 1; i <= <?php echo count($servicesData);?>; i++) {
+                setRate(i, $('#ratevalue' + i).val());
+            }
+            $("img").error(function () {
+                $(this).attr("src", "http://oss.clcentury.com/resource/images/head_default.jpg");
+            });
+        });
+        
+        <?php
+        $i=0;
+        foreach($ads as $key => $ad){
+            if ($ad['service_type']==1){
+                echo "lyArray[".$i."]='".$ad['service_id']."';";
+                $i++;
+            }
+        }?>
+        <?php
+        $i=0;
+        foreach($ads as $key => $ad){
+            if ($ad['service_type']==2){
+                echo "lxArray[".$i."]='".$ad['service_id']."';";
+                $i++;
+            }
+        }?>
+
+    </script>
 </head>
 <body>
 <div data-url="panel-fixed-page1" data-role="page" data-theme="a" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
@@ -86,15 +118,15 @@ $isDiscover = 1;
 
         <div id="serviceType1">
             <?php if ($service_type_1_ad) {?>
-                <div class="swiper-container"  id="swiper-container-type1">
-                    <div class="swiper-wrapper">
-                        <?php foreach ($ads as $key => $ad) {
-                            if ($ad['service_type']==1){?>
-                                <div class="swiper-slide"><img width="100%" src="<?php echo $imageurl.$ad['service_type'].'/'.$ad['service_id'].'.jpg'; ?>" onclick="goToService('<?php echo $ad['service_id']; ?>');"/></div>
-                            <?php } } ?>
-                    </div>
-                    <div class="swiper-pagination" id="swiper-pagination-type1"></div>
-                </div>
+                <div class="fluid_container" onclick="goToLYService();">
+                    <div class="camera_wrap camera_azure_skin" id="camera_wrap_1" style="margin: 0px 0px 5px 0px" >
+                        <?php foreach($ads as $key => $ad){
+                            if ($ad['service_type']==1){
+                                echo "<div data-src='".$imageurl.$ad['service_type'].'/'.$ad['service_id'].".jpg' data-fx='mosaicReverse'></div>";
+                            }
+                        }?>
+                    </div><!-- #camera_wrap_1 -->
+                </div><!-- .fluid_container -->
             <?php } ?>
 
             <?php
@@ -136,51 +168,22 @@ $isDiscover = 1;
         </div>
         <div id="serviceType2">
             <?php if ($service_type_2_ad) {?>
-                <div class="swiper-container"  id="swiper-container-type2">
-                    <div class="swiper-wrapper">
-                        <?php foreach ($ads as $key => $ad) {
-                            if ($ad['service_type']==2){?>
-                                <div class="swiper-slide"><img width="100%" src="<?php echo $imageurl.$ad['service_type'].'/'.$ad['service_id'].'.jpg'; ?>"/></div>
-                            <?php } } ?>
+                <div class="fluid_container" id=fc2 onclick="goToLXService();">
+                    <div class="camera_wrap camera_azure_skin" id="camera_wrap_2" style="margin: 0px 0px 5px 0px" >
+                        <?php foreach($ads as $key => $ad){
+                            if ($ad['service_type']==2){
+                                echo "<div data-src='".$imageurl.$ad['service_type'].'/'.$ad['service_id'].".jpg' data-fx='mosaicReverse'></div>";
+                            }
+                        }?>
                     </div>
-                    <div class="swiper-pagination" id="swiper-pagination-type2"></div>
                 </div>
             <?php } ?>
         </div>
     </div>
 
     <div data-role="content"class="endMsgString"></div>
+
     <?php include '../common/footer.php';?>
 </div>
-<script>
-    $(document).ready(function(){
-        var i=1;
-        for (i = 1; i <= <?php echo count($servicesData);?>; i++) {
-            setRate(i, $('#ratevalue' + i).val());
-        }
-        $("img").error(function () {
-            $(this).attr("src", "http://oss.clcentury.com/resource/images/head_default.jpg");
-        });
-        setServiceType(1);
-    });
-
-    var mySwiper1 = new Swiper ('#swiper-container-type1', {
-        pagination: '#swiper-pagination-type1',
-        paginationClickable: true,
-        spaceBetween: 30,
-        centeredSlides: true,
-        autoplay: 6000,
-        autoplayDisableOnInteraction: false
-    });
-
-    var mySwiper2 = new Swiper ('#swiper-container-type2', {
-        pagination: '#swiper-pagination-type2',
-        paginationClickable: true,
-        spaceBetween: 30,
-        centeredSlides: true,
-        autoplay: 6000,
-        autoplayDisableOnInteraction: false
-    });
-</script>
 </body>
 </html>

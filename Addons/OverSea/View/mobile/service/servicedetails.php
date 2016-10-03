@@ -35,21 +35,17 @@ $isDiscover = 1;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-<!--    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">-->
     <title>易知海外</title>
 
     <script src="../../resource/js/jquery/jquery-1.11.1.min.js"></script>
     <script src="../../resource/js/jquery/jquery.mobile-1.4.5.min.js"></script>
     <script src="../../resource/js/rater/rater.min.js"></script>
     <script src="../../resource/js/camera/jquery.min.js"></script>
-<!--    <script src="../../resource/js/camera/jquery.easing.1.3.js"></script>-->
-<!--    <script src="../../resource/js/camera/camera.min.js"></script>-->
     <script src="../../resource/js/camera/jquery.mobile.customized.min.js"></script>
     <script src="../../resource/js/swiper/swiper.min.js"></script>
 
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
     <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
-<!--    <link rel="stylesheet" href="../../resource/style/camera/camera.css" type="text/css" media="all">-->
     <link rel="stylesheet" href="../../resource/style/swiper/swiper.min.css">
 
     <style>
@@ -75,18 +71,6 @@ $isDiscover = 1;
         a:hover {
             text-decoration: none;
         }
-        /*#back_to_camera {*/
-            /*clear: both;*/
-            /*display: block;*/
-            /*height: 80px;*/
-            /*line-height: 40px;*/
-            /*padding: 20px;*/
-        /*}*/
-        /*.fluid_container {*/
-            /*margin: 0 auto;*/
-            /*max-width: 350px;*/
-            /*width: 100%;*/
-        /*}*/
         .swiper-container {
             width: 100%;
             height: 225px;
@@ -121,24 +105,6 @@ $isDiscover = 1;
         label{ color:#01A4B5; font-size:14px;}
         table{ table-layout : fixed; width:100% }
     </style>
-
-    <script>
-        jQuery(function(){
-            jQuery('#camera_wrap_1').camera({
-                thumbnails: false,
-                loader: 'none',
-                portrait :false,
-                pagination : true,
-               // height: 'auto',
-//                height: '300px',
-                navigation : false,
-                playPause : false,
-                transPeriod: 500
-
-            });
-        });
-    </script>
-
 </head>
 <body>
 <div data-url="panel-fixed-page1" data-role="page" data-theme="a" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
@@ -173,7 +139,7 @@ $isDiscover = 1;
             </ul>
         </div><!-- /navbar -->
 
-            <div data-role="content" id="serviceInfo" style="margin: -10px -32px 0px -32px">
+        <div data-role="content" id="serviceInfo" style="margin: -10px -32px 0px -32px">
             <?php if (sizeof($objArray) > 0) { ?>
                 <div class="swiper-container">
                     <div class="swiper-wrapper">
@@ -183,14 +149,6 @@ $isDiscover = 1;
                     </div>
                     <div class="swiper-pagination"></div>
                 </div>
-
-<!--                <div class="fluid_container">-->
-<!--                    <div class="camera_wrap camera_azure_skin" id="camera_wrap_1">-->
-<!--                        --><?php //foreach ($objArray as $obj) { ?>
-<!--                        <div data-src="--><?php //echo $imageurl.$obj; ?><!--" data-fx='mosaicReverse'></div>-->
-<!--                        --><?php //} ?>
-<!--                    </div>-->
-<!--                </div>-->
             <?php } else { ?>
                 <p>未上传图片</p>
             <?php } ?>

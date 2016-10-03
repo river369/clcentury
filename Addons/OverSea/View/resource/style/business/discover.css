@@ -24,18 +24,6 @@ a {
 a:hover {
     text-decoration: none;
 }
-#back_to_camera {
-    clear: both;
-    display: block;
-    height: 80px;
-    line-height: 40px;
-    padding: 20px;
-}
-.fluid_container {
-    margin: 0 auto;
-    max-width: 1000px;
-    width: 100%;
-}
 div.headimage {
     height: 65px;
     width: 65px;
@@ -43,3 +31,27 @@ div.headimage {
 h5{ color:#33c8ce}
 p{ font-size:14px;}
 table{ table-layout : fixed; width:100% }
+
+.swiper-container {
+    width: 100%;
+    height: 120px;
+}
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
