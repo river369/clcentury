@@ -73,7 +73,7 @@ $isDiscover = 1;
         }
         .swiper-container {
             width: 100%;
-            height: 225px;
+            height: 200px;
         }
         .swiper-slide {
             text-align: center;
@@ -139,8 +139,9 @@ $isDiscover = 1;
             </ul>
         </div><!-- /navbar -->
 
-        <div data-role="content" id="serviceInfo" style="margin: -10px -32px 0px -32px">
+        <div data-role="content" id="serviceInfo">
             <?php if (sizeof($objArray) > 0) { ?>
+            <div style="margin: -10px -16px 0px -16px">
                 <div class="swiper-container">
                     <div class="swiper-wrapper">
                         <?php foreach ($objArray as $obj) {?>
@@ -149,51 +150,50 @@ $isDiscover = 1;
                     </div>
                     <div class="swiper-pagination"></div>
                 </div>
+            </div>
             <?php } else { ?>
                 <p>未上传图片</p>
             <?php } ?>
 
-            <div style="margin: 15px 20px 0px 20px">
-                <h5 style="margin: 0px 0px -5px 0px">服务内容简介</h5>
-                <p><?php echo $serviceData['service_brief']; ?></p>
+            <h5 style="margin: 10px 0px -5px 0px">服务内容简介</h5>
+            <p><?php echo $serviceData['service_brief']; ?></p>
 
-                <h5 style="margin: 0px 0px -5px 0px">服务内容详细介绍</h5>
-                <p><?php echo $serviceData['description']; ?></p>
+            <h5 style="margin: 0px 0px -5px 0px">服务内容详细介绍</h5>
+            <p><?php echo $serviceData['description']; ?></p>
 
-                <h5 style="margin: 0px 0px -5px 0px">服务信息</h5>
-                <ul data-role="listview" data-inset="true" data-theme="f" style="font-size:14px;">
-                    <li>服务等级 <span class="ui-li-count"><div class="servicerate"/></span></li>
-                    <input type="hidden" id="serviceratevalue" value="<?php echo $serviceData['stars'];?>">
-                    <li>服务地点 <span class="ui-li-count"><?php echo $serviceData['service_area']; ?></span></li>
-                    <li>服务类型 <span class="ui-li-count"><?php echo $servicetypeDesc; ?></span></li>
-                    <li>服务价格 <span class="ui-li-count">￥<?php echo $serviceData['service_price'];
-                            echo  $serviceData['service_price_type'] == 1 ? "/小时":"/次";
-                            ?></span></li>
-                </ul>
+            <h5 style="margin: 0px 0px -5px 0px">服务信息</h5>
+            <ul data-role="listview" data-inset="true" data-theme="f" style="font-size:14px;">
+                <li>服务等级 <span class="ui-li-count"><div class="servicerate"/></span></li>
+                <input type="hidden" id="serviceratevalue" value="<?php echo $serviceData['stars'];?>">
+                <li>服务地点 <span class="ui-li-count"><?php echo $serviceData['service_area']; ?></span></li>
+                <li>服务类型 <span class="ui-li-count"><?php echo $servicetypeDesc; ?></span></li>
+                <li>服务价格 <span class="ui-li-count">￥<?php echo $serviceData['service_price'];
+                        echo  $serviceData['service_price_type'] == 1 ? "/小时":"/次";
+                        ?></span></li>
+            </ul>
 
+            <?php
+            $tags = trim($serviceData['tag']);
+            $tagsArray = explode(',',$tags);
+            if (strlen($tags) >0 && $tags!='' && count($tagsArray) >0) {
+            ?>
+            <h5  style="margin: 0px 0px 3px 0px">服务标签</h5>
+            <div class="ui-grid-b">
                 <?php
-                $tags = trim($serviceData['tag']);
-                $tagsArray = explode(',',$tags);
-                if (strlen($tags) >0 && $tags!='' && count($tagsArray) >0) {
-                ?>
-                <h5  style="margin: 0px 0px 3px 0px">服务标签</h5>
-                <div class="ui-grid-b">
-                    <?php
-                    $loc = 'a';
-                    foreach ($tagsArray as $tag){ ?>
-                        <div style="font-size:10px;" class="ui-block-<?php echo $loc;?>"><a href="../../../Controller/AuthUserDispatcher.php?c=searchByKeyWord&keyWord=<?php echo $tag;?>" rel="external" data-theme="d"  data-role="button"><?php echo $tag;?></a></div>
-                    <?php
-                        if ($loc=='a') {
-                            $loc = 'b';
-                        } else if ($loc=='b'){
-                            $loc = 'c';
-                        } else {
-                            $loc = 'a';
-                        }
-                    } ?>
-                </div>
-                <?php }?>
+                $loc = 'a';
+                foreach ($tagsArray as $tag){ ?>
+                    <div style="font-size:10px;" class="ui-block-<?php echo $loc;?>"><a href="../../../Controller/AuthUserDispatcher.php?c=searchByKeyWord&keyWord=<?php echo $tag;?>" rel="external" data-theme="d"  data-role="button"><?php echo $tag;?></a></div>
+                <?php
+                    if ($loc=='a') {
+                        $loc = 'b';
+                    } else if ($loc=='b'){
+                        $loc = 'c';
+                    } else {
+                        $loc = 'a';
+                    }
+                } ?>
             </div>
+            <?php }?>
         </div>
 
 
