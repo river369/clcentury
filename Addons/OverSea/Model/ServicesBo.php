@@ -81,17 +81,20 @@ class ServicesBo
             header('Location:../View/mobile/common/message.php');
             exit;
         }
-
+        
         $service_id = HttpHelper::getVale('service_id');
         Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",userId=".$userID.",sellerId=".$sellerid.",service_id=".$service_id);
         if (is_null($service_id) || strlen($service_id) == 0 ){
             $service = self::getSellerNotPublishedService($sellerid);
             if (!is_null($service)){
                 $service_id = $service['service_id'];
+            } else {
+                self::createNewService();
             }
         } else {
             self::getServiceInfo($service_id);
         }
+        
         WeixinHelper::prepareWeixinPicsParameters("/weiphp/Addons/OverSea/View/mobile/service/publishservice.php");
         self::getServicePictures($sellerid, $service_id);
         self::getAllCities();
@@ -132,7 +135,6 @@ class ServicesBo
         $_SESSION['sellerData']= $sellerData;
         return $sellerData;
     }
-
 
     /**
      * Get a service by service id
@@ -201,7 +203,14 @@ class ServicesBo
     public function publishServiceMainPic() {
         $userID = $_SESSION['signedUser'];
         if (!isset($_SESSION['serviceData'])){
-            self::createNewService();
+            $response = array(
+                'status'  => 500,
+                'msg' => 'Session过期,请刷新页面重试!',
+                'result' => ''
+            );
+            Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",response=".json_encode($response));
+            echo json_encode($response);
+            exit;
         }
         $serviceId = $_SESSION['serviceData']['service_id'] ;
         $userID = $_SESSION['signedUser'];
@@ -236,7 +245,14 @@ class ServicesBo
     public function publishServicePics() {
         $userID = $_SESSION['signedUser'];
         if (!isset($_SESSION['serviceData'])){
-            self::createNewService();
+            $response = array(
+                'status'  => 500,
+                'msg' => 'Session过期,请刷新页面重试!',
+                'result' => ''
+            );
+            Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",response=".json_encode($response));
+            echo json_encode($response);
+            exit;
         }
         $serviceId = $_SESSION['serviceData']['service_id'] ;
         Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",userid=".$userID." serviceid=".$serviceId);
@@ -295,31 +311,34 @@ class ServicesBo
      */
     public function publishServiceInfo(){
         if (!isset($_SESSION['serviceData'])){
-            self::createNewService();
-        }
-        $serviceData = $_SESSION['serviceData'];
-        $serviceData['status'] = 20;// change satus to waiting for approve
-        $serviceData['service_area'] = isset($_POST ['service_area']) ? $_POST ['service_area'] : '';
-        $serviceData['service_name'] = isset($_POST ['service_name']) ? $_POST ['service_name'] : '';
-        $serviceData['service_brief'] = isset($_POST ['service_brief']) ? $_POST ['service_brief'] : '';
-        $serviceData['description'] = isset($_POST ['description']) ? trim($_POST ['description']) : '';
-        $serviceData['service_type'] = $_POST ['service_type'];
-        $serviceData['service_price_type'] = $_POST ['service_price_type'];
-        $serviceData['service_price'] = isset($_POST ['service_price']) ? $_POST ['service_price'] : '';
-        $serviceData['tag'] = (isset($_POST ['mytags']) && $_POST ['mytags']!='') ? trim($_POST ['mytags']) : ' ';
-
-        try{
-            $serviceDao = new ServicesDao();
-            $serviceDao ->update($serviceData, $serviceData['id']);
-            header('Location:../Controller/AuthUserDispatcher.php?c=myServices&sellerid='.$serviceData['seller_id'].'&status=20');
-            exit;
-        } catch (\Exception $e){
-            $_SESSION['status'] = 's';
-            $_SESSION['message'] = '提交易知服务信息失败!';
+            $_SESSION['status'] = 'f';
+            $_SESSION['message'] = 'Session过期,请刷新页面重试!';
             $_SESSION['goto'] = "../../../Controller/AuthUserDispatcher.php?c=mine";
+        } else {
+            $serviceData = $_SESSION['serviceData'];
+            $serviceData['status'] = 20;// change satus to waiting for approve
+            $serviceData['service_area'] = isset($_POST ['service_area']) ? $_POST ['service_area'] : '';
+            $serviceData['service_name'] = isset($_POST ['service_name']) ? $_POST ['service_name'] : '';
+            $serviceData['service_brief'] = isset($_POST ['service_brief']) ? $_POST ['service_brief'] : '';
+            $serviceData['description'] = isset($_POST ['description']) ? trim($_POST ['description']) : '';
+            $serviceData['service_type'] = $_POST ['service_type'];
+            $serviceData['service_price_type'] = $_POST ['service_price_type'];
+            $serviceData['service_price'] = isset($_POST ['service_price']) ? $_POST ['service_price'] : '';
+            $serviceData['tag'] = (isset($_POST ['mytags']) && $_POST ['mytags']!='') ? trim($_POST ['mytags']) : ' ';
+
+            try{
+                $serviceDao = new ServicesDao();
+                $serviceDao ->update($serviceData, $serviceData['id']);
+                header('Location:../Controller/AuthUserDispatcher.php?c=myServices&sellerid='.$serviceData['seller_id'].'&status=20');
+                exit;
+            } catch (\Exception $e){
+                $_SESSION['status'] = 'f';
+                $_SESSION['message'] = '提交易知服务信息失败!';
+                $_SESSION['goto'] = "../../../Controller/AuthUserDispatcher.php?c=mine";
+            }
+            //$_SESSION['$serviceData']= $serviceData;
+            //header('Location:../View/mobile/users/submityzsuccess.php');
         }
-        //$_SESSION['$serviceData']= $serviceData;
-        //header('Location:../View/mobile/users/submityzsuccess.php');
     }
 
     /**

@@ -60,8 +60,8 @@ $isPublishService = 1;
     <script src="../../resource/js/validation/jquery.validate.min.js"></script>
 
     <link rel="stylesheet" href="../../resource/style/jquery/jquery.mobile-1.4.5.min.css" />
-    <link rel="stylesheet" href="../../resource/style/tag/jquery.tagit.css"type="text/css" />
-    <link rel="stylesheet" href="../../resource/style/tag/tagit.ui-zendesk.css"type="text/css" />
+    <link rel="stylesheet" href="../../resource/style/tag/jquery.tagit.css" type="text/css" />
+    <link rel="stylesheet" href="../../resource/style/tag/tagit.ui-zendesk.css" type="text/css" />
     <link rel="stylesheet" href="../../resource/style/themes/my-theme.min.css" />
     <link rel="stylesheet" href="../../resource/style/weiui/weui.css"/>
     <link rel="stylesheet" href="../../resource/style/weiui/example.css"/>
@@ -154,7 +154,7 @@ $isPublishService = 1;
             <table>
                 <tr>
                     <td style="width:20%">
-                        <label style="font-size:12px;">服务类型<label/>
+                        <label style="font-size:12px;">服务类型</label>
                     </td>
                     <td style="width:80%">
                         <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" data-theme="a">
@@ -200,7 +200,7 @@ $isPublishService = 1;
             <table>
                 <tr>
                     <td style="width:20%">
-                        <label style="font-size:12px;">收费类型<label/>
+                        <label style="font-size:12px;">收费类型</label>
                     </td>
                     <td style="width:80%">
                         <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" data-theme="a">
@@ -223,35 +223,20 @@ $isPublishService = 1;
                 </tr>
             </table>
 
-            <table>
-                <tr>
-                    <td>
-                        <label style="font-size:12px;" for="description">服务内容详细介绍</label>
-                    </td>
-                </tr>
-            </table>
-            <table>
-                <tr>
-                    <td>
-                        <textarea cols="30" rows="8" name="description" id="description" data-mini="true"><?php echo isset($serviceData['description']) ? $serviceData['description']: ''; ?></textarea>
-                    </td>
-                </tr>
-            </table>
-            <table style="margin: 10px 0px 0px 0px" >
-                <tr>
-                    <td>
-                        <a href="#tagpopup" data-rel="popup" class="ui-controlgroup-label"><label style="font-size:12px;">点击选取或填写标签</label></a>
-                    </td>
-                </tr>
-            </table>
-            <table >
-                <tr>
-                    <td style="width:95%">
-                        <ul id="methodTags"></ul>
-                        <input name="mytags" id="mytags" value="<?php echo isset($serviceData['tag']) ? $serviceData['tag']: ''; ?>" type="hidden">
-                    </td>
-                </tr>
-            </table>
+            <div style="margin: 12px 0px 0px 0px" >
+                <label style="font-size:12px;" for="description">服务内容详细介绍</label>
+                <textarea cols="30" rows="8" name="description" id="description" data-mini="true"><?php echo isset($serviceData['description']) ? $serviceData['description']: ''; ?></textarea>
+            </div>
+            <div style="margin: 15px 0px 0px 0px" >
+                <a href="#tagpopup" data-rel="popup" class="ui-controlgroup-label"><label style="font-size:12px;">点击选取或填写标签</label></a>
+                <ul id="methodTags"></ul>
+                <input name="mytags" id="mytags" value="<?php echo isset($serviceData['tag']) ? $serviceData['tag']: ''; ?>" type="hidden">
+            </div>
+
+            <div style="margin: 15px 0px 0px 0px" >
+                <label style="font-size:12px;" for="description">更多精美图文</label>
+                <a href="" rel="external" data-theme="d"  data-role="button">+ 添加图文</a>
+            </div>
             <table style="margin: 15px 0px 0px 0px" >
                 <tr>
                     <td>
@@ -263,6 +248,7 @@ $isPublishService = 1;
                     </td>
                 </tr>
             </table>
+
             <table style="margin: -5px 0px 0px 0px" >
                 <tr>
                     <td>
