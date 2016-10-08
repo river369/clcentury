@@ -133,7 +133,7 @@ $isMine = 1;
                     <li>
                         <table border="0" style="margin: -15px 0px -15px 0px">
                             <tr>
-                                <td width="40%">
+                                <td width="20%">
                                 </td>
                                 <td width="20%">
                                     <?php if ($querystatus == 60) { ?>
@@ -144,6 +144,9 @@ $isMine = 1;
                                 </td>
                                 <td width="20%">
                                     <a href="../../../Controller/AuthUserDispatcher.php?c=publishService&sellerid=<?php echo $sellerid; ?>&service_id=<?php echo $serviceid; ?>" rel="external" class="ui-mini">编辑服务</a>
+                                </td>
+                                <td width="20%">
+                                    <a href="../../../Controller/AuthUserDispatcher.php?c=getYPlusList&sellerid=<?php echo $sellerid; ?>&service_id=<?php echo $serviceid; ?>" rel="external" class="ui-mini">添加图文</a>
                                 </td>
                                 <td width="20%">
                                     <a href="#deleteDialog" data-rel="popup" onclick="deletePopup('<?php echo $serviceid; ?>')" class="ui-mini">删除服务</a>

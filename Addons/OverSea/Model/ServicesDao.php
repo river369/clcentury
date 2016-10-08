@@ -143,8 +143,24 @@ class ServicesDao extends BaseDao
         $services = MySqlHelper::fetchAll($sql);
         return $services;
     }
-    
-    
-
 }
+
+class ServiceYPlusDao extends BaseDao
+{
+    public function __construct()
+    {
+        parent::__construct("yz_service_yplus");
+    }
+
+    public function getServiceYPlusItemsByUserStatus($service_id, $status)
+    {
+        $sql = 'SELECT * FROM '  . parent::getTableName(). ' WHERE service_id =:service_id and status = :status order by creation_date desc';
+        $parameter = array(':service_id' => $service_id, ':status' => $status);
+        Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",sql=".$sql);
+        Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",parameters=".json_encode($parameter));
+        $serviceYPlusItems = MySqlHelper::fetchAll($sql, $parameter);
+        return $serviceYPlusItems;
+    }
+}
+
 ?>

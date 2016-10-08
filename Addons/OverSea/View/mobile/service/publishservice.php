@@ -143,7 +143,7 @@ $isPublishService = 1;
                     <a id="deletebutton" href="" onclick="deletePic();" data-role="button" rel="external">删除此图片</a>
                 </div>
                 <div class="ui-block-b">
-                    <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow" >关闭</a>
+                    <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow" >再想想</a>
                 </div>
             </div>
         </div>
@@ -232,16 +232,11 @@ $isPublishService = 1;
                 <ul id="methodTags"></ul>
                 <input name="mytags" id="mytags" value="<?php echo isset($serviceData['tag']) ? $serviceData['tag']: ''; ?>" type="hidden">
             </div>
-
-            <div style="margin: 15px 0px 0px 0px" >
-                <label style="font-size:12px;" for="description">更多精美图文</label>
-                <a href="" rel="external" data-theme="d"  data-role="button">+ 添加图文</a>
-            </div>
+            
             <table style="margin: 15px 0px 0px 0px" >
                 <tr>
                     <td>
                         <a href="./seller_agreement.html" class="ui-controlgroup-label" data-transition="slip"><label style="font-size:12px;">点击阅读服务发布声明</label></a>
-<!--                        <a href="#rulePopup" data-rel="popup" class="ui-controlgroup-label"><label style="font-size:12px;">点击阅读服务发布声明</label></a>-->
                     </td>
                     <td style="width:50%">
 
@@ -263,7 +258,7 @@ $isPublishService = 1;
 
     <div data-role="popup" id="tagpopup" data-overlay-theme="f" data-corners="false" data-tolerance="60,30" style="max-width:300px;width:275px;">
         <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
-        <h3>选取我的特长项:</h3>
+        <h3>选取服务标签:</h3>
         <div class="ui-grid-a" id="tagList">
         </div>
     </div>
@@ -332,7 +327,6 @@ $isPublishService = 1;
         <?php } ?>
     </ul>
 </div><!-- page -->
-
 
 <script>
     // this is for select service main image

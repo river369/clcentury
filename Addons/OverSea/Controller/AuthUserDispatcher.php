@@ -62,6 +62,12 @@ $method_routes = array(
         'v'=>'../View/mobile/service/my_services.php', 'd'=>'暂停易知服务信息'),
     'recoverService' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'recoverService',
         'v'=>'../View/mobile/service/my_services.php', 'd'=>'恢复易知服务信息'),
+    'getYPlusList' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'getYPlusList',
+        'v'=>'../View/mobile/service/service_yplus_list.php','d'=>'获取易知服务YPlus条目列表'),
+    'editYPlusItem' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'editYPlusItem',
+        'v'=>'../View/mobile/service/service_yplus_item.php','d'=>'获取易知服务YPlus条目'),
+    'publishServiceYPlusItem'  => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'publishServiceYPlusItem',
+        'v'=>'../View/mobile/service/publishservice.php','d'=>'保存易知服务YPlus条目'),
     
     'submitOrder' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'getServiceInfoById', 
         'v'=>'../View/mobile/orders/submitorder.php','d'=>'订购'),//用户订购确认

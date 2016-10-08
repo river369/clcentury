@@ -119,19 +119,28 @@ service status:
 60 approved,
 80 deleted
 alter table yz_services add column `service_price_type` int(10) DEFAULT 1  COMMENT 'service fee type 1 hourly, 2 each time';
-
 alter table yz_services add column serve_count int(5) DEFAULT 0  COMMENT '用户提供服务次数';
-
 alter table yz_services drop column service_price;
 alter table yz_services add column `service_price` decimal(10,2) DEFAULT 50  COMMENT '服务价格';
-
 alter table yz_services drop column stars;
 alter table yz_services add column `stars` decimal(5,1) DEFAULT 3  COMMENT '服务评级';
-
 alter table yz_services add column `service_brief` varchar(255)  DEFAULT NULL  COMMENT 'service 简介';
-
 alter table yz_services add index `service_name` (`service_name`);
 alter table yz_services add index `service_brief` (`service_brief`);
+
+--Service Y Plus page
+CREATE TABLE IF NOT EXISTS `clctravel`.`yz_service_yplus` (
+`id` bigint(12) NOT NULL AUTO_INCREMENT COMMENT '主键',
+`service_id` varchar(36) DEFAULT NULL COMMENT 'Service Id to show in the internal system',
+`yplus_subject` varchar(255)  DEFAULT NULL  COMMENT 'y plus item subject',
+`yplus_brief` varchar(255)  DEFAULT NULL  COMMENT 'y plus item 简介',
+`status` int(2) DEFAULT 0  COMMENT 'active 0, deleted 1' ,
+`creation_date` datetime  DEFAULT NULL COMMENT 'creation datetime',
+`update_date` datetime  DEFAULT NULL COMMENT 'update datetime',
+PRIMARY KEY (`id`),
+KEY (`service_id`)
+) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
+
 --Orders
 CREATE TABLE IF NOT EXISTS `clctravel`.`yz_orders` (
 `id` bigint(12) NOT NULL AUTO_INCREMENT COMMENT '主键',

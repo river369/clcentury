@@ -28,6 +28,9 @@ class ServicesBo
     public function __construct() {
     }
 
+    //=======================================================//
+    //  Services                                             //
+    //=======================================================//
     /**
      * Prepare for service info for service create or update
      */
@@ -99,7 +102,6 @@ class ServicesBo
         self::getServicePictures($sellerid, $service_id);
         self::getAllCities();
     }
-
 
     /**
      * Prepare for service info for service read only when discover
@@ -497,27 +499,6 @@ class ServicesBo
 //        }
     }
 
-    public function getQueryHistory() {
-        if (isset($_SESSION['signedUser'])){
-            unset($_SESSION['queryHistories']);
-            $userID = $_SESSION['signedUser'];
-            $queryHistoryDao = new QueryHistoryDao();
-            $queryHistories = $queryHistoryDao->getQueryHistoryByUserId($userID);
-            $_SESSION['queryHistories'] = $queryHistories;
-        }
-    }
-    public function deleteKeyWordById() {
-        if (isset($_SESSION['signedUser'])){
-            $query_id = $_GET['query_id'];
-            $queryHistory = array();
-            $queryHistory['status'] = 1;
-            $queryHistory['user_id'] = $_SESSION['signedUser'];
-            $queryHistoryDao = new QueryHistoryDao();
-            $queryHistoryDao -> update($queryHistory, $query_id);
-            self::getQueryHistory();
-        }
-    }
-
     public function getServicesByKey() {
         if (isset($_SESSION['signedUser'])) {
             $servicearea = 地球;
@@ -574,6 +555,162 @@ class ServicesBo
         }
     }
 
+    public function fixDataLength($servicesData){
+        foreach($servicesData as $key => $serviceData)
+        {
+            if (mb_strlen($serviceData['service_name'])>30){
+                $servicesData[$key]['service_name'] = mb_substr($serviceData['service_name'],0, 10,"utf-8")."...";
+            }
+            if (mb_strlen($serviceData['service_brief'])>117){
+                $servicesData[$key]['service_brief'] = mb_substr($serviceData['service_brief'],0, 39,"utf-8")."...";
+            }
+            if (mb_strlen($serviceData['seller_name'])>30){
+                $servicesData[$key]['seller_name'] = mb_substr($serviceData['seller_name'],0, 10,"utf-8")."...";
+            }
+        }
+        return $servicesData;
+    }
+    //=======================================================//
+    //  Service Y Plus page                                  //
+    //=======================================================//
+    public function getYPlusList() {
+        $sellerid = HttpHelper::getVale('sellerid');
+        $userID = $_SESSION['signedUser'];
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",userId=".$userID.",sellerId=".$sellerid);
+        if ($userID == $sellerid)  {
+            $service_id = HttpHelper::getVale('service_id');
+            Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",service_id=".$service_id);
+            $serviceYPlusDao = new ServiceYPlusDao();
+            $serviceYPlusItems = $serviceYPlusDao->getServiceYPlusItemsByUserStatus($service_id, 0);
+            $_SESSION['serviceYPlusItems'] = $serviceYPlusItems;
+            $_SESSION['sellerId'] = $sellerid;
+            $_SESSION['service_id'] = $service_id;
+        }
+    }
+    public function editYPlusItem() {
+        $sellerid = HttpHelper::getVale('sellerid');
+        $userID = $_SESSION['signedUser'];
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",userId=".$userID.",sellerId=".$sellerid);
+        if ($userID == $sellerid)  {
+            $service_id = HttpHelper::getVale('service_id');
+            $service_yplus_item_id = HttpHelper::getVale('service_yplus_item_id');
+            Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",service_id=".$service_id.",service_yplus_item_id=".$service_yplus_item_id);
+            if (is_null($service_yplus_item_id) || strlen($service_yplus_item_id) == 0 ){
+                self:: createServiceYPlusItem($service_id);
+            } else {
+                self::getServiceYPlusItemInfo($service_yplus_item_id);
+            }
+            WeixinHelper::prepareWeixinPicsParameters("/weiphp/Addons/OverSea/View/mobile/service/service_yplus_item.php");
+            self::getServiceYPlusPictures($sellerid, $service_id, $service_yplus_item_id);
+            $_SESSION['sellerId'] = $sellerid;
+            $_SESSION['service_id'] = $service_id;
+        }
+    }
+    /**
+     * create new service
+     */
+    private function createServiceYPlusItem($service_id){
+        unset($_SESSION['serviceYPlusItemData']);
+        $serviceYPlusItem = array();
+        $serviceYPlusItem['service_id'] = $service_id;
+        $serviceYPlusItem['status'] = 0;
+        date_default_timezone_set('PRC');
+        $serviceYPlusItem['creation_date'] = date('y-m-d H:i:s',time());
+
+        $serviceYPlusDao = new ServiceYPlusDao();
+        $serviceYPlusItemId = $serviceYPlusDao ->insert($serviceYPlusItem);
+        $serviceYPlusItem['id'] = $serviceYPlusItemId;
+        $_SESSION['serviceYPlusItemData']= $serviceYPlusItem;
+    }
+
+    /*
+    * get pictures info by seller id
+    */
+    private function getServiceYPlusPictures($sellerid, $service_id, $service_yplus_item_id) {
+        unset($_SESSION['objMain'],$_SESSION['objArray']);
+
+        // list data
+        $object = "yzphoto/yplus/".$sellerid."/".$service_id."/".$service_yplus_item_id;
+        //echo $object;
+        $objectList = OSSHelper::listObjects($object);
+        $objArray = array();
+        if (!empty($objectList)) {
+            foreach ($objectList as $objectInfo) {
+                $objArray[] = $objectInfo->getKey();
+            }
+            $retObjArray =  json_encode(array('status'=> 0, 'msg'=> 'done', 'objLists' => $objArray));
+            Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",ret=".$retObjArray);
+            $_SESSION['objArray'] = $objArray;
+        }
+    }
+
+    /**
+     * Get a service yplus item by service id
+     */
+    private function getServiceYPlusItemInfo($service_yplus_item_id) {
+        unset($_SESSION['serviceYPlusItemData']);
+        if (!is_null($service_yplus_item_id) && strlen($service_yplus_item_id) >0 ){
+            $serviceYPlusDao = new ServiceYPlusDao();
+            $serviceYPlusItemData = $serviceYPlusDao ->getById($service_yplus_item_id);
+            $_SESSION['serviceYPlusItemData']= $serviceYPlusItemData;
+            return $serviceYPlusItemData;
+        }
+    }
+
+    /**
+     * User update service yplus item info
+     */
+    public function publishServiceYPlusItem(){
+        $sellerid = isset($_POST ['sellerid']) ? $_POST ['sellerid'] : '';
+        $userID = $_SESSION['signedUser'];
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",userId=".$userID.",sellerId=".$sellerid);
+        if ($userID == $sellerid) {
+            $serviceYPlusItem = array();
+            $serviceYPlusItem['yplus_brief'] = isset($_POST ['yplus_brief']) ? $_POST ['yplus_brief'] : '';
+            $serviceYPlusItem['yplus_subject'] = isset($_POST ['yplus_subject']) ? $_POST ['yplus_subject'] : '';
+            $service_yplus_item_id = isset($_POST ['service_yplus_item_id']) ? $_POST ['service_yplus_item_id'] : '';
+            $service_id = isset($_POST ['service_id']) ? $_POST ['service_id'] : '';
+            Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",service_id=".$service_id.",service_yplus_item_id=".$service_yplus_item_id);
+            try {
+                $serviceYPlusDao = new ServiceYPlusDao();
+                $serviceYPlusDao->update($serviceYPlusItem, $service_yplus_item_id);
+                header('Location:../Controller/AuthUserDispatcher.php?c=getYPlusList&sellerid='.$sellerid.'&service_id='.$service_id);
+                exit;
+            } catch (\Exception $e) {
+                $_SESSION['status'] = 'f';
+                $_SESSION['message'] = '保存易知服务YPlus条目!';
+                $_SESSION['goto'] = "../../../Controller/AuthUserDispatcher.php?c=mine";
+            }
+        }
+    }
+
+    //=======================================================//
+    //  Query history                                        //
+    //=======================================================//
+    public function getQueryHistory() {
+        if (isset($_SESSION['signedUser'])){
+            unset($_SESSION['queryHistories']);
+            $userID = $_SESSION['signedUser'];
+            $queryHistoryDao = new QueryHistoryDao();
+            $queryHistories = $queryHistoryDao->getQueryHistoryByUserId($userID);
+            $_SESSION['queryHistories'] = $queryHistories;
+        }
+    }
+    public function deleteKeyWordById() {
+        if (isset($_SESSION['signedUser'])){
+            $query_id = $_GET['query_id'];
+            $queryHistory = array();
+            $queryHistory['status'] = 1;
+            $queryHistory['user_id'] = $_SESSION['signedUser'];
+            $queryHistoryDao = new QueryHistoryDao();
+            $queryHistoryDao -> update($queryHistory, $query_id);
+            self::getQueryHistory();
+        }
+    }
+
+    //=======================================================//
+    //  Query location                                       //
+    //=======================================================//
     public function getAllCitiesWithPinyin(){
         $citiesDao = new CitiesDao();
         $allCities = $citiesDao->getAllCities();
@@ -635,23 +772,9 @@ class ServicesBo
         exit;
     }
 
-    public function fixDataLength($servicesData){
-        foreach($servicesData as $key => $serviceData)
-        {
-            if (mb_strlen($serviceData['service_name'])>30){
-                $servicesData[$key]['service_name'] = mb_substr($serviceData['service_name'],0, 10,"utf-8")."...";
-            }
-            if (mb_strlen($serviceData['service_brief'])>117){
-                $servicesData[$key]['service_brief'] = mb_substr($serviceData['service_brief'],0, 39,"utf-8")."...";
-            }
-            if (mb_strlen($serviceData['seller_name'])>30){
-                $servicesData[$key]['seller_name'] = mb_substr($serviceData['seller_name'],0, 10,"utf-8")."...";
-            }
-        }
-        return $servicesData;
-    }
-
-    //=============Advertise=================//
+    //=======================================================//
+    //  Advertise                                            //
+    //=======================================================//
     public function getAdvertiseList(){
         $adDao = new AdvertiseDao();
         $adsData = $adDao->getAllAdvertisesByStatus(0);
