@@ -623,26 +623,6 @@ class ServicesBo
         $_SESSION['serviceYPlusItemData']= $serviceYPlusItem;
     }
 
-    /*
-    * get pictures info by seller id
-    */
-    private function getServiceYPlusPictures($sellerid, $service_id, $service_yplus_item_id) {
-        unset($_SESSION['objMain'],$_SESSION['objArray']);
-
-        // list data
-        $object = "yzphoto/yplus/".$sellerid."/".$service_id."/".$service_yplus_item_id;
-        //echo $object;
-        $objectList = OSSHelper::listObjects($object);
-        $objArray = array();
-        if (!empty($objectList)) {
-            foreach ($objectList as $objectInfo) {
-                $objArray[] = $objectInfo->getKey();
-            }
-            $retObjArray =  json_encode(array('status'=> 0, 'msg'=> 'done', 'objLists' => $objArray));
-            Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",ret=".$retObjArray);
-            $_SESSION['objArray'] = $objArray;
-        }
-    }
 
     /**
      * Get a service yplus item by service id
@@ -681,6 +661,77 @@ class ServicesBo
                 $_SESSION['message'] = '保存易知服务YPlus条目!';
                 $_SESSION['goto'] = "../../../Controller/AuthUserDispatcher.php?c=mine";
             }
+        }
+    }
+
+    /**
+     * YZ yplus 图片处理
+     */
+    public function publishServiceYPlusItemPics() {
+        $sellerid = isset($_POST ['sellerid']) ? $_POST ['sellerid'] : '';
+        $userID = $_SESSION['signedUser'];
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",userId=".$userID.",sellerId=".$sellerid);
+        if ($userID == $sellerid) {
+            $service_yplus_item_id = isset($_POST ['service_yplus_item_id']) ? $_POST ['service_yplus_item_id'] : '';
+            $service_id = isset($_POST ['service_id']) ? $_POST ['service_id'] : '';
+            Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",service_id=".$service_id.",service_yplus_item_id=".$service_yplus_item_id);
+            // upload image if need to
+            if (isset($_GET ['serverids'])){
+                $serverids = $_GET ['serverids'];
+                //echo $serverids;
+                $serveridsArray = explode(',',$serverids);
+                $i=1;
+                foreach ($serveridsArray as $serverid){
+                    $object = "yzphoto/yplus/".$userID."/".$service_id."/".$service_yplus_item_id."_".date('YmdHis')."_".$i.".jpg";
+                    self::savePictureFromWeixin($serverid,$object);
+                    $i++;
+                }
+            }
+
+            // delete image if need
+            if (isset($_GET ['objtodelete'])){
+                $obj = $_GET ['objtodelete'];
+                //echo $obj;
+                OSSHelper::deleteObject($obj);
+                //exit(1);
+            }
+
+            // list data
+            $object = "yzphoto/yplus/".$userID."/".$service_id."/";
+            //echo $object;
+            $objectList = OSSHelper::listObjects($object);
+            $objArray = array();
+            if (!empty($objectList)) {
+                foreach ($objectList as $objectInfo) {
+                    if ( substr_compare ( $objectInfo->getKey() , $service_yplus_item_id."_" , 0 , strlen ( $service_yplus_item_id."_" ) ) === 0 ){
+                        $objArray[] = $objectInfo->getKey();
+                    }
+                }
+            }
+            //$retJson =  json_encode(array('status'=> 0, 'msg'=> 'done', 'objLists' => $objArray));
+            //Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",retJson=".$retJson);
+            echo json_encode(array('status'=> 0, 'msg'=> 'done', 'objLists' => $objArray));
+            exit;
+        }
+    }
+    /*
+    * get pictures info by seller id
+    */
+    private function getServiceYPlusPictures($sellerid, $service_id, $service_yplus_item_id) {
+        unset($_SESSION['objMain'],$_SESSION['objArray']);
+
+        // list data
+        $object = "yzphoto/yplus/".$sellerid."/".$service_id."/".$service_yplus_item_id;
+        //echo $object;
+        $objectList = OSSHelper::listObjects($object);
+        $objArray = array();
+        if (!empty($objectList)) {
+            foreach ($objectList as $objectInfo) {
+                $objArray[] = $objectInfo->getKey();
+            }
+            $retObjArray =  json_encode(array('status'=> 0, 'msg'=> 'done', 'objLists' => $objArray));
+            Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",ret=".$retObjArray);
+            $_SESSION['objArray'] = $objArray;
         }
     }
 

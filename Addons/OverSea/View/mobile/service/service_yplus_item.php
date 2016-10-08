@@ -143,7 +143,7 @@ $isMine = 1;
 
     function publishServicePics(serverIds) {
         $.ajax({
-            url:'../../../Controller/AuthUserDispatcher.php?c=publishServicePics&serverids=' + serverIds,
+            url:'../../../Controller/AuthUserDispatcher.php?c=publishServiceYPlusItemPics&serverids=' + serverIds,
             type:'POST',
             data : $('#submityz').serialize(),
             dataType:'json',
@@ -177,7 +177,7 @@ $isMine = 1;
     function deletePic(serverIds) {
         var delobj = $('#delobj').val();
         $.ajax({
-            url:'../../../Controller/AuthUserDispatcher.php?c=publishServicePics&objtodelete=' + delobj,
+            url:'../../../Controller/AuthUserDispatcher.php?c=publishServiceYPlusItemPics&objtodelete=' + delobj,
             type:'POST',
             data : $('#submityz').serialize(),
             dataType:'json',
