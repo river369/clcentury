@@ -17,7 +17,7 @@ $method_routes = array(
     'getCities' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'getAllCitiesWithPinyin','v'=>'../View/mobile/query/setlocation.php','d'=>'服务信息列表'),
     'setLocation' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'setLocation','v'=>'../View/mobile/query/discover.php','d'=>'服务信息列表'),
     'getServices' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'getServices','v'=>'../View/mobile/query/discover.php','d'=>'服务信息列表'),
-    'serviceDetails' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'getServiceById','v'=>'../View/mobile/service/servicedetails.php','d'=>'卖家详细信息'),
+//    'serviceDetails' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'getServiceById','v'=>'../View/mobile/service/servicedetails.php','d'=>'卖家详细信息'),
     'getTagsByCityBusinessType' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'getTagsByCityBusinessType', 'd'=>'根据城市获得tag'),
 
     'sendRegistrationPassword' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'sendRegistrationPassword', 'd'=>'发送验证码'),

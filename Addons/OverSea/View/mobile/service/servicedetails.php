@@ -2,6 +2,9 @@
 session_start();
 require dirname(__FILE__).'/../../../init.php';
 use Addons\OverSea\Common\BusinessHelper;
+use Addons\OverSea\Model\ServicesBo;
+$serviceBo = new ServicesBo();
+$serviceBo->getServiceById();
 
 //service info
 $serviceData= $_SESSION['serviceData'];

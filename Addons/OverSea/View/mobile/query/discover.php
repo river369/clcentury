@@ -112,7 +112,7 @@ $isDiscover = 1;
                             <input type="hidden" id="ratevalue<?php echo $itemIndex; ?>" value="<?php echo $serviceData['stars'];?>"/>
                         </li>
                         <li style="margin: -5px 0px -5px 0px">
-                            <a href="../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id=<?php echo $serviceData['service_id']; ?>" rel="external">
+                            <a href="../service/servicedetails.php?service_id=<?php echo $serviceData['service_id']; ?>" rel="external">
                                 <table border="0" style="margin: -8px 0px -8px 0px">
                                     <tr>
                                         <td style="width:27%">
