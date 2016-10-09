@@ -140,7 +140,7 @@ $isDiscover = 1;
                             var newstr = '<div id="d'+itemIdx+'" style="margin: -5px 0px 0px 0px "> <ul data-role="listview" data-inset="true" data-theme="f">';
                             var servicetypeDesc = value.service_type ==1 ? '旅游' : '留学';
                             newstr = newstr + '<li data-role="list-divider"><p style="margin: -5px 0px -3px 0px;font-size:14px;" >【' + servicetypeDesc + ':' + value.service_area + '】' + value.service_name +'</p> <span class="ui-li-count"><div class="rate' + itemIdx +'"></div></span></li>';
-                            newstr = newstr + '<li style="margin: -5px 0px -5px 0px"> <a href="../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id=' + value.service_id +'" rel="external">';
+                            newstr = newstr + '<li style="margin: -5px 0px -5px 0px"> <a href="../service/servicedetails.php?service_id=' + value.service_id +'" rel="external">';
                             newstr = newstr + '<table style="margin: -8px 0px -8px 0px" border="0"><tr><td style="width:27%"><div class="headimage">';
                             newstr = newstr + '<img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/pics/' + value.seller_id + '/' +value.service_id + '/main.png" height="100%">';
                             newstr = newstr + '</div></td> <td style="width:73%">';

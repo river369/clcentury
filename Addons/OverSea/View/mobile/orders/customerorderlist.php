@@ -77,7 +77,7 @@ $isMine = 1;
                             echo  $order['service_price_type'] == 1 ? "小时":"次";?></span>
                     </li>
                     <li>
-                        <a href="../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id=<?php echo $order['service_id']; ?>" rel="external">
+                        <a href="../../mobile/service/servicedetails.php?service_id=<?php echo $order['service_id']; ?>" rel="external">
                             <table style="margin: -8px 0px -8px 0px" border="0">
                                 <tr>
                                     <td style="width:27%">

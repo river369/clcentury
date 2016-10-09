@@ -46,7 +46,7 @@ $isMine = 1;
         <ul data-role="listview" data-inset="true" data-theme="f">
             <li data-role="list-divider">服务编号: <span class="ui-li-count"><?php echo $serviceid;?></span></li>
             <li>
-                <a href="../../Controller/AuthUserDispatcher.php?c=publishService&sellerid=<?php echo $service['seller_id'];?>&service_id=<?php echo $serviceid; ?>" rel="external">
+                <a href="../mobile/service/servicedetails.php?service_id=<?php echo $serviceid;?>" rel="external">
                     <img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $service['seller_id'];?>/head.png" alt="">
                     <h2> <?php echo $service['service_area'];?>:<?php echo $serviceTypeDesc;?> </h2>
                     <p style="white-space:pre-wrap;"><?php echo $service['service_name'];?> </p>
@@ -56,9 +56,10 @@ $isMine = 1;
             </li>
             <li data-role="list-divider">创建日期: <span class="ui-li-count"><?php echo $service['creation_date'];?></span></li>
             <li>
-                <div class="ui-grid-a">
+                <div class="ui-grid-b">
                     <div class="ui-block-a"><a href="#checkDialog" data-rel="popup" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="checkPopup('<?php echo $serviceid; ?>', 0)">批准服务</a></div>
                     <div class="ui-block-b"><a href="#checkDialog" data-rel="popup" class="ui-shadow ui-btn ui-corner-all ui-mini" onclick="checkPopup('<?php echo $serviceid; ?>', 1)">拒绝服务</a></div>
+                    <div class="ui-block-c"><a href="../../Controller/AuthUserDispatcher.php?c=publishService&sellerid=<?php echo $service['seller_id'];?>&service_id=<?php echo $serviceid; ?>" class="ui-shadow ui-btn ui-corner-all ui-mini" rel="external">编辑服务</a></div>
                 </div>
             </li>
         </ul>

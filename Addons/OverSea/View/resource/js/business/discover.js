@@ -5,7 +5,7 @@ pageIdx[1]=-1;
 var serviceType = 1;
 
 function goToService(sid) {
-    window.location.href='../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id='+sid;
+    window.location.href='../../../View/mobile/service/servicedetails.php?service_id='+sid;
 }
 
 function setServiceType(type) {
@@ -64,7 +64,7 @@ function getServiceInNextPages() {
                         //var servicetypeDesc = value.service_type ==1 ? '【旅游】' : '【留学】';
                         //newstr = newstr + '<li data-role="list-divider">' + servicetypeDesc + value.service_area + '<span class="ui-li-count"><div class="rate' + itemIdx +'"></div></span></li>';
                         newstr = newstr + '<li data-role="list-divider"><p style="margin: -5px 0px -3px 0px;font-size:14px;" >【' + value.service_area + '】'+ value.service_name +'</p><span class="ui-li-count"><div class="rate' + itemIdx +'"></div></span></li>';
-                        newstr = newstr + '<li style="margin: -5px 0px -5px 0px"> <a href="../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id=' + value.service_id +'" rel="external">';
+                        newstr = newstr + '<li style="margin: -5px 0px -5px 0px"> <a href="../../../mobile/service/servicedetails.php?service_id=' + value.service_id +'" rel="external">';
                         newstr = newstr + '<table border="0" style="margin: -8px 0px -8px 0px"><tr><td style="width:27%"><div class="headimage">';
                         newstr = newstr + '<img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/pics/' + value.seller_id + '/' + value.service_id + '/main.png" height="100%">';
                         newstr = newstr + '</div></td> <td style="73%">';

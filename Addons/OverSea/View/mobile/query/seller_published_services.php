@@ -56,7 +56,7 @@ $servicesData= $_SESSION['servicesData'];
                     echo $serviceData['service_area'].":".$servicetypeDesc?> <span class="ui-li-count"><div class="rate<?php echo $itemIndex; ?>"></span>
                     <input type="hidden" id="ratevalue<?php echo $itemIndex; ?>" value="<?php echo $serviceData['stars'];?>">
                 <li>
-                    <a href="../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id=<?php echo $serviceData['id']; ?>" rel="external">
+                    <a href="../../mobile/service/servicedetails.php?service_id=<?php echo $serviceData['id']; ?>" rel="external">
                         <img class="weui_media_appmsg_thumb" src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/heads/<?php echo $serviceData['seller_id'];?>/head.png" alt="">
                         <h2><?php echo $serviceData['seller_name']?></h2>
                         <p style="white-space:pre-wrap;"><?php echo $serviceData['service_name']?></p>

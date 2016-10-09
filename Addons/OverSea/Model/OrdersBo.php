@@ -60,7 +60,7 @@ class OrdersBo
         if ($serviceData['service_price'] != $orderData['service_price'] ){
             $_SESSION['status'] = 'f';
             $_SESSION['message'] = '对不起,卖家已经改变了订单价格。订单已经不能生成,请重新生成订单。';
-            $_SESSION['goto'] = "../../../Controller/FreelookDispatcher.php?c=serviceDetails&service_id=".$orderData['service_id'];
+            $_SESSION['goto'] = "../../../View/mobile/service/servicedetails.php?ervice_id=".$orderData['service_id'];
             return;
         }
         
