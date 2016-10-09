@@ -133,7 +133,7 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`yz_service_yplus` (
 `id` bigint(12) NOT NULL AUTO_INCREMENT COMMENT '主键',
 `service_id` varchar(36) DEFAULT NULL COMMENT 'Service Id to show in the internal system',
 `yplus_subject` varchar(255)  DEFAULT NULL  COMMENT 'y plus item subject',
-`yplus_brief` varchar(255)  DEFAULT NULL  COMMENT 'y plus item 简介',
+`yplus_brief` text DEFAULT NULL  COMMENT 'y plus item 简介',
 `status` int(2) DEFAULT 0  COMMENT 'active 0, deleted 1' ,
 `creation_date` datetime  DEFAULT NULL COMMENT 'creation datetime',
 `update_date` datetime  DEFAULT NULL COMMENT 'update datetime',

@@ -115,7 +115,7 @@ class ServicesBo
         self::getCurrentSellerInfo($seller_id);
         self::getCommentForService($service_id);
         self::getServicePictures($seller_id, $service_id);
-
+        self::getYPlusForService($seller_id, $service_id);
     }
 
     /**
@@ -596,7 +596,7 @@ class ServicesBo
             $service_yplus_item_id = HttpHelper::getVale('service_yplus_item_id');
             Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",service_id=".$service_id.",service_yplus_item_id=".$service_yplus_item_id);
             if (is_null($service_yplus_item_id) || strlen($service_yplus_item_id) == 0 ){
-                self:: createServiceYPlusItem($service_id);
+                $service_yplus_item_id = self::createServiceYPlusItem($service_id);
             } else {
                 self::getServiceYPlusItemInfo($service_yplus_item_id);
             }
@@ -606,6 +606,22 @@ class ServicesBo
             $_SESSION['service_id'] = $service_id;
         }
     }
+    public function deleteYPlusItem() {
+        $sellerid = HttpHelper::getVale('sellerid');
+        $userID = $_SESSION['signedUser'];
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",userId=".$userID.",sellerId=".$sellerid);
+        if ($userID == $sellerid) {
+            $service_id = HttpHelper::getVale('service_id');
+            $service_yplus_item_id = HttpHelper::getVale('service_yplus_item_id');
+            Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",service_id=" . $service_id . ",service_yplus_item_id=" . $service_yplus_item_id);
+            $serviceYPlusItem = array();
+            $serviceYPlusItem['status'] = 1;
+            $serviceYPlusDao = new ServiceYPlusDao();
+            $serviceYPlusDao -> update($serviceYPlusItem, $service_yplus_item_id);
+            self::getYPlusList();
+        }
+    }
+
     /**
      * create new service
      */
@@ -621,9 +637,9 @@ class ServicesBo
         $serviceYPlusItemId = $serviceYPlusDao ->insert($serviceYPlusItem);
         $serviceYPlusItem['id'] = $serviceYPlusItemId;
         $_SESSION['serviceYPlusItemData']= $serviceYPlusItem;
+        return $serviceYPlusItemId;
     }
-
-
+    
     /**
      * Get a service yplus item by service id
      */
@@ -697,15 +713,15 @@ class ServicesBo
             }
 
             // list data
-            $object = "yzphoto/yplus/".$userID."/".$service_id."/";
+            $object = "yzphoto/yplus/".$userID."/".$service_id."/".$service_yplus_item_id;
             //echo $object;
             $objectList = OSSHelper::listObjects($object);
             $objArray = array();
             if (!empty($objectList)) {
                 foreach ($objectList as $objectInfo) {
-                    if ( substr_compare ( $objectInfo->getKey() , $service_yplus_item_id."_" , 0 , strlen ( $service_yplus_item_id."_" ) ) === 0 ){
+                    //if ( substr_compare ( $objectInfo->getKey() , $service_yplus_item_id."_" , 0 , strlen ( $service_yplus_item_id."_" ) ) === 0 ){
                         $objArray[] = $objectInfo->getKey();
-                    }
+                    //}
                 }
             }
             //$retJson =  json_encode(array('status'=> 0, 'msg'=> 'done', 'objLists' => $objArray));
@@ -718,22 +734,45 @@ class ServicesBo
     * get pictures info by seller id
     */
     private function getServiceYPlusPictures($sellerid, $service_id, $service_yplus_item_id) {
-        unset($_SESSION['objMain'],$_SESSION['objArray']);
-
+        unset($_SESSION['service_yplus_obj_array']);
         // list data
         $object = "yzphoto/yplus/".$sellerid."/".$service_id."/".$service_yplus_item_id;
         //echo $object;
         $objectList = OSSHelper::listObjects($object);
-        $objArray = array();
+        $service_yplus_obj_array = array();
         if (!empty($objectList)) {
             foreach ($objectList as $objectInfo) {
-                $objArray[] = $objectInfo->getKey();
+                $service_yplus_obj_array[] = $objectInfo->getKey();
             }
-            $retObjArray =  json_encode(array('status'=> 0, 'msg'=> 'done', 'objLists' => $objArray));
-            Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",ret=".$retObjArray);
-            $_SESSION['objArray'] = $objArray;
+            //$retObjArray =  json_encode(array('status'=> 0, 'msg'=> 'done', 'objLists' => $service_yplus_obj_array));
+            Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",ret=".json_encode($service_yplus_obj_array));
+            $_SESSION['service_yplus_obj_array'] = $service_yplus_obj_array;
         }
+        return $service_yplus_obj_array;
     }
+
+    /**
+     * Get comments for a service
+     */
+    public function getYPlusForService($seller_id, $service_id) {
+        unset($_SESSION['serviceYPlusItems']);
+        $serviceYPlusDao = new ServiceYPlusDao();
+        $serviceYPlusItems = $serviceYPlusDao->getServiceYPlusItemsByUserStatus($service_id, 0);
+        $service_yplus_obj_array = self::getServiceYPlusPictures($seller_id, $service_id, '');
+        foreach($serviceYPlusItems as $key => $yPlusItem) {
+            $objArray = array();
+            if (count($service_yplus_obj_array)>0) {
+                foreach ($service_yplus_obj_array as $objectInfo) {
+                    if (strstr($objectInfo, $yPlusItem['id']."_")){
+                        $objArray[] = $objectInfo;
+                    }
+                }
+            }
+            $serviceYPlusItems[$key]['objArray'] = $objArray;
+        }
+        $_SESSION['serviceYPlusItems'] = $serviceYPlusItems;
+    }
+
 
     //=======================================================//
     //  Query history                                        //

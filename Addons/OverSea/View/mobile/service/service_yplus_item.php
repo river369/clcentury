@@ -10,8 +10,8 @@ $nonceStr=$_SESSION['$nonceStr'];
 $signature=$_SESSION['$signature'];
 
 $objArray;
-if (isset($_SESSION['objArray'])){
-    $objArray = $_SESSION['objArray'] ;
+if (isset($_SESSION['service_yplus_obj_array'])){
+    $objArray = $_SESSION['service_yplus_obj_array'] ;
 }
 $maxcount = 5;
 $remainingcount = 5 - count($objArray);
@@ -46,10 +46,10 @@ $isMine = 1;
 <body>
 <div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
     <div data-role="header" data-position="fixed" data-theme="c">
-        <h1>上传更多服务图文</h1>
+        <h1>攻略详情</h1>
     </div>
     <div role="main" class="ui-content jqm-content jqm-fullwidth">
-        <label style="font-size:12px;"> 请点击图标上传服更多图片, 最多上传5张.<label>
+        <label style="font-size:12px;"> 请点击图标上传更多攻略图片, 最多上传5张.<label>
         <br>
         <input type="hidden" name="remainingCount" id="remainingCount" value="<?php echo $remainingcount; ?> ">
         <div class="errmsgstring" style="color:red"></div>
@@ -80,7 +80,7 @@ $isMine = 1;
     <div data-role="content">
         <form id="submityz" data-ajax="false" method="post" action="../../../Controller/AuthUserDispatcher.php?c=publishServiceYPlusItem">
             <div style="margin: 12px 0px 0px 0px" >
-                <label style="font-size:12px;" for="yplus_subject">图文主题</label>
+                <label style="font-size:12px;" for="yplus_subject">攻略主题</label>
                 <input type="text" name="yplus_subject" id="yplus_subject" value="<?php echo isset($serviceYPlusItem['yplus_subject']) ? $serviceYPlusItem['yplus_subject']: ''; ?>" >
             </div>
             <div style="margin: 12px 0px 0px 0px" >
@@ -90,7 +90,16 @@ $isMine = 1;
             <input type="hidden" name="sellerid" id="sellerid" value="<?php echo $sellerid; ?>">
             <input type="hidden" name="service_yplus_item_id" id="service_yplus_item_id" value="<?php echo $serviceYPlusItem['id']; ?>">
             <input type="hidden" name="service_id" id="service_id" value="<?php echo $service_id; ?>">
-            <input type="submit" name="yzsubmit" id="yzsubmit" value="保存" data-theme="c">
+
+            <div class="ui-grid-a" style="margin: 15px 0px 0px 0px;font-size:10px;">
+                <div class="ui-block-a">
+                    <input type="submit" name="yzsubmit" id="yzsubmit" value="保存" data-theme="c">
+                </div>
+                <div class="ui-block-b">
+                    <a href="../../../Controller/AuthUserDispatcher.php?c=getYPlusList&sellerid=<?php echo $sellerid; ?>&service_id=<?php echo $service_id; ?>" rel="external" data-theme="c" data-role="button">返回列表</a>
+                </div>
+            </div>
+            
         </form>
     </div>
 

@@ -17,9 +17,8 @@ if ($servicetype==1){
 
 //service picture info
 $objArray;
-$objkey='objArray';
-if (isset($_SESSION[$objkey])){
-    $objArray = $_SESSION[$objkey] ;
+if (isset($_SESSION['objArray'])){
+    $objArray = $_SESSION['objArray'] ;
 }
 $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
 
@@ -28,6 +27,7 @@ $sellerData = $_SESSION['sellerData'];
 $realnameStatusString = BusinessHelper::translateRealNameStatus($sellerData['status']);
 
 $commentsData = $_SESSION['commentsData'];
+$serviceYPlusItems = $_SESSION['serviceYPlusItems'];
 $isDiscover = 1;
 ?>
 <!DOCTYPE html>
@@ -194,8 +194,26 @@ $isDiscover = 1;
                 } ?>
             </div>
             <?php }?>
-        </div>
 
+            <?php if (isset($serviceYPlusItems) && count($serviceYPlusItems) > 0) { ?>
+                <h5  style="margin: 0px 0px 3px 0px">攻略</h5>
+            <?php } ?>
+            <?php
+                foreach ($serviceYPlusItems as $serviceYPlusItem){ ?>
+                <div style="margin: 15px 0px 0px 0px">
+                    <B style="font-size:14px"><?php echo isset($serviceYPlusItem['yplus_subject'])?$serviceYPlusItem['yplus_subject']:""?></B>
+                    <p><?php echo isset($serviceYPlusItem['yplus_brief'])?$serviceYPlusItem['yplus_brief']:""?></p>
+                    <?php
+                    $service_yplus_obj_array = $serviceYPlusItem['objArray'];
+                    if (!empty($service_yplus_obj_array)) {
+                        foreach ($service_yplus_obj_array as $objectInfo) {
+                            echo "<img width='100%' src='".$imageurl.$objectInfo."'/>";
+                        }
+                    }
+                    ?>
+                </div>
+            <?php } ?>
+        </div>
 
         <div data-role="content" id="sellerInfo">
             <h5 style="margin: 0px 0px -5px 0px">个性签名</h5>

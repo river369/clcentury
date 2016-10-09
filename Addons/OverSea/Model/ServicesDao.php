@@ -154,13 +154,14 @@ class ServiceYPlusDao extends BaseDao
 
     public function getServiceYPlusItemsByUserStatus($service_id, $status)
     {
-        $sql = 'SELECT * FROM '  . parent::getTableName(). ' WHERE service_id =:service_id and status = :status order by creation_date desc';
+        $sql = 'SELECT * FROM '  . parent::getTableName(). ' WHERE service_id =:service_id and status = :status order by creation_date';
         $parameter = array(':service_id' => $service_id, ':status' => $status);
         Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",sql=".$sql);
         Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",parameters=".json_encode($parameter));
         $serviceYPlusItems = MySqlHelper::fetchAll($sql, $parameter);
         return $serviceYPlusItems;
     }
+    
 }
 
 ?>

@@ -146,10 +146,10 @@ $isMine = 1;
                                     <a href="../../../Controller/AuthUserDispatcher.php?c=publishService&sellerid=<?php echo $sellerid; ?>&service_id=<?php echo $serviceid; ?>" rel="external" class="ui-mini">编辑服务</a>
                                 </td>
                                 <td width="20%">
-                                    <a href="../../../Controller/AuthUserDispatcher.php?c=getYPlusList&sellerid=<?php echo $sellerid; ?>&service_id=<?php echo $serviceid; ?>" rel="external" class="ui-mini">添加图文</a>
+                                    <a href="#deleteDialog" data-rel="popup" onclick="deletePopup('<?php echo $serviceid; ?>')" class="ui-mini">删除服务</a>
                                 </td>
                                 <td width="20%">
-                                    <a href="#deleteDialog" data-rel="popup" onclick="deletePopup('<?php echo $serviceid; ?>')" class="ui-mini">删除服务</a>
+                                    <a href="../../../Controller/AuthUserDispatcher.php?c=getYPlusList&sellerid=<?php echo $sellerid; ?>&service_id=<?php echo $serviceid; ?>" rel="external" class="ui-mini">编辑攻略</a>
                                 </td>
                             </tr>
                         </table>

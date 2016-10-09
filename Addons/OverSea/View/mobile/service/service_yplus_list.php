@@ -33,27 +33,31 @@ $isMine = 1;
 <body>
 <div data-url="panel-fixed-page1" data-role="page" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
     <div data-role="header" data-position="fixed" data-theme="c">
-        <h1>更多图文</h1>
+        <h1>更多图文攻略</h1>
     </div>
 
     <div data-role="content">
-        <h5>已添加图文</h5>
+        <h5 style="font-size:12px;">已添加攻略</h5>
         <?php if (count($serviceYPlusItems) >0) {?>
 
         <ul data-role="listview" data-split-icon="delete"  data-inset="true">
         <?php foreach($serviceYPlusItems as $key => $yPlusItem) {?>
             <li data-theme="e">
-                <a href="../../../Controller/AuthUserDispatcher.php?c=editYPlusItem&sellerid=<?php echo $sellerid; ?>&service_id=<?php echo $service_id;?>&service_yplus_item_id=<?php echo $yPlusItem['id']; ?>" rel="external"><p style="margin: 0px 0px 0px 0px"><?php echo isset($yPlusItem['yplus_subject'])? $yPlusItem['yplus_subject']:"未填写图文主题"; ?></p></a>
-                <a href="../../../Controller/AuthUserDispatcher.php?c=deleteKeyWordById&query_id=<?php echo $queryHistory['id'] ?>');">干掉</a>
+                <a href="../../../Controller/AuthUserDispatcher.php?c=editYPlusItem&sellerid=<?php echo $sellerid; ?>&service_id=<?php echo $service_id;?>&service_yplus_item_id=<?php echo $yPlusItem['id']; ?>" rel="external"><p style="margin: 0px 0px 0px 0px"><?php echo isset($yPlusItem['yplus_subject'])? $yPlusItem['yplus_subject']:"未填写攻略主题"; ?></p></a>
+                <a href="../../../Controller/AuthUserDispatcher.php?c=deleteYPlusItem&sellerid=<?php echo $sellerid; ?>&service_id=<?php echo $service_id;?>&service_yplus_item_id=<?php echo $yPlusItem['id']; ?>">删除</a>
             </li>
         <?php } ?>
         </ul>
         <?php } ?>
 
-        <div style="margin: 15px 0px 0px 0px" >
-            <a href="../../../Controller/AuthUserDispatcher.php?c=editYPlusItem&sellerid=<?php echo $sellerid;?>&service_id=<?php echo $service_id; ?>" rel="external" data-theme="d"  data-role="button">+ 添加新图文</a>
+        <div class="ui-grid-a" style="margin: 15px 0px 0px 0px;font-size:10px;">
+            <div class="ui-block-a">
+                <a href="../../../Controller/AuthUserDispatcher.php?c=editYPlusItem&sellerid=<?php echo $sellerid;?>&service_id=<?php echo $service_id; ?>" rel="external" data-theme="c"  data-role="button">+ 添加新攻略</a>
+            </div>
+            <div class="ui-block-b">
+                <a href="../../../Controller/AuthUserDispatcher.php?c=myServices&sellerid=<?php echo $sellerid;?>&status=20" rel="external" data-theme="c" data-role="button">返回服务列表</a>
+            </div>
         </div>
-
     </div>
 
 
