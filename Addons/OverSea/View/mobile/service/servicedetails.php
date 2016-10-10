@@ -97,12 +97,6 @@ $isDiscover = 1;
             -webkit-align-items: center;
             align-items: center;
         }
-        div.rounded-head-image {
-            height: 85px;
-            width: 85px;
-            border-radius: 50%;
-            overflow: hidden;
-        }
         h5{ color:#01A4B5}
         p{ font-size:14px; white-space:pre-wrap; word-break:break-all}
         label{ color:#01A4B5; font-size:14px;}
@@ -114,49 +108,38 @@ $isDiscover = 1;
     <div data-role="header" data-position="fixed" data-theme="c">
         <h1>详细服务信息</h1>
     </div>
-
-    <div>
-        <table border="0" bgcolor="#f6f6f6">
-            <tr>
-                <td style="width:10%"></td>
-                <td style="width:30%">
-                    <div class="rounded-head-image" style="margin: 0px -20px 0px 0px">
-                        <img src="http://clcentury.oss-cn-beijing.aliyuncs.com/yzphoto/pics/<?php echo $seller_id;?>/<?php echo $service_id;?>/main.png" height="100%" alt="">
-                    </div>
-                </td>
-                <td style="width:60%">
-                    <pre style="white-space:pre-wrap;">服务:<?php echo $serviceData['service_name']; ?></pre>
-                    <pre style="white-space:pre-wrap;">卖家:<?php echo $serviceData['seller_name'];?></pre>
-                </td>
-
-            </tr>
-        </table>
+    <?php if (sizeof($objArray) > 0) { ?>
+    <div role="main" class="ui-content">
+        <div style="margin: -16px -16px 0px -16px">
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <?php foreach ($objArray as $obj) {?>
+                        <div class="swiper-slide"><img src="<?php echo $imageurl.$obj; ?>"/></div>
+                    <?php } ?>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
     </div>
+    <?php } ?>
 
     <div role="main" class="ui-content">
         <div data-role="navbar">
             <ul>
                 <li><a href="#" onclick="showServices()" class="ui-btn-active">服务信息</a></li>
+                <?php if (isset($serviceYPlusItems) && count($serviceYPlusItems) > 0) { ?>
+                    <li><a href="#" onclick="showYPlus()" >服务攻略</a></li>
+                <?php } ?>
+                <?php if (isset($commentsData) && count($commentsData) >0) { ?>
+                    <li><a href="#" onclick="showComments()" >服务评论</a></li>
+                <?php } ?>
                 <li><a href="#" onclick="showSellers()" >卖家信息</a></li>
-                <li><a href="#" onclick="showComments()" >服务评论</a></li>
             </ul>
         </div><!-- /navbar -->
 
         <div data-role="content" id="serviceInfo">
-            <?php if (sizeof($objArray) > 0) { ?>
-            <div style="margin: -10px -16px 0px -16px">
-                <div class="swiper-container">
-                    <div class="swiper-wrapper">
-                        <?php foreach ($objArray as $obj) {?>
-                            <div class="swiper-slide"><img src="<?php echo $imageurl.$obj; ?>"/></div>
-                        <?php } ?>
-                    </div>
-                    <div class="swiper-pagination"></div>
-                </div>
-            </div>
-            <?php } else { ?>
-                <p>未上传图片</p>
-            <?php } ?>
+            <h5 style="margin: 10px 0px -5px 0px">服务名称</h5>
+            <p><?php echo $serviceData['service_name']; ?></p>
 
             <h5 style="margin: 10px 0px -5px 0px">服务内容简介</h5>
             <p><?php echo $serviceData['service_brief']; ?></p>
@@ -171,7 +154,7 @@ $isDiscover = 1;
                 <li>服务地点 <span class="ui-li-count"><?php echo $serviceData['service_area']; ?></span></li>
                 <li>服务类型 <span class="ui-li-count"><?php echo $servicetypeDesc; ?></span></li>
                 <li>服务价格 <span class="ui-li-count">￥<?php echo $serviceData['service_price'];
-                        echo  $serviceData['service_price_type'] == 1 ? "/小时":"/次";
+                        echo $serviceData['service_price_type'] == 1 ? "/小时":"/次";
                         ?></span></li>
             </ul>
 
@@ -197,28 +180,27 @@ $isDiscover = 1;
                 } ?>
             </div>
             <?php }?>
+        </div>
 
-            <?php if (isset($serviceYPlusItems) && count($serviceYPlusItems) > 0) { ?>
-                <h5  style="margin: 0px 0px 3px 0px">攻略</h5>
-            <?php } ?>
+        <div data-role="content" id="yPlusInfo">
             <?php
-                foreach ($serviceYPlusItems as $serviceYPlusItem){ ?>
-                <div style="margin: 15px 0px 0px 0px">
-                    <B style="font-size:14px"><?php echo isset($serviceYPlusItem['yplus_subject'])?$serviceYPlusItem['yplus_subject']:""?></B>
-                    <p><?php echo isset($serviceYPlusItem['yplus_brief'])?$serviceYPlusItem['yplus_brief']:""?></p>
-                    <?php
-                    $service_yplus_obj_array = $serviceYPlusItem['objArray'];
-                    if (!empty($service_yplus_obj_array)) {
-                        foreach ($service_yplus_obj_array as $objectInfo) {
-                            echo "<img width='100%' src='".$imageurl.$objectInfo."'/>";
-                        }
+            foreach ($serviceYPlusItems as $serviceYPlusItem){ ?>
+                <h5  style="margin: 10px 0px -5px 0px"><?php echo isset($serviceYPlusItem['yplus_subject'])?$serviceYPlusItem['yplus_subject']:""?></h5>
+                <p><?php echo isset($serviceYPlusItem['yplus_brief'])?$serviceYPlusItem['yplus_brief']:""?></p>
+                <?php
+                $service_yplus_obj_array = $serviceYPlusItem['objArray'];
+                if (!empty($service_yplus_obj_array)) {
+                    foreach ($service_yplus_obj_array as $objectInfo) {
+                        echo "<img width='100%' src='".$imageurl.$objectInfo."'/>";
                     }
-                    ?>
-                </div>
+                }
+                ?>
             <?php } ?>
         </div>
 
         <div data-role="content" id="sellerInfo">
+            <h5 style="margin: 10px 0px -5px 0px">卖家昵称</h5>
+            <p><?php echo $serviceData['seller_name'];?></p>
             <h5 style="margin: 0px 0px -5px 0px">个性签名</h5>
             <p><?php echo $sellerData['signature']; ?></p>
             <h5 style="margin: 0px 0px -5px 0px">卖家介绍</h5>
@@ -344,23 +326,33 @@ function setRateService(star) {
 $('#serviceInfo').show();
 $('#sellerInfo').hide();
 $('#commentsInfo').hide();
+$('#yPlusInfo').hide();
 
 function showServices() {
     $('#serviceInfo').show();
     $('#sellerInfo').hide();
     $('#commentsInfo').hide();
+    $('#yPlusInfo').hide();
 }
 
 function showSellers() {
     $('#serviceInfo').hide();
     $('#sellerInfo').show();
     $('#commentsInfo').hide();
+    $('#yPlusInfo').hide();
 }
 
 function showComments() {
     $('#serviceInfo').hide();
     $('#sellerInfo').hide();
     $('#commentsInfo').show();
+    $('#yPlusInfo').hide();
+}
+function showYPlus() {
+    $('#serviceInfo').hide();
+    $('#sellerInfo').hide();
+    $('#commentsInfo').hide();
+    $('#yPlusInfo').show();
 }
 jQuery(window).load(function () {
     $('.swiper-slide img').each(function() {
