@@ -57,8 +57,18 @@ if ($userData['user_type'] == 1) { // register by phone user
                 $cookieValue = EncryptHelper::encrypt($userData['user_id']);
                 setcookie("signedUser", $cookieValue, time()+7*24*3600);
 
-                Logs::writeClcLog("Signin.php,try to call weixin to verify");
-                WeixinHelper::triggerWeixinGetToken();
+                if ($_GET['free'] != 1 && strpos($_SERVER['HTTP_USER_AGENT'], "MicroMessenger")){
+                    Logs::writeClcLog("Signin.php,try to call weixin to verify");
+                    WeixinHelper::triggerWeixinGetToken();
+                } else {
+                    if (isset($_SESSION['tempCode'])){
+                        $_SESSION['$signInErrorMsg'] = "请尽快修改密码";
+                        header('Location:../View/mobile/users/change_password.php');
+                    } else {
+                        header('Location:./AuthUserDispatcher.php');
+                    }
+                }
+
 
                 //header('Location:../View/mobile/common/message.php');
             } else {

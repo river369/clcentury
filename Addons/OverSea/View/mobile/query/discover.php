@@ -68,7 +68,7 @@ $isDiscover = 1;
 
 </head>
 <body>
-<div data-url="panel-fixed-page1" data-role="page" data-theme="a" class="jqm-demos" id="panel-fixed-page1" data-title="易知海外">
+<div data-role="page" data-theme="a" data-title="易知海外">
     <div data-role="header" data-position="fixed" data-theme="c">
         <a href="../../../Controller/FreelookDispatcher.php?c=getCities" rel="external" data-icon="home" data-shadow="false"><?php echo $servicearea; ?></a>
         <h1>发现</h1>
