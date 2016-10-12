@@ -97,10 +97,17 @@ class ServicesBo
         } else {
             self::getServiceInfo($service_id);
         }
-        
-        WeixinHelper::prepareWeixinPicsParameters("/weiphp/Addons/OverSea/View/mobile/service/publishservice.php");
+
         self::getServicePictures($sellerid, $service_id);
         self::getAllCities();
+
+        if (strpos($_SERVER['HTTP_USER_AGENT'], "MicroMessenger")){
+            WeixinHelper::prepareWeixinPicsParameters("/weiphp/Addons/OverSea/View/mobile/service/publishservice.php");
+        } else {
+            header('Location:../View/mobile/service/publish_service_web.php');
+            exit;
+        }
+
     }
 
     /**
