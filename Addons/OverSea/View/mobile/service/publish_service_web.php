@@ -132,9 +132,9 @@ $isPublishService = 1;
                 </div>
             </div>
         </div>
-        <div style="opacity: 0;">
-            <input style="display:none" onchange="alert($('#selected_file').prop('files')[0])" type="file" class="selected_file" id="selected_file" name="selected_file" accept="image/*" >
-        </div>
+    </div>
+    <div style="opacity: 0;">
+        <input style="display:none" onchange="submitPicture()" type="file" class="selected_file" id="selected_file" name="selected_file" accept="image/*" >
     </div>
 
     <div data-role="content">
@@ -331,15 +331,21 @@ $isPublishService = 1;
     // this is for select service pictures
     function selectImages(){
         $('#selected_file').click();
+
     };
 
-    function publishServicePics(serverIds) {
+    function submitPicture(){
+        //alert($('#selected_file').prop('files')[0].name);
+        publishServicePics();
+    };
+
+    function publishServicePics() {
         $.ajax({
-            url:'../../../Controller/AuthUserDispatcher.php?c=publishServicePics&serverids=' + serverIds,
+            url:'../../../Controller/AuthUserDispatcher.php?c=publishServicePicsWeb',
+            secureuri:false,
             type:'POST',
-            data : $('#submityz').serialize(),
-            dataType:'json',
-            async:false,
+            fileElementId:'selected_file',
+            cache: false,
             success:function(result) {
                 //alert(result.status);
                 if (result.status == 0){

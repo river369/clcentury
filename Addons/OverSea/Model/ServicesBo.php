@@ -304,6 +304,75 @@ class ServicesBo
         echo json_encode(array('status'=> 0, 'msg'=> 'done', 'objLists' => $objArray));
         exit;
     }
+
+    public function publishServicePicsWeb() {
+        $userID = $_SESSION['signedUser'];
+        if (!isset($_SESSION['serviceData'])){
+            $response = array(
+                'status'  => 500,
+                'msg' => 'Session过期,请刷新页面重试!',
+                'result' => ''
+            );
+            Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",response=".json_encode($response));
+            echo json_encode($response);
+            exit;
+        }
+        $serviceId = $_SESSION['serviceData']['service_id'] ;
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",userid=".$userID." serviceid=".$serviceId);
+        // upload image if need to
+
+        //array_push($_FILES, $_REQUEST);
+        $filename = 'selected_file';
+        $destination_dir ="/home/www/uploads/".$userID."_".$serviceId."_".date('YmdHis').".jpg";
+
+        foreach($_FILES as $key=>$value){
+            Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",userid=".$userID." tmp_name=".$key.$value);
+        }
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.$_FILES['selected_file']['tmp_name']);
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",====".$_FILES[0]['name']);
+        if(!is_uploaded_file($_FILES[$filename]['tmp_name'])){//验证上传文件是否存在
+            echo "请选择你想要上传的图片";
+            exit;
+        }
+
+        if(!move_uploaded_file ($_FILES[$filename]['tmp_name'], $destination_dir)) {//上传文件
+            echo "上传文件失败";
+            exit;
+        }
+
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",selected_file=".isset($_FILES['selected_file']));
+        exit;
+
+        if (isset($_GET ['serverids'])){
+            $serverids = $_GET ['serverids'];
+            //echo $serverids;
+            $serveridsArray = explode(',',$serverids);
+            $i=1;
+            foreach ($serveridsArray as $serverid){
+                $object = "yzphoto/pics/".$userID."/".$serviceId."/".date('YmdHis')."_".$i.".jpg";
+                self::savePictureFromWeixin($serverid,$object);
+                $i++;
+            }
+        }
+
+        // list data
+        $object = "yzphoto/pics/".$userID."/".$serviceId."/";
+        //echo $object;
+        $objectList = OSSHelper::listObjects($object);
+        $objArray = array();
+        if (!empty($objectList)) {
+            foreach ($objectList as $objectInfo) {
+                if (strstr($objectInfo->getKey(), "main")){
+                } else {
+                    $objArray[] = $objectInfo->getKey();
+                }
+            }
+        }
+        //$retJson =  json_encode(array('status'=> 0, 'msg'=> 'done', 'objLists' => $objArray));
+        //Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",retJson=".$retJson);
+        echo json_encode(array('status'=> 0, 'msg'=> 'done', 'objLists' => $objArray));
+        exit;
+    }
     
     // Copy file from weixin to oss
     private function savePictureFromWeixin($media_id, $object){
