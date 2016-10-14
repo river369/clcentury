@@ -101,6 +101,7 @@ $isPublishService = 1;
         <div class="container" id="crop-avatar" data-role="content" style="margin: -5px 0px -25px -20px" >
             <div class="avatar-view headimage" title="Change the avatar">
                 <img src="<?php echo $mainPicUrl ?>" id='myhead' alt="主图片" onclick="chooseImages()">
+                <div class="loading" id="loading" aria-label="Loading" role="img" tabindex="-1"></div>
             </div>
         </div>
     </div>
@@ -136,6 +137,7 @@ $isPublishService = 1;
     <form id="picUploadForm" action="" enctype="multipart/form-data" method="post">
         <div style="opacity: 0;">
             <input style="display:none" onchange="submitPicture()" type="file" class="selected_file" id="selected_file" name="selected_file" accept="image/*" >
+            <div class="loading" id="loadingPicUpload" aria-label="Loading" role="img" tabindex="-1"></div>
         </div>
     </form>
 
@@ -333,7 +335,6 @@ $isPublishService = 1;
     // this is for select service pictures
     function selectImages(){
         $('#selected_file').click();
-
     };
 
     function submitPicture(){
@@ -368,7 +369,15 @@ $isPublishService = 1;
             },
             error:function(msg){
                 $(".errmsgstring").html('Error:图片上传失败.' + msg.toSource());
-            }
+            },
+            beforeSend: function () {
+                $loading  = $('#loadingPicUpload');
+                $loading.fadeIn();
+            },
+            complete: function () {
+                $loading  = $('#loadingPicUpload');
+                $loading.fadeOut();
+            },
         })
         return false;
     }

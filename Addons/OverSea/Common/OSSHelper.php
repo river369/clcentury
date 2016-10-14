@@ -70,6 +70,7 @@ class OSSHelper
     {
         $ossClient = self::getOssClient();
         try {
+            Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",Uploading to OSS");
             $ossClient->uploadFile(self::$bucket, $object, $path, $option);
         } catch (OssException $e) {
             Logs::writeClcLog(__CLASS__.",".__FUNCTION__.":".$e->getMessage());
