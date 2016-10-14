@@ -323,37 +323,21 @@ class ServicesBo
 
         //array_push($_FILES, $_REQUEST);
         $filename = 'selected_file';
-        $destination_dir ="/home/www/uploads/".$userID."_".$serviceId."_".date('YmdHis').".jpg";
+        $imagePath ="/home/www/uploads/".$userID."_".$serviceId."_".date('YmdHis').".jpg";
 
-        foreach($_FILES as $key=>$value){
-            Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",userid=".$userID." tmp_name=".$key.$value);
-        }
-        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.$_FILES['selected_file']['tmp_name']);
-        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",====".$_FILES[0]['name']);
         if(!is_uploaded_file($_FILES[$filename]['tmp_name'])){//验证上传文件是否存在
             echo "请选择你想要上传的图片";
             exit;
         }
 
-        if(!move_uploaded_file ($_FILES[$filename]['tmp_name'], $destination_dir)) {//上传文件
+        if(!move_uploaded_file ($_FILES[$filename]['tmp_name'], $imagePath)) {//上传文件
             echo "上传文件失败";
             exit;
         }
 
-        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",selected_file=".isset($_FILES['selected_file']));
-        exit;
-
-        if (isset($_GET ['serverids'])){
-            $serverids = $_GET ['serverids'];
-            //echo $serverids;
-            $serveridsArray = explode(',',$serverids);
-            $i=1;
-            foreach ($serveridsArray as $serverid){
-                $object = "yzphoto/pics/".$userID."/".$serviceId."/".date('YmdHis')."_".$i.".jpg";
-                self::savePictureFromWeixin($serverid,$object);
-                $i++;
-            }
-        }
+        $object = "yzphoto/pics/".$userID."/".$serviceId."/".date('YmdHis').".jpg";
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",Uploading to OSS");
+        OSSHelper::uploadFile($object, $imagePath, array());
 
         // list data
         $object = "yzphoto/pics/".$userID."/".$serviceId."/";

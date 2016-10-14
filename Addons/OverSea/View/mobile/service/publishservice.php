@@ -27,7 +27,7 @@ if (isset($_SESSION['objArray'])){
     $objArray = $_SESSION['objArray'] ;
 }
 $maxcount = 5;
-$remainingcount = 5 - count($objArray);
+$remainingcount = $maxcount - count($objArray);
 $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
 
 $mainPicUrl = "../../resource/images/addpic.png";
@@ -390,7 +390,8 @@ $isPublishService = 1;
             success:function(result) {
                 //alert(result.status);
                 if (result.status == 0){
-                    var rcount = $('#remainingCount').val();
+                    //var rcount = $('#remainingCount').val();
+                    var rcount = <?=$maxcount?>;
                     var htmlString = '<ul class="weui_uploader_files">';
                     for(var i in result.objLists) {
                         htmlString = htmlString + '<li class="weui_uploader_file" onclick="changepopup(\'' + result.objLists[i] + '\')" style="background-image:url(<?php echo $imageurl; ?>' + result.objLists[i] + '); border: 3px solid #fff;border-radius: 5px;box-shadow: 0 0 5px rgba(0,0,0,.15);"></li>';

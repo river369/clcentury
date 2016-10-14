@@ -20,7 +20,7 @@ if (isset($_SESSION['objArray'])){
     $objArray = $_SESSION['objArray'] ;
 }
 $maxcount = 5;
-$remainingcount = 5 - count($objArray);
+$remainingcount = $maxcount - count($objArray);
 $imageurl='http://clcentury.oss-cn-beijing.aliyuncs.com/';
 
 $mainPicUrl = "../../resource/images/addpic.png";
@@ -133,9 +133,11 @@ $isPublishService = 1;
             </div>
         </div>
     </div>
-    <div style="opacity: 0;">
-        <input style="display:none" onchange="submitPicture()" type="file" class="selected_file" id="selected_file" name="selected_file" accept="image/*" >
-    </div>
+    <form id="picUploadForm" action="" enctype="multipart/form-data" method="post">
+        <div style="opacity: 0;">
+            <input style="display:none" onchange="submitPicture()" type="file" class="selected_file" id="selected_file" name="selected_file" accept="image/*" >
+        </div>
+    </form>
 
     <div data-role="content">
         <form id="submityz" data-ajax="false" method="post" action="../../../Controller/AuthUserDispatcher.php?c=publishServiceInfo">
@@ -335,21 +337,20 @@ $isPublishService = 1;
     };
 
     function submitPicture(){
-        //alert($('#selected_file').prop('files')[0].name);
-        publishServicePics();
-    };
-
-    function publishServicePics() {
+        $picUploadForm = $('#picUploadForm');
+        var data = new FormData($picUploadForm[0]);
         $.ajax({
             url:'../../../Controller/AuthUserDispatcher.php?c=publishServicePicsWeb',
-            secureuri:false,
-            type:'POST',
-            fileElementId:'selected_file',
-            cache: false,
+            type: 'post',
+            data: data,
+            dataType: 'json',
+            processData: false,
+            contentType: false,
             success:function(result) {
                 //alert(result.status);
                 if (result.status == 0){
-                    var rcount = $('#remainingCount').val();
+                    //var rcount = $('#remainingCount').val();
+                    var rcount = <?=$maxcount?>;
                     var htmlString = '<ul class="weui_uploader_files">';
                     for(var i in result.objLists) {
                         htmlString = htmlString + '<li class="weui_uploader_file" onclick="changepopup(\'' + result.objLists[i] + '\')" style="background-image:url(<?php echo $imageurl; ?>' + result.objLists[i] + '); border: 3px solid #fff;border-radius: 5px;box-shadow: 0 0 5px rgba(0,0,0,.15);"></li>';
