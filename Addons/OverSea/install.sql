@@ -92,6 +92,7 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`yz_services` (
 `status` int(5) DEFAULT 0  COMMENT 'service状态 0 created, ...' ,
 `description` text DEFAULT NULL  COMMENT 'service详细介绍',
 `service_area` varchar(50) DEFAULT NULL  COMMENT '服务区域',
+`service_language` varchar(50) DEFAULT NULL  COMMENT '服务语言',
 `service_type` int(10) DEFAULT 1  COMMENT '服务类型 1 旅游, 2 留学, 99999 all, -1 nothing',
 `service_price_type` int(10) DEFAULT 1  COMMENT 'service fee type 1 hourly, 2 each time',
 `service_price` decimal(10,2) DEFAULT 50  COMMENT '服务价格',
