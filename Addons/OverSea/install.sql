@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`yz_user_infos` (
 `weixin` varchar(50)  DEFAULT NULL  COMMENT '微信号',
 `email` varchar(50) DEFAULT NULL  COMMENT '邮件',
 `description` text DEFAULT NULL  COMMENT '个人详细介绍',
-`stars` int(3) DEFAULT 3  COMMENT '用户等级',
+`stars` decimal(5,1) DEFAULT 5  COMMENT '用户等级'
 `serve_count` int(5) DEFAULT 0  COMMENT '用户提供服务次数',
 `tag` varchar(255) DEFAULT "" COMMENT 'user tags',
 `status` decimal(5,1) DEFAULT 0  COMMENT 'user状态 0 created...' ,
@@ -67,7 +67,8 @@ user状态 0 created已经注册, 20 已经提交实名, 40, rejected 60 approve
 alter table yz_users add column serve_count int(5) DEFAULT 0  COMMENT '用户提供服务次数';
 
 alter table yz_user_infos drop column stars;
-alter table yz_user_infos add column `stars` decimal(5,1) DEFAULT 3  COMMENT '服务价格';
+alter table yz_user_infos add column `stars` decimal(5,1) DEFAULT 5  COMMENT '用户等级';
+
 alter table yz_user_infos add column `signature` varchar(255)  DEFAULT NULL  COMMENT '个性签名';
 alter table yz_user_infos add column `user_type` int(1)  DEFAULT 0 COMMENT 'user type, 0 common user, 1 admin';
 --Users Settings
@@ -92,11 +93,12 @@ CREATE TABLE IF NOT EXISTS `clctravel`.`yz_services` (
 `status` int(5) DEFAULT 0  COMMENT 'service状态 0 created, ...' ,
 `description` text DEFAULT NULL  COMMENT 'service详细介绍',
 `service_area` varchar(50) DEFAULT NULL  COMMENT '服务区域',
+`service_language` varchar(50) DEFAULT NULL  COMMENT '服务语言',
 `service_type` int(10) DEFAULT 1  COMMENT '服务类型 1 旅游, 2 留学, 99999 all, -1 nothing',
 `service_price_type` int(10) DEFAULT 1  COMMENT 'service fee type 1 hourly, 2 each time',
 `service_price` decimal(10,2) DEFAULT 50  COMMENT '服务价格',
 `service_price_unit` varchar(10)  DEFAULT "人民币"  COMMENT '服务价格单位',
-`stars` decimal(5,1) DEFAULT 3  COMMENT '服务评级',
+`stars` decimal(5,1) DEFAULT 5  COMMENT '服务评级',
 `serve_count` int(5) DEFAULT 0  COMMENT '服务旅行次数',
 `check_reason` varchar(255) DEFAULT NULL  COMMENT '管理员拒绝理由',
 `delete_reason` varchar(255) DEFAULT NULL  COMMENT 'seller删除原因,当有用户购买时必须输入',
@@ -123,7 +125,8 @@ alter table yz_services add column serve_count int(5) DEFAULT 0  COMMENT '用户
 alter table yz_services drop column service_price;
 alter table yz_services add column `service_price` decimal(10,2) DEFAULT 50  COMMENT '服务价格';
 alter table yz_services drop column stars;
-alter table yz_services add column `stars` decimal(5,1) DEFAULT 3  COMMENT '服务评级';
+alter table yz_services add column `stars` decimal(5,1) DEFAULT 5  COMMENT '服务评级';
+
 alter table yz_services add column `service_brief` varchar(255)  DEFAULT NULL  COMMENT 'service 简介';
 alter table yz_services add index `service_name` (`service_name`);
 alter table yz_services add index `service_brief` (`service_brief`);

@@ -73,7 +73,8 @@ $method_routes = array(
     'publishServiceYPlusItem'  => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'publishServiceYPlusItem',
         'v'=>'../View/mobile/service/publishservice.php','d'=>'保存易知服务YPlus条目'),
     'publishServiceYPlusItemPics' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'publishServiceYPlusItemPics','d'=>'发YPlus条目图片'),
-    
+    'publishServiceYPlusItemPicsWeb' => array('m'=>'Addons\OverSea\Model\ServicesBo', 'f'=>'publishServiceYPlusItemPicsWeb','d'=>'发YPlus条目图片'),
+
     'submitOrder' => array('m'=>'Addons\OverSea\Model\UsersBo', 'f'=>'getServiceInfoById', 
         'v'=>'../View/mobile/orders/submitorder.php','d'=>'订购'),//用户订购确认
     'createOrder' => array('m'=>'Addons\OverSea\Model\OrdersBo', 'f'=>'createOrder', 

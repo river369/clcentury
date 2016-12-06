@@ -234,7 +234,6 @@ class ServicesBo
         Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",result=".$crop -> getResult());
         if (is_null($crop -> getMsg())
             && !is_null($crop -> getResult()) && file_exists($crop -> getResult())) {
-            Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",Uploading to OSS");
             OSSHelper::uploadFile($object, $crop -> getResult(), array());
         }
 
@@ -319,24 +318,19 @@ class ServicesBo
         }
         $serviceId = $_SESSION['serviceData']['service_id'] ;
         Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",userid=".$userID." serviceid=".$serviceId);
-        // upload image if need to
 
-        //array_push($_FILES, $_REQUEST);
+        // upload image if need to
         $filename = 'selected_file';
         $imagePath ="/home/www/uploads/".$userID."_".$serviceId."_".date('YmdHis').".jpg";
-
         if(!is_uploaded_file($_FILES[$filename]['tmp_name'])){//验证上传文件是否存在
             echo "请选择你想要上传的图片";
             exit;
         }
-
         if(!move_uploaded_file ($_FILES[$filename]['tmp_name'], $imagePath)) {//上传文件
             echo "上传文件失败";
             exit;
         }
-
         $object = "yzphoto/pics/".$userID."/".$serviceId."/".date('YmdHis').".jpg";
-        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",Uploading to OSS");
         OSSHelper::uploadFile($object, $imagePath, array());
 
         // list data
@@ -380,6 +374,7 @@ class ServicesBo
             $serviceData = $_SESSION['serviceData'];
             $serviceData['status'] = 20;// change satus to waiting for approve
             $serviceData['service_area'] = isset($_POST ['service_area']) ? $_POST ['service_area'] : '';
+            $serviceData['service_language'] = isset($_POST ['service_language']) ? $_POST ['service_language'] : '';
             $serviceData['service_name'] = isset($_POST ['service_name']) ? $_POST ['service_name'] : '';
             $serviceData['service_brief'] = isset($_POST ['service_brief']) ? $_POST ['service_brief'] : '';
             $serviceData['description'] = isset($_POST ['description']) ? trim($_POST ['description']) : '';
@@ -660,10 +655,15 @@ class ServicesBo
             } else {
                 self::getServiceYPlusItemInfo($service_yplus_item_id);
             }
-            WeixinHelper::prepareWeixinPicsParameters("/weiphp/Addons/OverSea/View/mobile/service/service_yplus_item.php");
             self::getServiceYPlusPictures($sellerid, $service_id, $service_yplus_item_id);
             $_SESSION['sellerId'] = $sellerid;
             $_SESSION['service_id'] = $service_id;
+            if (strpos($_SERVER['HTTP_USER_AGENT'], "MicroMessenger")){
+                WeixinHelper::prepareWeixinPicsParameters("/weiphp/Addons/OverSea/View/mobile/service/service_yplus_item.php");
+            } else {
+                header('Location:../View/mobile/service/service_yplus_item_web.php');
+                exit;
+            }
         }
     }
     public function deleteYPlusItem() {
@@ -790,6 +790,57 @@ class ServicesBo
             exit;
         }
     }
+
+    public function publishServiceYPlusItemPicsWeb() {
+        $sellerid = isset($_POST ['sellerid']) ? $_POST ['sellerid'] : '';
+        $userID = $_SESSION['signedUser'];
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",userId=".$userID.",sellerId=".$sellerid);
+        if ($userID == $sellerid) {
+            $service_yplus_item_id = isset($_POST ['service_yplus_item_id']) ? $_POST ['service_yplus_item_id'] : '';
+            $service_id = isset($_POST ['service_id']) ? $_POST ['service_id'] : '';
+            Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",service_id=".$service_id.",service_yplus_item_id=".$service_yplus_item_id);
+
+            // upload image if need to
+            $filename = 'selected_file';
+            $imagePath ="/home/www/uploads/".$userID."_".$service_id."_".$service_yplus_item_id."_".date('YmdHis').".jpg";
+            if(!is_uploaded_file($_FILES[$filename]['tmp_name'])){//验证上传文件是否存在
+                echo "请选择你想要上传的图片";
+                exit;
+            }
+            if(!move_uploaded_file ($_FILES[$filename]['tmp_name'], $imagePath)) {//上传文件
+                echo "上传文件失败";
+                exit;
+            }
+            $object = "yzphoto/yplus/".$userID."/".$service_id."/".$service_yplus_item_id."_".date('YmdHis').".jpg";
+            OSSHelper::uploadFile($object, $imagePath, array());
+
+            // delete image if need
+            if (isset($_GET ['objtodelete'])){
+                $obj = $_GET ['objtodelete'];
+                //echo $obj;
+                OSSHelper::deleteObject($obj);
+                //exit(1);
+            }
+
+            // list data
+            $object = "yzphoto/yplus/".$userID."/".$service_id."/".$service_yplus_item_id;
+            //echo $object;
+            $objectList = OSSHelper::listObjects($object);
+            $objArray = array();
+            if (!empty($objectList)) {
+                foreach ($objectList as $objectInfo) {
+                    //if ( substr_compare ( $objectInfo->getKey() , $service_yplus_item_id."_" , 0 , strlen ( $service_yplus_item_id."_" ) ) === 0 ){
+                    $objArray[] = $objectInfo->getKey();
+                    //}
+                }
+            }
+            //$retJson =  json_encode(array('status'=> 0, 'msg'=> 'done', 'objLists' => $objArray));
+            //Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",retJson=".$retJson);
+            echo json_encode(array('status'=> 0, 'msg'=> 'done', 'objLists' => $objArray));
+            exit;
+        }
+    }
+
     /*
     * get pictures info by seller id
     */

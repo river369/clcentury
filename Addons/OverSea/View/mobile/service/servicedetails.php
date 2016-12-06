@@ -151,8 +151,9 @@ $isDiscover = 1;
             <ul data-role="listview" data-inset="true" data-theme="f" style="font-size:14px;">
                 <li>服务等级 <span class="ui-li-count"><div class="servicerate"/></span></li>
                 <input type="hidden" id="serviceratevalue" value="<?php echo $serviceData['stars'];?>">
-                <li>服务地点 <span class="ui-li-count"><?php echo $serviceData['service_area']; ?></span></li>
                 <li>服务类型 <span class="ui-li-count"><?php echo $servicetypeDesc; ?></span></li>
+                <li>服务地点 <span class="ui-li-count"><?php echo $serviceData['service_area']; ?></span></li>
+                <li>服务语言 <span class="ui-li-count"><?php echo $serviceData['service_language']; ?></span></li>
                 <li>服务价格 <span class="ui-li-count">￥<?php echo $serviceData['service_price'];
                         echo $serviceData['service_price_type'] == 1 ? "/小时":"/次";
                         ?></span></li>

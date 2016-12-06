@@ -101,6 +101,7 @@ $isPublishService = 1;
         <div class="container" id="crop-avatar" data-role="content" style="margin: -5px 0px -25px -20px" >
             <div class="avatar-view headimage" title="Change the avatar">
                 <img src="<?php echo $mainPicUrl ?>" id='myhead' alt="主图片" onclick="chooseImages()">
+                <div class="loading" id="loading" aria-label="Loading" role="img" tabindex="-1"></div>
             </div>
         </div>
     </div>
@@ -136,6 +137,7 @@ $isPublishService = 1;
     <form id="picUploadForm" action="" enctype="multipart/form-data" method="post">
         <div style="opacity: 0;">
             <input style="display:none" onchange="submitPicture()" type="file" class="selected_file" id="selected_file" name="selected_file" accept="image/*" >
+            <div class="loading" id="loadingPicUpload" aria-label="Loading" role="img" tabindex="-1"></div>
         </div>
     </form>
 
@@ -170,6 +172,23 @@ $isPublishService = 1;
             <table>
                 <tr>
                     <td style="width:20%">
+                        <label style="font-size:12px;">服务语言</label>
+                    </td>
+                    <td style="width:80%">
+                        <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" data-theme="a">
+                            <input name="service_language" id="radio-choice-e" value="中文普通话" <?php if (!isset($serviceData) ||$serviceData['service_language'] == "中文普通话" ) {echo 'checked="true"'; } ?> type="radio">
+                            <label for="radio-choice-e">中文普通话</label>
+                            <input name="service_language" id="radio-choice-f" value="英语" <?php if ($serviceData['service_language'] == "英语") {echo 'checked="true"'; } ?> type="radio">
+                            <label for="radio-choice-f">英语</label>
+                            <input name="service_language" id="radio-choice-g" value="当地语言" <?php if ($serviceData['service_language'] == "当地语言") {echo 'checked="true"'; } ?> type="radio">
+                            <label for="radio-choice-g">当地语言</label>
+                        </fieldset>
+                    </td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <td style="width:20%">
                         <label style="font-size:12px;" for="service_name">服务名称</label>
                     </td>
                     <td style="width:80%">
@@ -194,10 +213,10 @@ $isPublishService = 1;
                     </td>
                     <td style="width:80%">
                         <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" data-theme="a">
-                            <input name="service_price_type" id="radio-choice-g" value="1" <?php if (!isset($serviceData) ||$serviceData['service_price_type'] == 1) {echo 'checked="true"'; } ?> type="radio">
-                            <label for="radio-choice-g">按小时(￥/小时)</label>
-                            <input name="service_price_type" id="radio-choice-h" value="2" <?php if ($serviceData['service_price_type'] == 2) {echo 'checked="true"'; } ?> type="radio">
-                            <label for="radio-choice-h">按次数(￥/次)</label>
+                            <input name="service_price_type" id="radio-choice-h" value="1" <?php if (!isset($serviceData) ||$serviceData['service_price_type'] == 1) {echo 'checked="true"'; } ?> type="radio">
+                            <label for="radio-choice-h">按小时(￥/小时)</label>
+                            <input name="service_price_type" id="radio-choice-i" value="2" <?php if ($serviceData['service_price_type'] == 2) {echo 'checked="true"'; } ?> type="radio">
+                            <label for="radio-choice-i">按次数(￥/次)</label>
                         </fieldset>
                     </td>
                 </tr>
@@ -333,7 +352,6 @@ $isPublishService = 1;
     // this is for select service pictures
     function selectImages(){
         $('#selected_file').click();
-
     };
 
     function submitPicture(){
@@ -368,7 +386,15 @@ $isPublishService = 1;
             },
             error:function(msg){
                 $(".errmsgstring").html('Error:图片上传失败.' + msg.toSource());
-            }
+            },
+            beforeSend: function () {
+                $loading  = $('#loadingPicUpload');
+                $loading.fadeIn();
+            },
+            complete: function () {
+                $loading  = $('#loadingPicUpload');
+                $loading.fadeOut();
+            },
         })
         return false;
     }
