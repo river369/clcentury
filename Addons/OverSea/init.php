@@ -37,6 +37,8 @@ function initLoad()
     include_once dirname(__FILE__).'/Model/AdvertiseDao.php';
     include_once dirname(__FILE__).'/Model/SuggestionsDao.php';
     include_once dirname(__FILE__).'/Common/MNSHelper.php';
+    include_once dirname(__FILE__).'/Api/Base.php';
+    include_once dirname(__FILE__).'/Api/Services.php';
     return true;
 }
 
