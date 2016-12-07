@@ -54,6 +54,8 @@ function goToCommand($method_routes, $command, $request_data) {
         } catch (Exception $e) {
             echo $e->getTrace();
         }
+    } else {
+        Common::responseError(103, "method参数不合法。");
     }
 }
 

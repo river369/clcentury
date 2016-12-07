@@ -31,7 +31,7 @@ class Common
     }
 
     public static function responseError($code, $msg) {
-        Common::response('{"response":{"code":"'.$code.'","msg":"'.$msg.'"}}');
+        Common::response('{"code":"'.$code.'","msg":"'.$msg.'"}');
     }
     
     public static function jsonEncode($str)
