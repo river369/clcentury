@@ -9,11 +9,13 @@ use Addons\OverSea\Common\Logs;
 
 $startTime = microtime(true)*1000;
 require dirname(__FILE__).'/../init.php';
-
+Logs::writeClcLog("APIDispatcher start");
 define('API_SECRET_KEY', '71e5d83f6480523cb7b52e13445c2865');
 //session_start();
 header('Content-type: application/json; charset=utf-8');
-$_POST = array_merge($_GET, $_POST);
+//$_POST = array_merge($_GET, $_POST);
+$_POST = json_decode(file_get_contents("php://input"), true);
+Logs::writeClcLog("InputJSON,".json_encode($_POST));
 
 // 来源.
 $source = isset($_POST['source']) ? $_POST['source'] : 'eknow';
@@ -32,14 +34,12 @@ $sign = isset($_POST['sign']) ? $_POST['sign'] : '';
 
 // 解码数据.
 $request_data = json_decode(base64_decode($data), true);
-//$request_data = json_decode($data, true);
+Logs::writeClcLog("InputDataJSON,".json_encode($request_data));
 
 //c - command, like signin, m - model, f - function in model, d - description
 $method_routes = array(
     'getServices' => array('m'=>'Addons\OverSea\Api\Services', 'f'=>'getServices','d'=>'服务信息列表')
 );
-
-Logs::writeAPILog("APIDispatcher start");
 
 goToCommand($method_routes, $method, $request_data);
 
