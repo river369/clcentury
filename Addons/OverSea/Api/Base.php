@@ -29,7 +29,7 @@ class Base
 
     public function __construct($data)
     {
-        $this->$data=$data;
+        $this->data=$data;
     }
 
     // response the content

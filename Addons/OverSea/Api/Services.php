@@ -35,11 +35,11 @@ class Services extends Base
     {
         parent::__construct($data);
     }
-
+    
     public function getServices()
     {
         $serviceArea = isset($this->data['serviceArea']) ? $this->data['serviceArea'] : '地球';
-        $serviceType = isset($this->data['serviceType']) ? $this->data['serviceType'] : 1;
+        $serviceType = isset($this->data['serviceType']) ? $this->data['serviceType'] : 0;
         $pageIndex = isset($this->data['$pageIndex']) ? $this->data['$pageIndex'] : 0;
         $pageIndexRange = $pageIndex * 5 .",". '5';
         Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",servicearea=".$serviceArea.",servicetype=".$serviceType);

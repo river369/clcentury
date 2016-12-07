@@ -31,9 +31,8 @@ $data = isset($_POST['data']) ? $_POST['data'] : '';
 $sign = isset($_POST['sign']) ? $_POST['sign'] : '';
 
 // 解码数据.
-//$request_data = json_decode(base64_decode($data), true);
-$request_data = array();
-$request_data['test'] = "test123";
+$request_data = json_decode(base64_decode($data), true);
+//$request_data = json_decode($data, true);
 
 //c - command, like signin, m - model, f - function in model, d - description
 $method_routes = array(
@@ -41,9 +40,8 @@ $method_routes = array(
 );
 
 Logs::writeAPILog("APIDispatcher start");
-$command = 'getServices';
 
-goToCommand($method_routes, $command, $request_data);
+goToCommand($method_routes, $method, $request_data);
 
 function goToCommand($method_routes, $command, $request_data) {
     if (isset($method_routes[$command]['m']) && isset($method_routes[$command]['f'])){
