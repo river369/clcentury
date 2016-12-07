@@ -4,8 +4,8 @@
  * PHP version 5.5
  * @author jianguog
  */
-use Addons\OverSea\Common\HttpHelper;
 use Addons\OverSea\Common\Logs;
+use Addons\OverSea\Api\Common;
 
 $startTime = microtime(true)*1000;
 require dirname(__FILE__).'/../init.php';
@@ -13,24 +13,25 @@ Logs::writeClcLog("APIDispatcher start");
 define('API_SECRET_KEY', '71e5d83f6480523cb7b52e13445c2865');
 //session_start();
 header('Content-type: application/json; charset=utf-8');
-//$_POST = array_merge($_GET, $_POST);
-$_POST = json_decode(file_get_contents("php://input"), true);
-Logs::writeClcLog("InputJSON,".json_encode($_POST));
+$POST_RAW = json_decode(file_get_contents("php://input"), true);
+$Input = isset($POST_RAW) ? $POST_RAW : array_merge($_GET, $_POST);
+Logs::writeClcLog("InputJSON,".json_encode($Input));
+validateInputs($Input);
 
 // 来源.
-$source = isset($_POST['source']) ? $_POST['source'] : 'eknow';
+$source = isset($Input['source']) ? $Input['source'] : 'eknow';
 // 版本.
-$version = isset($_POST['version']) ? $_POST['version'] : '1.0';
+$version = isset($Input['version']) ? $Input['version'] : '1.0';
 // 方法.
-$method = isset($_POST['method']) ? $_POST['method'] : '';
+$method = $Input['method'];
 // 令牌.
-$token = isset($_POST['token']) ? trim($_POST['token']) : '';
+$token = isset($Input['token']) ? trim($Input['token']) : '';
 // 用户app_uid.
-$app_uid = isset($_POST['app_uid']) && $_POST['app_uid'] != '' ? intval($_POST['app_uid']) : '';
+$app_uid = isset($Input['app_uid']) && $Input['app_uid'] != '' ? intval($Input['app_uid']) : '';
 // 经过base64编码的数据文件.
-$data = isset($_POST['data']) ? $_POST['data'] : '';
+$data = $Input['data'];
 // 数字签名.
-$sign = isset($_POST['sign']) ? $_POST['sign'] : '';
+$sign = isset($Input['sign']) ? $Input['sign'] : '';
 
 // 解码数据.
 $request_data = json_decode(base64_decode($data), true);
@@ -56,4 +57,15 @@ function goToCommand($method_routes, $command, $request_data) {
     }
 }
 
+function validateInputs($InputData) {
+    if (!isset($InputData['method'])){
+        Common::responseError(101, "客户端未传递参数。");
+    }
+    if (!isset($InputData['method'])){
+        Common::responseError(102, "参数method必选。");
+    }
+    if (!isset($InputData['data'])){
+        Common::responseError(102, "参数data必选。");
+    }
+}
 ?>

@@ -7,6 +7,7 @@
  * Time: 21:42
  */
 namespace Addons\OverSea\Api;
+use Addons\OverSea\Api\Common;
 
 class Base
 {
@@ -45,37 +46,11 @@ class Base
         }
 
         $compress=null;
-
-        if(isset($this->data["source"])&&in_array($this->data["source"] ,array("mxyc_ios","mxyc_adr")))
-        {
-            $compress=true;
-        }
-        $this->buildResponse($response,$compress);
-    }
-
-    public function buildResponse($result,$compress=null)
-    {
-        $data="";
-        if (is_array($result)) {
-            if (isset($result['data'])) {
-                $results = array('response' => array('code' => $result['code'],'msg' => $result['msg'], 'data' => $result['data']));
-            } else {
-                $results = array('response' => array('code' => $result['code'],'msg' => $result['msg']));
-            }
-            $data= self::jsonEncode($results);
-        }
-        if($compress)
-        {
-            header("Content-Encoding: gzip");
-            $data= gzencode($data, 9, FORCE_GZIP);
-        }
-        echo $data;
-        exit(0);
-    }
-
-    public static function jsonEncode($str)
-    {
-        return json_encode($str, JSON_UNESCAPED_UNICODE);
+//        if(isset($this->data["source"])&&in_array($this->data["source"] ,array("mxyc_ios","mxyc_adr")))
+//        {
+//            $compress=true;
+//        }
+        Common::response($response,$compress);
     }
 
     public function setCode($code)
