@@ -35,11 +35,13 @@ $sign = isset($Input['sign']) ? $Input['sign'] : '';
 
 // 解码数据.
 $request_data = json_decode(base64_decode($data), true);
-Logs::writeClcLog("InputDataJSON,".json_encode($request_data));
+Logs::writeClcLog("APIDispatcher,InputDataJSON,".json_encode($request_data));
 
 //c - command, like signin, m - model, f - function in model, d - description
 $method_routes = array(
-    'getServices' => array('m'=>'Addons\OverSea\Api\Services', 'f'=>'getServices','d'=>'服务信息列表')
+    'getServices' => array('m'=>'Addons\OverSea\Api\Services', 'f'=>'getServices','d'=>'服务信息列表'),
+    'getServicePictures' => array('m'=>'Addons\OverSea\Api\Services', 'f'=>'getServicePictures','d'=>'服务信息图片'),
+    'getServiceInfoById' => array('m'=>'Addons\OverSea\Api\Services', 'f'=>'getServiceInfoById','d'=>'服务信息'),
 );
 
 goToCommand($method_routes, $method, $request_data);
@@ -55,19 +57,19 @@ function goToCommand($method_routes, $command, $request_data) {
             echo $e->getTrace();
         }
     } else {
-        Common::responseError(103, "method参数不合法。");
+        Common::responseError(1003, "method参数不合法。");
     }
 }
 
 function validateInputs($InputData) {
     if (!isset($InputData['method'])){
-        Common::responseError(101, "客户端未传递参数。");
+        Common::responseError(1001, "客户端未传递参数。");
     }
     if (!isset($InputData['method'])){
-        Common::responseError(102, "参数method必选。");
+        Common::responseError(1002, "参数method必选。");
     }
     if (!isset($InputData['data'])){
-        Common::responseError(102, "参数data必选。");
+        Common::responseError(1002, "参数data必选。");
     }
 }
 ?>

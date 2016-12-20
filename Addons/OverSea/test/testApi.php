@@ -140,5 +140,7 @@ function Test($method, $data)
     echo "\n";
 }
 Test('getServices', array('serviceArea'=>'地球', 'serviceType'=>'1', 'pageIndex'=>'0'));
+//Test('getServicePictures', array('sellerId'=>'585243db3d418420', 'serviceId'=>'5854de4c627c1448'));
+Test('getServiceInfoById', array('serviceId'=>'5854de4c627c1448'));
 
 ?>

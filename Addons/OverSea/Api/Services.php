@@ -60,4 +60,57 @@ class Services extends Base
         $this->response();
     }
 
+    public function getServiceInfoById() {
+        $serviceId = $this->data['serviceId'];
+        if (!isset($serviceId) || is_null($serviceId) || strlen($serviceId) ==0 ){
+            Common::responseError(1012, "服务编号不能为空。");
+        }
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",serviceId=".$serviceId);
+        $serviceDao = new ServicesDao();
+        $serviceData = $serviceDao ->getByKv('service_id', $serviceId);
+        if (!empty($serviceData)) {
+            $response_data['serviceInfo'] = $serviceData;
+            $this->setCode("0");
+            $this->setMessage("success");
+            $this->setResponseData($response_data);
+            $this->response();
+        } else {
+            Common::responseError(1013, "该服务不存在。");
+        }
+
+    }
+
+    public function getServicePictures() {
+        $sellerId = isset($this->data['sellerId']) ? $this->data['sellerId'] : '';
+        $serviceId = isset($this->data['serviceId']) ? $this->data['serviceId'] : '';
+        if (!isset($serviceId) || is_null($serviceId) || strlen($serviceId) ==0 ||
+            !isset($sellerId) || is_null($sellerId) || strlen($sellerId) ==0){
+            Common::responseError(1011, "服务编号或卖家编号不能为空。");
+        }
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",sellerId=".$sellerId.",serviceId=".$serviceId);
+
+        // list data
+        $object = "yzphoto/pics/".$sellerId."/".$serviceId."/";
+        //echo $object;
+        $objectList = OSSHelper::listObjects($object);
+        $objArray = array();
+        if (!empty($objectList)) {
+            foreach ($objectList as $objectInfo) {
+                if (strstr($objectInfo->getKey(), "main")){
+                } else {
+                    $objArray[] = $objectInfo->getKey();
+                }
+            }
+            $response_data = array();
+            $response_data['servicePictures'] = $objArray;
+            $this->setCode("0");
+            $this->setMessage("success");
+            $this->setResponseData($response_data);
+            $this->response();
+        } else {
+            Common::responseError(1010, "该服务未上传图片。");
+        }
+
+    }
+
 }
