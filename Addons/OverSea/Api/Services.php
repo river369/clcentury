@@ -17,6 +17,7 @@ use Addons\OverSea\Model\UserInfosDao;
 use Addons\OverSea\Model\UserAccountsDao;
 use Addons\OverSea\Model\QueryHistoryDao;
 use Addons\OverSea\Model\ServicesDao;
+use Addons\OverSea\Model\ServiceYPlusDao;
 use Addons\OverSea\Model\CommentsDao;
 use Addons\OverSea\Model\CitiesDao;
 use Addons\OverSea\Model\CitiesTagDao;
@@ -35,7 +36,10 @@ class Services extends Base
     {
         parent::__construct($data);
     }
-    
+
+    /**
+     * Get service list
+     */
     public function getServices()
     {
         $serviceArea = isset($this->data['serviceArea']) ? $this->data['serviceArea'] : '地球';
@@ -60,26 +64,9 @@ class Services extends Base
         $this->response();
     }
 
-    public function getServiceInfoById() {
-        $serviceId = $this->data['serviceId'];
-        if (!isset($serviceId) || is_null($serviceId) || strlen($serviceId) ==0 ){
-            Common::responseError(1012, "服务编号不能为空。");
-        }
-        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",serviceId=".$serviceId);
-        $serviceDao = new ServicesDao();
-        $serviceData = $serviceDao ->getByKv('service_id', $serviceId);
-        if (!empty($serviceData)) {
-            $response_data['serviceInfo'] = $serviceData;
-            $this->setCode("0");
-            $this->setMessage("success");
-            $this->setResponseData($response_data);
-            $this->response();
-        } else {
-            Common::responseError(1013, "该服务不存在。");
-        }
-
-    }
-
+    /**
+     * Get picture of serivces
+     */
     public function getServicePictures() {
         $sellerId = isset($this->data['sellerId']) ? $this->data['sellerId'] : '';
         $serviceId = isset($this->data['serviceId']) ? $this->data['serviceId'] : '';
@@ -110,7 +97,63 @@ class Services extends Base
         } else {
             Common::responseError(1010, "该服务未上传图片。");
         }
+    }
 
+    /**
+     * Get service info
+     */
+    public function getServiceInfoById() {
+        $serviceId = $this->data['serviceId'];
+        if (!isset($serviceId) || is_null($serviceId) || strlen($serviceId) ==0 ){
+            Common::responseError(1012, "服务编号不能为空。");
+        }
+        Logs::writeClcLog(__CLASS__.",".__FUNCTION__.",serviceId=".$serviceId);
+        $serviceDao = new ServicesDao();
+        $serviceData = $serviceDao ->getByKv('service_id', $serviceId);
+        if (!empty($serviceData)) {
+            $response_data['serviceInfo'] = $serviceData;
+            $this->setCode("0");
+            $this->setMessage("success");
+            $this->setResponseData($response_data);
+            $this->response();
+        } else {
+            Common::responseError(1013, "该服务不存在。");
+        }
+    }
+
+    public function getAggregatedServiceDetails()
+    {
+        $sellerId = isset($this->data['sellerId']) ? $this->data['sellerId'] : '';
+        $serviceId = isset($this->data['serviceId']) ? $this->data['serviceId'] : '';
+        if (!isset($serviceId) || is_null($serviceId) || strlen($serviceId) == 0 ||
+            !isset($sellerId) || is_null($sellerId) || strlen($sellerId) == 0
+        ) {
+            Common::responseError(1011, "服务编号或卖家编号不能为空。");
+        }
+        Logs::writeClcLog(__CLASS__ . "," . __FUNCTION__ . ",sellerId=" . $sellerId . ",serviceId=" . $serviceId);
+
+        // Get user info
+        $userInfoDao = new UserInfosDao();
+        $sellerData = $userInfoDao->getByKv('user_id', $sellerId);
+
+        // Get service comments
+        $commentsDao = new CommentsDao();
+        $commentsData = $commentsDao->getCommentsByServiceId($serviceId);
+
+        $response_data = array();
+        $response_data['sellerInfo'] = $sellerData;
+        if (!empty($commentsData)) {
+            $response_data['comments'] = $commentsData;
+        }
+
+        if (!empty($sellerData)) {
+            $this->setCode("0");
+            $this->setMessage("success");
+            $this->setResponseData($response_data);
+            $this->response();
+        } else {
+            Common::responseError(1014, "用户信息有误。");
+        }
     }
 
 }

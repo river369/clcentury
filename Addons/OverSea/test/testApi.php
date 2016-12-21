@@ -139,8 +139,8 @@ function Test($method, $data)
     print_r($ret);
     echo "\n";
 }
-Test('getServices', array('serviceArea'=>'地球', 'serviceType'=>'1', 'pageIndex'=>'0'));
+//Test('getServices', array('serviceArea'=>'地球', 'serviceType'=>'1', 'pageIndex'=>'0'));
 //Test('getServicePictures', array('sellerId'=>'585243db3d418420', 'serviceId'=>'5854de4c627c1448'));
-Test('getServiceInfoById', array('serviceId'=>'5854de4c627c1448'));
-
+//Test('getServiceInfoById', array('serviceId'=>'5854de4c627c1448'));
+Test('getAggregatedServiceDetails', array('sellerId'=>'579eacbd3447a903', 'serviceId'=>'57ed1cd444237515'));
 ?>
