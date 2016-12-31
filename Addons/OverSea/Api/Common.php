@@ -38,6 +38,13 @@ class Common
     {
         return json_encode($str, JSON_UNESCAPED_UNICODE);
     }
+
+    public static function isStringEmpty($string) {
+        if (!isset($string) || is_null($string) || strlen($string) ==0 ){
+            return true;
+        }
+        return false;
+    }
     
     
 }

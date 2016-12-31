@@ -40,6 +40,7 @@ function initLoad()
     include_once dirname(__FILE__).'/Api/Base.php';
     include_once dirname(__FILE__).'/Api/Common.php';
     include_once dirname(__FILE__).'/Api/Services.php';
+    include_once dirname(__FILE__).'/Api/Users.php';
     return true;
 }
 

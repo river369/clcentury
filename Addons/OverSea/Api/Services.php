@@ -9,10 +9,7 @@
 namespace Addons\OverSea\Api;
 use Addons\OverSea\Api\Base;
 use Addons\OverSea\Common\OSSHelper;
-use Addons\OverSea\Common\WeixinHelper;
 use Addons\OverSea\Common\Logs;
-use Addons\OverSea\Model\CropAvatar;
-use Addons\OverSea\Common\HttpHelper;
 use Addons\OverSea\Model\UserInfosDao;
 use Addons\OverSea\Model\UserAccountsDao;
 use Addons\OverSea\Model\QueryHistoryDao;

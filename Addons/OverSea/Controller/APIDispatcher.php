@@ -39,6 +39,7 @@ Logs::writeClcLog("APIDispatcher,InputDataJSON,".json_encode($request_data));
 
 //c - command, like signin, m - model, f - function in model, d - description
 $method_routes = array(
+    'signIn' => array('m'=>'Addons\OverSea\Api\Users', 'f'=>'signIn','d'=>'SignIn'),
     'getServices' => array('m'=>'Addons\OverSea\Api\Services', 'f'=>'getServices','d'=>'服务信息列表'),
     'getServicePictures' => array('m'=>'Addons\OverSea\Api\Services', 'f'=>'getServicePictures','d'=>'服务信息图片'),
     'getServiceInfoById' => array('m'=>'Addons\OverSea\Api\Services', 'f'=>'getServiceInfoById','d'=>'服务信息'),
