@@ -228,7 +228,7 @@ class Services extends Base
 
         $response_data = array();
         $response_data['serviceInfo'] = $service;
-        $response_data['objArray'] = $objArray;
+        $response_data['servicePictures'] = $objArray;
         $response_data['countries'] = $countries;
         $response_data['cities'] = $cities;
 
