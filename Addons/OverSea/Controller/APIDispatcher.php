@@ -44,6 +44,7 @@ $method_routes = array(
     'getServicePictures' => array('m'=>'Addons\OverSea\Api\Services', 'f'=>'getServicePictures','d'=>'服务信息图片'),
     'getServiceInfoById' => array('m'=>'Addons\OverSea\Api\Services', 'f'=>'getServiceInfoById','d'=>'服务信息'),
     'getAggregatedServiceDetails' => array('m'=>'Addons\OverSea\Api\Services', 'f'=>'getAggregatedServiceDetails','d'=>'其它服务信息'),
+    'createOrUpdatePublishingService' => array('m'=>'Addons\OverSea\Api\Services', 'f'=>'createOrUpdatePublishingService','d'=>'create or update 服务信息'),
 );
 
 goToCommand($method_routes, $method, $request_data);
