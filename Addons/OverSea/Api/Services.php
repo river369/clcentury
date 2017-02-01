@@ -201,7 +201,7 @@ class Services extends Base
         if (is_null($serviceId) || strlen($serviceId) == 0 ){
             $service = $serviceBo -> getSellerNotPublishedService($sellerId);
             if (is_null($service)){
-                $service = $serviceBo -> createNewService();
+                $service = $serviceBo -> createNewService($sellerId);
             }
         } else {
             $service = $serviceBo -> getServiceInfo($serviceId);
@@ -228,7 +228,9 @@ class Services extends Base
 
         $response_data = array();
         $response_data['serviceInfo'] = $service;
-        $response_data['servicePictures'] = $objArray;
+        if (!empty($objArray)) {
+            $response_data['servicePictures'] = $objArray;
+        }
         $response_data['countries'] = $countries;
         $response_data['cities'] = $cities;
 
