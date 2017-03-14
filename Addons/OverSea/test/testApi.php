@@ -139,8 +139,32 @@ function Test($method, $data)
     print_r($ret);
     echo "\n";
 }
-//Test('getServices', array('serviceArea'=>'地球', 'serviceType'=>'1', 'pageIndex'=>'0'));
-//Test('getServicePictures', array('sellerId'=>'585243db3d418420', 'serviceId'=>'5854de4c627c1448'));
-//Test('getServiceInfoById', array('serviceId'=>'5854de4c627c1448'));
-Test('getAggregatedServiceDetails', array('sellerId'=>'579eacbd3447a903', 'serviceId'=>'57ed1cd444237515'));
+
+
+
+$parameter = $_GET["p"];
+switch ($parameter) {
+    case 'getServices':
+        //    http://www.clcentury.com/weiphp/Addons/OverSea/test/testApi.php?p=getServices
+        Test('getServices', array('serviceArea'=>'地球', 'serviceType'=>'1', 'pageIndex'=>'0'));
+        break;
+    case 'getServicePictures':
+        //    http://www.clcentury.com/weiphp/Addons/OverSea/test/testApi.php?p=getServicePictures
+        Test('getServicePictures', array('sellerId'=>'585243db3d418420', 'serviceId'=>'5854de4c627c1448'));
+        break;
+    case 'getServiceInfoById':
+        Test('getServiceInfoById', array('serviceId'=>'5854de4c627c1448'));
+        break;
+    case 'getAggregatedServiceDetails':
+        Test('getAggregatedServiceDetails', array('sellerId'=>'579eacbd3447a903', 'serviceId'=>'57ed1cd444237515'));
+        break;
+    case 'signIn':
+        Test('signIn', array('userType'=>'1', 'phoneRegion'=>'+86', 'phoneNumber'=>'13520143483', 'password'=>'111111'));
+        //Test('signIn', array('userType'=>'1', 'phoneRegion'=>'+86', 'phoneNumber'=>'2', 'password'=>'111111'));
+        break;
+    case 'createOrUpdatePublishingService':
+        Test('createOrUpdatePublishingService', array('sellerId'=>'57790fb728713607', 'serviceId'=>''));
+        break;
+}
+
 ?>
