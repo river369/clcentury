@@ -1,0 +1,45 @@
+.rate-base-layer
+{
+    color: #aaa;
+}
+.rate-hover-layer
+{
+    color: orange;
+}
+.rate-select-layer
+{
+    color:orange;
+}
+/*.ui-btn { border: none !important; }*/
+a {
+    outline:0;
+}
+body {
+    margin: 0;
+    padding: 0;
+}
+a {
+    color: #09f;
+}
+a:hover {
+    text-decoration: none;
+}
+#back_to_camera {
+    clear: both;
+    display: block;
+    height: 80px;
+    line-height: 40px;
+    padding: 20px;
+}
+.fluid_container {
+    margin: 0 auto;
+    max-width: 1000px;
+    width: 100%;
+}
+div.headimage {
+    height: 65px;
+    width: 65px;
+}
+h5{ color:#33c8ce}
+p{ font-size:14px;}
+table{ table-layout : fixed; width:100% }
